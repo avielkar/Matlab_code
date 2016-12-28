@@ -1,0 +1,109 @@
+function ExperimentEyeTrackingConfig
+global eyeTrackfig basicfig
+
+eyeWinData = getappdata(basicfig,'eyeWinData');
+
+set(0,'Units','centimeters')
+pos = get(0,'ScreenSize');
+posSmoothingstr = 5;
+eyeTrackfig = figure('Units','centimeters',...
+    'Position',[pos(3)-5.1 pos(4)/2-5 5 4 ],...
+    'Color',[0.831 0.816 0.784],...
+    'Name','Eye Tracking Configuration',...
+    'NumberTitle','off',...
+    'MenuBar','none');
+uicontrol(eyeTrackfig,'Units','centimeters',...
+    'Style','checkbox',...
+    'Tag','dispcheckBox',...
+    'Position',[0.3 3 4 0.5],...
+    'String','Display Eye Position',...
+    'Callback',{@dispcheckBox_callback},...
+    'BackgroundColor',[0.831 0.816 0.784],...
+    'Value', 1);
+uicontrol(eyeTrackfig,'Units','centimeters',...
+    'Style','text',...
+    'Position',[0.3 2 3 0.5],...
+    'String','Position Smoothing (pt):',...
+    'BackgroundColor',[0.831 0.816 0.784],...
+    'HorizontalAlignment', 'Right');
+uicontrol(eyeTrackfig,'Units','centimeters',...
+    'Style','edit',...
+    'Tag','posSmoothEdit',...
+    'Position',[3.5 2 1 0.5],...
+    'String',posSmoothingstr,...
+    'Callback',{@posSmoothEdit_callback},...
+    'BackgroundColor','white');
+uicontrol(eyeTrackfig,'Units','centimeters',...
+    'Style','pushbutton',...
+    'Tag','OkButton',...
+    'Position',[1 0.5 1 0.5],...
+    'String','OK',...
+    'Callback',{@okButton_callback});
+uicontrol(eyeTrackfig,'Units','centimeters',...
+    'Style','pushbutton',...
+    'Tag','CancelButton',...
+    'Position',[3 0.5 1.5 0.5],...
+    'String','Cancel',...
+    'Callback',{@cancelButton_callback});
+
+eyeWinData.isPositionView = get(findobj(eyeTrackfig,'Tag', 'dispcheckBox'), 'Value');
+eyeWinData.posSmoothPt = str2num(get(findobj(eyeTrackfig,'Tag','posSmoothEdit'), 'String'));
+setappdata(basicfig,'eyeWinData',eyeWinData);
+
+function dispcheckBox_callback(hobject, event_data)
+global basicfig
+
+eyeWinData = getappdata(basicfig,'eyeWinData');
+eyeWinData.isPositionView = get(findobj(hobject,'Tag', 'dispcheckBox'), 'Value');
+setappdata(basicfig,'eyeWinData',eyeWinData);
+
+
+function posSmoothEdit_callback(hobject, event_data)
+global basicfig
+
+eyeWinData = getappdata(basicfig,'eyeWinData');
+eyeWinData.posSmoothPt = str2num(get(findobj(hobject,'Tag','posSmoothEdit'), 'String'));
+setappdata(basicfig,'eyeWinData',eyeWinData);
+
+function okButton_callback(hobject, event_data)
+global basicfig
+
+eyeWinData = getappdata(basicfig,'eyeWinData');
+
+hPos = findobj('Name','Watch Eyes');
+if eyeWinData.isPositionView
+    if isempty(hPos) 
+        initPositionView;
+    end
+else    
+    if ~isempty(hPos)
+        close(hPos);
+    end
+end
+    
+function cancelButton_callback(hobject, event_data)
+global eyeTrackfig basicfig
+
+eyeWinData = getappdata(basicfig,'eyeWinData');
+eyeWinData.isPositionView = 0;
+setappdata(basicfig,'eyeWinData',eyeWinData);
+
+close(eyeTrackfig)
+
+hPos = findobj('Name','Watch Eyes');
+if ~isempty(hPos)
+    close(hPos);
+end
+
+hPos = findobj('Name','Eye Options');
+if ~isempty(hPos)
+    close(hPos);
+end
+
+
+    
+
+
+                                                            
+
+

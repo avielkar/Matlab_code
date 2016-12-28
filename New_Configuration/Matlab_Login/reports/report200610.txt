@@ -1,0 +1,121 @@
+Human Moog Facility -- Monthly Login Report (Oct.20,2006 13:49:28)
+
+Time-in:			Oct.19,2006 15:34:29
+Time-out:			Oct.19,2006 15:38:26
+First Name:			Johnny
+Last Name:			Wen
+PI Name:			Greg DeAngelis
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-3367
+Email:				wenj@wustl.edu
+
+Time-in:			Oct.19,2006 15:41:04
+Time-out:			
+First Name:			Some
+Last Name:			One
+PI Name:			Prof.
+Department:			Department
+Campus Box:			4567
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				789-5642
+Email:				someone@wustl.edu
+
+Time-in:			Oct.19,2006 16:38:16
+Time-out:			
+First Name:			Johnny
+Last Name:			Wen
+PI Name:			Greg DeAngelis
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-3367
+Email:				wenj@wustl.edu
+
+Time-in:			Oct.19,2006 16:41:57
+Time-out:			Oct.19,2006 17:17:16
+First Name:			Johnny
+Last Name:			Wen
+PI Name:			Greg DeAngelis
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-3367
+Email:				wenj@wustl.edu
+
+Time-in:			Oct.19,2006 17:18:05
+Time-out:			
+First Name:			Johnny
+Last Name:			Wen
+PI Name:			Greg DeAngelis
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-3367
+Email:				wenj@wustl.edu
+
+Time-in:			Oct.19,2006 17:25:29
+Time-out:			Oct.19,2006 17:27:13
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-5528
+Email:				badeyemo@pcg.wustl.edu
+
+Time-in:			Oct.19,2006 17:33:22
+Time-out:			
+First Name:			Some
+Last Name:			One
+PI Name:			Prof.
+Department:			Department
+Campus Box:			4567
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				789-5642
+Email:				someone@wustl.edu
+
+Time-in:			Oct.19,2006 17:38:44
+Time-out:			Oct.19,2006 17:42:03
+First Name:			Johnny
+Last Name:			Wen
+PI Name:			Greg DeAngelis
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-3367
+Email:				wenj@wustl.edu
+
+Time-in:			Oct.19,2006 17:59:53
+Time-out:			
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-5528
+Email:				badeyemo@pcg.wustl.edu
+
+Time-in:			Oct.19,2006 18:03:04
+Time-out:			Oct.19,2006 18:04:31
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:				747-5528
+Email:				badeyemo@pcg.wustl.edu

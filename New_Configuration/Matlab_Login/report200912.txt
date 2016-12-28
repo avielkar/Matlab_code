@@ -1,0 +1,2257 @@
+Human Moog Facility -- Monthly Login Report (Jan.04,2010 09:50:21)
+
+Time-in:			Dec.01,2009 09:08:51
+Time-out:			Dec.01,2009 10:51:32
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.01,2009 10:52:17
+Time-out:			Dec.01,2009 13:32:01
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.01,2009 13:38:11
+Time-out:			Dec.01,2009 14:44:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.01,2009 14:45:04
+Time-out:			Dec.01,2009 16:54:44
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.01,2009 16:56:20
+Time-out:			Dec.01,2009 17:11:09
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.01,2009 17:12:12
+Time-out:			Dec.01,2009 17:18:47
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.01,2009 17:22:38
+Time-out:			Dec.01,2009 17:36:26
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 09:15:14
+Time-out:			Dec.02,2009 09:19:57
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 09:20:43
+Time-out:			Dec.02,2009 10:44:26
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 10:45:11
+Time-out:			Dec.02,2009 11:51:57
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 11:52:50
+Time-out:			Dec.02,2009 12:47:24
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 12:51:12
+Time-out:			Dec.02,2009 13:59:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 14:01:19
+Time-out:			Dec.02,2009 14:17:32
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 14:19:18
+Time-out:			Dec.02,2009 14:37:25
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.02,2009 17:10:37
+Time-out:			Dec.02,2009 17:59:38
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.03,2009 09:07:44
+Time-out:			Dec.03,2009 10:01:27
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.03,2009 10:07:30
+Time-out:			Dec.03,2009 11:40:04
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.03,2009 11:46:29
+Time-out:			Dec.03,2009 12:43:44
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.03,2009 12:49:54
+Time-out:			Dec.03,2009 13:56:34
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.03,2009 15:37:45
+Time-out:			Dec.03,2009 16:07:34
+First Name:			Paul
+Last Name:			Macneilage
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-2625
+Email:			pogen@pcg.wustl.edu
+
+Time-in:			Dec.03,2009 16:11:48
+Time-out:			Dec.03,2009 17:55:19
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.04,2009 08:15:30
+Time-out:			Dec.04,2009 09:05:12
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.04,2009 09:07:02
+Time-out:			Dec.04,2009 10:26:39
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.04,2009 10:27:19
+Time-out:			Dec.04,2009 11:29:04
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.04,2009 11:29:55
+Time-out:			Dec.04,2009 12:07:27
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.04,2009 12:08:30
+Time-out:			Dec.04,2009 12:47:09
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.04,2009 13:08:40
+Time-out:			Dec.04,2009 14:29:26
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 08:17:20
+Time-out:			Dec.07,2009 08:55:00
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 08:57:35
+Time-out:			Dec.07,2009 09:40:51
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 09:43:27
+Time-out:			Dec.07,2009 11:25:05
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 11:26:02
+Time-out:			Dec.07,2009 12:08:28
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 14:32:24
+Time-out:			Dec.07,2009 14:48:31
+First Name:			Paul
+Last Name:			Macneilage
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-2625
+Email:			pogen@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 16:45:37
+Time-out:			Dec.07,2009 17:08:19
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.07,2009 17:10:28
+Time-out:			Dec.07,2009 18:13:58
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 08:18:09
+Time-out:			Dec.08,2009 08:54:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 08:56:23
+Time-out:			Dec.08,2009 10:49:08
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 10:51:36
+Time-out:			Dec.08,2009 11:28:03
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 11:28:30
+Time-out:			Dec.08,2009 12:00:02
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 13:40:28
+Time-out:			Dec.08,2009 13:57:00
+First Name:			Paul
+Last Name:			Macneilage
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-2625
+Email:			pogen@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 14:00:32
+Time-out:			Dec.08,2009 14:33:08
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.08,2009 15:16:37
+Time-out:			Dec.08,2009 17:25:35
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 08:14:55
+Time-out:			Dec.09,2009 08:17:56
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 08:20:05
+Time-out:			Dec.09,2009 08:54:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 08:55:38
+Time-out:			Dec.09,2009 09:57:05
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 10:03:58
+Time-out:			Dec.09,2009 10:28:29
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 10:30:35
+Time-out:			Dec.09,2009 12:55:08
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 12:57:23
+Time-out:			Dec.09,2009 15:19:25
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 15:23:34
+Time-out:			Dec.09,2009 15:46:03
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.09,2009 15:46:48
+Time-out:			Dec.09,2009 16:59:38
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 08:16:56
+Time-out:			Dec.10,2009 09:26:40
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 09:26:54
+Time-out:			Dec.10,2009 10:13:33
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 10:13:41
+Time-out:			Dec.10,2009 10:55:13
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 10:55:18
+Time-out:			Dec.10,2009 11:22:54
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 12:52:57
+Time-out:			
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 13:19:43
+Time-out:			
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 13:29:15
+Time-out:			
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 14:31:25
+Time-out:			Dec.10,2009 14:48:56
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 14:49:48
+Time-out:			Dec.10,2009 14:52:46
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 14:52:55
+Time-out:			Dec.10,2009 14:56:59
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 14:57:07
+Time-out:			Dec.10,2009 17:36:22
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 17:36:28
+Time-out:			Dec.10,2009 18:17:01
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 18:21:49
+Time-out:			Dec.10,2009 18:39:59
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 18:40:06
+Time-out:			Dec.10,2009 18:41:21
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.10,2009 18:47:01
+Time-out:			Dec.10,2009 18:49:49
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 08:19:50
+Time-out:			Dec.11,2009 09:24:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 09:26:09
+Time-out:			Dec.11,2009 09:26:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 09:27:11
+Time-out:			Dec.11,2009 09:27:31
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 09:33:44
+Time-out:			Dec.11,2009 09:35:55
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 09:36:42
+Time-out:			Dec.11,2009 10:32:30
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 10:33:06
+Time-out:			Dec.11,2009 11:06:00
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 11:07:12
+Time-out:			Dec.11,2009 11:48:50
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 11:51:08
+Time-out:			Dec.11,2009 11:53:04
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.11,2009 11:53:30
+Time-out:			Dec.11,2009 12:30:34
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.13,2009 15:59:05
+Time-out:			Dec.13,2009 19:55:50
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.13,2009 19:57:18
+Time-out:			Dec.13,2009 19:57:22
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 08:18:53
+Time-out:			Dec.14,2009 08:52:59
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 08:56:01
+Time-out:			Dec.14,2009 08:58:27
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 08:58:34
+Time-out:			Dec.14,2009 08:59:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 09:00:49
+Time-out:			Dec.14,2009 09:03:29
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 09:04:20
+Time-out:			Dec.14,2009 09:18:30
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:10:23
+Time-out:			Dec.14,2009 14:10:47
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:11:36
+Time-out:			Dec.14,2009 14:13:28
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:13:33
+Time-out:			Dec.14,2009 14:14:20
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:25:33
+Time-out:			Dec.14,2009 14:27:00
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:27:09
+Time-out:			Dec.14,2009 14:30:57
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:32:16
+Time-out:			Dec.14,2009 14:33:47
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 14:34:21
+Time-out:			Dec.14,2009 14:36:00
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 15:42:23
+Time-out:			Dec.14,2009 15:42:44
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 15:42:55
+Time-out:			Dec.14,2009 17:02:20
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.14,2009 17:07:36
+Time-out:			Dec.14,2009 17:22:28
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.15,2009 08:15:48
+Time-out:			Dec.15,2009 08:16:44
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.15,2009 08:17:30
+Time-out:			Dec.15,2009 08:51:35
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.15,2009 08:56:09
+Time-out:			Dec.15,2009 09:52:27
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.15,2009 09:53:21
+Time-out:			Dec.15,2009 10:04:51
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.15,2009 10:12:13
+Time-out:			Dec.15,2009 10:55:40
+First Name:			Chris
+Last Name:			Fetsch
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobilogy
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			crfetsch@gmail.com
+
+Time-in:			Dec.15,2009 13:50:32
+Time-out:			Dec.15,2009 14:14:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 08:20:44
+Time-out:			Dec.16,2009 08:57:04
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 08:57:52
+Time-out:			Dec.16,2009 09:37:25
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 09:44:25
+Time-out:			Dec.16,2009 10:57:30
+First Name:			Chris
+Last Name:			Fetsch
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobilogy
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			crfetsch@gmail.com
+
+Time-in:			Dec.16,2009 11:10:56
+Time-out:			Dec.16,2009 11:25:14
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 11:25:37
+Time-out:			Dec.16,2009 12:04:43
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 12:58:33
+Time-out:			Dec.16,2009 13:30:11
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 15:43:35
+Time-out:			Dec.16,2009 15:52:17
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 15:52:26
+Time-out:			Dec.16,2009 16:10:10
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 16:12:13
+Time-out:			Dec.16,2009 16:30:55
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 16:33:22
+Time-out:			Dec.16,2009 16:38:52
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.16,2009 16:43:17
+Time-out:			Dec.16,2009 16:46:08
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 08:20:33
+Time-out:			Dec.17,2009 09:04:56
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 12:22:53
+Time-out:			Dec.17,2009 12:25:27
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 12:25:39
+Time-out:			Dec.17,2009 13:11:00
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 13:11:26
+Time-out:			Dec.17,2009 13:13:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 13:13:58
+Time-out:			Dec.17,2009 13:15:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:14:43
+Time-out:			Dec.17,2009 15:28:32
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:51:15
+Time-out:			Dec.17,2009 15:51:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:51:58
+Time-out:			Dec.17,2009 15:52:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:52:46
+Time-out:			Dec.17,2009 15:53:32
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:53:38
+Time-out:			Dec.17,2009 15:53:52
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:54:14
+Time-out:			Dec.17,2009 15:54:25
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 15:55:56
+Time-out:			Dec.17,2009 16:47:19
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.17,2009 16:47:31
+Time-out:			Dec.17,2009 17:33:47
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 08:21:08
+Time-out:			Dec.18,2009 08:54:05
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 08:56:07
+Time-out:			Dec.18,2009 09:39:40
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 09:41:34
+Time-out:			Dec.18,2009 10:55:02
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 10:55:47
+Time-out:			Dec.18,2009 11:40:23
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 13:39:33
+Time-out:			Dec.18,2009 14:41:26
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 14:46:00
+Time-out:			Dec.18,2009 16:14:50
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.18,2009 16:16:16
+Time-out:			Dec.18,2009 17:45:05
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.21,2009 08:23:04
+Time-out:			Dec.21,2009 09:45:57
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.21,2009 09:46:24
+Time-out:			Dec.21,2009 10:27:22
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.21,2009 13:32:51
+Time-out:			Dec.21,2009 14:11:59
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.21,2009 14:12:05
+Time-out:			Dec.21,2009 14:47:35
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.21,2009 15:34:46
+Time-out:			Dec.21,2009 16:39:11
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.21,2009 16:39:22
+Time-out:			Dec.21,2009 16:50:05
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 08:17:46
+Time-out:			Dec.22,2009 08:48:01
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 08:48:38
+Time-out:			Dec.22,2009 08:49:37
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 08:49:44
+Time-out:			Dec.22,2009 09:50:39
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 10:30:56
+Time-out:			Dec.22,2009 10:35:28
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 10:35:34
+Time-out:			Dec.22,2009 10:39:56
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 12:09:30
+Time-out:			Dec.22,2009 13:29:47
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.22,2009 13:30:29
+Time-out:			Dec.22,2009 14:48:44
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.23,2009 07:42:08
+Time-out:			Dec.23,2009 08:59:44
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.23,2009 09:05:28
+Time-out:			Dec.23,2009 09:39:22
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.23,2009 09:40:13
+Time-out:			Dec.23,2009 10:54:49
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.23,2009 14:52:18
+Time-out:			Dec.23,2009 16:14:05
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 08:56:31
+Time-out:			Dec.24,2009 08:57:51
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 08:58:10
+Time-out:			Dec.24,2009 09:44:41
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 09:45:33
+Time-out:			Dec.24,2009 10:25:47
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 10:25:56
+Time-out:			Dec.24,2009 11:09:12
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 14:42:17
+Time-out:			Dec.24,2009 15:16:44
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 15:16:51
+Time-out:			Dec.24,2009 16:04:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 16:12:40
+Time-out:			Dec.24,2009 16:47:30
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.24,2009 16:59:51
+Time-out:			Dec.24,2009 17:05:23
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.28,2009 08:52:50
+Time-out:			Dec.28,2009 09:35:12
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.28,2009 09:35:48
+Time-out:			Dec.28,2009 10:49:26
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.28,2009 12:30:28
+Time-out:			Dec.28,2009 12:46:04
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.28,2009 12:46:46
+Time-out:			Dec.28,2009 16:06:04
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.28,2009 16:49:24
+Time-out:			Dec.28,2009 19:48:40
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.28,2009 19:52:08
+Time-out:			Dec.28,2009 20:20:46
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 08:10:21
+Time-out:			Dec.29,2009 08:25:02
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 08:25:28
+Time-out:			Dec.29,2009 12:03:30
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 12:07:01
+Time-out:			Dec.29,2009 13:10:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 13:16:19
+Time-out:			Dec.29,2009 13:20:12
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 13:22:05
+Time-out:			Dec.29,2009 13:22:58
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 13:23:54
+Time-out:			Dec.29,2009 13:36:54
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 13:36:59
+Time-out:			Dec.29,2009 15:11:32
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 15:11:38
+Time-out:			Dec.29,2009 15:14:40
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 15:14:47
+Time-out:			Dec.29,2009 15:22:37
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 15:22:42
+Time-out:			Dec.29,2009 16:02:22
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 16:04:05
+Time-out:			Dec.29,2009 16:15:14
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 16:22:21
+Time-out:			Dec.29,2009 17:26:46
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 19:34:51
+Time-out:			
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.29,2009 19:46:48
+Time-out:			Dec.29,2009 21:18:49
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 08:09:15
+Time-out:			Dec.30,2009 09:34:54
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 11:50:05
+Time-out:			Dec.30,2009 11:52:38
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 11:52:50
+Time-out:			Dec.30,2009 12:24:28
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 12:27:35
+Time-out:			Dec.30,2009 14:37:37
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 14:39:09
+Time-out:			Dec.30,2009 16:01:19
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 16:01:52
+Time-out:			Dec.30,2009 16:16:16
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 16:27:13
+Time-out:			Dec.30,2009 16:32:42
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 16:35:42
+Time-out:			Dec.30,2009 17:15:37
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 17:16:32
+Time-out:			
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 19:03:24
+Time-out:			Dec.30,2009 19:11:36
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 19:17:21
+Time-out:			
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.30,2009 19:20:36
+Time-out:			Dec.30,2009 21:57:14
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.31,2009 08:18:02
+Time-out:			Dec.31,2009 09:19:59
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Dec.31,2009 09:32:11
+Time-out:			Dec.31,2009 10:02:53
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.31,2009 10:03:45
+Time-out:			Dec.31,2009 10:19:49
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu
+
+Time-in:			Dec.31,2009 15:43:28
+Time-out:			Dec.31,2009 16:40:56
+First Name:			Kalpana
+Last Name:			Dokka
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Feb.13,2010
+Phone:			747 5528
+Email:			kalpana@pcg.wustl.edu

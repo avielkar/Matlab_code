@@ -1,0 +1,37 @@
+Human Moog Facility -- Monthly Login Report (May.01,2007 16:02:02)
+
+Time-in:			Apr.16,2007 17:45:54
+Time-out:			Apr.16,2007 17:47:47
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Apr.16,2007 17:47:59
+Time-out:			Apr.16,2007 18:05:59
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu
+
+Time-in:			Apr.16,2007 18:06:06
+Time-out:			Apr.16,2007 18:06:23
+First Name:			Tunde
+Last Name:			Adeyemo
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			54321
+expDate:			Jun.05,2007
+Phone:			747-5528
+Email:			badeyemo@pcg.wustl.edu

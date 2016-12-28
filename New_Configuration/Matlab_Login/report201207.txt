@@ -1,0 +1,13 @@
+Human Moog Facility -- Monthly Login Report (Aug.03,2012 13:56:45)
+
+Time-in:			Nov.30,2011 19:42:50
+Time-out:			Nov.30,2011 21:28:49
+First Name:			Jing
+Last Name:			Lin
+PI Name:			Dora Angelaki
+Department:			Anatomy and Neurobiology
+Campus Box:			8108
+Protocol#:			60190
+expDate:			Nov.21,2012
+Phone:			747-5528
+Email:			jlin@pcg.wustl.edu
