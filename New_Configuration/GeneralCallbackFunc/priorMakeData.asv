@@ -81,7 +81,7 @@ end
 %======Save the trial history info. Jing 5/15/09========
 SavedInfo(activeStair,activeRule).PriorResp(rep).trialCount(cntr) = cldata.trialCount;
 SavedInfo(activeStair,activeRule).PriorResp(rep).preNumber(cntr) = priors.left;
-SavedInfo(activeStair,activeRule).PriorResp(rep).RealTrialCntr(cntr) = trial(activeStair,activeRule).cntr;
+SavedInfo(activeStair,activeRule).PriorResp(rep).RealTrialCntr(cntr) = priors.left;
 
 setappdata(appHandle,'SavedInfo',SavedInfo);
 

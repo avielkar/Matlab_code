@@ -638,6 +638,7 @@ if ~paused && flagdata.isStopButton == 0
             if press
                  response = bitshift (r(2), -5);    %leftmost 3 bits
             end
+            fprintf('byteas available but not a red press!!!!\n')
         end
         
         %avi - delete that line (for automatic answer)
