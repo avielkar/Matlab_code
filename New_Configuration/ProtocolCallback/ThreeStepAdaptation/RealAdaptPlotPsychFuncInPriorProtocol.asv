@@ -6,28 +6,50 @@ if debug
     disp('Entering adaptPlotPsychFunc')
 end
 
+%% take all the appHandle variables.
 data = getappdata(appHandle,'protinfo');
 crossvals = getappdata(appHandle, 'CrossVals');
 trial = getappdata(appHandle,'trialInfo');
 cldata = getappdata(appHandle, 'ControlLoopData'); 
 savedInfo = getappdata(appHandle,'SavedInfo');
 plotData = getappdata(appHandle,'psychPlot');
+%%
 
-iDir = plotData.iDir;
-dirArray = plotData.dirArray;
-dirRepNum = plotData.dirRepNum;
-rightChoice = plotData.rightChoice;
+%% left priors initialization.
+iDirLeftPriorCombined = plotData.iDirLeftPriorCombined;
+dirArrayLeftPriorCombined = plotData.dirArrayLeftPriorCombined;
+dirRepNumLeftPriorCombined = plotData.dirRepNumLeftPriorCombined;
+rightChoiceLeftPriorCombined = plotData.rightChoiceLeftPriorCombined;
 
-iDirVes = plotData.iDirVes;
-dirArrayVes = plotData.dirArrayVes;
-dirRepNumVes = plotData.dirRepNumVes;
-rightChoiceVes = plotData.rightChoiceVes;
+iDirLeftPriorVes = plotData.iDirLeftPriorVes;
+dirArrayLeftPriorVes = plotData.dirArrayLeftPriorVes;
+dirRepNumLeftPriorVes = plotData.dirRepNumLeftPriorVes;
+rightChoiceLeftPriorVes = plotData.rightChoiceLeftPriorVes;
 
-iDirVisual = plotData.iDirVisual;
-dirArrayVisual = plotData.dirArrayVisual;
-dirRepNumVisual = plotData.dirRepNumVisual;
-rightChoiceVisual = plotData.rightChoiceVisual;
+iDirLeftPriorVisual = plotData.iDirLeftPriorVisual;
+dirArrayLeftPriorVisual = plotData.dirArrayLeftPriorVisual;
+dirRepNumLeftPriorVisual = plotData.dirRepNumLeftPriorVisual;
+rightChoiceLeftPriorVisual = plotData.rightChoiceLeftPriorVisual;
+%%
 
+%% right priors initialization.
+iDirRightPriorCombined = plotData.iDirRightPriorCombined;
+dirArrayRightPriorCombined = plotData.dirArrayRightPriorCombined;
+dirRepNumRightPriorCombined = plotData.dirRepNumRightPriorCombined;
+rightChoiceRightPriorCombined = plotData.rightChoiceRightPriorCombined;
+
+iDirRightPriorVes = plotData.iDirRightPriorVes;
+dirArrayRightPriorVes = plotData.dirArrayRightPriorVes;
+dirRepNumRightPriorVes = plotData.dirRepNumRightPriorVes;
+rightChoiceRightPriorVes = plotData.rightChoiceRightPriorVes;
+
+iDirRightPriorVisual = plotData.iDirRightPriorVisual;
+dirArrayRightPriorVisual = plotData.dirArrayRightPriorVisual;
+dirRepNumRightPriorVisual = plotData.dirRepNumRightPriorVisual;
+rightChoiceRightPriorVisual = plotData.rightChoiceRightPriorVisual;
+%%
+
+%% take activeStair , activeRule , currRep ,currTrial information.
 activeStair = data.activeStair;
 activeRule = data.activeRule;
 currRep = data.repNum;
@@ -44,13 +66,11 @@ if ~isempty(varying)
         cntrVarying = trial(activeStair,activeRule).list(currTrial);
     end
 end
+%%
 
+%% check for stim_type, dir , and response
+%-----avi:for Adam1_Priors protocol(only with staircase for now).
 i = strmatch('STIMULUS_TYPE',{char(data.configinfo.name)},'exact');
-%avi :status_type for deciding which status type is :
-%                                           static = 1
-%                                           varying = 2
-%                                          withinstair = 3
-%status_type = data.configinfo(i).status;
 if data.configinfo(i).status == 2
     i1 = strmatch('Stimulus Type',{char(varying.name)},'exact');
     stim_type = crossvals(cntrVarying,i1);
@@ -64,322 +84,228 @@ end
 
 dir = savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial);
 response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
-
-%% combined
-if stim_type == 3
-    iInd = find(dirArray == dir);
-    if isempty(iInd)
-        iDir = iDir+1;
-        dirArray(iDir) = dir;
-        dirRepNum(iDir) = 1;
-        rightChoice(iDir) = 0;
-        iInd = iDir;
-    else
-        dirRepNum(iInd)=dirRepNum(iInd)+1;
-    end
-
-    if response == 2
-        right=1;
-    else
-        right=0;
-    end
-
-    rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);    
+%-----end
 %%
-    
-%%    visual only
-elseif stim_type == 2
-    iInd = find(dirArrayVisual == dir);
-    if isempty(iInd)
-        iDirVisual = iDirVisual+1;
-        dirArrayVisual(iDirVisual) = dir;
-        dirRepNumVisual(iDirVisual) = 1;
-        rightChoiceVisual(iDirVisual) = 0;
-        iInd = iDirVisual;
-    else
-        dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
-    end
-
-    if response == 2
-        right=1;
-    else
-        right=0;
-    end
-
-    rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);
-%%
-    
-%% vestibular only
-elseif stim_type == 1
-    iInd = find(dirArrayVes == dir);
-    if isempty(iInd)
-        iDirVes = iDirVes+1;
-        dirArrayVes(iDirVes) = dir;
-        dirRepNumVes(iDirVes) = 1;
-        rightChoiceVes(iDirVes) = 0;
-        iInd = iDirVes;
-    else
-        dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-    end
-
-    if response == 2
-        right=1;
-    else
-        right=0;
-    end
-
-    rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
-%%
-    
-%% From here are new for Adam1_Prior protocl and for Sol protocol - Delta Protocol.
-elseif stim_type == 4 %left delta protocol with 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
-%%
-        
+       
 %% right delta
-elseif stim_type == 5 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+if stim_type == 5 
+    iInd = find(dirArrayLeftPriorVes == dir);
+    if isempty(iInd)
+        iDirLeftPriorVes = iDirLeftPriorVes+1;
+        dirArrayLeftPriorVes(iDirLeftPriorVes) = dir;
+        dirRepNumLeftPriorVes(iDirLeftPriorVes) = 1;
+        rightChoiceLeftPriorVes(iDirLeftPriorVes) = 0;
+        iInd = iDirLeftPriorVes;
+    else
+        dirRepNumLeftPriorVes(iInd)=dirRepNumLeftPriorVes(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceLeftPriorVes(iInd)=((dirRepNumLeftPriorVes(iInd)-1)*rightChoiceLeftPriorVes(iInd)+right)/dirRepNumLeftPriorVes(iInd);
 %%
         
-%%
+%% vestibular only with left prior
 elseif stim_type == 6 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+    iInd = find(dirArrayLeftPriorVes == dir);
+    if isempty(iInd)
+        iDirLeftPriorVes = iDirLeftPriorVes+1;
+        dirArrayLeftPriorVes(iDirLeftPriorVes) = dir;
+        dirRepNumLeftPriorVes(iDirLeftPriorVes) = 1;
+        rightChoiceLeftPriorVes(iDirLeftPriorVes) = 0;
+        iInd = iDirLeftPriorVes;
+    else
+        dirRepNumLeftPriorVes(iInd)=dirRepNumLeftPriorVes(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceLeftPriorVes(iInd)=((dirRepNumLeftPriorVes(iInd)-1)*rightChoiceLeftPriorVes(iInd)+right)/dirRepNumLeftPriorVes(iInd);
 %%
         
-%%
+%% visual only with left prior
 elseif stim_type == 7 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+    iInd = find(dirArrayLeftPriorVes == dir);
+    if isempty(iInd)
+        iDirLeftPriorVisual = iDirLeftPriorVisual+1;
+        dirArrayLeftPriorVisual(iDirLeftPriorVisual) = dir;
+        dirRepNumLeftPriorVisual(iDirLeftPriorVisual) = 1;
+        rightChoiceLeftPriorVisual(iDirLeftPriorVisual) = 0;
+        iInd = iDirLeftPriorVisual;
+    else
+        dirRepNumLeftPriorVisual(iInd)=dirRepNumLeftPriorVisual(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceLeftPriorVisual(iInd)=((dirRepNumLeftPriorVisual(iInd)-1)*rightChoiceLeftPriorVisual(iInd)+right)/dirRepNumLeftPriorVisual(iInd);
 %%
         
-%%
+%% combine with left prior
 elseif stim_type == 8 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+    iInd = find(dirArrayLeftPriorCombined == dir);
+    if isempty(iInd)
+        iDirLeftPriorCombined = iDirLeftPriorCombined+1;
+        dirArrayLeftPriorCombined(iDirLeftPriorCombined) = dir;
+        dirRepNumLeftPriorCombined(iDirLeftPriorCombined) = 1;
+        rightChoiceLeftPriorCombined(iDirLeftPriorCombined) = 0;
+        iInd = iDirLeftPriorCombined;
+    else
+        dirRepNumLeftPriorCombined(iInd)=dirRepNumLeftPriorCombined(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceLeftPriorCombined(iInd)=((dirRepNumLeftPriorCombined(iInd)-1)*rightChoiceLeftPriorCombined(iInd)+right)/dirRepNumLeftPriorCombined(iInd);
 %%
         
-%%
+%% vestibular only with right prior
 elseif stim_type == 9 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+    iInd = find(dirArrayRightPriorVes == dir);
+    if isempty(iInd)
+        iDirRightPriorVes = iDirRightPriorVes+1;
+        dirArrayRightPriorVes(iDirRightPriorVes) = dir;
+        dirRepNumRightPriorVes(iDirRightPriorVes) = 1;
+        rightChoiceRightPriorVes(iDirRightPriorVes) = 0;
+        iInd = iDirRightPriorVes;
+    else
+        dirRepNumRightPriorVes(iInd)=dirRepNumLeftRightPriorVes(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceRightPriorVes(iInd)=((dirRepNumRightPriorVes(iInd)-1)*rightChoiceRightPriorVes(iInd)+right)/dirRepNumRightPriorVes(iInd);
 %%
     
-%% 
+%% visual only with right prior
 elseif stim_type == 10 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+    iInd = find(dirArrayRightPriorVisual == dir);
+    if isempty(iInd)
+        iDirRightPriorVisual = iDirRightPriorVisual+1;
+        dirArrayRightPriorVisual(iDirRightPriorVisual) = dir;
+        dirRepNumRightPriorVisual(iDirRightPriorVesVisual) = 1;
+        rightChoiceRightPriorVisual(iDirRightPriorVisual) = 0;
+        iInd = iDirRightPriorVisual;
+    else
+        dirRepNumRightPriorVisual(iInd)=dirRepNumRightPriorVisual(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceRightPriorVisual(iInd)=((dirRepNumRightPriorVisual(iInd)-1)*rightChoiceRightPriorVisual(iInd)+right)/dirRepNumRightPriorVisual(iInd);
 %%
     
-%%
+%% combine with right prior
 elseif stim_type == 11 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
+    iInd = find(dirArrayRightPriorCombined == dir);
+    if isempty(iInd)
+        iDirRightPriorCombined = iDirRightPriorCombined+1;
+        dirArrayRightPriorCombined(iDirRightPriorCombined) = dir;
+        dirRepNumRightPriorCombined(iDirRightPriorCombined) = 1;
+        rightChoiceRightPriorCombined(iDirRightPriorCombined) = 0;
+        iInd = iDirRightPriorCombined;
+    else
+        dirRepNumRightPriorCombined(iInd)=dirRepNumRightPriorCombined(iInd)+1;
+    end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+    rightChoiceRightPriorCombined(iInd)=((dirRepNumRightPriorCombined(iInd)-1)*rightChoiceRightPriorCombined(iInd)+right)/dirRepNumRightPriorCombined(iInd);
 %%
 end
 
+%% sorting left prior types for plot.
+[sortDirLeftPriorCombined, sortInd] = sort(dirArrayLeftPriorCombined, 2);
+sortRightLeftPriorCombined = rightChoiceLeftPriorCombined(sortInd);
+
+[sortDirLeftPriorVisual, sortIndVisual] = sort(dirArrayLeftPriorVisual, 2);
+sortRightLeftPriorVisual = rightChoiceLeftPriorVisual(sortIndVisual);
+
+[sortDirLeftPriorVes, sortIndVes] = sort(dirArrayLeftPriorVes, 2);
+sortRightLeftPriorVes = rightChoiceLeftPriorVes(sortIndVes);   
 %%
-[sortDir, sortInd] = sort(dirArray, 2);
-sortRight = rightChoice(sortInd);
-[sortDirVisual, sortIndVisual] = sort(dirArrayVisual, 2);
-sortRightVisual = rightChoiceVisual(sortIndVisual);
-[sortDirVes, sortIndVes] = sort(dirArrayVes, 2);
-sortRightVes = rightChoiceVes(sortIndVes);   
+
+%% sort right prior types for plot.
+[sortDirRightPriorCombined, sortInd] = sort(dirArrayRightPriorCombined, 2);
+sortRightRightPriorCombined = rightChoiceRightPriorCombined(sortInd);
+
+[sortDirRightPriorVisual, sortIndVisual] = sort(dirArrayRightPriorVisual, 2);
+sortRightRightPriorVisual = rightChoiceRightPriorVisual(sortIndVisual);
+
+[sortDirRightPriorVes, sortIndVes] = sort(dirArrayRightPriorVes, 2);
+sortRightRightPriorVes = rightChoiceRightPriorVes(sortIndVes);   
 %%
 
 %----Plot Online Psychometric Function----
 figure(10)
 set(gcf,'Name','Online Analysis','NumberTitle','off');
 
-if iDirVes>0
-    %for different symbols for each active stair.
-    if(activeStair == 1)
-        plot(sortDirVes, sortRightVes, '+');
-    else
-        plot(sortDirVes, sortRightVes, 'o');
-    end
+%% Plot for left priors.
+if iDirLeftPriorVes>0
+    plot(sortDirLeftPriorVes, sortRightLeftPriorVes, '+b');
     hold on;
 end
 
-if iDirVisual>0
-    %for different symbols for each active stair.
-    if(activeStair == 1)
-        plot(sortDirVisual, sortRightVisual, 'xr');
-    else
-        plot(sortDirVisual, sortRightVisual, 'or');
-    end
+if iDirLeftPriorVisual>0
+    plot(sortDirLeftPriorVisual, sortRightLeftPriorVisual, 'xr');
     hold on;
 end
 
-if iDir>0
-    %for different symbols for each active stair.
-    if(activeStair == 1)
-        plot(sortDir, sortRight, 'og');
-    else
-        plot(sortDirVes, sortRightVes, 'xg');
-    end
+if iDirLeftPriorCombined>0
+    plot(sortDirLeftPriorCombined, sortRightLeftPriorCombined, 'og');
+    hold on;
+end
+%%
+
+%% Plot for right priors.
+if iDirRightPriorVes>0
+    plot(sortDirRightPriorVes, sortRightRightPriorVes, '+b');
     hold on;
 end
 
-%decide which of the parameters to call by the status variable 
+if iDirRightPriorVisual>0
+    plot(sortDirRightPriorVisual, sortRightRightPriorVisual, 'xr');
+    hold on;
+end
+
+if iDirRightPriorCombined>0
+    plot(sortDirRightPriorCombined, sortRightRightPriorCombined, 'og');
+    hold on;
+end
+%%
+
+%% Plot on the same graph the axes pf the graph.
 title('Online Psychometric Function');
-
-%avi
-%if(status_type == 2)    % if varying status
-%     i = strmatch('Heading Direction',{char(varying.name)},'exact');
-%     x = varying(i).parameters.moog;
-% elseif(status_type == 3 || status_type == 1)    %if within status or static status.
-%     i = strmatch('Heading Direction',{char(within.name)},'exact');
-%     x = within(i).parameters.moog;
-% end
-
-%original code is only the two line
-%i = strmatch('Heading Direction',{char(varying.name)},'exact');
-%x = varying(i).parameters.moog;
-
-%avi - check the type of the Heading Direction parameter.
-i = strmatch('Heading Direction',{char(varying.name)},'exact');
-if(size(i) == 0) %if the size is 0 , it means that no match found ,else a match has been found.
-    i = strmatch('Heading Direction',{char(within.name)},'exact');
-    if(size(i) == 0)%Heading Direction is across type.
-        x = across(i).parameters.moog;        
-    else%Heading Direction is within type.
-        x = within(i).parameters.moog;
-    end
-else%Heading Direction is varying type.
-    x = varying(i).parameters.moog;
-end
-
+i = sr('Heading Direction',{char(within.name)},'exact');
+x = within(i).parameters.moog;
 set(gca, 'XTick', x);
 hold on;
 y1 = 0.5*ones(size(x));
@@ -398,21 +324,41 @@ plot(x1,y,'-r');
 
 grid on;
 hold off;
+%%
 
-plotData.iDir = iDir;
-plotData.dirArray = dirArray;
-plotData.dirRepNum = dirRepNum;
-plotData.rightChoice = rightChoice;
+%% saving the left prior online plot data.
+plotData.iDir = iDirLeftPriorCombined;
+plotData.dirArray = dirArrayLeftPriorCombined;
+plotData.dirRepNum = dirRepNumLeftPriorCombined;
+plotData.rightChoice = rightChoiceLeftPriorCombined;
 
-plotData.iDirVisual = iDirVisual;
-plotData.dirArrayVisual = dirArrayVisual;
-plotData.dirRepNumVisual = dirRepNumVisual;
-plotData.rightChoiceVisual = rightChoiceVisual;
+plotData.iDirVisual = iDirLeftPriorVisual;
+plotData.dirArrayVisual = dirArrayLeftPriorVisual;
+plotData.dirRepNumVisual = dirRepNumLeftPriorVisual;
+plotData.rightChoiceVisual = rightChoiceLeftPriorVisual;
 
-plotData.iDirVes = iDirVes;
-plotData.dirArrayVes = dirArrayVes;
-plotData.dirRepNumVes = dirRepNumVes;
-plotData.rightChoiceVes = rightChoiceVes;
+plotData.iDirVes = iDirLeftPriorVes;
+plotData.dirArrayVes = dirArrayLeftPriorVes;
+plotData.dirRepNumVes = dirRepNumLeftPriorVes;
+plotData.rightChoiceVes = rightChoiceLeftPriorVes;
+%%
+
+%% saving the right prior online plot data.
+plotData.iDirRightPriorCombined = iDirRightPriorCombined;
+plotData.dirArrayRightPriorCombined = dirArrayRightPriorCombined;
+plotData.dirRepNumRightPriorCombined = dirRepNumRightPriorCombined;
+plotData.rightChoiceRightPriorCombined = rightChoiceRightPriorCombined;
+
+plotData.iDirRightPriorVisual = iDirRightPriorVisual;
+plotData.dirArrayRightPriorVisual = dirArrayRightPriorVisual;
+plotData.dirRepNumRightPriorVisual = dirRepNumRightPriorVisual;
+plotData.rightChoiceRightPriorVisual = rightChoiceRightPriorVisual;
+
+plotData.iDirRightPriorVes = iDirRightPriorVes;
+plotData.dirArrayRightPriorVes = dirArrayRightPriorVes;
+plotData.dirRepNumRightPriorVes = dirRepNumRightPriorVes;
+plotData.rightChoiceRightPriorVes = rightChoiceRightPriorVes;
+%%
 
 setappdata(appHandle,'psychPlot', plotData);
 
@@ -420,4 +366,3 @@ setappdata(appHandle,'psychPlot', plotData);
 if debug
     disp('Exiting adaptPlotPsychFunc')
 end
-

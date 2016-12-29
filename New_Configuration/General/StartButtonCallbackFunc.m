@@ -164,15 +164,16 @@ setappdata(basicfig,'ResponseInfo',Resp);
 SavedInfo =[];
 setappdata(basicfig,'SavedInfo',SavedInfo);
 
-%---Jing added for plotPsychFunc.m 01/24/07----
+%% ---Jing added for plotPsychFunc.m 01/24/07----
 psychPlot.iDir=0;
 psychPlot.dirArray=[];
 psychPlot.dirRepNum=[];
 psychPlot.rightChoice=[];
 psychPlot.trialDir = [];
 psychPlot.trialCorr = [];
-%---Jing end---
-%--Jing 12/10/09 for Adaptation Heading Dism protocol.-----
+%% ---Jing end---
+
+%% --Jing 12/10/09 for Adaptation Heading Dism protocol psych plot.-----
 psychPlot.iDirVes = 0;              %Vestibula only
 psychPlot.dirArrayVes = [];
 psychPlot.dirRepNumVes = [];
@@ -182,7 +183,57 @@ psychPlot.iDirVisual = 0;              %Visual only
 psychPlot.dirArrayVisual = [];
 psychPlot.dirRepNumVisual = [];
 psychPlot.rightChoiceVisual = [];
-%---end 12/10/09----
+%% ---end 12/10/09----
+
+%---------avi: for Adam1_Prior protocol and sol Adam1_Delta protocol.
+
+%% -----Adam1_Delta protocol psych plot
+psychPlot.iDirVesLeftDelta = 0;
+psychPlot.dirArrayVesLeftDelta = [];
+psychPlot.dirRepNumVesLeftDelta = [];
+psychPlot.rightChoiceVesLeftDelta = [];
+
+psychPlot.iDirVesRightDelta = 0;
+psychPlot.dirArrayVesRightDelta = [];
+psychPlot.dirRepNumVesRightDelta = [];
+psychPlot.rightChoiceVesRightDelta = [];
+%% -----end
+
+%% -----Adam1_Priors protocol for left priors
+psychPlot.iDirLeftPriorCombined = 0;            
+psychPlot.dirArrayLeftPriorCombined = [];
+psychPlot.dirRepNumLeftPriorCombined = [];
+psychPlot.rightChoiceLeftPriorCombined = [];
+
+psychPlot.iDirLeftPriorVes = 0;
+psychPlot.dirArrayLeftPriorVes = [];
+psychPlot.dirRepNumLeftPriorVes = [];
+psychPlot.rightChoiceLeftPriorVes = [];
+
+psychPlot.iDirLeftPriorVisual = 0;
+psychPlot.dirArrayLeftPriorVisual = [];
+psychPlot.dirRepNumLeftPriorVisual = [];
+psychPlot.rightChoiceLeftPriorVisual = [];
+%% ------end
+
+%% -----Adam1_Priors protocol for right priors
+psychPlot.iDirRightPriorCombined = 0;            
+psychPlot.dirArrayRightPriorCombined = [];
+psychPlot.dirRepNumRightPriorCombined = [];
+psychPlot.rightChoiceRightPriorCombined = [];
+
+psychPlot.iDirRightPriorVes = 0;
+psychPlot.dirArrayRightPriorVes = [];
+psychPlot.dirRepNumRightPriorVes = [];
+psychPlot.rightChoiceRightPriorVes = [];
+
+psychPlot.iDirRightPriorVisual = 0;
+psychPlot.dirArrayRightPriorVisual = [];
+psychPlot.dirRepNumRightPriorVisual = [];
+psychPlot.rightChoiceRightPriorVisual = [];
+%% ------end
+
+%---------end: for Adam1_Prior protocol and sol Adam1_Delta protocol.
 
 setappdata(basicfig,'psychPlot',psychPlot);
 % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

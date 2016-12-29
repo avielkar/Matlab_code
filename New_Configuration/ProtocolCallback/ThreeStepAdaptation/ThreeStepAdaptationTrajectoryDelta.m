@@ -184,7 +184,7 @@ else
     stim_type = data.configinfo(i).parameters;
 end
 
-%avi - sol protocil with DELTA
+%avi - sol protocol with DELTA
 i = strmatch('DELTA',{char(data.configinfo.name)},'exact');
 delta = data.configinfo(i).parameters;
 if(stim_type == 4)  %Combine plus left delta
