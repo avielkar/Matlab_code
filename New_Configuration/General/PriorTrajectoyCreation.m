@@ -221,10 +221,12 @@ az=azP*pi/180;
 el=elP*pi/180;
 tilt=tiltP*pi/180;
 
-if prior_stim_type == 3    %Combine 
-    amp(1,1)=amp(1,1) + adaptation_amp*pi/180/2;    
-    amp(2,1)=amp(2,1) - adaptation_amp*pi/180/2;
-end
+%% -----avi:no heading adaptation at priors
+% if prior_stim_type == 3    %Combine 
+%     amp(1,1)=amp(1,1) + adaptation_amp*pi/180/2;    
+%     amp(2,1)=amp(2,1) - adaptation_amp*pi/180/2;
+% end
+%% -----end
 
 xM = -sin(amp)*sin(az(1))*cos(tilt(1)) + cos(amp)*...
     (cos(az(1))*cos(el(1))+sin(az(1))*sin(tilt(1))*sin(el(1)));

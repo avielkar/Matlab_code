@@ -258,7 +258,7 @@ M(12).data = zeros(dur(2,1)*f,1);
 sprintf('ampVes=%f  ampGL=%f', amp(1,1)*180/pi, amp(2,1)*180/pi)
 
 iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
-if stim_type == 6 || stim_type == 11   %vestibula only
+if stim_type == 6 || stim_type == 9   %vestibula only
     data.configinfo(iBackground).parameters = 0;
 else   %Combine & Visual only
     data.configinfo(iBackground).parameters = 1;

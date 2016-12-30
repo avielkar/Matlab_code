@@ -185,7 +185,7 @@ elseif stim_type == 9
         rightChoiceRightPriorVes(iDirRightPriorVes) = 0;
         iInd = iDirRightPriorVes;
     else
-        dirRepNumRightPriorVes(iInd)=dirRepNumLeftRightPriorVes(iInd)+1;
+        dirRepNumRightPriorVes(iInd)=dirRepNumRightPriorVes(iInd)+1;
     end
 
     if response == 2
@@ -203,7 +203,7 @@ elseif stim_type == 10
     if isempty(iInd)
         iDirRightPriorVisual = iDirRightPriorVisual+1;
         dirArrayRightPriorVisual(iDirRightPriorVisual) = dir;
-        dirRepNumRightPriorVisual(iDirRightPriorVesVisual) = 1;
+        dirRepNumRightPriorVisual(iDirRightPriorVisual) = 1;
         rightChoiceRightPriorVisual(iDirRightPriorVisual) = 0;
         iInd = iDirRightPriorVisual;
     else

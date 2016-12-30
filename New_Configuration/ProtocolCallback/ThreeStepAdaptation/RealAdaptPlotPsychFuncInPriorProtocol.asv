@@ -185,7 +185,7 @@ elseif stim_type == 9
         rightChoiceRightPriorVes(iDirRightPriorVes) = 0;
         iInd = iDirRightPriorVes;
     else
-        dirRepNumRightPriorVes(iInd)=dirRepNumLeftRightPriorVes(iInd)+1;
+        dirRepNumRightPriorVes(iInd)=dirRepNumRightPriorVes(iInd)+1;
     end
 
     if response == 2
@@ -304,7 +304,7 @@ end
 
 %% Plot on the same graph the axes pf the graph.
 title('Online Psychometric Function');
-i = sr('Heading Direction',{char(within.name)},'exact');
+i = strmatch('Heading Direction',{char(within.name)},'exact');
 x = within(i).parameters.moog;
 set(gca, 'XTick', x);
 hold on;
