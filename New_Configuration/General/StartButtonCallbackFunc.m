@@ -548,6 +548,8 @@ elseif cancel_save == 0
     temp_dir_var = data.datapath_primary;
     dir_list = dir(data.datapath_primary);
     found_subject = 0;
+    %-----avi:fixing the error of saving.
+    found_subject_dir = 0;
     for subject_index = 1:length(dir_list)
         found_subject_dir = strcmp(num2str(SUBJECT_NUM), dir_list(subject_index).name);
         if found_subject_dir == 1
@@ -570,7 +572,7 @@ elseif cancel_save == 0
         save([num2str(SUBJECT_NUM), '_' num2str(num_data_files + 1)], 'SavedInfo')
     end
 
-    cd ('C:\Program Files\MATLAB\R2006a\work')  % returnt to home directory
+    cd ('C:\Program Files (x86)\MATLAB\R2013b\bin')  % returnt to home directory
 end
 %check if the port is not opened because it is a second start
         %buttom after the first has benn pushed.
