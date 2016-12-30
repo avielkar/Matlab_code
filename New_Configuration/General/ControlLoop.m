@@ -87,9 +87,13 @@ if ~paused && flagdata.isStopButton == 0
             disp(['Trial ' num2str(trial.cntr)])
         end
         
-        %avi:for Adam1_Priors protocol.
-        index = strmatch('START_PRIOR_ROUND' ,{char(data.configinfo.name)},'exact');
-        start_prior_round = data.configinfo(index).parameters;
+        %-----avi:for Adam1_Priors protocol.
+        start_prior_round = [];
+        if(data.condvect.priors.enabled)  %if priors are enable
+
+            index = strmatch('START_PRIOR_ROUND' ,{char(data.configinfo.name)},'exact');
+            start_prior_round = data.configinfo(index).parameters;
+        end
         
         if(data.condvect.priors.enabled)  %if priors are enable
             if(cldata.trialCount <= start_prior_round) %if the priors not starts because the num of real trials with no priors is not done.

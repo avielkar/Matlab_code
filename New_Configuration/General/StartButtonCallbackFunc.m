@@ -547,9 +547,9 @@ elseif cancel_save == 0
     % eval(['cd ' data.datapath_primary])
     temp_dir_var = data.datapath_primary;
     dir_list = dir(data.datapath_primary);
-    found_subject = 0;
     %-----avi:fixing the error of saving.
     found_subject_dir = 0;
+    %-----
     for subject_index = 1:length(dir_list)
         found_subject_dir = strcmp(num2str(SUBJECT_NUM), dir_list(subject_index).name);
         if found_subject_dir == 1
