@@ -86,28 +86,6 @@ dir = savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial);
 response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 %-----end
 %%
-       
-%% right delta
-if stim_type == 5 
-    iInd = find(dirArrayLeftPriorVes == dir);
-    if isempty(iInd)
-        iDirLeftPriorVes = iDirLeftPriorVes+1;
-        dirArrayLeftPriorVes(iDirLeftPriorVes) = dir;
-        dirRepNumLeftPriorVes(iDirLeftPriorVes) = 1;
-        rightChoiceLeftPriorVes(iDirLeftPriorVes) = 0;
-        iInd = iDirLeftPriorVes;
-    else
-        dirRepNumLeftPriorVes(iInd)=dirRepNumLeftPriorVes(iInd)+1;
-    end
-
-    if response == 2
-        right=1;
-    else
-        right=0;
-    end
-
-    rightChoiceLeftPriorVes(iInd)=((dirRepNumLeftPriorVes(iInd)-1)*rightChoiceLeftPriorVes(iInd)+right)/dirRepNumLeftPriorVes(iInd);
-%%
         
 %% vestibular only with left prior
 elseif stim_type == 6 
@@ -203,7 +181,7 @@ elseif stim_type == 10
     if isempty(iInd)
         iDirRightPriorVisual = iDirRightPriorVisual+1;
         dirArrayRightPriorVisual(iDirRightPriorVisual) = dir;
-        dirRepNumRightPriorVisual(iDirRightPriorVesVisual) = 1;
+        dirRepNumRightPriorVisual(iDirRightPriorVisual) = 1;
         rightChoiceRightPriorVisual(iDirRightPriorVisual) = 0;
         iInd = iDirRightPriorVisual;
     else
@@ -270,66 +248,211 @@ set(gcf,'Name','Online Analysis','NumberTitle','off');
 
 %% Plot for left priors.
 if iDirLeftPriorVes>0
-    plot(sortDirLeftPriorVes, sortRightLeftPriorVes, '+b');
+    subplot(3,3,1)
+        
+    %%
+    title('Online Psychometric Function');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDirLeftPriorVes, sortRightLeftPriorVes, '+b' , 'MarkerSize' , 20);
     hold on;
 end
 
 if iDirLeftPriorVisual>0
-    plot(sortDirLeftPriorVisual, sortRightLeftPriorVisual, 'xr');
+    subplot(3,3,2)
+        
+    %%
+    title('Online Psychometric Function');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDirLeftPriorVisual, sortRightLeftPriorVisual, 'xr' , 'MarkerSize' , 20);
     hold on;
 end
 
 if iDirLeftPriorCombined>0
-    plot(sortDirLeftPriorCombined, sortRightLeftPriorCombined, 'og');
+    subplot(3,3,3)
+        
+    %%
+    title('Online Psychometric Function');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDirLeftPriorCombined, sortRightLeftPriorCombined, 'og' , 'MarkerSize' , 20);
     hold on;
 end
 %%
 
 %% Plot for right priors.
 if iDirRightPriorVes>0
-    plot(sortDirRightPriorVes, sortRightRightPriorVes, '+b');
+    subplot(3,3,4)
+
+    %%
+    title('Online Psychometric Function');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDirRightPriorVes, sortRightRightPriorVes, 'sb' , 'MarkerSize' , 20);
     hold on;
 end
 
 if iDirRightPriorVisual>0
-    plot(sortDirRightPriorVisual, sortRightRightPriorVisual, 'xr');
+    subplot(3,3,5)
+    
+    %%
+    title('Online Psychometric Function');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDirRightPriorVisual, sortRightRightPriorVisual, 'pr' , 'MarkerSize' , 20);
     hold on;
 end
 
 if iDirRightPriorCombined>0
-    plot(sortDirRightPriorCombined, sortRightRightPriorCombined, 'og');
+    subplot(3,3,6)
+    
+    %%
+    title('Online Psychometric Function');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDirRightPriorCombined, sortRightRightPriorCombined, 'vg' , 'MarkerSize' , 20);
     hold on;
 end
 %%
 
-%% Plot on the same graph the axes pf the graph.
-title('Online Psychometric Function');
-i = strmatch('Heading Direction',{char(within.name)},'exact');
-x = within(i).parameters.moog;
-set(gca, 'XTick', x);
-hold on;
-y1 = 0.5*ones(size(x));
-plot(x,y1,'-r');
-
-xlabel('Heading Angle (deg)');
-
-y=0 : 0.1 : 1;
-ylim([0 1]);
-set(gca, 'YTick', y);
-ylabel('Rightward Dicisions%');
-
-hold on;
-x1 = zeros(size(y));
-plot(x1,y,'-r');
-
-grid on;
-hold off;
+%% Plot on the same graph the axes pf the graph. - Dont want all in one graph , in subplots maked upsatir code.
+% subplot(3,3,8)
+% title('Online Psychometric Function');
+% i = strmatch('Heading Direction',{char(within.name)},'exact');
+% x = within(i).parameters.moog;
+% set(gca, 'XTick', x);
+% hold on;
+% y1 = 0.5*ones(size(x));
+% plot(x,y1,'-r');
+% 
+% xlabel('Heading Angle (deg)');
+% 
+% y=0 : 0.1 : 1;
+% ylim([0 1]);
+% set(gca, 'YTick', y);
+% ylabel('Rightward Dicisions%');
+% 
+% hold on;
+% x1 = zeros(size(y));
+% plot(x1,y,'-r');
+% 
+% grid on;
+% hold off;
 %%
 
 %% saving the left prior online plot data.
-plotData.iDir = iDirLeftPriorCombined;
-plotData.dirArray = dirArrayLeftPriorCombined;
-plotData.dirRepNum = dirRepNumLeftPriorCombined;
+plotData.iLeftDir = iDirLeftPriorCombined;
+plotData.dirLeftArray = dirArrayLeftPriorCombined;
+plotData.dirLeftRepNum = dirRepNumLeftPriorCombined;
 plotData.rightChoice = rightChoiceLeftPriorCombined;
 
 plotData.iDirVisual = iDirLeftPriorVisual;
