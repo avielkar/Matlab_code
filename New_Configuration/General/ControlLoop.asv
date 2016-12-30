@@ -92,8 +92,8 @@ if ~paused && flagdata.isStopButton == 0
         start_prior_round = data.configinfo(index).parameters;
         
         if(data.condvect.priors.enabled)  %if priors are enable
-            if(cldata.trialCount <= start_prior_round) %if the priors not starts because the num of real trials with no priors is not done.
-                disp('No priors yet (trials with no priors now).')
+            if(cldata.trialCount < start_prior_round) %if the priors not starts because the num of real tria
+                disp(['priors left ' num2str(priors.left)])
             elseif(priors.left >= 0) %and the num of priors between real is not over.
                 disp(['priors left ' num2str(priors.left)])
             end
