@@ -39,7 +39,7 @@ flagdata = getappdata(basicfig,'flagdata');
 if ~paused && flagdata.isStopButton == 0 
     
     if cldata.initStage
-        %% Taking the data from the global parameteers about the cldata anf the trialinfo and show somrthings in the Matlab command windows.
+        %% Taking the data from the global parameteers about the cldata ,trialinfo , and vars enabled in ome protocols and show somrthings in the Matlab command windows.
         display('Initialization STAGE runnung');
         display('======================');
         display('Press the Start Button');
@@ -81,22 +81,31 @@ if ~paused && flagdata.isStopButton == 0
         if cldata.staircase
             activeStair = data.activeStair;
             activeRule = data.activeRule;
-            disp(['Staircase Value ' num2str(trial(activeStair,activeRule).acrossVal)...
-                ', Trial ' num2str(trial(activeStair,activeRule).cntr)])
-        else   %----End 12/01/08--------
+            %-----avi:for sol DELTA protocol.
+            if(trial(activeStair,activeRule).duplicatedTrial)
+                disp(['Staircase Value(Duplicated one) ' num2str(trial(activeStair,activeRule).acrossVal)...
+                    ', Trial ' num2str(trial(activeStair,activeRule).cntr)])                        
+            else
+            %-----end
+                disp(['Staircase Value ' num2str(trial(activeStair,activeRule).acrossVal)...
+                    ', Trial ' num2str(trial(activeStair,activeRule).cntr)])        
+            end
+        else
+        %----End 12/01/08--------
             disp(['Trial ' num2str(trial.cntr)])
         end
         
         %-----avi:for Adam1_Priors protocol.
         start_prior_round = [];
         if(data.condvect.priors.enabled)  %if priors are enable
-
             index = strmatch('START_PRIOR_ROUND' ,{char(data.configinfo.name)},'exact');
             start_prior_round = data.configinfo(index).parameters;
         end
         
         if(data.condvect.priors.enabled)  %if priors are enable
-            if(cldata.trialCount <= start_prior_round) %if the priors not starts because the num of real trials with no priors is not done.
+            %cldata.trialCount + 1 because cldata.trialCount increases
+            %later.
+            if(trial(activeStair,activeRule).cntr <= start_prior_round) %if the priors not starts because the num of real trials with no priors is not done.
                 disp('No priors yet (trials with no priors now).')
             elseif(priors.left >= 0) %and the num of priors between real is not over.
                 disp(['priors left ' num2str(priors.left)])
@@ -117,7 +126,9 @@ if ~paused && flagdata.isStopButton == 0
         % create trajectory for this trial along to priot trial or real
         % trial
         if(data.condvect.priors.enabled)  %if priors are enable
-            if(cldata.trialCount > start_prior_round) %if we have skipped the num of initial real trials that not with priors trials before.
+            %cldata.trialCount + 1 because cldata.trialCount increases
+            %later.
+            if(trial(activeStair,activeRule).cntr  > start_prior_round) %if we have skipped the num of initial real trials that not with priors trials before.
                 if(priors.left > 0) %and the num of priors between real is not over
                     trajinfo = PriorTrajectoyCreation(appHandle);
                     cldata.prior_now = 1;
@@ -172,29 +183,17 @@ if ~paused && flagdata.isStopButton == 0
         if isempty(i_DUR)
             i_DUR = strmatch('DURATION',{char(data.configinfo.name)},'exact'); %---Jing added for targetshow 11/10/2008
         end
-        %%
         
-        %% -----avi:for Adam1_Prior protocol
-        %replace the new protocols stimulus types to the old originals ones
-        %and save it in order to restore that value after the for loop of
-        %send infor to MoogDots about the current tril info.
-% % % % % % % % % % % % % % % % % % % % % % %         if(~isempty(iSTIMULUS_TYPE))            
-% % % % % % % % % % % % % % % % % % % % % % %             real_stym_type = data.configinfo(iSTIMULUS_TYPE).parameters;
-% % % % % % % % % % % % % % % % % % % % % % %             if(real_stym_type == 6 || real_stym_type == 9)
-% % % % % % % % % % % % % % % % % % % % % % %                 data.configinfo(iSTIMULUS_TYPE).parameters = 1;
-% % % % % % % % % % % % % % % % % % % % % % %             elseif(real_stym_type == 7 || real_stym_type == 10)
-% % % % % % % % % % % % % % % % % % % % % % %                 data.configinfo(iSTIMULUS_TYPE).parameters = 2;
-% % % % % % % % % % % % % % % % % % % % % % %             elseif(real_stym_type == 8 || real_stym_type == 11)
-% % % % % % % % % % % % % % % % % % % % % % %                 data.configinfo(iSTIMULUS_TYPE).parameters = 3;
-% % % % % % % % % % % % % % % % % % % % % % %             end
-% % % % % % % % % % % % % % % % % % % % % % %         end
-        %% -----end
+        i_STAR_MOTION_COHERENCE = strmatch('STAR_MOTION_COHERENCE' ,{char(data.configinfo.name)},'exact');
+        
+        %-----avi:for Sol DELTA protocol - cohernce duplicated stimulus type
+        i_DUPLICATE_STIMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+        %-----end
+        
+        %%
         
         %% send info to MoogDots about the current trial.
         for i = 1:length(data.configinfo)
-            if(i == iSTIMULUS_TYPE)
-                x=1;
-            end
             if data.configinfo(i).active && ~isfield(data.configinfo(i).parameters, 'moog') && i~=iBackground
                 if data.configinfo(i).status == 0 || data.configinfo(i).status == 1
                     if i == iORIGIN
@@ -247,6 +246,12 @@ if ~paused && flagdata.isStopButton == 0
                             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                         end
                         %-----Jing end 09/03/2008-----------------------
+                        
+                    %----avi:for Sol Delta Protocol - check what coherence
+                    %to send (the duplicated or the real)
+                    %elseif (i == i_STAR_MOTION_COHERENCE)   %check if that is the suplicated stimulus or the originals.'=
+                    %----end
+                    
                     else
                         outString = [data.configinfo(i).name ' ' num2str(data.configinfo(i).parameters)];
                         if debug
@@ -293,22 +298,6 @@ if ~paused && flagdata.isStopButton == 0
                         valStr = [valStr ' ' num2str(tmpVal)];
                     end
                     
-                    %% -----avi:for Adam1_Prior protocol
-                    %replace the new protocols stimulus types to the old originals ones
-                    %and save it in order to restore that value after the for loop of
-                    %send infor to MoogDots about the current tril info.
-% % % % % % % % % % % % % % % % % %                     if(i == iSTIMULUS_TYPE)
-% % % % % % % % % % % % % % % % % %                         if(tmpVal == 6 || tmpVal == 9)
-% % % % % % % % % % % % % % % % % %                             tmpVal = 1;
-% % % % % % % % % % % % % % % % % %                         elseif(tmpVal == 7 || tmpVal == 10)
-% % % % % % % % % % % % % % % % % %                             tmpVal = 2;
-% % % % % % % % % % % % % % % % % %                         elseif(tmpVal == 8 || tmpVal == 11)
-% % % % % % % % % % % % % % % % % %                             tmpVal = 3;
-% % % % % % % % % % % % % % % % % %                         end
-% % % % % % % % % % % % % % % % % %                         valStr = num2str(tmpVal);
-% % % % % % % % % % % % % % % % % %                     end
-                    %% -----end
-
                     outString = [data.configinfo(i).name ' ' valStr];
 
                     if debug
@@ -371,17 +360,7 @@ if ~paused && flagdata.isStopButton == 0
             %--------Jing end 11/10/2008
         end
         %%
-        
-        %% -----avi:for Adam1_Prior protocol
-        %replace the new protocols stimulus types to the old originals ones
-        %so now get hem back for the rest of the progem now what was there
-        %really.
-% % % % % % % % % %         if(~isempty(iSTIMULUS_TYPE))%there was no setappdata during the change but if was so take it back to the true value.
-% % % % % % % % % %             data.configinfo(iSTIMULUS_TYPE).parameters = real_stym_type;
-% % % % % % % % % %             setappdata(appHandle , 'protinfo' , data);
-% % % % % % % % % %         end
-        %% -----end
-        
+
         %% Send trajectories about the current trial for MoggDots.
         for i1 = 1:size(trajinfo,2)
             a = sprintf('%2.3f ',trajinfo(i1).data);
