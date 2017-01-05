@@ -82,13 +82,18 @@ if ~paused && flagdata.isStopButton == 0
             activeStair = data.activeStair;
             activeRule = data.activeRule;
             %-----avi:for sol DELTA protocol.
-            if(trial(activeStair,activeRule).duplicatedTrial)
-                disp(['Staircase Value(Duplicated one) ' num2str(trial(activeStair,activeRule).acrossVal)...
-                    ', Trial ' num2str(trial(activeStair,activeRule).cntr)])                        
-            else
+            printed = 0;
+            if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                if(trial(activeStair,activeRule).duplicatedTrial)
+                    disp(['Staircase Value(Duplicated one) ' num2str(trial(activeStair,activeRule).acrossVal)...
+                        ', Trial ' num2str(trial(activeStair,activeRule).cntr)])                        
+                    printed = 1;
+                end
+            end
             %-----end
+            if(~printed)
                 disp(['Staircase Value ' num2str(trial(activeStair,activeRule).acrossVal)...
-                    ', Trial ' num2str(trial(activeStair,activeRule).cntr)])        
+                    ', Trial ' num2str(trial(activeStair,activeRule).cntr)])   
             end
         else
         %----End 12/01/08--------
@@ -192,6 +197,9 @@ if ~paused && flagdata.isStopButton == 0
         
         %%
         
+        %indcates if the current protocol is that DELTA protocol.
+        is_delta_protocol = ~isempty(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'));
+        
         %% send info to MoogDots about the current trial.
         for i = 1:length(data.configinfo)
             if data.configinfo(i).active && ~isfield(data.configinfo(i).parameters, 'moog') && i~=iBackground
@@ -249,7 +257,18 @@ if ~paused && flagdata.isStopButton == 0
                         
                     %----avi:for Sol Delta Protocol - check what coherence
                     %to send (the duplicated or the real)
-                    %elseif (i == i_STAR_MOTION_COHERENCE)   %check if that is the suplicated stimulus or the originals.'=
+                    %check if that is the duplicated stimulus or the
+                    %originals and if sol DELTA protocol.
+                    elseif (i == i_STAR_MOTION_COHERENCE && is_delta_protocol == 1)
+                        if(trial(activeStair,activeRule).duplicatedTrial)   %send the duplicated coherence value.
+                            outString = ['STAR_MOTION_COHERENCE' ' ' num2str(cldata.starDuplicatedMotionCoherence)];
+                        else    %send the originals coherence value.
+                            outString = ['STAR_MOTION_COHERENCE' ' ' num2str(data.configinfo(i).parameters)];
+                        end
+                        
+                        if connected
+                            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                        end
                     %----end
                     
                     else

@@ -93,6 +93,15 @@ if(stymulus_type_index ~= -1 && delta_index ~= -1)
         inverse_delta = 0;
         SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(delta_index).value = inverse_delta;
     end
+    
+    %change the coherence savd value according to the trial(duplicated or
+    %not)
+    if(trial(activeStair,activeRule).duplicatedTrial)
+        i_STAR_MOTION_COHERENCE = strmatch('STAR_MOTION_COHERENCE' ,{char(data.configinfo.name)},'exact');
+        val = cldata.starDuplicatedMotionCoherence;
+        SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(i_STAR_MOTION_COHERENCE).value = val;
+    end
+    
 end
 %avi - end for sol protocol
 

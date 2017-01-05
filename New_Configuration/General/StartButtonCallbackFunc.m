@@ -159,7 +159,8 @@ randMethod = data.configinfo(i).parameters(1);
 i = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
 if(~isempty(i))
     cldata.duplicatedStimulusType = data.configinfo(i).parameters;
-    cldata.starMotionCoherence = 75;
+    i_DUPLICATED_STYYMULUS_TYPE_COHERENCE = strmatch('DUPLICATED_STYYMULUS_TYPE_COHERENCE' ,{char(data.configinfo.name)},'exact');
+    cldata.starDuplicatedMotionCoherence = data.configinfo(i_DUPLICATED_STYYMULUS_TYPE_COHERENCE).parameters;
 else
     cldata.duplicatedStimulusType = 0;
 end
@@ -331,6 +332,12 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                         trial(i,j).start = 1;
                         trial(i,j).stop = 0;  % Here 0 means it is not stopped.
                         trial(i,j).acrossVal = across.parameters(i);
+                        %----avi:for sol DELTA protocol (for duplicated
+                        %flag)
+                        if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))    %if sol DELTA protocol.
+                            trial(i,j).duplicatedTrial = across.isParametersDuplicated(i);
+                        end
+                        %----end
                     end
                 end
             end
@@ -362,25 +369,9 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                     %-----avi:for Adam1_Prior protocol
                     trial(i,j).priorCntr = 1;
                     %-----
-                    %-----avi:for sol DELTA potocol
-                    trial(i,j).duplicatedTrial = 0;
-                    %-----
                     data.stillActive(i,j) = 1;
                 end
             end
-            
-            %-----avi:for Sol DELTA Protocol if needed to add a duplicated
-            %stimulus type.
-            duplicatedTrial = find(across.parameters == cldata.duplicatedStimulusType);
-            if(~isempty(duplicatedTrial))
-                trial(acrossLength + 1 , 1) = trial(duplicatedTrial);
-                trial(acrossLength + 1 , 1).duplicatedTrial = 1;
-                
-                data.condvect.acrossStair.parameters(acrossLength + 1).name = 'Stimulus Type';
-                data.condvect.acrossStair.parameters(acrossLength + 1) = cldata.duplicatedStimulusType;
-                data.stillActive(acrossLength + 1 , 1) = 1;
-            end
-            %-----end
 
 %             for i=1:length(trial)
 %                 trial(i).num = str2num(get(findobj(basicfig,'Tag','NumTrialsText'),'String'));

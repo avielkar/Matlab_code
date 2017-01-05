@@ -36,6 +36,35 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
             else
                 data.condvect.acrossStair(cntrA).parameters = tempVect.vect;
             end
+              
+            %% ------avi:for Adam1_Delta (sol) protocol - check if the duplicated value is enbled and if Sol Protocol.
+            if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                    if(strmatch(data.configinfo(i).name, 'STIMULUS_TYPE'))
+                        i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                        duplicatedSimulusType = data.configinfo(i_DUPLICATED_STYMULUS_TYPE).parameters;
+                        
+                        acrossStairSize = size(data.condvect.acrossStair.parameters , 2);
+                        %make all the original data flagged as not
+                        %duplicated.
+                        data.condvect.acrossStair.isParametersDuplicated = zeros(acrossStairSize , 1)';
+                        
+                        if(duplicatedSimulusType)  %'0' value means not enable duplicated type with coherence.
+                            index = find(data.condvect.acrossStair(cntrA).parameters == duplicatedSimulusType , 1);
+                            if(~isempty(index))
+                                addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
+                                duplicatedIndex = acrossStairSize + 1;
+                                data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
+                                data.condvect.acrossStair.isParametersDuplicated(duplicatedIndex) =  1;
+                            else
+                                title = 'Warning Message';
+                                message = 'The duplicated stimulus type is not in the current list';
+                                msgbox(message,title,'warn');
+                            end
+                        end
+                    end
+            end
+            %% ------
+            
             cntrA = cntrA+1;
         end        
         
@@ -112,6 +141,33 @@ else %whenever something in BasicInterfce is changed.
                     data.condvect.acrossStair(iAcross).parameters.openGL = tempVect.vectGL;
                 else
                     data.condvect.acrossStair(iAcross).parameters = tempVect.vect;
+                    %% ------avi:for Adam1_Delta (sol) protocol - check if the duplicated value is enbled and if Sol Protocol.
+                    if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                            if(strmatch(data.configinfo(iVar).name, 'STIMULUS_TYPE'))
+                                i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                                duplicatedSimulusType = data.configinfo(i_DUPLICATED_STYMULUS_TYPE).parameters;
+                                
+                                acrossStairSize = size(data.condvect.acrossStair.parameters , 2);
+                                %make all the original data flagged as not
+                                %duplicated.
+                                data.condvect.acrossStair.isParametersDuplicated = zeros(acrossStairSize , 1)';
+                                
+                                if(duplicatedSimulusType)  %'0' value means not enable duplicated type with coherence.
+                                    index = find(data.condvect.acrossStair(cntrA).parameters == duplicatedSimulusType , 1);
+                                    if(~isempty(index))
+                                        addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
+                                        duplicatedIndex = acrossStairSize + 1;
+                                        data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
+                                        data.condvect.acrossStair.isParametersDuplicated(duplicatedIndex) = 1;
+                                    else
+                                        title = 'Warning Message';
+                                        message = 'The duplicated stimulus type is not in the current list';
+                                        msgbox(message,title,'warn');
+                                    end
+                                end
+                            end
+                    end
+                    %% ------
                 end
             else % changed from AcrossStair to Others.
                 data.condvect.acrossStair(iAcross).parameters = []; % remove vect from AcrossStair conditions list
@@ -155,6 +211,33 @@ else %whenever something in BasicInterfce is changed.
                     data.condvect.acrossStair(i).parameters.openGL =tempVect. vectGL;
                 else
                     data.condvect.acrossStair(i).parameters = tempVect.vect;
+                    %% ------avi:for Adam1_Delta (sol) protocol - check if the duplicated value is enbled and if Sol Protocol.
+                    if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                            if(strmatch(data.configinfo(i).name, 'STIMULUS_TYPE'))
+                                i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                                duplicatedSimulusType = data.configinfo(i_DUPLICATED_STYMULUS_TYPE).parameters;
+
+                                acrossStairSize = size(data.condvect.acrossStair.parameters , 2);
+                                %make all the original data flagged as not
+                                %duplicated.
+                                data.condvect.acrossStair.isParametersDuplicated = zeros(acrossStairSize , 1)';
+
+                                if(duplicatedSimulusType)  %'0' value means not enable duplicated type with coherence.
+                                    index = find(data.condvect.acrossStair(cntrA).parameters == duplicatedSimulusType , 1);
+                                    if(~isempty(index))
+                                        addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
+                                        duplicatedIndex = acrossStairSize + 1;
+                                        data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
+                                        data.condvect.acrossStair.isParametersDuplicated(duplicatedIndex) = 1;
+                                    else
+                                        title = 'Warning Message';
+                                        message = 'The duplicated stimulus type is not in the current list';
+                                        msgbox(message,title,'warn');
+                                    end
+                                end
+                            end
+                    end
+                    %% ------
                 end
                 data.condvect.acrossStair(i).name = nicename;
             end

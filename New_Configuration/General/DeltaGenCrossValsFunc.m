@@ -1,6 +1,6 @@
 % Function to create condition list, based on varying variables in config
 % file.%=======Jing modify for combining multi-staiecase 12/01/08=========%
-function DeltaGenCrossValsFunc(hObject, eventdata, handles, tag, fig)
+function GenCrossValsFunc(hObject, eventdata, handles, tag, fig)
 % configfile is struct of variable data, r =1 => return cond list in
 % random form, r=0 => return list in ordered form
 
@@ -36,16 +36,21 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
             else
                 data.condvect.acrossStair(cntrA).parameters = tempVect.vect;
             end
-                    
-            if()
-                if(strmatch(data.configinfo(i).name, 'STIMULUS_TYPE'))
-                    i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
-                    index = find(data.configinfo(i).parameters == i_DUPLICATED_STYMULUS_TYPE , 1);
-                    addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
-                    duplicatedIndex = size(data.condvect.acrossStair.parameters , 2) + 1;
-                    data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
-                end
+              
+            %% ------avi:for Adam1_Delta (sol) protocol - check if the duplicated value is enbled and if Sol Protocol.
+            if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                    if(strmatch(data.configinfo(i).name, 'STIMULUS_TYPE'))
+                        i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                        duplicatedSimulusType = data.configinfo(i_DUPLICATED_STYMULUS_TYPE).parameters;
+                        if(duplicatedSimulusType)  %'0' value means not enable duplicated type with coherence.
+                            index = find(data.condvect.acrossStair(cntrA).parameters == duplicatedSimulusType , 1);
+                            addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
+                            duplicatedIndex = size(data.condvect.acrossStair.parameters , 2) + 1;
+                            data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
+                        end
+                    end
             end
+            %% ------
             
             cntrA = cntrA+1;
         end        
@@ -123,6 +128,20 @@ else %whenever something in BasicInterfce is changed.
                     data.condvect.acrossStair(iAcross).parameters.openGL = tempVect.vectGL;
                 else
                     data.condvect.acrossStair(iAcross).parameters = tempVect.vect;
+                    %% ------avi:for Adam1_Delta (sol) protocol - check if the duplicated value is enbled and if Sol Protocol.
+                    if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                            if(strmatch(data.configinfo(i).name, 'STIMULUS_TYPE'))
+                                i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                                duplicatedSimulusType = data.configinfo(i_DUPLICATED_STYMULUS_TYPE).parameters;
+                                if(duplicatedSimulusType)  %'0' value means not enable duplicated type with coherence.
+                                    index = find(data.condvect.acrossStair(cntrA).parameters == duplicatedSimulusType , 1);
+                                    addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
+                                    duplicatedIndex = size(data.condvect.acrossStair.parameters , 2) + 1;
+                                    data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
+                                end
+                            end
+                    end
+                    %% ------
                 end
             else % changed from AcrossStair to Others.
                 data.condvect.acrossStair(iAcross).parameters = []; % remove vect from AcrossStair conditions list
@@ -166,6 +185,20 @@ else %whenever something in BasicInterfce is changed.
                     data.condvect.acrossStair(i).parameters.openGL =tempVect. vectGL;
                 else
                     data.condvect.acrossStair(i).parameters = tempVect.vect;
+                    %% ------avi:for Adam1_Delta (sol) protocol - check if the duplicated value is enbled and if Sol Protocol.
+                    if(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'))
+                            if(strmatch(data.configinfo(i).name, 'STIMULUS_TYPE'))
+                                i_DUPLICATED_STYMULUS_TYPE = strmatch('DUPLICATE_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                                duplicatedSimulusType = data.configinfo(i_DUPLICATED_STYMULUS_TYPE).parameters;
+                                if(duplicatedSimulusType)  %'0' value means not enable duplicated type with coherence.
+                                    index = find(data.condvect.acrossStair(cntrA).parameters == duplicatedSimulusType , 1);
+                                    addedVectorValue = data.condvect.acrossStair(cntrA).parameters(index);
+                                    duplicatedIndex = size(data.condvect.acrossStair.parameters , 2) + 1;
+                                    data.condvect.acrossStair(cntrA).parameters(duplicatedIndex) = addedVectorValue;
+                                end
+                            end
+                    end
+                    %% ------
                 end
                 data.condvect.acrossStair(i).name = nicename;
             end
