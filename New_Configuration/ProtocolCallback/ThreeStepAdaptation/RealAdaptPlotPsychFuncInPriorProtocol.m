@@ -250,10 +250,10 @@ set(gcf,'Name','Online Analysis','NumberTitle','off');
 
 %% Plot for left priors.
 if iDirLeftPriorVes>0
-    subplot(3,3,1)
+    subplot(2,3,1)
         
     %%
-    title('Online Psychometric Function');
+    title('vestibular only with left prior');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -279,10 +279,10 @@ if iDirLeftPriorVes>0
 end
 
 if iDirLeftPriorVisual>0
-    subplot(3,3,2)
+    subplot(2,3,2)
         
     %%
-    title('Online Psychometric Function');
+    title('visual only with left prior');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -308,10 +308,10 @@ if iDirLeftPriorVisual>0
 end
 
 if iDirLeftPriorCombined>0
-    subplot(3,3,3)
+    subplot(2,3,3)
         
     %%
-    title('Online Psychometric Function');
+    title('visual only with left prior');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -339,10 +339,10 @@ end
 
 %% Plot for right priors.
 if iDirRightPriorVes>0
-    subplot(3,3,4)
+    subplot(2,3,4)
 
     %%
-    title('Online Psychometric Function');
+    title('vestibular only with right prior');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -368,10 +368,10 @@ if iDirRightPriorVes>0
 end
 
 if iDirRightPriorVisual>0
-    subplot(3,3,5)
+    subplot(2,3,5)
     
     %%
-    title('Online Psychometric Function');
+    title('visual only with rigth prior');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -397,10 +397,10 @@ if iDirRightPriorVisual>0
 end
 
 if iDirRightPriorCombined>0
-    subplot(3,3,6)
+    subplot(2,3,6)
     
     %%
-    title('Online Psychometric Function');
+    title('combine with right prior');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);

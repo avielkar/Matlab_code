@@ -201,15 +201,20 @@ psychPlot.rightChoiceVisual = [];
 %---------avi: for Adam1_Prior protocol and sol Adam1_Delta protocol.
 
 %% -----Adam1_Delta protocol psych plot
-psychPlot.iDirVesLeftDelta = 0;
-psychPlot.dirArrayVesLeftDelta = [];
-psychPlot.dirRepNumVesLeftDelta = [];
-psychPlot.rightChoiceVesLeftDelta = [];
+psychPlot.iDirLeftDelta = 0;
+psychPlot.dirArrayLeftDelta = [];
+psychPlot.dirRepNumLeftDelta = [];
+psychPlot.rightChoiceLeftDelta = [];
 
-psychPlot.iDirVesRightDelta = 0;
-psychPlot.dirArrayVesRightDelta = [];
-psychPlot.dirRepNumVesRightDelta = [];
-psychPlot.rightChoiceVesRightDelta = [];
+psychPlot.iDirRightDelta = 0;
+psychPlot.dirArrayRightDelta = [];
+psychPlot.dirRepNumRightDelta = [];
+psychPlot.rightChoiceRightDelta = [];
+
+psychPlot.iDirDuplicated = 0;
+psychPlot.dirArrayDuplicated = [];
+psychPlot.dirRepNumDuplicated = [];
+psychPlot.rightChoiceDuplicated = [];
 %% -----end
 
 %% -----Adam1_Priors protocol for left priors
