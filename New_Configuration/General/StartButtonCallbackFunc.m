@@ -425,6 +425,12 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         %%-----end
         
     else %constant stimuli
+        %%-----avi:for Adam1_Prior protocol
+        i = strmatch('NUM_OF_PRIORS',{char(data.configinfo.name)},'exact');
+            data.condvect.priors.enabled = 0;
+        end
+        %%-----end
+        
         trial.cntr = 1; % reset values each rep
         trial.list = 1; % reset values each rep
         trial.start = 1;
