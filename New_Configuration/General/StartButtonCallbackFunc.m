@@ -427,6 +427,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
     else %constant stimuli
         %%-----avi:for Adam1_Prior protocol
         i = strmatch('NUM_OF_PRIORS',{char(data.configinfo.name)},'exact');
+        if(isempty(i))
             data.condvect.priors.enabled = 0;
         end
         %%-----end
