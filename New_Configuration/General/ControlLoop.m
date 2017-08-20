@@ -180,6 +180,7 @@ if ~paused && flagdata.isStopButton == 0
         iPRE_TRIAL_TIME = strmatch('PRE_TRIAL_TIME',{char(data.configinfo.name)},'exact');
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
+        iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
         iTARG_YCTR = strmatch('TARG_YCTR',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -277,6 +278,18 @@ if ~paused && flagdata.isStopButton == 0
                         end
                     %----end
                     
+                    elseif(i == iFP_ON)
+                        outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];
+                        
+                        if(data.condvect.priors.enabled)  %if priors are enable
+                            if(cldata.prior_now)
+                                outString = ['FP_ON' ' ' num2str(0)];
+                            end
+                        end
+                        
+                        if connected
+                            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                        end
                     else
                         outString = [data.configinfo(i).name ' ' num2str(data.configinfo(i).parameters)];
                         if debug
