@@ -539,7 +539,7 @@ global basicfig connected
 global bxbport
 flagdata = getappdata(basicfig,'flagdata');
 CLoop = getappdata(basicfig,'Timer');
-stop(CLoop)
+%stop(CLoop)
 
 flagdata.isTrialStop = 1;
 flagdata.isTrialStart = 0;
