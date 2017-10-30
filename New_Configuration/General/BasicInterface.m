@@ -539,7 +539,9 @@ global basicfig connected
 global bxbport
 flagdata = getappdata(basicfig,'flagdata');
 CLoop = getappdata(basicfig,'Timer');
-%stop(CLoop)
+%there was stop control loop here, but this is a BUG (causes the moog to
+%stay in far position at the end of the trial and then jump back when
+%started again - so not to add again.
 
 flagdata.isTrialStop = 1;
 flagdata.isTrialStart = 0;
