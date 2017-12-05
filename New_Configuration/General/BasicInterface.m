@@ -499,6 +499,7 @@ global basicfig
                 'StopBits', 1, 'FlowControl', 'none', 'Parity', 'none');
         end
         %if the port is closed but defined, so open it.
+        %if(strcmp(bxbport.Status , 'closed') == true)
         if(bxbport.Status == 'closed')
             fopen(bxbport);
             fprintf(bxbport,['c10', char(13)]); %XID mode
@@ -542,6 +543,7 @@ CLoop = getappdata(basicfig,'Timer');
 %there was stop control loop here, but this is a BUG (causes the moog to
 %stay in far position at the end of the trial and then jump back when
 %started again - so not to add again.
+%stop(CLoop)
 
 flagdata.isTrialStop = 1;
 flagdata.isTrialStart = 0;
@@ -1182,7 +1184,8 @@ function updateconfigBasic(hObject, eventdata, handles)
 global basicfig
 
 flagdata = getappdata(basicfig,'flagdata');
-paused = get(findobj(basicfig,'Tag','PauseButton'),'Value');
+%paused = get(findobj(basicfig,'Tag','PauseButton'),'Value');
+paused = false;
 
 if  ~paused && flagdata.isTrialStart
     message =[ 'You should pause the experiment first, ' sprintf('\n') 'and then change parameters'];

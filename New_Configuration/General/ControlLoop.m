@@ -34,7 +34,7 @@ if(data.condvect.priors.enabled)
 end
 %% ------end
 
-paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
+paused = false;
 flagdata = getappdata(basicfig,'flagdata');
 if ~paused && flagdata.isStopButton == 0 
     
@@ -199,6 +199,12 @@ if ~paused && flagdata.isStopButton == 0
         
         %indcates if the current protocol is that DELTA protocol.
         is_delta_protocol = ~isempty(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'));
+        
+                        
+        %send the trial number
+        
+        outString = ['Trial' ' ' num2str(trial.cntr)];
+        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
         
         %% send info to MoogDots about the current trial.
         for i = 1:length(data.configinfo)
@@ -781,7 +787,8 @@ timeOffset=0;%---Jing added for delay time offset 02/06/07---
 % if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')  %----Jian 09/20/2012
 %      timeOffset=1;
 % end
-paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
+%paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
+paused = false;
 if ~paused
     cldata = getappdata(appHandle, 'ControlLoopData');
     
@@ -1119,7 +1126,8 @@ if(data.condvect.priors.enabled)
     priors = data.condvect.priors;
 end
 
-paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
+%paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
+paused = false;
 if ~paused
 
     cldata = getappdata(appHandle, 'ControlLoopData');
