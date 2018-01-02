@@ -28,7 +28,7 @@ global print_var
 
 % Edit the above text to modify the response to help BasicInterface
 
-% Last Modified by GUIDE v2.5 25-Aug-2016 20:52:59
+% Last Modified by GUIDE v2.5 02-Jan-2018 22:04:16
 
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
@@ -518,9 +518,9 @@ CLoop = timer('TimerFcn',clfunc,'Period',period,'Tag','CLoop','ExecutionMode','f
 setappdata(basicfig,'Timer',CLoop);
 eval([sbCallback '(hObject, eventdata, handles);']);
 
-% --- Executes on button press in StopButton.
+% --- Executes on radiobutton press in enable response during movement option.
 function Response_during_movement_RB_CallBack(hObject, eventdata, handles)
-% hObject    handle to StartButton (see GCBO)
+% hObject    handle to RadioBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global basicfig
@@ -528,6 +528,18 @@ global basicfig
 is_pressed = get(findobj(basicfig,'Tag','DuringMoveRB'),'Value');
 flagdata = getappdata(basicfig,'flagdata');
 flagdata.canResponseDuringMovement = is_pressed;
+setappdata(basicfig,'flagdata',flagdata);
+
+% --- Executes on checkbox press to enable confidence choice.
+function EnableConfidenceCheckBox_Callback(hObject, eventdata, handles)
+% hObject    handle to checkBox. (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global basicfig
+
+is_enabled = get(findobj(basicfig,'Tag','EnableConfidenceChoice'),'Value');
+flagdata = getappdata(basicfig,'flagdata');
+flagdata.enableConfidenceChoice = is_enabled;
 setappdata(basicfig,'flagdata',flagdata);
 
 % --- Executes on button press in StopButton.
@@ -1485,14 +1497,3 @@ global basicfig
 
 EyeCalibration;
 set(basicfig,'Visible','off');
-
-
-
-
-% --- Executes on button press in radiobutton3.
-function radiobutton3_Callback(hObject, eventdata, handles)
-% hObject    handle to radiobutton3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of radiobutton3

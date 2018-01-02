@@ -17,6 +17,7 @@ portNum = 1; % Dig Port #
 direction = 1;
 response = cldata.resp; % ---Jing and added 01/29/07---
 confidenceResponse = 0;
+flagdata = getappdata(appHandle,'flagdata');
 
 if connected && ~debug
     % Configure Port
@@ -56,8 +57,8 @@ if connected && ~debug
             end
         end
         
-        %if a answer was made.
-        if(response ~= 0)
+        %if a answer was made and the option for confidence answer is on.
+        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
             tic
             while(toc <=  cldata.respTime)
                 if(bxbport.BytesAvailable() >= 6)
