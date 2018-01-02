@@ -65,7 +65,7 @@ if connected && ~debug
                     press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
                     if press
                           confidenceResponse = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(confidenceResponse == 1) %up buttom
+                          if(confidenceResponse == 4) %up buttom
                               confidenceResponse = 3;
                           elseif(confidenceResponse == 6)  %down buttom
                               confidenceResponse = 4;
@@ -128,7 +128,7 @@ fprintf('THE RESPONSE IS %d\n' , response);
 activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
 activeRule = data.activeRule;
 savedInfo(activeStair,activeRule).Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = response;
-savedInfo(activeStair,activeRule).Resp(data.repNum).confidence(trial(activeStair,activeRule).cntr) = confidenceResponse;
+savedInfo(activeStair,activeRule).Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = confidenceResponse;
 setappdata(appHandle,'SavedInfo',savedInfo);
 
 if debug

@@ -202,7 +202,6 @@ if ~paused && flagdata.isStopButton == 0
         
                         
         %send the trial number
-        
         outString = ['Trial' ' ' num2str(trial.cntr)];
         cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
         
