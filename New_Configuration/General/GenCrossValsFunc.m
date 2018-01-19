@@ -369,6 +369,8 @@ end
 function V = genCondvect(ind,tagstr)
 global basicfig
 
+hasStim0 = false;
+
 data = getappdata(basicfig,'protinfo');
 if isfield(data.configinfo(ind).parameters,'moog') % moog/OpenGL
     siz = size(data.configinfo(ind).parameters.moog,2);
@@ -386,6 +388,14 @@ for i = 1:siz
         incrGL = data.configinfo(ind).increment.openGL(i);
         multGL = data.configinfo(ind).multiplier.openGL(i);
         highGL = data.configinfo(ind).high_bound.openGL(i);
+        %remove stim0 from before making the combination and add it at the
+        %end. Also , mark the flag hasStim0 true.        
+        if(strmatch(data.configinfo(ind).name, 'STIMULUS_TYPE', 'exact'))
+           if(low == 0)
+               low = low + 1;
+               hasStim0 = true;
+           end
+        end
     else
         low = data.configinfo(ind).low_bound(i);
         incr = data.configinfo(ind).increment(i);
@@ -395,6 +405,14 @@ for i = 1:siz
         incrGL = data.configinfo(ind).increment(i);
         multGL = data.configinfo(ind).multiplier(i);
         highGL = data.configinfo(ind).high_bound(i);
+        %remove stim0 from before making the combination and add it at the
+        %end. Also , mark the flag hasStim0 true.
+        if(strmatch(data.configinfo(ind).name, 'STIMULUS_TYPE', 'exact'))
+           if(lowGL == 0)
+               lowGL = lowGL + 1;
+               hasStim0 = true;
+           end
+        end
     end
 
     if data.configinfo(ind).vectgen == 0 % linear vector generation
