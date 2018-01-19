@@ -272,6 +272,11 @@ iRep = 1;
 flagdata.isStopButton = 0; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);%Jing 01/05/09---
 
+%reset trialNumber status
+data = getappdata(basicfig,'protinfo');
+data.trialNumber = 1;
+setappdata(basicfig,'protinfo' , data);
+
 % Loop that runs as long as the experiment goes on (trials + no stop button)
 while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 01/05/09---  
     flagdata = getappdata(basicfig,'flagdata');
@@ -480,6 +485,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         flagdata = getappdata(basicfig,'flagdata');
         data = getappdata(basicfig,'protinfo'); %----Jing added 03/27/07----       
         trial = getappdata(basicfig,'trialInfo');
+
         activeStair = data.activeStair;
         activeRule = data.activeRule;
         
@@ -528,6 +534,13 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
             trial = getappdata(basicfig,'trialInfo');
             flagdata = getappdata(basicfig,'flagdata');
         end
+        
+                
+        %the total trials number and not as .cntr that counts for each of
+        %staircase seperately.
+        data.trialNumber  = data.trialNumber + 1;
+        setappdata(basicfig,'protinfo' , data);
+        
     end
     flagdata.isTrialStop = 0;
     setappdata(basicfig,'flagdata',flagdata);

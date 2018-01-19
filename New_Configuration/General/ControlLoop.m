@@ -202,7 +202,7 @@ if ~paused && flagdata.isStopButton == 0
         
                         
         %send the trial number
-        outString = ['Trial' ' ' num2str(trial.cntr)];
+        outString = ['Trial' ' ' num2str(data.trialNumber)]; 
         cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
         
         %% send info to MoogDots about the current trial.
