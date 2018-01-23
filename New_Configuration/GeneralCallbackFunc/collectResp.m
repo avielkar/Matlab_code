@@ -4,6 +4,15 @@ global connected debug in
 global bxbport
 global print_var
 
+% Received legit answer sound
+a = [ones(1,200); zeros(1,200)];
+a_legit = a(:)';
+% Time Out Sound
+a = [ones(10,25); zeros(10,25)];
+a_timeout = a(:)';
+
+        
+
 if debug
     disp('Entering collectResp')
 end
@@ -41,21 +50,41 @@ if connected && ~debug
                 %uint32(fread(bxbport,6));
                 press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
                 if press
-                      response = bitshift (r(2), -5);    %leftmost 3 bits
-                      if(response == 3) %left buttom
-                          response = 1;
-                      elseif(response == 5)  %right buttom
-                          response = 2;
-                      else
-                          response = 0; 
-                      end
+                    responseBox = bitshift (r(2), -5);    %leftmost 3 bits
+                    if(responseBox == 3) %left buttom
+                        response = 1;
+                        display('Choice = Left');
+                        break;
+                    elseif(responseBox == 5)  %right buttom
+                        response = 2;
+                        display('Choice = Right');
+                        break;
+                    else
+                        response = 0;
+                    end
                 end
             end
-            if(response ~= 0)
-                display('YESSSSSSSSSSSSSSSSSSSSS');
-                break;
-            end
         end
+        
+        if(response == 0)   %no choice or pressed an illegal button
+            display('R/L Choice timeout');
+        end
+        
+        %%
+        if response == 1 || response == 2 
+        % Received legit answer sound
+        %         a = [ones(1,200); zeros(1,200)];
+        %         a = a(:)';
+        %         soundsc(a,2000);
+        soundsc(a_legit,2000);
+        else
+            % Time Out Sound
+            %             a = [ones(10,25); zeros(10,25)];
+            %             a = a(:)';
+            %             soundsc(a,2000);
+            soundsc(a_timeout,2000);
+        end
+        %%
         
         %if a answer was made and the option for confidence answer is on.
         if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
@@ -65,16 +94,24 @@ if connected && ~debug
                     r = uint32(fread(bxbport,6));
                     press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
                     if press
-                          confidenceResponse = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(confidenceResponse == 1) %up buttom
+                          confidenceResponseBox = bitshift (r(2), -5);    %leftmost 3 bits
+                          if(confidenceResponseBox == 1) %up buttom
                               confidenceResponse = 3;
-                          elseif(confidenceResponse == 6)  %down buttom
+                              display('Confidence choice  =  High');
+                              break;
+                          elseif(confidenceResponseBox == 6)  %down buttom
                               confidenceResponse = 4;
+                              display('Confidence choice = Low');
+                              break;
                           else
                               confidenceResponse = 0; 
                           end
                     end
                 end
+            end
+            
+            if(confidenceResponse == 0) %no choice or pressed an illegal button
+                display('Confidence Choice Timeout');
             end
         end
         
@@ -92,7 +129,7 @@ if connected && ~debug
     if(print_var)
         fprintf('The result at the end is hell of is %d \n',response);
     end
-elseif (connected && debug) || (~connected && debug)           
+elseif (connected && debug) || (~connected && debug)
     disp('Press Left/Right Button in Debug Window for response');
     tic
     while  (toc <= cldata.respTime) && (strcmp(in,'')==1)
@@ -111,17 +148,18 @@ elseif (connected && debug) || (~connected && debug)
     in = '';  
 end
 % Feedback for 'Received Answer' case ++++++++++
-if response == 1 || response == 2 
+if confidenceResponse == 3 || confidenceResponse == 4 
     % Received legit answer sound
-    a = [ones(1,200); zeros(1,200)];
-    a = a(:)';
-    soundsc(a,2000);
-elseif response == 4 
+    %     a = [ones(1,200); zeros(1,200)];
+    %     a = a(:)';
+    %     soundsc(a,2000);
+    soundsc(a_legit,2000);
 else
     % Time Out Sound
-    a = [ones(10,25); zeros(10,25)];
-    a = a(:)';
-    soundsc(a,2000);
+    %     a = [ones(10,25); zeros(10,25)];
+    %     a = a(:)';
+    %     soundsc(a,2000);
+    soundsc(a_timeout,2000);
 end
 %++++++++++++++++++++++++++++++++++
 fprintf('THE RESPONSE IS %d\n' , response);

@@ -297,6 +297,13 @@ if ~isempty(data.condvect.varying)
         yGL(:,i) = tGL;
     end
     
+    %%add stim0 if needed
+    %if(data.hasStim0 == true)
+     %   s = size(yM);
+      %  yM = [yM , ([1 zeros(1 , s(2)-1)])'];
+    %end
+    
+    
     %=== additional combination for Ardira's protocol. Jian 09/09/2012=========
      if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')        
         i1=strmatch('Azimuth',{char(data.condvect.varying.name)},'exact');
@@ -393,7 +400,8 @@ for i = 1:siz
         if(strmatch(data.configinfo(ind).name, 'STIMULUS_TYPE', 'exact'))
            if(low == 0)
                low = low + 1;
-               hasStim0 = true;
+               lowGL = lowGL + 1;
+               data.hasStim0 = true;
            end
         end
     else
@@ -410,10 +418,13 @@ for i = 1:siz
         if(strmatch(data.configinfo(ind).name, 'STIMULUS_TYPE', 'exact'))
            if(lowGL == 0)
                lowGL = lowGL + 1;
-               hasStim0 = true;
+               low = low + 1;
+               data.hasStim0 = true;
            end
         end
     end
+    
+    setappdata(basicfig , 'protinfo' , data);
 
     if data.configinfo(ind).vectgen == 0 % linear vector generation
         if ~isempty(strmatch(data.configinfo(ind).name, 'DISC_AMPLITUDES', 'exact')) ||...
