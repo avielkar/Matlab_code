@@ -148,18 +148,20 @@ elseif (connected && debug) || (~connected && debug)
     in = '';  
 end
 % Feedback for 'Received Answer' case ++++++++++
-if confidenceResponse == 3 || confidenceResponse == 4 
-    % Received legit answer sound
-    %     a = [ones(1,200); zeros(1,200)];
-    %     a = a(:)';
-    %     soundsc(a,2000);
-    soundsc(a_legit,2000);
-else
-    % Time Out Sound
-    %     a = [ones(10,25); zeros(10,25)];
-    %     a = a(:)';
-    %     soundsc(a,2000);
-    soundsc(a_timeout,2000);
+if(flagdata.enableConfidenceChoice)
+    if confidenceResponse == 3 || confidenceResponse == 4 
+        % Received legit answer sound
+        %     a = [ones(1,200); zeros(1,200)];
+        %     a = a(:)';
+        %     soundsc(a,2000);
+        soundsc(a_legit,2000);
+    else
+        % Time Out Sound
+        %     a = [ones(10,25); zeros(10,25)];
+        %     a = a(:)';
+        %     soundsc(a,2000);
+        soundsc(a_timeout,2000);
+    end
 end
 %++++++++++++++++++++++++++++++++++
 fprintf('THE RESPONSE IS %d\n' , response);

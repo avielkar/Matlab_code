@@ -81,6 +81,7 @@ flagdata.isTrialStart = 0;
 flagdata.isTrialStop = 0;
 flagdata.isSubControl = 0;
 flagdata.canResponseDuringMovement = 0;
+flagdata.enableConfidenceChoice = 0;
 setappdata(basicfig,'flagdata',flagdata);
 
 % Global flags
