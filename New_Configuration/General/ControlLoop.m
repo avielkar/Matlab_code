@@ -201,8 +201,9 @@ if ~paused && flagdata.isStopButton == 0
         is_delta_protocol = ~isempty(strmatch(data.configfile , '1Adam_Delta.mat' ,'exact'));
         
                         
-        %send the trial number
-        outString = ['Trial' ' ' num2str(data.trialNumber)]; 
+        %send the trial number + 1 because it is updated after the post
+        %trial stage only.
+        outString = ['Trial' ' ' num2str(cldata.trialCount + 1)]; 
         cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
         
         %% send info to MoogDots about the current trial.
