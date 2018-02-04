@@ -551,7 +551,7 @@ defaultanswer={''};
 options.WindowStyle='normal';
 options.Resize='on';
 prompt = '';
-Comment = inputdlg(prompt, dlg_title,numlines,defaultanswer, options);
+%Comment = inputdlg(prompt, dlg_title,numlines,defaultanswer, options);
 pause(0.5);
 %----end 02/05/09-----------------------------
 
