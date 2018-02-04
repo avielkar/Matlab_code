@@ -138,9 +138,9 @@ set(gcf,'Name','Online Analysis','NumberTitle','off');
 if iDirVes>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVes, sortRightVes, '+');
+        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2);
     else
-        plot(sortDirVes, sortRightVes, 'o');
+        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2);
     end
     hold on;
 end
@@ -148,9 +148,9 @@ end
 if iDirVisual>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVisual, sortRightVisual, 'xr');
+        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2);
     else
-        plot(sortDirVisual, sortRightVisual, 'or');
+        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2);
     end
     hold on;
 end
@@ -158,9 +158,9 @@ end
 if iDir>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDir, sortRight, 'og');
+        plot(sortDir, sortRight, 'og' , 'linewidth' , 2);
     else
-        plot(sortDirVes, sortRightVes, 'xg');
+        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2);
     end
     hold on;
 end

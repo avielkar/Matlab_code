@@ -44,27 +44,27 @@ if connected && ~debug
     %if there was not response in the middle of the movement and it was enabled
     %so wait for a resposne
     if(cldata.resp == 0)
-        while(toc <= cldata.respTime)
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6));
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                    responseBox = bitshift (r(2), -5);    %leftmost 3 bits
-                    if(responseBox == 3) %left buttom
-                        response = 1;
-                        display('Choice = Left');
-                        break;
-                    elseif(responseBox == 5)  %right buttom
-                        response = 2;
-                        display('Choice = Right');
-                        break;
-                    else
-                        response = 0;
-                    end
-                end
-            end
-        end
+%         while(toc <= cldata.respTime)
+%             if(bxbport.BytesAvailable() >= 6)
+%                 r = uint32(fread(bxbport,6));
+%                 %uint32(fread(bxbport,6));
+%                 press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+%                 if press
+%                     responseBox = bitshift (r(2), -5);    %leftmost 3 bits
+%                     if(responseBox == 3) %left buttom
+%                         response = 1;
+%                         display('Choice = Left');
+%                         break;
+%                     elseif(responseBox == 5)  %right buttom
+%                         response = 2;
+%                         display('Choice = Right');
+%                         break;
+%                     else
+%                         response = 0;
+%                     end
+%                 end
+%             end
+%         end
 
 %%%%%%%%%%%         avi add that for automatic answer.
 % % % % % %         timeToWait  = rand;

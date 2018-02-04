@@ -649,7 +649,8 @@ if ~paused && flagdata.isStopButton == 0
 %             %         response = 4;   %%%% automatic start!
         end
         response = 0; % No response yet - shir
-        % byte 2 determines button number, press/release and port
+        
+        % byte 2 determines button number, press/release and port  
         if(bxbport.BytesAvailable() >= 6)
             r = uint32(fread(bxbport,6)); % reads 6 first bytes
             %uint32(fread(bxbport,6));
@@ -660,8 +661,14 @@ if ~paused && flagdata.isStopButton == 0
             fprintf('byteas available but not a red press!!!!\n')
         end
         
-        %avi - delete that line (for automatic answer)
-        %response = 4;
+        %avi - delete that line (for automatic answer) 
+% % % % %         timeToWait  = rand;
+% % % % %         elapsedTime = tic;
+% % % % %         while(toc(elapsedTime) < timeToWait)
+% % % % %         end
+% % % % %         
+% % % % %         response = 4;
+        
         
         % Checks which button was pressed (3-left, 4-center, 5-right) --shir
         if response == 4  %---Jing for light control 12/03/07---
