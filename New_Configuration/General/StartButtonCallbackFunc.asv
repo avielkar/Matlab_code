@@ -509,7 +509,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                 str2 = [str2 ', ' data.condvect.varying(i2).name ': ' num2str(crossvals((trial.list(curTrial)),i2))];
             end
         end
-            str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
+        str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
         
         
         str(1)={[str1 str2]};

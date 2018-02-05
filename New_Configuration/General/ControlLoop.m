@@ -663,12 +663,12 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         %avi - delete that line (for automatic answer) 
-% % % % %         timeToWait  = rand;
-% % % % %         elapsedTime = tic;
-% % % % %         while(toc(elapsedTime) < timeToWait)
-% % % % %         end
-% % % % %         
-% % % % %         response = 4;
+        timeToWait  = rand;
+        elapsedTime = tic;
+        while(toc(elapsedTime) < timeToWait)
+        end
+        
+        response = 4;
         
         
         % Checks which button was pressed (3-left, 4-center, 5-right) --shir

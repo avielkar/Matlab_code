@@ -7,6 +7,8 @@ function GenCrossValsFunc(hObject, eventdata, handles, tag, fig)
 global basicfig staircasefig
 data = getappdata(basicfig,'protinfo');
 
+data.hasStim0 = false;
+
 cntrV = 1;   %counter for Varying
 cntrA = 1;   %counter for AcrossStair
 cntrW = 1;   %counter for WithinStair
@@ -14,7 +16,11 @@ cntrW = 1;   %counter for WithinStair
 if strmatch(tag,'first')  %first time open the BasicInterface window
     for i = 1:size(data.configinfo,2)
         if data.configinfo(i).status == 2   %Varying
-            tempVect = genCondvect(i,tag);
+            [tempVect , hasStim0] = genCondvect(i,tag);
+            
+            if(hasStim0 == true)
+                data.hasStimo0 = true;
+            end
             
             data.condvect.varying(cntrV).name = data.configinfo(i).nice_name;
             if isfield(data.configinfo(i).parameters,'moog')
@@ -27,7 +33,11 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
         end  
         
         if data.configinfo(i).status == 3   %AcrossStair
-            tempVect = genCondvect(i,tag);
+            [tempVect  , hasStim0] = genCondvect(i,tag);
+            
+            if(hasStim0 == true)
+                data.hasStimo0 = true;
+            end
             
             data.condvect.acrossStair(cntrA).name = data.configinfo(i).nice_name;
             if isfield(data.configinfo(i).parameters,'moog')
@@ -69,7 +79,11 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
         end        
         
         if data.configinfo(i).status == 4   %WithinStair
-            tempVect = genCondvect(i,tag);
+            [tempVect , hasStim0] = genCondvect(i,tag);
+            
+            if(hasStim0 == true)
+                data.hasStimo0 = true;
+            end
             
             data.condvect.withinStair(cntrW).name = data.configinfo(i).nice_name;
             if isfield(data.configinfo(i).parameters,'moog')
@@ -104,7 +118,10 @@ else %whenever something in BasicInterfce is changed.
         data.configinfo(iVar).status = data.oriStatus;
     else
         if tempStatus >=2  % varying/AcrossStair/WithinStair
-            tempVect = genCondvect(iVar, tag);
+            [tempVect , hasStim0] = genCondvect(iVar, tag);
+            if(hasStim0 == true)
+                data.hasStimo0 = true;
+            end
         end
 
         isMoog = 0;
@@ -352,12 +369,24 @@ if ~isempty(data.condvect.varying)
     end
 end
 
+
 set(findobj(basicfig,'Tag','DisplayLabelText'),'String',str1)
 set(findobj(basicfig,'Tag','DisplayListBox'),'String',str3)
 
 setappdata(basicfig,'CrossVals',yM);
 setappdata(basicfig,'CrossValsGL',yGL);
 setappdata(basicfig,'protinfo',data);
+
+
+%check if there is stim0 - and if there is add it to the stim0
+%data.condvect.
+
+if(data.hasStim0 == true)
+    data.condvect.stim0 = [true true];
+else
+    data.condvect.stim0 = [false false];
+end
+
 
 if ~isempty(data.condvect.acrossStair) || ~isempty(data.condvect.withinStair) 
      StaircaseWindow;
@@ -373,12 +402,13 @@ end
 %Jing added this function because we use same methods to generate the condvect
 %in different status. I don't like to write the same code again and again which 
 %is a bad programming way. 12/01/08==================================
-function V = genCondvect(ind,tagstr)
-global basicfig
+function [V , hasStim0] = genCondvect(ind,tagstr)
+
+global basicfig;
+data =  getappdata(basicfig , 'protinfo');
 
 hasStim0 = false;
 
-data = getappdata(basicfig,'protinfo');
 if isfield(data.configinfo(ind).parameters,'moog') % moog/OpenGL
     siz = size(data.configinfo(ind).parameters.moog,2);
 else
@@ -401,7 +431,7 @@ for i = 1:siz
            if(low == 0)
                low = low + 1;
                lowGL = lowGL + 1;
-               data.hasStim0 = true;
+               hasStim0 = true;
            end
         end
     else
@@ -419,12 +449,10 @@ for i = 1:siz
            if(lowGL == 0)
                lowGL = lowGL + 1;
                low = low + 1;
-               data.hasStim0 = true;
+               hasStim0 = true;
            end
         end
     end
-    
-    setappdata(basicfig , 'protinfo' , data);
 
     if data.configinfo(ind).vectgen == 0 % linear vector generation
         if ~isempty(strmatch(data.configinfo(ind).name, 'DISC_AMPLITUDES', 'exact')) ||...
