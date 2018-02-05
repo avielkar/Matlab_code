@@ -272,6 +272,9 @@ iRep = 1;
 flagdata.isStopButton = 0; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);%Jing 01/05/09---
 
+% TODO: mult it by varying also.
+totalExperimentTrials = 0;
+
 % Loop that runs as long as the experiment goes on (trials + no stop button)
 while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 01/05/09---  
     flagdata = getappdata(basicfig,'flagdata');
@@ -298,7 +301,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         staircaseRuleNum = 1;
         staircaseStartPoint = 1;
         if ~isempty(i)
-            staircaseRuleNum = length(data.configinfo(i).parameters);   
+            staircaseRuleNum = length(data.configinfo(i).parameters); 
             tmpVect = data.configinfo(i).parameters;
             if isfield(within.parameters, 'moog')
                 len = length(within.parameters.moog);
@@ -345,6 +348,9 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                         %----end
                     end
                 end
+                
+                totalExperimentTrials = acrossLength * len;
+                
             end
             %data.stillActive = 1:acrossLength;
             data.activeStair = 1;
@@ -509,7 +515,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                 str2 = [str2 ', ' data.condvect.varying(i2).name ': ' num2str(crossvals((trial.list(curTrial)),i2))];
             end
         end
-            str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
+        str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
         
         
         str(1)={[str1 str2]};
