@@ -5,7 +5,11 @@ global basicfig basicdispfig
 %jing added for changing variables while control loop
 %running.01/29/07---
 flagdata = getappdata(basicfig,'flagdata');
-paused = get(findobj(basicfig,'Tag','PauseButton'),'Value');
+
+%%%% ADDED BY AZ 2018_02_05
+%paused = get(findobj(basicfig,'Tag','PauseButton'),'Value');
+paused=0;
+%%%%%%%%%
 %end---
 
 data = getappdata(basicfig,'protinfo');
