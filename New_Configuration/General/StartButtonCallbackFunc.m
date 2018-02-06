@@ -275,6 +275,8 @@ setappdata(basicfig,'flagdata',flagdata);%Jing 01/05/09---
 % TODO: mult it by varying also.
 totalExperimentTrials = 0;
 
+stim0Index = -1;
+
 % Loop that runs as long as the experiment goes on (trials + no stop button)
 while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 01/05/09---  
     flagdata = getappdata(basicfig,'flagdata');
