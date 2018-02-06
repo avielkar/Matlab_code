@@ -130,7 +130,7 @@ if ~paused && flagdata.isStopButton == 0
         %-----avi:change this for Adam1_Prior
         % create trajectory for this trial along to priot trial or real
         % trial
-        cldata.stim0Now = false;
+        %cldata.stim0Now = false;
         if(data.condvect.priors.enabled)  %if priors are enable
             %cldata.trialCount + 1 because cldata.trialCount increases
             %later.
@@ -147,10 +147,10 @@ if ~paused && flagdata.isStopButton == 0
                 cldata.prior_now = 0;
             end
         else                %if prior not enabled
-            if(cldata.trialCount == data.condvect.stim0.trialIndex)            %if stim0 now
-                cldata.stim0Now = true;
+            if(data.activeStim0 == true)            %if stim0 now
+                trajinfo = Stim0TrajectoyCreation(appHandle);
+                cldata.prior_now = 0;    
             end
-            
             eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
             cldata.prior_now = 0;
         end
@@ -681,12 +681,12 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         %avi - delete that line (for automatic answer) 
-        timeToWait  = rand;
-        elapsedTime = tic;
-        while(toc(elapsedTime) < timeToWait)
-        end
-        
-        response = 4;
+% % % % % %         timeToWait  = rand;
+% % % % % %         elapsedTime = tic;
+% % % % % %         while(toc(elapsedTime) < timeToWait)
+% % % % % %         end
+% % % % % %         
+% % % % % %         response = 4;
         
         
         % Checks which button was pressed (3-left, 4-center, 5-right) --shir
@@ -1486,7 +1486,7 @@ if ~paused
         
         %only if not a prior data determine and change the active rule and
         %staircase.
-        if(~cldata.prior_now && ~cldata.stim0Now)
+        if(~cldata.prior_now && ~data.activeStim0)
             
             if cldata.staircase && trial(activeStair,activeRule).cntr < trial(activeStair,activeRule).num
                 eval([data.functions.Staircase '(appHandle);']);
@@ -1529,9 +1529,18 @@ if ~paused
             if(data.condvect.priors.enabled)
                 data.condvect.priors.left = priors.roundPriors;
             end
-        else
+            
+            if(cldata.trialCount == data.condvect.stim0.trialIndex)
+                data.activeStim0 = true;
+            else
+                data.activeStim0 = false;
+            end
+            
+        elseif(cldata.prior_now == true)   %it was a prior trial
             trial(activeStair,activeRule).priorCntr = trial(activeStair,activeRule).priorCntr + 1;
             data.condvect.priors.left = priors.left - 1;
+        else       %if stim0 now
+            data.activeStim0 = false;
         end
         
         setappdata(appHandle,'trialInfo',trial);

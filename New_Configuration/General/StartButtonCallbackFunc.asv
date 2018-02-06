@@ -507,7 +507,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         %if(cldata.trialCount == data.condvect.stim0.trialIndex)
             %cldata.stim0Now = true;
             strStim0 = ['Current Trial Info: Rep ' num2str(data.repNum) ', Stimulus 0'];
-            set(findobj(basicfig,'Tag','TrialInfoText'),'String',strStim0);
+            set(findobj(basicfig,'Tag','TrialInfoText'),'String',str);
             while(data.activeStim0 == true && ~flagdata.isTrialStop)
                 data = getappdata(basicfig,'protinfo');
                 flagdata = getappdata(basicfig,'flagdata');
