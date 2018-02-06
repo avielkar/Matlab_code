@@ -19,7 +19,7 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
             [tempVect , hasStim0] = genCondvect(i,tag);
             
             if(hasStim0 == true)
-                data.hasStimo0 = true;
+                data.hasStim0 = true;
             end
             
             data.condvect.varying(cntrV).name = data.configinfo(i).nice_name;
@@ -36,7 +36,7 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
             [tempVect  , hasStim0] = genCondvect(i,tag);
             
             if(hasStim0 == true)
-                data.hasStimo0 = true;
+                data.hasStim0 = true;
             end
             
             data.condvect.acrossStair(cntrA).name = data.configinfo(i).nice_name;
@@ -82,7 +82,7 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
             [tempVect , hasStim0] = genCondvect(i,tag);
             
             if(hasStim0 == true)
-                data.hasStimo0 = true;
+                data.hasStim0 = true;
             end
             
             data.condvect.withinStair(cntrW).name = data.configinfo(i).nice_name;
@@ -120,7 +120,7 @@ else %whenever something in BasicInterfce is changed.
         if tempStatus >=2  % varying/AcrossStair/WithinStair
             [tempVect , hasStim0] = genCondvect(iVar, tag);
             if(hasStim0 == true)
-                data.hasStimo0 = true;
+                data.hasStim0 = true;
             end
         end
 

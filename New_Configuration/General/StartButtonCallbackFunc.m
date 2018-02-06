@@ -275,7 +275,8 @@ setappdata(basicfig,'flagdata',flagdata);%Jing 01/05/09---
 % TODO: mult it by varying also.
 totalExperimentTrials = 0;
 
-stim0Index = -1;
+data.condvect.stim0.trialIndex = -1;
+setappdata(basicfig,'protinfo' , data);
 
 % Loop that runs as long as the experiment goes on (trials + no stop button)
 while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 01/05/09---  
@@ -464,15 +465,17 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         else % random (every rep, or total)
             trial.list = randperm(trial.num);
         end
-        
+    end
+    
+    if(data.hasStim0 == true)
         %determine when the stim0 occurs (id needed)
-        stim0Index = irand(1 , totalExperimentTrials - 1);
+        data.condvect.stim0.trialIndex = randi(totalExperimentTrials - 1);
     end
 
     setappdata(basicfig,'protinfo',data);
     setappdata(basicfig,'trialInfo',trial);
     setappdata(basicfig,'flagdata',flagdata);
-
+ 
 
     %  Start Control Loop
     run = get(timerfind('Tag','CLoop'),'Running');
@@ -499,7 +502,8 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         curActiveStair = activeStair;
         curRule = activeRule;
         
-        if(cldata.trialCount == stim0Index)
+        if(cldata.trialCount == data.condvect.stim0.trialIndex)
+            cldata.stim0Now = true;
             str = ['Current Trial Info: Rep ' num2str(data.repNum) ', Stimulus 0'];
             set(findobj(basicfig,'Tag','TrialInfoText'),'String',str);
             while(data.stim0Finished == false && ~flagdata.isTrialStop)
@@ -585,11 +589,11 @@ timestr = [num2str(a(4)) ',' num2str(a(5))];
 if ~isequal(filename, 0) && ~isequal(pathname, 0)
     % Save out the variable data structure.
     %     save('C:\Program Files\MATLAB\R2006a\work\New Configuration\Data\temp.mat')
-    if ~isempty(Comment)
-        save([pathname, filename], 'SavedInfo','Comment');
-    else
+    %if ~isempty(Comment)
+        %save([pathname, filename], 'SavedInfo','Comment');
+    %else
         save([pathname, filename], 'SavedInfo');
-    end
+    %end
     disp(['saving ' pathname filename])   
     cancel_save = 0;
 else

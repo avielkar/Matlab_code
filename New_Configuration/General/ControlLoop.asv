@@ -130,7 +130,6 @@ if ~paused && flagdata.isStopButton == 0
         %-----avi:change this for Adam1_Prior
         % create trajectory for this trial along to priot trial or real
         % trial
-        cldata.stim0Now = false;
         if(data.condvect.priors.enabled)  %if priors are enable
             %cldata.trialCount + 1 because cldata.trialCount increases
             %later.
@@ -147,10 +146,6 @@ if ~paused && flagdata.isStopButton == 0
                 cldata.prior_now = 0;
             end
         else                %if prior not enabled
-            if(cldata.trialCount == data.condvect.stim0.trialIndex)            %if stim0 now
-                cldata.stim0Now = true;
-            end
-            
             eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
             cldata.prior_now = 0;
         end
@@ -1484,9 +1479,9 @@ if ~paused
         activeStair = data.activeStair; %---Jing for combine multi-staircase 12/01/08----
         activeRule = data.activeRule;
         
-        %only if not a prior data determine and change the active rule and
+        %onlt if not a prior data determine and change the active rule and
         %staircase.
-        if(~cldata.prior_now && ~cldata.stim0Now)
+        if(~cldata.prior_now)
             
             if cldata.staircase && trial(activeStair,activeRule).cntr < trial(activeStair,activeRule).num
                 eval([data.functions.Staircase '(appHandle);']);
