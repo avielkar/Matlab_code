@@ -98,7 +98,7 @@ switch computer('arch')
         end
         clear s p;
     case {'win32', 'win64'} % all our PC's have Cedrus box on COM9
-        cedrus.dev = 'COM9'; % others may need to change
+        cedrus.dev = 'COM10'; % others may need to change
     otherwise
         errordlg ('Unsupported OS %s', computer('arch'))
         return

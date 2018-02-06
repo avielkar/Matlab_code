@@ -402,7 +402,7 @@ function varargout = CedrusResponseBox(cmd, varargin)
 global ptb_cedrus_drivertype;
 global IsOSX;
 IsOSX = 0;
-ptb_cedrus_drivertype = serial('COM9');
+ptb_cedrus_drivertype = serial('COM10');
 
 % Cell array of device structs. Globally available for main function and
 % all subfunctions in this file, persistent across invocation:
@@ -1730,7 +1730,7 @@ global ptb_cedrus_drivertype;
 global IsOSX;
 IsOSX = 0;
 % Test our default of type 2 -- Our own IOPort() driver:
-if ptb_cedrus_drivertype == serial('COM9')
+if ptb_cedrus_drivertype == serial('COM10')
     % Use IOPort:
 
     % Temporarily shut up the driver, so errors can be reasonably

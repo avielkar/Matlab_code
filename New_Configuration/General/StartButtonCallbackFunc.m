@@ -462,6 +462,9 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         else % random (every rep, or total)
             trial.list = randperm(trial.num);
         end
+        
+        %determine when the stim0 occurs (id needed)
+        stim0Index = irand(1 , totalExperimentTrials - 1);
     end
 
     setappdata(basicfig,'protinfo',data);
@@ -494,46 +497,55 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         curActiveStair = activeStair;
         curRule = activeRule;
         
-        str2 = [];
-        if cldata.staircase
-            if isfield(within.parameters, 'moog')
-                tmp_vect = (within.parameters.moog)';
-            else
-                tmp_vect = (within.parameters)';
+        if(cldata.trialCount == stim0Index)
+            str = ['Current Trial Info: Rep ' num2str(data.repNum) ', Stimulus 0'];
+            set(findobj(basicfig,'Tag','TrialInfoText'),'String',str);
+            while(data.stim0Finished == false && ~flagdata.isTrialStop)
+                data = getappdata(basicfig,'protinfo');
+                flagdata = getappdata(basicfig,'flagdata');
             end
-         
-            for i2 =1:size({within.name},2) 
-                str2 = [str2 ', ' within(i2).name ': ' num2str(tmp_vect((trial(activeStair,activeRule).list(curTrial)),i2))];
+        else
+            str2 = [];
+            if cldata.staircase
+                if isfield(within.parameters, 'moog')
+                    tmp_vect = (within.parameters.moog)';
+                else
+                    tmp_vect = (within.parameters)';
+                end
+
+                for i2 =1:size({within.name},2) 
+                    str2 = [str2 ', ' within(i2).name ': ' num2str(tmp_vect((trial(activeStair,activeRule).list(curTrial)),i2))];
+                end
+                str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ...
+                        ', Across Staircase ' num2str(trial(activeStair,activeRule).acrossVal) ...
+                        ', Staircase Rule ' num2str(activeRule)...
+                        ', Trial ' num2str(curTrial)];
+            end 
+            if ~isempty(data.condvect.varying)
+                for i2 =1:size({data.condvect.varying.name},2) 
+                    str2 = [str2 ', ' data.condvect.varying(i2).name ': ' num2str(crossvals((trial.list(curTrial)),i2))];
+                end
             end
-            str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ...
-                    ', Across Staircase ' num2str(trial(activeStair,activeRule).acrossVal) ...
-                    ', Staircase Rule ' num2str(activeRule)...
-                    ', Trial ' num2str(curTrial)];
-        end 
-        if ~isempty(data.condvect.varying)
-            for i2 =1:size({data.condvect.varying.name},2) 
-                str2 = [str2 ', ' data.condvect.varying(i2).name ': ' num2str(crossvals((trial.list(curTrial)),i2))];
+            str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
+
+
+            str(1)={[str1 str2]};
+            str(2) = {['Trial Completed: ' num2str(trial(activeStair,activeRule).cntr-1)]};
+            str(3) = {['Trial Remaining: ' num2str(trial(activeStair,activeRule).num-trial(activeStair,activeRule).cntr)]};
+            set(findobj(basicfig,'Tag','TrialInfoText'),'String',str);
+            %------Jing end----
+            while curActiveStair == activeStair && curRule == activeRule ...
+                  && curTrial == trial(activeStair,activeRule).cntr && ~flagdata.isTrialStop
+                drawnow     
+                data = getappdata(basicfig,'protinfo');
+                if(print_var)
+                    display('i am here again AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+                end
+                activeStair = data.activeStair;
+                activeRule = data.activeRule;
+                trial = getappdata(basicfig,'trialInfo');
+                flagdata = getappdata(basicfig,'flagdata');
             end
-        end
-        str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
-        
-        
-        str(1)={[str1 str2]};
-        str(2) = {['Trial Completed: ' num2str(trial(activeStair,activeRule).cntr-1)]};
-        str(3) = {['Trial Remaining: ' num2str(trial(activeStair,activeRule).num-trial(activeStair,activeRule).cntr)]};
-        set(findobj(basicfig,'Tag','TrialInfoText'),'String',str);
-        %------Jing end----
-        while curActiveStair == activeStair && curRule == activeRule ...
-              && curTrial == trial(activeStair,activeRule).cntr && ~flagdata.isTrialStop
-            drawnow     
-            data = getappdata(basicfig,'protinfo');
-            if(print_var)
-                display('i am here again AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-            end
-            activeStair = data.activeStair;
-            activeRule = data.activeRule;
-            trial = getappdata(basicfig,'trialInfo');
-            flagdata = getappdata(basicfig,'flagdata');
         end
         
         %the total trials number and not as .cntr that counts for each of
