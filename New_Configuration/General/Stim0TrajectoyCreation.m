@@ -159,19 +159,19 @@ else
 end
 %%
 
-%% ADAPTATION_ANGLE
-i = strmatch('ADAPTATION_ANGLE',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Adaptation Angle',{char(varying.name)},'exact');
-    adaptation_amp = crossvals(cntrVarying,i1);
-elseif data.configinfo(i).status == 3 
-    adaptation_amp = across.parameters(activeStair);
-elseif data.configinfo(i).status == 4   
-    adaptation_amp = within.parameters(cntr);
-else
-    adaptation_amp = data.configinfo(i).parameters;
-end
-%%
+% % % % %% ADAPTATION_ANGLE
+% % % % i = strmatch('ADAPTATION_ANGLE',{char(data.configinfo.name)},'exact');
+% % % % if data.configinfo(i).status == 2
+% % % %     i1 = strmatch('Adaptation Angle',{char(varying.name)},'exact');
+% % % %     adaptation_amp = crossvals(cntrVarying,i1);
+% % % % elseif data.configinfo(i).status == 3 
+% % % %     adaptation_amp = across.parameters(activeStair);
+% % % % elseif data.configinfo(i).status == 4   
+% % % %     adaptation_amp = within.parameters(cntr);
+% % % % else
+% % % %     adaptation_amp = data.configinfo(i).parameters;
+% % % % end
+% % % % %%
 
 %% Generate the trajectories as the assign required variables for a Translation protocol
 f = 60;
@@ -203,20 +203,20 @@ zGL = zM;
 lateralM = dM1*yM;
 surgeM = dM1*xM;
 heaveM = dM1*zM;
-lateralGL = dGL1*yGL;
-surgeGL = dGL1*xGL;
-heaveGL = dGL1*zGL;
+% % % % lateralGL = dGL1*yGL;
+% % % % surgeGL = dGL1*xGL;
+% % % % heaveGL = dGL1*zGL;
     
 lateralM = zeros(1,length(lateralM));
 surgeM = zeros(1,length(surgeM));
 heaveM = zeros(1,length(heaveM));
 
 M(1).name = 'LATERAL_DATA';
-M(1).data = lateralM + ori(1,1); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
+M(1).data = zeros(1,dur(1,1)*f) + ori(1,1); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
 M(2).name = 'SURGE_DATA';
-M(2).data = surgeM + ori(1,2); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
+M(2).data = zeros(1,dur(1,1)*f) + ori(1,2); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
 M(3).name = 'HEAVE_DATA';
-M(3).data = heaveM + ori(1,3); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
+M(3).data = zeros(1,dur(1,1)*f) + ori(1,3); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
 M(4).name = 'YAW_DATA';
 M(4).data = zeros(1,dur(1,1)*f);
 M(5).name = 'PITCH_DATA';
@@ -224,11 +224,11 @@ M(5).data = zeros(1,dur(1,1)*f);
 M(6).name = 'ROLL_DATA';
 M(6).data = zeros(1,dur(1,1)*f);
 M(7).name = 'GL_LATERAL_DATA';
-M(7).data = lateralGL + ori(2,1);
+M(7).data =  zeros(1,dur(1,1)*f); + ori(2,1);
 M(8).name = 'GL_SURGE_DATA';
-M(8).data = surgeGL + ori(2,2);
+M(8).data =  zeros(1,dur(1,1)*f); + ori(2,2);
 M(9).name = 'GL_HEAVE_DATA';
-M(9).data = heaveGL + ori(2,3);
+M(9).data =  zeros(1,dur(1,1)*f); + ori(2,3);
 M(10).name = 'GL_ROT_ELE';
 M(10).data = 90*ones(dur(2,1)*f,1);
 M(11).name = 'GL_ROT_AZ';
