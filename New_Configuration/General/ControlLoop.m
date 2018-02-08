@@ -150,9 +150,10 @@ if ~paused && flagdata.isStopButton == 0
             if(data.activeStim0 == true)            %if stim0 now
                 trajinfo = Stim0TrajectoyCreation(appHandle);
                 cldata.prior_now = 0;    
+            else
+                eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
+                cldata.prior_now = 0;
             end
-            eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
-            cldata.prior_now = 0;
         end
         %-----end
         
