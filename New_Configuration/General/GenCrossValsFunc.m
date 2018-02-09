@@ -314,13 +314,6 @@ if ~isempty(data.condvect.varying)
         yGL(:,i) = tGL;
     end
     
-    %%add stim0 if needed
-    %if(data.hasStim0 == true)
-     %   s = size(yM);
-      %  yM = [yM , ([1 zeros(1 , s(2)-1)])'];
-    %end
-    
-    
     %=== additional combination for Ardira's protocol. Jian 09/09/2012=========
      if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')        
         i1=strmatch('Azimuth',{char(data.condvect.varying.name)},'exact');
@@ -369,24 +362,12 @@ if ~isempty(data.condvect.varying)
     end
 end
 
-
 set(findobj(basicfig,'Tag','DisplayLabelText'),'String',str1)
 set(findobj(basicfig,'Tag','DisplayListBox'),'String',str3)
 
 setappdata(basicfig,'CrossVals',yM);
 setappdata(basicfig,'CrossValsGL',yGL);
 setappdata(basicfig,'protinfo',data);
-
-
-%check if there is stim0 - and if there is add it to the stim0
-%data.condvect.
-
-if(data.hasStim0 == true)
-    data.condvect.stim0 = [true true];
-else
-    data.condvect.stim0 = [false false];
-end
-
 
 if ~isempty(data.condvect.acrossStair) || ~isempty(data.condvect.withinStair) 
      StaircaseWindow;
@@ -403,12 +384,10 @@ end
 %in different status. I don't like to write the same code again and again which 
 %is a bad programming way. 12/01/08==================================
 function [V , hasStim0] = genCondvect(ind,tagstr)
-
 global basicfig;
-data =  getappdata(basicfig , 'protinfo');
-
 hasStim0 = false;
 
+data = getappdata(basicfig,'protinfo');
 if isfield(data.configinfo(ind).parameters,'moog') % moog/OpenGL
     siz = size(data.configinfo(ind).parameters.moog,2);
 else

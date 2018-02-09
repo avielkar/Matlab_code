@@ -494,6 +494,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         end
         flagdata = getappdata(basicfig,'flagdata');
         data = getappdata(basicfig,'protinfo'); %----Jing added 03/27/07----       
+        fprintf('------------------->raeding data');
         trial = getappdata(basicfig,'trialInfo');
 
         activeStair = data.activeStair;
@@ -503,9 +504,9 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         curActiveStair = activeStair;
         curRule = activeRule;
         
+        
+        fprintf('------------------->checking for activestom0');
         if(data.activeStim0 == true)
-        %if(cldata.trialCount == data.condvect.stim0.trialIndex)
-            %cldata.stim0Now = true;
             strStim0 = ['Current Trial Info: Rep ' num2str(data.repNum) ', Stimulus 0'];
             set(findobj(basicfig,'Tag','TrialInfoText'),'String',strStim0);
             while(data.activeStim0 == true && ~flagdata.isTrialStop)
@@ -520,7 +521,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                 else
                     tmp_vect = (within.parameters)';
                 end
-
+         
                 for i2 =1:size({within.name},2) 
                     str2 = [str2 ', ' within(i2).name ': ' num2str(tmp_vect((trial(activeStair,activeRule).list(curTrial)),i2))];
                 end
@@ -554,12 +555,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                 trial = getappdata(basicfig,'trialInfo');
                 flagdata = getappdata(basicfig,'flagdata');
             end
-        end
-        
-        %the total trials number and not as .cntr that counts for each of
-        %staircase seperately.
-        setappdata(basicfig,'protinfo' , data);
-        
+        end        
     end
     flagdata.isTrialStop = 0;
     setappdata(basicfig,'flagdata',flagdata);

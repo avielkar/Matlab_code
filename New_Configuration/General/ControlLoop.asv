@@ -1309,12 +1309,12 @@ if ~paused
 
         %% Online analysis & Saving - psycometric graph(OnlineAnalysis function) and Saving the trial result and info(makedata function).
         xxx = data.functions.OnlineAnalysis;
-        if(~cldata.prior_now && ~data.activeStim0)
+        if(~cldata.prior_now)
             % Plot psychometric function
             eval([data.functions.OnlineAnalysis '(appHandle);']);
             % Create Saved Info Structure
             eval([data.functions.MakeData '(appHandle);']);
-        elseif(cldata.prior_now)
+        else
             % Create Saved Info Structure
             eval([data.functions.PriorMakeData '(appHandle);']);
         end
