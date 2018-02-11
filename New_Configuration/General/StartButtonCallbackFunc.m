@@ -470,7 +470,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
     
     if(data.hasStim0 == true)
         %determine when the stim0 occurs (id needed)
-        data.condvect.stim0.trialIndex = randi(totalExperimentTrials - 1);
+        data.condvect.stim0.trialIndex = randi(totalExperimentTrials - 2);
     end
 
     setappdata(basicfig,'protinfo',data);

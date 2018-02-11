@@ -1195,6 +1195,7 @@ if ~paused
             eval([data.functions.CollectResponse '(appHandle);']);
         else
             %%TODO : COLLECT RESPONSE FOR THE STIM0
+            eval([data.functions.Stim0CollectResponse '(appHandle);']);
         end
         %% -----avi:end
 
