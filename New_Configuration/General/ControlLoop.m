@@ -146,14 +146,9 @@ if ~paused && flagdata.isStopButton == 0
                 cldata.prior_now = 0;
             end
         else                %if prior not enabled
-            if(data.activeStim0 == true)            %if stim0 now
-                trajinfo = Stim0TrajectoyCreation(appHandle);
-                cldata.prior_now = 0;    
-            else
                 eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
                 cldata.prior_now = 0;
             end
-        end
         %-----end
         
         setappdata(appHandle,'ControlLoopData',cldata);
@@ -1191,11 +1186,8 @@ if ~paused
             else                    %call the prior analyze response function.
                 eval([data.functions.PriorCollectResponse '(appHandle);']);
             end
-        elseif(~data.activeStim0)
-            eval([data.functions.CollectResponse '(appHandle);']);
         else
-            %%TODO : COLLECT RESPONSE FOR THE STIM0
-            eval([data.functions.Stim0CollectResponse '(appHandle);']);
+            eval([data.functions.CollectResponse '(appHandle);']);
         end
         %% -----avi:end
 
@@ -1215,9 +1207,9 @@ if ~paused
         %% ----End 11/12/08-------
 
         %% Analyze Response
-        if(~cldata.prior_now && ~data.activeStim0)   %if that trial was a real one , analyze it as the parameters of tha real says.
+        if(~cldata.prior_now)   %if that trial was a real one , analyze it as the parameters of tha real says.
             eval([data.functions.AnalyzeResponse '(appHandle);']);
-        elseif(cldata.prior_now == true)               %call the prior analyze response function.
+        else                    %call the prior analyze response function.
             eval([data.functions.PriorAnalyzeResponse '(appHandle);']);
             
         end
@@ -1310,12 +1302,12 @@ if ~paused
 
         %% Online analysis & Saving - psycometric graph(OnlineAnalysis function) and Saving the trial result and info(makedata function).
         xxx = data.functions.OnlineAnalysis;
-        if(~cldata.prior_now && ~data.activeStim0)
+        if(~cldata.prior_now)
             % Plot psychometric function
             eval([data.functions.OnlineAnalysis '(appHandle);']);
             % Create Saved Info Structure
             eval([data.functions.MakeData '(appHandle);']);
-        elseif(cldata.prior_now)
+        else
             % Create Saved Info Structure
             eval([data.functions.PriorMakeData '(appHandle);']);
         end
@@ -1485,17 +1477,7 @@ if ~paused
         %% Analyze Response to determine next trial (Staircase)
         activeStair = data.activeStair; %---Jing for combine multi-staircase 12/01/08----
         activeRule = data.activeRule;
-        
-        %only if not a prior data determine and change the active rule and
-        %staircase.
-        if(~cldata.prior_now && ~data.activeStim0)
-            if(cldata.trialCount == data.condvect.stim0.trialIndex)
-                data.activeStim0 = true;
-                fprintf('------------------->activestom0');
-            else
-                data.activeStim0 = false;
-                fprintf('------------------->not activestom0');
-            end
+        if(~cldata.prior_now)
             
             if cldata.staircase && trial(activeStair,activeRule).cntr < trial(activeStair,activeRule).num
                 eval([data.functions.Staircase '(appHandle);']);
@@ -1538,19 +1520,15 @@ if ~paused
             if(data.condvect.priors.enabled)
                 data.condvect.priors.left = priors.roundPriors;
             end
-        elseif(cldata.prior_now == true)   %it was a prior trial
+        else
             trial(activeStair,activeRule).priorCntr = trial(activeStair,activeRule).priorCntr + 1;
             data.condvect.priors.left = priors.left - 1;
-        else       %if stim0 now
-            data.activeStim0 = false;
-            fprintf('------------------->deactivate stom0');
         end
         
         setappdata(appHandle,'trialInfo',trial);
         
         %% 
         setappdata(appHandle,'protinfo',data);
-        fprintf('------------------->writing data');
         %==========================End Jimmy Added=========Jing 12/01/08
 
         disp('ending posttrialstage')

@@ -272,12 +272,6 @@ iRep = 1;
 flagdata.isStopButton = 0; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);%Jing 01/05/09---
 
-% TODO: mult it by varying also.
-totalExperimentTrials = 0;
-
-data.condvect.stim0.trialIndex = -1;
-setappdata(basicfig,'protinfo' , data);
-
 % Loop that runs as long as the experiment goes on (trials + no stop button)
 while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 01/05/09---  
     flagdata = getappdata(basicfig,'flagdata');
@@ -293,7 +287,6 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
     data.activeRule = 1;
     flagdata.isTrialStart = 1;
     flagdata.isTrialStop = 0;
-    data.activeStim0 = false;
         
     % Determine number of trials and trial list
     if cldata.staircase   %staircase        
@@ -352,9 +345,6 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                         %----end
                     end
                 end
-                
-                totalExperimentTrials = acrossLength * len;
-                
             end
             %data.stillActive = 1:acrossLength;
             data.activeStair = 1;
@@ -467,16 +457,11 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
             trial.list = randperm(trial.num);
         end
     end
-    
-    if(data.hasStim0 == true)
-        %determine when the stim0 occurs (id needed)
-        data.condvect.stim0.trialIndex = randi(totalExperimentTrials - 2);
-    end
 
     setappdata(basicfig,'protinfo',data);
     setappdata(basicfig,'trialInfo',trial);
     setappdata(basicfig,'flagdata',flagdata);
- 
+
 
     %  Start Control Loop
     run = get(timerfind('Tag','CLoop'),'Running');
@@ -494,9 +479,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         end
         flagdata = getappdata(basicfig,'flagdata');
         data = getappdata(basicfig,'protinfo'); %----Jing added 03/27/07----       
-        fprintf('------------------->raeding data');
         trial = getappdata(basicfig,'trialInfo');
-
         activeStair = data.activeStair;
         activeRule = data.activeRule;
         
@@ -504,16 +487,6 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         curActiveStair = activeStair;
         curRule = activeRule;
         
-        
-        fprintf('------------------->checking for activestom0');
-        if(data.activeStim0 == true)
-            strStim0 = ['Current Trial Info: Rep ' num2str(data.repNum) ', Stimulus 0'];
-            set(findobj(basicfig,'Tag','TrialInfoText'),'String',strStim0);
-            while(data.activeStim0 == true && ~flagdata.isTrialStop)
-                data = getappdata(basicfig,'protinfo');
-                flagdata = getappdata(basicfig,'flagdata');
-            end
-        else
             str2 = [];
             if cldata.staircase
                 if isfield(within.parameters, 'moog')
@@ -529,15 +502,15 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                         ', Across Staircase ' num2str(trial(activeStair,activeRule).acrossVal) ...
                         ', Staircase Rule ' num2str(activeRule)...
                         ', Trial ' num2str(curTrial)];
-            end 
+        else 
             if ~isempty(data.condvect.varying)
                 for i2 =1:size({data.condvect.varying.name},2) 
                     str2 = [str2 ', ' data.condvect.varying(i2).name ': ' num2str(crossvals((trial.list(curTrial)),i2))];
                 end
             end
             str1 = ['Current Trial Info: Rep ' num2str(data.repNum) ',Trial ' num2str(curTrial)];
-
-
+        end
+        
             str(1)={[str1 str2]};
             str(2) = {['Trial Completed: ' num2str(trial(activeStair,activeRule).cntr-1)]};
             str(3) = {['Trial Remaining: ' num2str(trial(activeStair,activeRule).num-trial(activeStair,activeRule).cntr)]};
@@ -555,7 +528,6 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
                 trial = getappdata(basicfig,'trialInfo');
                 flagdata = getappdata(basicfig,'flagdata');
             end
-        end        
     end
     flagdata.isTrialStop = 0;
     setappdata(basicfig,'flagdata',flagdata);

@@ -7,8 +7,6 @@ function GenCrossValsFunc(hObject, eventdata, handles, tag, fig)
 global basicfig staircasefig
 data = getappdata(basicfig,'protinfo');
 
-data.hasStim0 = false;
-
 cntrV = 1;   %counter for Varying
 cntrA = 1;   %counter for AcrossStair
 cntrW = 1;   %counter for WithinStair
@@ -16,11 +14,7 @@ cntrW = 1;   %counter for WithinStair
 if strmatch(tag,'first')  %first time open the BasicInterface window
     for i = 1:size(data.configinfo,2)
         if data.configinfo(i).status == 2   %Varying
-            [tempVect , hasStim0] = genCondvect(i,tag);
-            
-            if(hasStim0 == true)
-                data.hasStim0 = true;
-            end
+            tempVect = genCondvect(i,tag);
             
             data.condvect.varying(cntrV).name = data.configinfo(i).nice_name;
             if isfield(data.configinfo(i).parameters,'moog')
@@ -33,11 +27,7 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
         end  
         
         if data.configinfo(i).status == 3   %AcrossStair
-            [tempVect  , hasStim0] = genCondvect(i,tag);
-            
-            if(hasStim0 == true)
-                data.hasStim0 = true;
-            end
+            tempVect = genCondvect(i,tag);
             
             data.condvect.acrossStair(cntrA).name = data.configinfo(i).nice_name;
             if isfield(data.configinfo(i).parameters,'moog')
@@ -79,11 +69,7 @@ if strmatch(tag,'first')  %first time open the BasicInterface window
         end        
         
         if data.configinfo(i).status == 4   %WithinStair
-            [tempVect , hasStim0] = genCondvect(i,tag);
-            
-            if(hasStim0 == true)
-                data.hasStim0 = true;
-            end
+            tempVect = genCondvect(i,tag);
             
             data.condvect.withinStair(cntrW).name = data.configinfo(i).nice_name;
             if isfield(data.configinfo(i).parameters,'moog')
@@ -118,10 +104,7 @@ else %whenever something in BasicInterfce is changed.
         data.configinfo(iVar).status = data.oriStatus;
     else
         if tempStatus >=2  % varying/AcrossStair/WithinStair
-            [tempVect , hasStim0] = genCondvect(iVar, tag);
-            if(hasStim0 == true)
-                data.hasStim0 = true;
-            end
+            tempVect = genCondvect(iVar, tag);
         end
 
         isMoog = 0;
@@ -383,9 +366,8 @@ end
 %Jing added this function because we use same methods to generate the condvect
 %in different status. I don't like to write the same code again and again which 
 %is a bad programming way. 12/01/08==================================
-function [V , hasStim0] = genCondvect(ind,tagstr)
-global basicfig;
-hasStim0 = false;
+function V = genCondvect(ind,tagstr)
+global basicfig
 
 data = getappdata(basicfig,'protinfo');
 if isfield(data.configinfo(ind).parameters,'moog') % moog/OpenGL
