@@ -229,6 +229,7 @@ if stim_type == 2   %Visual only
    heaveM = zeros(1,length(heaveM));
 end
 
+%not vestibular and not visual.
 if stim_type == 0
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
@@ -268,6 +269,8 @@ sprintf('ampVes=%f  ampGL=%f', amp(1,1)*180/pi, amp(2,1)*180/pi)
 
 iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
 if stim_type == 1  %vestibula only
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 0  %non vestibular and non visual.
     data.configinfo(iBackground).parameters = 0;
 else   %Combine & Visual only
     data.configinfo(iBackground).parameters = 1;

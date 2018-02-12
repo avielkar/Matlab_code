@@ -148,7 +148,7 @@ if ~paused && flagdata.isStopButton == 0
         else                %if prior not enabled
                 eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
                 cldata.prior_now = 0;
-            end
+        end
         %-----end
         
         setappdata(appHandle,'ControlLoopData',cldata);
