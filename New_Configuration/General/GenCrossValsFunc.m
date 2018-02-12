@@ -330,7 +330,7 @@ if ~isempty(data.condvect.varying)
     
     if(hasStim0Index > 0)
         numOfLines = size(yGL);
-        index = numOfLines(hasStim0Index) + 1;
+        index = numOfLines(1) + 1;
         yM(index,:) = [0 0];
         yGL(index,:) = [0 0];
     end
@@ -371,6 +371,10 @@ if ~isempty(data.condvect.varying)
      end
     %===End 09/09/2012======================================================
    
+    if(hasStim0Index > 0)
+        numconds = numconds + 1;
+    end
+    
     %%=== below is how the text gets displayed in the box on the right side of basicInterface===%
     spac = {}; %create spacing array to place between columns of vars in cond list.
     for i = 1:numconds

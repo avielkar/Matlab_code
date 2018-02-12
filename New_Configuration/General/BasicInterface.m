@@ -496,7 +496,7 @@ global basicfig
         %and that is error.
         bxbport_empty = isempty(bxbport);
         if(bxbport_empty == 1)
-            bxbport = serial('COM10', 'BaudRate', 115200, 'DataBits', 8, ...
+            bxbport = serial('COM9', 'BaudRate', 115200, 'DataBits', 8, ...
                 'StopBits', 1, 'FlowControl', 'none', 'Parity', 'none');
         end
         %if the port is closed but defined, so open it.
