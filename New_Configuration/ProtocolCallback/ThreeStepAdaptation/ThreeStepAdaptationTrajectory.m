@@ -227,7 +227,17 @@ if stim_type == 2   %Visual only
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
-end;
+end
+
+if stim_type == 0
+   lateralM = zeros(1,length(lateralM));
+   surgeM = zeros(1,length(surgeM));
+   heaveM = zeros(1,length(heaveM));
+   
+   lateralGL = zeros(1,length(lateralM));
+   surgeGL = zeros(1,length(surgeM));
+   heaveGL = zeros(1,length(heaveM));
+end
 
 M(1).name = 'LATERAL_DATA';
 M(1).data = lateralM + ori(1,1); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde

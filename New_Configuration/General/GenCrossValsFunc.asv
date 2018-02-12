@@ -298,22 +298,17 @@ if ~isempty(data.condvect.varying)
     for i = 1:numvars
         len = prod(lenvect(1:i));
         if isfield(data.condvect.varying(i).parameters,'moog')
-            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(2,:);
-                tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(2,:);
-                t = t(2:end);
-                tGL = tGL(2:end);
-            else
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(1,:);
-                tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(1,:);
+            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                if(hasStim0Index > 0)
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(2,:);
+                    tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(2,:);
+                else
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(1,:);
+                    tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(1,:);
+                end
             end
         else
-            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
-                t = t(2:end);
-            else
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
-            end
+            t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
             tGL = t;
         end
         
@@ -330,10 +325,13 @@ if ~isempty(data.condvect.varying)
     
     if(hasStim0Index > 0)
         numOfLines = size(yGL);
-        index = numOfLines(hasStim0Index) + 1;
+        index = numOfLines + 1;
         yM(index,:) = [0 0];
         yGL(index,:) = [0 0];
     end
+    
+    
+    
     
     
     %=== additional combination for Ardira's protocol. Jian 09/09/2012=========
