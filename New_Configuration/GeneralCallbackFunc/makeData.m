@@ -23,7 +23,7 @@ activeRule = data.activeRule;
 cntr = trial(activeStair,activeRule).cntr;
 cnInd = trial(activeStair,activeRule).list(cntr);
 
-stymulus_type_index = -1;
+stimulus_type_index = -1;
 delta_index = -1;
 
 
@@ -63,7 +63,7 @@ for i = 1:size(data.configinfo,2)
     %avi - for sol protocol of DELTA - saving the delta as minus or plus in order to
     %make it readen in the results without the stymuls type.
     if(isequal(name , 'STIMULUS_TYPE'))
-        stymulus_type_index = i;
+        stimulus_type_index = i;
     end
     if(isequal(name , 'DELTA'))
         delta_index = i;
@@ -84,8 +84,8 @@ end
 %======End 01/27/09=========
 
 %avi - for sol protocol of DELTA
-if(stymulus_type_index ~= -1 && delta_index ~= -1)
-    stim_type = SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(stymulus_type_index).value;
+if(stimulus_type_index ~= -1 && delta_index ~= -1)
+    stim_type = SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(stimulus_type_index).value;
     if(stim_type == 5)%reverse the DELTA
         inverse_delta = -SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(delta_index).value;
         SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(delta_index).value = inverse_delta;
