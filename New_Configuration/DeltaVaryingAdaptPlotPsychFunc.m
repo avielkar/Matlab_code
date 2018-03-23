@@ -87,140 +87,138 @@ response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 %%
      
 %% check the type of the current stimulus type to update(include the duplicated one)
-if(~trial(activeStair,activeRule).duplicatedTrial)
-    
-    %% Vestibular only.
-    if stim_type == 1 
-        iInd = find(dirArrayVes == dir);
-        if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
-        else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
-    %%
-
-    %% visual only.
-    elseif stim_type == 2 
-        iInd = find(dirArrayVisual == dir);
-        if isempty(iInd)
-            iDirVisual = iDirVisual+1;
-            dirArrayVisual(iDirVisual) = dir;
-            dirRepNumVisual(iDirVisual) = 1;
-            rightChoiceVisual(iDirVisual) = 0;
-            iInd = iDirVisual;
-        else
-            dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);
-    %%
-
-    %% combine.
-    elseif stim_type == 3 
-        iInd = find(dirArray == dir);
-        if isempty(iInd)
-            iDir = iDir+1;
-            dirArray(iDir) = dir;
-            dirRepNum(iDir) = 1;
-            rightChoice(iDir) = 0;
-            iInd = iDir;
-        else
-            dirRepNum(iInd)=dirRepNum(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);
-    %%
-
-    %% combine with left delta.
-    elseif stim_type == 4 
-        iInd = find(dirArrayLeftDelta == dir);
-        if isempty(iInd)
-            iDirLeftDelta = iDirLeftDelta+1;
-            dirArrayLeftDelta(iDirLeftDelta) = dir;
-            dirRepNumLeftDelta(iDirLeftDelta) = 1;
-            rightChoiceLeftDelta(iDirLeftDelta) = 0;
-            iInd = iDirLeftDelta;
-        else
-            dirRepNumLeftDelta(iInd)=dirRepNumLeftDelta(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoiceLeftDelta(iInd)=((dirRepNumLeftDelta(iInd)-1)*rightChoiceLeftDelta(iInd)+right)/dirRepNumLeftDelta(iInd);
-    %%
-
-    %% combine with right delta.
-    elseif stim_type == 5 
-        iInd = find(dirArrayRightDelta == dir);
-        if isempty(iInd)
-            iDirRightDelta = iDirRightDelta+1;
-            dirArrayRightDelta(iDirRightDelta) = dir;
-            dirRepNumRightDelta(iDirRightDelta) = 1;
-            rightChoiceRightDelta(iDirRightDelta) = 0;
-            iInd = iDirRightDelta;
-        else
-            dirRepNumRightDelta(iInd)=dirRepNumRightDelta(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoiceRightDelta(iInd)=((dirRepNumRightDelta(iInd)-1)*rightChoiceRightDelta(iInd)+right)/dirRepNumRightDelta(iInd);
-    %%
+%if(~trial(activeStair,activeRule).duplicatedTrial)
+%% Vestibular only.
+if stim_type == 1 
+    iInd = find(dirArrayVes == dir);
+    if isempty(iInd)
+        iDirVes = iDirVes+1;
+        dirArrayVes(iDirVes) = dir;
+        dirRepNumVes(iDirVes) = 1;
+        rightChoiceVes(iDirVes) = 0;
+        iInd = iDirVes;
+    else
+        dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
     end
-%if the trial is the duplicated type trial    
-else
-    %% duplicated type trial
-        iInd = find(dirArrayDuplicated == dir);
-        if isempty(iInd)
-            iDirDuplicated = iDirDuplicated+1;
-            dirArrayDuplicated(iDirDuplicated) = dir;
-            dirRepNumDuplicated(iDirDuplicated) = 1;
-            rightChoiceDuplicated(iDirDuplicated) = 0;
-            iInd = iDirDuplicated;
-        else
-            dirRepNumDuplicated(iInd)=dirRepNumDuplicated(iInd)+1;
-        end
 
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
 
-        rightChoiceDuplicated(iInd)=((dirRepNumDuplicated(iInd)-1)*rightChoiceDuplicated(iInd)+right)/dirRepNumDuplicated(iInd);
-    %% 
+    rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+%%
+
+%% visual only.
+elseif stim_type == 2 
+    iInd = find(dirArrayVisual == dir);
+    if isempty(iInd)
+        iDirVisual = iDirVisual+1;
+        dirArrayVisual(iDirVisual) = dir;
+        dirRepNumVisual(iDirVisual) = 1;
+        rightChoiceVisual(iDirVisual) = 0;
+        iInd = iDirVisual;
+    else
+        dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
+    end
+
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
+
+    rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);
+%%
+
+%% combine.
+elseif stim_type == 3 
+    iInd = find(dirArray == dir);
+    if isempty(iInd)
+        iDir = iDir+1;
+        dirArray(iDir) = dir;
+        dirRepNum(iDir) = 1;
+        rightChoice(iDir) = 0;
+        iInd = iDir;
+    else
+        dirRepNum(iInd)=dirRepNum(iInd)+1;
+    end
+
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
+
+    rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);
+%%
+
+%% combine with left delta.
+elseif stim_type == 4 
+    iInd = find(dirArrayLeftDelta == dir);
+    if isempty(iInd)
+        iDirLeftDelta = iDirLeftDelta+1;
+        dirArrayLeftDelta(iDirLeftDelta) = dir;
+        dirRepNumLeftDelta(iDirLeftDelta) = 1;
+        rightChoiceLeftDelta(iDirLeftDelta) = 0;
+        iInd = iDirLeftDelta;
+    else
+        dirRepNumLeftDelta(iInd)=dirRepNumLeftDelta(iInd)+1;
+    end
+
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
+
+    rightChoiceLeftDelta(iInd)=((dirRepNumLeftDelta(iInd)-1)*rightChoiceLeftDelta(iInd)+right)/dirRepNumLeftDelta(iInd);
+%%
+
+%% combine with right delta.
+elseif stim_type == 5 
+    iInd = find(dirArrayRightDelta == dir);
+    if isempty(iInd)
+        iDirRightDelta = iDirRightDelta+1;
+        dirArrayRightDelta(iDirRightDelta) = dir;
+        dirRepNumRightDelta(iDirRightDelta) = 1;
+        rightChoiceRightDelta(iDirRightDelta) = 0;
+        iInd = iDirRightDelta;
+    else
+        dirRepNumRightDelta(iInd)=dirRepNumRightDelta(iInd)+1;
+    end
+
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
+
+    rightChoiceRightDelta(iInd)=((dirRepNumRightDelta(iInd)-1)*rightChoiceRightDelta(iInd)+right)/dirRepNumRightDelta(iInd);
+%%
+
+elseif(stim_type < 0)
+%% if the trial is the duplicated type trial - the stim type is negative.  
+    iInd = find(dirArrayDuplicated == dir);
+    if isempty(iInd)
+        iDirDuplicated = iDirDuplicated+1;
+        dirArrayDuplicated(iDirDuplicated) = dir;
+        dirRepNumDuplicated(iDirDuplicated) = 1;
+        rightChoiceDuplicated(iDirDuplicated) = 0;
+        iInd = iDirDuplicated;
+    else
+        dirRepNumDuplicated(iInd)=dirRepNumDuplicated(iInd)+1;
+    end
+
+    if response == 2
+        right=1;
+    else
+        right=0;
+    end
+
+    rightChoiceDuplicated(iInd)=((dirRepNumDuplicated(iInd)-1)*rightChoiceDuplicated(iInd)+right)/dirRepNumDuplicated(iInd);
+%% 
 end
 
 %% sorting stimulus types for plot include duplicated.
