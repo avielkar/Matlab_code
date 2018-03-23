@@ -255,23 +255,8 @@ if iDirVes>0
         
     %%
     title('Vestibular only');
-    i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
-    set(gca, 'XTick', x);
-    hold on;
-    y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
-
     xlabel('Heading Angle (deg)');
-
-    y=0 : 0.1 : 1;
-    ylim([0 1]);
-    set(gca, 'YTick', y);
     ylabel('Rightward Dicisions%');
-
-    x1 = zeros(size(y));
-    plot(x1,y,'-r');
-
     grid on;
     %%
     
@@ -284,6 +269,9 @@ if iDirVisual>0
         
     %%
     title('Visual only');
+    xlabel('Heading Angle (deg)');
+    ylabel('Rightward Dicisions%');
+    grid on;
     %%
     
     plot(sortDirVisual, sortRightVisual, 'xr' , 'MarkerSize' , 20);
@@ -296,24 +284,8 @@ if iDir>0
         
     %%
     title('Combined');
-    i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
-    set(gca, 'XTick', x);
-    hold on;
-    y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
-
     xlabel('Heading Angle (deg)');
-
-    y=0 : 0.1 : 1;
-    ylim([0 1]);
-    set(gca, 'YTick', y);
-    ylabel('Rightward Dicisions%');
-
-    x1 = zeros(size(y));
-    plot(x1,y,'-r');
-
-    grid on;
+    ylabel('Rightward Dicisions%');grid on;
     %%
     
     plot(sortDir, sortRight, '+b' , 'MarkerSize' , 20);
@@ -325,23 +297,8 @@ if iDirLeftDelta>0
         
     %%
     title('Left Delta');
-    i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
-    set(gca, 'XTick', x);
-    hold on;
-    y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
-
     xlabel('Heading Angle (deg)');
-
-    y=0 : 0.1 : 1;
-    ylim([0 1]);
-    set(gca, 'YTick', y);
     ylabel('Rightward Dicisions%');
-
-    x1 = zeros(size(y));
-    plot(x1,y,'-r');
-
     grid on;
     %%
     
@@ -354,23 +311,8 @@ if iDirRightDelta>0
         
     %%
     title('Right Delta');
-    i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
-    set(gca, 'XTick', x);
-    hold on;
-    y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
-
     xlabel('Heading Angle (deg)');
-
-    y=0 : 0.1 : 1;
-    ylim([0 1]);
-    set(gca, 'YTick', y);
     ylabel('Rightward Dicisions%');
-
-    x1 = zeros(size(y));
-    plot(x1,y,'-r');
-
     grid on;
     %%
     
@@ -383,23 +325,8 @@ if iDirDuplicated>0
         
     %%
     title('Duplicated');
-    i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
-    set(gca, 'XTick', x);
-    hold on;
-    y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
-
     xlabel('Heading Angle (deg)');
-
-    y=0 : 0.1 : 1;
-    ylim([0 1]);
-    set(gca, 'YTick', y);
     ylabel('Rightward Dicisions%');
-
-    x1 = zeros(size(y));
-    plot(x1,y,'-r');
-
     grid on;
     %%
     
