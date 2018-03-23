@@ -408,7 +408,7 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
             end
             
         else%if no across and within make the field 0
-            trial(1,1).duplicatedTrialduplicatedTrial = false;
+            trial(1,1).duplicatedTrial = false;
         end
         
         %%-----avi:for Adam1_Prior protocol
