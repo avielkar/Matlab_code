@@ -461,7 +461,11 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
         else % random (every rep, or total)
             trial.list = randperm(trial.num);
         end
+        
+        %if no across and within make the field 0
+        trial(1,1).duplicatedTrial = false;    
     end
+    
 
     setappdata(basicfig,'protinfo',data);
     setappdata(basicfig,'trialInfo',trial);
