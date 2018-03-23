@@ -106,7 +106,7 @@ end
 %avi - end for sol protocol
 
 %%
-change the coherence savd value according to the trial(varying
+%change the coherence savd value according to the trial(varying
 %duplicated).
 stim_type = 0;
 if data.configinfo(stimulus_type_index).status == 2
