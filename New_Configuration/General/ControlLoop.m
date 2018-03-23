@@ -302,26 +302,39 @@ if ~paused && flagdata.isStopButton == 0
                     end
                     %----Jing for combine multi-staircase 12/01/08-------
                 elseif data.configinfo(i).status == 2    %varying
-                    i1 = strmatch(data.configinfo(i).nice_name,{char(varying.name)},'exact');
-                    valStr = [];
-                    valLen = size(varying(i1).parameters,1);
-                    if cldata.staircase
-                        for iVal = 1:valLen
-                            valStr = [valStr ' ' num2str(crossvals(cldata.varyingCurrInd,i1))];
-                        end
-                    else
-                        for iVal = 1:valLen
+                    %check if the stim type i minus , so convert it and get
+                    %the duplicated coherence value.
+                    valStr = '';
+                    if(i == iSTIMULUS_TYPE && ~cldata.staircase)
+                        i1 = strmatch(data.configinfo(i).nice_name,{char(varying.name)},'exact');
+                        if(crossvals(trial.list(trial.cntr) < 0))%duplicate stim type
+                            valStr = [valStr ' ' -num2str(crossvals(trial.list(trial.cntr),i1))];
+                        else%normal
                             valStr = [valStr ' ' num2str(crossvals(trial.list(trial.cntr),i1))];
                         end
+                    else
+                        i1 = strmatch(data.configinfo(i).nice_name,{char(varying.name)},'exact');
+                        valStr = [];
+                        valLen = size(varying(i1).parameters,1);
+                        if cldata.staircase
+                            for iVal = 1:valLen
+                                valStr = [valStr ' ' num2str(crossvals(cldata.varyingCurrInd,i1))];
+                            end
+                        else
+                            for iVal = 1:valLen
+                                valStr = [valStr ' ' num2str(crossvals(trial.list(trial.cntr),i1))];
+                            end
+                        end
                     end
+                    
                     outString = [data.configinfo(i).name ' ' valStr];
-
                     if debug
                         disp(outString)
                     end
                     if connected
                         cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                     end
+                    
                 elseif data.configinfo(i).status == 3  % acrossStair
                     i1 = strmatch(data.configinfo(i).nice_name,{char(across.name)},'exact');
                     if isfield(across(i1).parameters, 'moog')

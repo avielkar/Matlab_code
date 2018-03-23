@@ -263,128 +263,278 @@ yM = [];
 yGL = [];
 if ~isempty(data.condvect.varying)
     hasStim0Index = -1;
-    numvars = size(data.condvect.varying, 2);
-    for i = 1:numvars
-        if isfield(data.condvect.varying(i).parameters,'moog')
-            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
-                if(data.condvect.varying(i).parameters.moog(1) == 0)
-                    lenvect(i) = length(data.condvect.varying(i).parameters.moog) - 1;
-                    hasStim0Index = i;
+    hasDuplicatedField = HasField(data , 'DUPLICATE_STIMULUS_TYPE');
+    
+    if(hasDuplicatedField == -1)
+        %% if duplicates stimulus type for other cohrnce is not enabled
+        numvars = size(data.condvect.varying, 2);
+        for i = 1:numvars
+            if isfield(data.condvect.varying(i).parameters,'moog')
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                    if(data.condvect.varying(i).parameters.moog(1) == 0)
+                        lenvect(i) = length(data.condvect.varying(i).parameters.moog) - 1;
+                        hasStim0Index = i;
+                    else
+                        lenvect(i) = length(data.condvect.varying(i).parameters.moog);
+                    end
                 else
                     lenvect(i) = length(data.condvect.varying(i).parameters.moog);
                 end
             else
-                lenvect(i) = length(data.condvect.varying(i).parameters.moog);
-            end
-        else
-            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
-                if(data.condvect.varying(i).parameters(1) == 0)
-                    lenvect(i) = length(data.condvect.varying(i).parameters) - 1;
-                    hasStim0Index = i;
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                    if(data.condvect.varying(i).parameters(1) == 0)
+                        lenvect(i) = length(data.condvect.varying(i).parameters) - 1;
+                        hasStim0Index = i;
+                    else
+                        lenvect(i) = length(data.condvect.varying(i).parameters);
+                    end
                 else
                     lenvect(i) = length(data.condvect.varying(i).parameters);
                 end
-            else
-                lenvect(i) = length(data.condvect.varying(i).parameters);
             end
         end
-    end
 
-    numconds = prod(lenvect);
-    yM = zeros(numconds,numvars);
-    yGL = zeros(numconds,numvars);
+        numconds = prod(lenvect);
+        yM = zeros(numconds,numvars);
+        yGL = zeros(numconds,numvars);
 
-% Expands vector with repeating values then expands vector to repeating vectors
-    for i = 1:numvars
-        len = prod(lenvect(1:i));
-        if isfield(data.condvect.varying(i).parameters,'moog')
-            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(2,:);
-                tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(2,:);
-                t = t(2:end);
-                tGL = tGL(2:end);
+    % Expands vector with repeating values then expands vector to repeating vectors
+        for i = 1:numvars
+            len = prod(lenvect(1:i));
+            if isfield(data.condvect.varying(i).parameters,'moog')
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(2,:);
+                    tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(2,:);
+                    t = t(2:end);
+                    tGL = tGL(2:end);
+                else
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(1,:);
+                    tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(1,:);
+                end
             else
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(1,:);
-                tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(1,:);
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
+                    t = t(2:end);
+                else
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
+                end
+                tGL = t;
             end
-        else
-            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
-                t = t(2:end);
-            else
-                t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
-            end
-            tGL = t;
+
+            t = t(:);
+            tGL = tGL(:);
+            t = t*ones(1,numconds/length(t));
+            tGL = tGL*ones(1,numconds/length(tGL));
+            t = t(:);
+            tGL = tGL(:);
+
+            yM(:,i) = t;
+            yGL(:,i) = tGL;
         end
-        
-        t = t(:);
-        tGL = tGL(:);
-        t = t*ones(1,numconds/length(t));
-        tGL = tGL*ones(1,numconds/length(tGL));
-        t = t(:);
-        tGL = tGL(:);
-        
-        yM(:,i) = t;
-        yGL(:,i) = tGL;
-    end
-    
-    if(hasStim0Index > 0)
-        numOfLines = size(yGL);
-        index = numOfLines(1) + 1;
-        yM(index,:) = [0 0];
-        yGL(index,:) = [0 0];
-    end
-    
-    
-    %=== additional combination for Ardira's protocol. Jian 09/09/2012=========
-     if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')        
-        i1=strmatch('Azimuth',{char(data.condvect.varying.name)},'exact');
-        i2=strmatch('cylinder depth',{char(data.condvect.varying.name)},'exact');
-        if ~isempty(i1) && ~isempty(i2) 
-            for j1=1:lenvect(i1)
-                for j2=1:lenvect(i2)
-                    numconds = numconds+1;
-                    for i=1:numvars
-                        if strmatch(data.condvect.varying(i).name, 'Azimuth')
-                            yM(numconds, i)=data.condvect.varying(i).parameters.moog(1,j1);
-                            yGL(numconds, i)=data.condvect.varying(i).parameters.openGL(1,j1);
+
+        if(hasStim0Index > 0)
+            numOfLines = size(yGL);
+            index = numOfLines(1) + 1;
+            yM(index,:) = [0 0];
+            yGL(index,:) = [0 0];
+        end
+
+
+        %=== additional combination for Ardira's protocol. Jian 09/09/2012=========
+         if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')        
+            i1=strmatch('Azimuth',{char(data.condvect.varying.name)},'exact');
+            i2=strmatch('cylinder depth',{char(data.condvect.varying.name)},'exact');
+            if ~isempty(i1) && ~isempty(i2) 
+                for j1=1:lenvect(i1)
+                    for j2=1:lenvect(i2)
+                        numconds = numconds+1;
+                        for i=1:numvars
+                            if strmatch(data.condvect.varying(i).name, 'Azimuth')
+                                yM(numconds, i)=data.condvect.varying(i).parameters.moog(1,j1);
+                                yGL(numconds, i)=data.condvect.varying(i).parameters.openGL(1,j1);
+                            end
+
+                            if strmatch(data.condvect.varying(i).name, 'Rotation Amplitude')
+                                yM(numconds, i)=0;
+                                yGL(numconds, i)=0;
+                            end
+
+                            if strmatch(data.condvect.varying(i).name, 'cylinder depth')
+                                yM(numconds, i)=data.condvect.varying(i).parameters(1,j2);
+                                yGL(numconds, i)=data.condvect.varying(i).parameters(1,j2);
+                            end
+
+                            if strmatch(data.condvect.varying(i).name, 'FP Rotate')
+                                yM(numconds, i)=0;
+                                yGL(numconds, i)=0;
+                            end               
                         end
-                        
-                        if strmatch(data.condvect.varying(i).name, 'Rotation Amplitude')
-                            yM(numconds, i)=0;
-                            yGL(numconds, i)=0;
-                        end
-                
-                        if strmatch(data.condvect.varying(i).name, 'cylinder depth')
-                            yM(numconds, i)=data.condvect.varying(i).parameters(1,j2);
-                            yGL(numconds, i)=data.condvect.varying(i).parameters(1,j2);
-                        end
-                
-                        if strmatch(data.condvect.varying(i).name, 'FP Rotate')
-                            yM(numconds, i)=0;
-                            yGL(numconds, i)=0;
-                        end               
+                    end 
+                end
+            end       
+         end
+        %===End 09/09/2012======================================================
+
+        if(hasStim0Index > 0)
+            numconds = numconds + 1;
+        end
+
+        %%=== below is how the text gets displayed in the box on the right side of basicInterface===%
+        spac = {}; %create spacing array to place between columns of vars in cond list.
+        for i = 1:numconds
+            spac{i} = blanks(10); % 10 spaces
+        end
+
+        for i = 1:numvars
+            str2 = sprintf('%s,  ',char(data.condvect.varying(i).name));
+            str1 = [str1 str2];
+            str3 = [str3 num2str(yM(:,i)) char(spac)];
+        end
+    else
+        %% if duplicates stimulus type for other cohrnce is enabled
+        numvars = size(data.condvect.varying, 2);
+        for i = 1:numvars
+            
+            %add the duplicate stim type in mius sign to the stimulus varing vector and
+            %dhange the cohernece after that.
+            if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                duplicatedStimulusType = data.configinfo(hasDuplicatedField).parameters;
+                data.condvect.varying(i).parameters = [data.condvect.varying(i).parameters -duplicatedStimulusType];
+            end
+            
+            if isfield(data.condvect.varying(i).parameters,'moog')
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                    if(data.condvect.varying(i).parameters.moog(1) == 0)
+                        lenvect(i) = length(data.condvect.varying(i).parameters.moog) - 1;
+                        hasStim0Index = i;
+                    else
+                        lenvect(i) = length(data.condvect.varying(i).parameters.moog);
                     end
-                end 
+                else
+                    lenvect(i) = length(data.condvect.varying(i).parameters.moog);
+                end
+            else
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                    if(data.condvect.varying(i).parameters(1) == 0)
+                        lenvect(i) = length(data.condvect.varying(i).parameters) - 1;
+                        hasStim0Index = i;
+                    else
+                        lenvect(i) = length(data.condvect.varying(i).parameters);
+                    end
+                else
+                    lenvect(i) = length(data.condvect.varying(i).parameters);
+                end
             end
-        end       
-     end
-    %===End 09/09/2012======================================================
-   
-    if(hasStim0Index > 0)
-        numconds = numconds + 1;
-    end
-    
-    %%=== below is how the text gets displayed in the box on the right side of basicInterface===%
-    spac = {}; %create spacing array to place between columns of vars in cond list.
-    for i = 1:numconds
-        spac{i} = blanks(10); % 10 spaces
-    end
+        end
 
-    for i = 1:numvars
-        str2 = sprintf('%s,  ',char(data.condvect.varying(i).name));
-        str1 = [str1 str2];
-        str3 = [str3 num2str(yM(:,i)) char(spac)];
+        numconds = prod(lenvect);
+        yM = zeros(numconds,numvars);
+        yGL = zeros(numconds,numvars);
+
+    % Expands vector with repeating values then expands vector to repeating vectors
+        for i = 1:numvars
+            len = prod(lenvect(1:i));
+            if isfield(data.condvect.varying(i).parameters,'moog')
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(2,:);
+                    tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(2,:);
+                    t = t(2:end);
+                    tGL = tGL(2:end);
+                else
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters.moog(1,:);
+                    tGL = ones((numconds/len),1) * data.condvect.varying(i).parameters.openGL(1,:);
+                end
+            else
+                if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type') && hasStim0Index > 0)
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
+                    t = t(2:end);
+                else
+                    t = ones((numconds/len),1) * data.condvect.varying(i).parameters(1,:);
+                end
+                tGL = t;
+            end
+
+            t = t(:);
+            tGL = tGL(:);
+            t = t*ones(1,numconds/length(t));
+            tGL = tGL*ones(1,numconds/length(tGL));
+            t = t(:);
+            tGL = tGL(:);
+
+            yM(:,i) = t;
+            yGL(:,i) = tGL;
+        end
+
+        if(hasStim0Index > 0)
+            numOfLines = size(yGL);
+            index = numOfLines(1) + 1;
+            yM(index,:) = [0 0];
+            yGL(index,:) = [0 0];
+        end
+
+
+        %=== additional combination for Ardira's protocol. Jian 09/09/2012=========
+         if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')        
+            i1=strmatch('Azimuth',{char(data.condvect.varying.name)},'exact');
+            i2=strmatch('cylinder depth',{char(data.condvect.varying.name)},'exact');
+            if ~isempty(i1) && ~isempty(i2) 
+                for j1=1:lenvect(i1)
+                    for j2=1:lenvect(i2)
+                        numconds = numconds+1;
+                        for i=1:numvars
+                            if strmatch(data.condvect.varying(i).name, 'Azimuth')
+                                yM(numconds, i)=data.condvect.varying(i).parameters.moog(1,j1);
+                                yGL(numconds, i)=data.condvect.varying(i).parameters.openGL(1,j1);
+                            end
+
+                            if strmatch(data.condvect.varying(i).name, 'Rotation Amplitude')
+                                yM(numconds, i)=0;
+                                yGL(numconds, i)=0;
+                            end
+
+                            if strmatch(data.condvect.varying(i).name, 'cylinder depth')
+                                yM(numconds, i)=data.condvect.varying(i).parameters(1,j2);
+                                yGL(numconds, i)=data.condvect.varying(i).parameters(1,j2);
+                            end
+
+                            if strmatch(data.condvect.varying(i).name, 'FP Rotate')
+                                yM(numconds, i)=0;
+                                yGL(numconds, i)=0;
+                            end               
+                        end
+                    end 
+                end
+            end       
+         end
+        %===End 09/09/2012======================================================
+
+        if(hasStim0Index > 0)
+            numconds = numconds + 1;
+        end
+        
+        %if duplicated stimulus for coherence is enabled - convert the
+        %minus in the stim type to plus , also change the coherence to be
+        %the duplicated coherence value.
+        if(hasDuplicatedField > 0)
+            %find the index of the duplicated coherence value.
+            duplicatedCoherenceIndex = HasField(data , 'DUPLICATE_STIMULUS_TYPE');
+            data.configinfo(duplicatedCoherenceIndex).parameters;
+            
+            %replace all minus stim_type value in plus and the matched
+            %coherence to the duplicated coherence value.
+        end
+
+        %%=== below is how the text gets displayed in the box on the right side of basicInterface===%
+        spac = {}; %create spacing array to place between columns of vars in cond list.
+        for i = 1:numconds
+            spac{i} = blanks(10); % 10 spaces
+        end
+
+        for i = 1:numvars
+            str2 = sprintf('%s,  ',char(data.condvect.varying(i).name));
+            str1 = [str1 str2];
+            str3 = [str3 num2str(yM(:,i)) char(spac)];
+        end
     end
 end
 
@@ -546,6 +696,18 @@ end
 
 V.vect = vect;
 V.vectGL = vectGL;
+
+
+%Check if a field name is included in the data.
+function hasField = HasField(data , name)
+    arr_size = size(data.configinfo , 2);
+    hasField = -1;
+    for i=1:arr_size
+        if(strcmp(data.configinfo(i).name  , name) == 1)
+            hasField = i;
+        end
+    end
+
 
 
 
