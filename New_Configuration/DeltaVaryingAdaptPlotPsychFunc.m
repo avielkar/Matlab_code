@@ -253,6 +253,7 @@ if iDirVes>0
         
     %%
     title('Vestibular only');
+    hold on;
     xlabel('Heading Angle (deg)');
     ylabel('Rightward Dicisions%');
     grid on;
@@ -267,6 +268,7 @@ if iDirVisual>0
         
     %%
     title('Visual only');
+    hold on;
     xlabel('Heading Angle (deg)');
     ylabel('Rightward Dicisions%');
     grid on;
@@ -282,6 +284,7 @@ if iDir>0
         
     %%
     title('Combined');
+    hold on;
     xlabel('Heading Angle (deg)');
     ylabel('Rightward Dicisions%');grid on;
     %%
@@ -295,6 +298,7 @@ if iDirLeftDelta>0
         
     %%
     title('Left Delta');
+    hold on;
     xlabel('Heading Angle (deg)');
     ylabel('Rightward Dicisions%');
     grid on;
@@ -309,6 +313,7 @@ if iDirRightDelta>0
         
     %%
     title('Right Delta');
+    hold on;
     xlabel('Heading Angle (deg)');
     ylabel('Rightward Dicisions%');
     grid on;
@@ -323,6 +328,7 @@ if iDirDuplicated>0
         
     %%
     title('Duplicated');
+    hold on;
     xlabel('Heading Angle (deg)');
     ylabel('Rightward Dicisions%');
     grid on;
