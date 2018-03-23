@@ -105,6 +105,29 @@ if(stimulus_type_index ~= -1 && delta_index ~= -1)
 end
 %avi - end for sol protocol
 
+%%
+change the coherence savd value according to the trial(varying
+%duplicated).
+stim_type = 0;
+if data.configinfo(stimulus_type_index).status == 2
+    i1 = strmatch('Stimulus Type',{char(varying.name)},'exact');
+    stim_type = crossvals(cnInd,i1);
+elseif data.configinfo(i).status == 3 
+    stim_type = across.parameters(activeStair);
+elseif data.configinfo(i).status == 4   
+    stim_type = within.parameters(trial(activeStair,activeRule).list(currTrial));
+else
+    stim_type = data.configinfo(i).parameters;
+end
+
+if(stim_type < 0)
+    i_STAR_MOTION_COHERENCE = strmatch('STAR_MOTION_COHERENCE' ,{char(data.configinfo.name)},'exact');
+    i_DUPLICATED_STYYMULUS_TYPE_COHERENCE = strmatch('DUPLICATED_STYYMULUS_TYPE_COHERENCE' ,{char(data.configinfo.name)},'exact');
+    val = SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(i_DUPLICATED_STYYMULUS_TYPE_COHERENCE).value
+    SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(i_STAR_MOTION_COHERENCE).value = val;
+end
+%%
+
 %======Save the trial history info. Jing 5/15/09========
 SavedInfo(activeStair,activeRule).Resp(rep).trialCount(cntr) = cldata.trialCount;
 setappdata(appHandle,'SavedInfo',SavedInfo);
