@@ -239,7 +239,7 @@ lateralGL = dGL1*yGL;
 surgeGL = dGL1*xGL;
 heaveGL = dGL1*zGL;
     
-if stim_type == 2   %Visual only
+if stim_type == 2 || stim_type == -2   %Visual only
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
