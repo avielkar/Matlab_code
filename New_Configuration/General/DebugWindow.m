@@ -30,12 +30,12 @@ if isempty(findobj('Name','Debug Window'))
         'Style','pushbutton',...
         'Position',[2.25 3.5 1.5 0.5],... 
         'String','Up',...
-        'Callback',{@startButton_callback});
+        'Callback',{@upButton_callback});
     uicontrol(debugfig,'Units','centimeters',...    
         'Style','pushbutton',...
         'Position',[2.25 0 1.5 0.5],... 
         'String','Down',...
-        'Callback',{@startButton_callback});
+        'Callback',{@downButton_callback});
 end
 
 function leftButton_callback(hObject, eventdata)
@@ -49,3 +49,12 @@ in = 'f';
 function startButton_callback(hObject, eventdata)
 global in 
 in = 's';
+
+
+function upButton_callback(hObject, eventdata)
+global in 
+in = 'e';
+
+function downButton_callback(hObject, eventdata)
+global in 
+in = 'x';
