@@ -733,12 +733,13 @@ if ~paused && flagdata.isStopButton == 0
         end
 
     elseif (connected && debug) || (~connected && debug)
-        DebugWindow;
-
-        if strcmp(in,'s')
+        DebugWindow(appHandle);
+        debugResponse = getappdata(appHandle , 'debugResponse');
+        if strcmp(debugResponse,'s')
             response = 4;
             cldata.go = 1;
-            in = '';  %---Jing 3/11/2008---
+            debugResponse = '';  %---Jing 3/11/2008---
+            setappdata(appHandle , 'debugResponse' , debugResponse);
 
             %---Jing for Reaction_time_task Protocol 11/10/08-----
             if cldata.movdelaycontrol

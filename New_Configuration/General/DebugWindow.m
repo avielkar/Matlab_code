@@ -1,5 +1,4 @@
-function DebugWindow
-
+function DebugWindow(appHandle)
 if isempty(findobj('Name','Debug Window'))
     set(0,'Units','centimeters')
     pos = get(0,'ScreenSize');
@@ -15,46 +14,50 @@ if isempty(findobj('Name','Debug Window'))
         'Style','pushbutton',...
         'Position',[0 1.75 1.5 0.5],...
         'String','Left',...
-        'Callback',{@leftButton_callback});
+        'Callback',{@leftButton_callback , appHandle});
     uicontrol(debugfig,'Units','centimeters',...
         'Style','pushbutton',...
         'Position',[4.5 1.75 1.5 0.5],...
         'String','Right',...
-        'Callback',{@rightButton_callback});
+        'Callback',{@rightButton_callback , appHandle});
     uicontrol(debugfig,'Units','centimeters',...
         'Style','pushbutton',...
         'Position',[2.25 1.75 1.5 0.5],...
         'String','Start',...
-        'Callback',{@startButton_callback});
+        'Callback',{@startButton_callback , appHandle});
     uicontrol(debugfig,'Units','centimeters',...
         'Style','pushbutton',...
         'Position',[2.25 3.5 1.5 0.5],... 
         'String','Up',...
-        'Callback',{@upButton_callback});
+        'Callback',{@upButton_callback , appHandle});
     uicontrol(debugfig,'Units','centimeters',...    
         'Style','pushbutton',...
         'Position',[2.25 0 1.5 0.5],... 
         'String','Down',...
-        'Callback',{@downButton_callback});
+        'Callback',{@downButton_callback , appHandle});
 end
 
-function leftButton_callback(hObject, eventdata)
-global in 
-in = 'd';
+function leftButton_callback(hobject, event_data ,handle) 
+debugResponse = 'd';
+setappdata(handle , 'debugResponse' , debugResponse);
+display('setttttttttttttttttttttttttttttttttttttttttted');
 
-function rightButton_callback(hObject, eventdata)
-global in 
-in = 'f';
+function rightButton_callback(hobject, event_data ,handle)
+debugResponse = 'f';
+setappdata(handle , 'debugResponse' , debugResponse);
+display('setttttttttttttttttttttttttttttttttttttttttted');
 
-function startButton_callback(hObject, eventdata)
-global in 
-in = 's';
+function startButton_callback(hobject, event_data , handle)
+debugResponse = 's';
+setappdata(handle , 'debugResponse' , debugResponse);
+display('setttttttttttttttttttttttttttttttttttttttttted');
 
+function upButton_callback(hobject, event_data ,handle)
+debugResponse = 'e';
+setappdata(handle , 'debugResponse' , debugResponse);
+display('setttttttttttttttttttttttttttttttttttttttttted');
 
-function upButton_callback(hObject, eventdata)
-global in 
-in = 'e';
-
-function downButton_callback(hObject, eventdata)
-global in 
-in = 'x';
+function downButton_callback(hobject, event_data ,handle) 
+debugResponse = 'x';
+setappdata(handle , 'debugResponse' , debugResponse);
+display('setttttttttttttttttttttttttttttttttttttttttted');

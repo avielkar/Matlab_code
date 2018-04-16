@@ -89,6 +89,9 @@ in = '';   %---Jing added for debug window getting response.03/11/08
 debug = 0; % 1 for debug mode
 connected = 1; % 1 for connected to Moog Computer
 
+debugResponse = '';
+setappdata(basicfig, 'debugRepsponse' , debugResponse);
+
 MOOGDOTS_COMM = 0;
 PLOTS = 0;
 

@@ -138,23 +138,69 @@ if connected && ~debug
         fprintf('The result at the end is hell of is %d \n',response);
     end
 elseif (connected && debug) || (~connected && debug)
+    in = '';
     disp('Press Left/Right Button in Debug Window for response');
     tic
-    while  (toc <= cldata.respTime) && (strcmp(in,'')==1)
-        DebugWindow;
-        pause(cldata.respTime);
+    response = 0;
+    while  (toc <= cldata.respTime)
+        pause(0.1);
+        debugResponse = getappdata(appHandle , 'debugResponse');
+        if strcmp(debugResponse,'f') %rigth
+            display('Choice = Right');
+            response = 2;
+            break;
+        elseif strcmp(debugResponse,'d') %left
+            display('Choice = Left');
+            response = 1;
+            break;
+        elseif strcmp(debugResponse,'i')
+            response = 4;
+            break;
+        end
+        %pause(cldata.respTime);
     end
-    if strcmp(in,'f')
-        response = 2;
-    elseif strcmp(in,'d')
-        response = 1;
-    elseif strcmp(in,'i')
-        response = 4;
+    
+    debugResponse = ''; 
+    setappdata(appHandle , 'debugResponse' , debugResponse);
+    
+    %%
+    if response == 1 || response == 2 
+        soundsc(a_legit,2000);
     else
-        response = 0;
+        soundsc(a_timeout,2000);
     end
-    in = '';  
+    %%
+    
+
+    %if a answer was made and the option for confidence answer is on.
+    if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
+        confidenceResponse = 0; 
+        tic
+        while(toc <= cldata.respTime)
+          pause(0.1);
+          debugResponse = getappdata(appHandle , 'debugResponse');
+          if strcmp(debugResponse,'e') %up buttom
+              confidenceResponse = 3;
+              display('Confidence choice  =  High');
+              break;
+          elseif strcmp(debugResponse,'x')  %down buttom
+              confidenceResponse = 4;
+              display('Confidence choice = Low');
+              break;
+          end
+        end
+    end
+    
+    debugResponse = ''; 
+    setappdata(appHandle , 'debugResponse' , debugResponse);
+    
+
+    if(confidenceResponse == 0) %no choice or pressed an illegal button
+        display('Confidence Choice Timeout');
+    end
 end
+
+
 % Feedback for 'Received Answer' case ++++++++++
 if(flagdata.enableConfidenceChoice)
     if confidenceResponse == 3 || confidenceResponse == 4 
