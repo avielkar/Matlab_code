@@ -265,7 +265,9 @@ if ~isempty(data.condvect.varying)
     hasStim0Index = -1;
     hasDuplicatedField = HasField(data , 'DUPLICATE_STIMULUS_TYPE');
     
-    if(hasDuplicatedField == -1)
+    %check if there is any duplicated field.
+    %if there is duplicated field , check if it is positive.
+    if(hasDuplicatedField == -1 && data.configinfo(hasDuplicatedField).parameters >= 0)
         %% if duplicates stimulus type for other cohrnce is not enabled
         numvars = size(data.condvect.varying, 2);
         for i = 1:numvars
@@ -511,19 +513,6 @@ if ~isempty(data.condvect.varying)
         if(hasStim0Index > 0)
             numconds = numconds + 1;
         end
-        
-        %if duplicated stimulus for coherence is enabled - convert the
-        %minus in the stim type to plus , also change the coherence to be
-        %the duplicated coherence value.
-        if(hasDuplicatedField > 0)
-            %find the index of the duplicated coherence value.
-            duplicatedCoherenceIndex = HasField(data , 'DUPLICATE_STIMULUS_TYPE');
-            data.configinfo(duplicatedCoherenceIndex).parameters;
-            
-            %replace all minus stim_type value in plus and the matched
-            %coherence to the duplicated coherence value.
-        end
-
         %%=== below is how the text gets displayed in the box on the right side of basicInterface===%
         spac = {}; %create spacing array to place between columns of vars in cond list.
         for i = 1:numconds
