@@ -298,14 +298,7 @@ if ~paused && flagdata.isStopButton == 0
                         end
                         
                     elseif(i == iFP_ON)
-                        outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];
-                        
-                        if(data.condvect.priors.enabled)  %if priors are enable
-                            if(cldata.prior_now)
-                                outString = ['FP_ON' ' ' num2str(0)];
-                            end
-                        end
-                        
+                        outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];                        
                         if connected
                             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                         end
