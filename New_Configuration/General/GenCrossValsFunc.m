@@ -103,7 +103,7 @@ else %whenever something in BasicInterfce is changed.
         set(findobj(fig,'Tag',[varname '-StatusPopupMenu']),'Value',data.oriStatus);
         data.configinfo(iVar).status = data.oriStatus;
     else
-        if tempStatus >=2  % varying/AcrossStair/WithinStair
+        if tempStatus >=1  % varying/AcrossStair/WithinStair/also for statcic (refr
             tempVect = genCondvect(iVar, tag);
         end
 
@@ -267,12 +267,19 @@ if ~isempty(data.condvect.varying)
     
     %check if there is any duplicated field.
     %if there is duplicated field , check if it is positive.
-    if(hasDuplicatedField == -1 && data.configinfo(hasDuplicatedField).parameters >= 0)
+    if(hasDuplicatedField == -1 || data.configinfo(hasDuplicatedField).parameters <= 0)
         %% if duplicates stimulus type for other cohrnce is not enabled
         numvars = size(data.condvect.varying, 2);
         for i = 1:numvars
             if isfield(data.condvect.varying(i).parameters,'moog')
                 if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                    %return to origin vector before changing
+                    iVar = strmatch('STIMULUS_TYPE' , {char(data.configinfo.name)}, 'exact');
+                    tempVect = genCondvect(iVar, tag);
+                    data.condvect.varying(i).parameters.moog  = tempVect.vect;
+                    data.condvect.varying(i).parameters.openGL = tempVect.vectGL;
+                    %end return to origin vector before changing
+                    
                     if(data.condvect.varying(i).parameters.moog(1) == 0)
                         lenvect(i) = length(data.condvect.varying(i).parameters.moog) - 1;
                         hasStim0Index = i;
@@ -284,6 +291,12 @@ if ~isempty(data.condvect.varying)
                 end
             else
                 if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                    %return to origin vector before changing
+                    iVar = strmatch('STIMULUS_TYPE', {char(data.configinfo.name)}, 'exact');
+                    tempVect = genCondvect(iVar, tag);
+                    data.condvect.varying(i).parameters  = tempVect.vect;
+                    %end return to origin vector before changing
+                    
                     if(data.condvect.varying(i).parameters(1) == 0)
                         lenvect(i) = length(data.condvect.varying(i).parameters) - 1;
                         hasStim0Index = i;
@@ -397,9 +410,14 @@ if ~isempty(data.condvect.varying)
         numvars = size(data.condvect.varying, 2);
         for i = 1:numvars
             
-            %add the duplicate stim type in mius sign to the stimulus varing vector and
-            %dhange the cohernece after that.
+            %add the duplicate stim type in negative sign to the stimulus varying vector and
+            %change the cohernece after that.
             if(strcmp(data.condvect.varying(i).name ,  'Stimulus Type'))
+                iVar = strmatch('STIMULUS_TYPE', {char(data.configinfo.name)}, 'exact');
+                %return to origin vector before changing
+                tempVect = genCondvect(iVar, tag);
+                data.condvect.varying(i).parameters  = tempVect.vect;
+                %end return to origin vector before changing
                 duplicatedStimulusType = data.configinfo(hasDuplicatedField).parameters;
                 data.condvect.varying(i).parameters = [data.condvect.varying(i).parameters -duplicatedStimulusType];
             end
