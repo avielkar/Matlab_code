@@ -1352,7 +1352,7 @@ else
     if strmatch('StatusPopupMenu',datapart,'exact')
         GenCrossVals(hObject,gcbo,guidata(gcbo),tag,basicfig);
     else
-        if statusval == 2 || statusval == 3 || statusval == 4
+        if statusval == 1 || statusval == 2 || statusval == 3 || statusval == 4
             % 1 - Static, 2 - Varying, 3 - AcrossStair, 4 - WithinStair
             GenCrossVals(hObject,gcbo,guidata(gcbo),tag,basicfig);
         end
