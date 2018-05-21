@@ -28,40 +28,15 @@ cntr = trial(activeStair,activeRule).priorCntr;
 %avi - should check here waht to change in the saving settings.
 for i = 1:size(data.configinfo,2)
     name = data.configinfo(i).name;
-%% ----avi:deleted    
-% % % %     if data.configinfo(i).status == 2 %varying   
-% % % %         niceName = char(data.configinfo(i).nice_name);
-% % % %         icol = strmatch(niceName,{char(varying.name)},'exact');
-% % % %         if cldata.staircase
-% % % %             val = crossvals(cldata.varyingCurrInd,icol);
-% % % %         else            
-% % % %             val = crossvals(cnInd,icol);
-% % % %         end       
-% % % %     elseif data.configinfo(i).status == 3  %acrossStair
-% % % %         niceName = char(data.configinfo(i).nice_name);
-% % % %         icol = strmatch(niceName,{char(across.name)},'exact');
-% % % %         if isfield(across(icol).parameters, 'moog')
-% % % %             val = across(icol).parameters.moog(activeStair);
-% % % %         else
-% % % %             val = across(icol).parameters(activeStair);
-% % % %         end
-% % % %     elseif data.configinfo(i).status == 4  %withinStair
-% % % %         niceName = char(data.configinfo(i).nice_name);
-% % % %         icol = strmatch(niceName,{char(within.name)},'exact');
-% % % %         if isfield(within(icol).parameters, 'moog')
-% % % %             val = within(icol).parameters.moog(cnInd);
-% % % %         else
-% % % %             val = within(icol).parameters(cnInd);
-% % % %         end
-% % % %     else
-% % % %         val = data.configinfo(i).parameters;
-% % % %     end
-%% ----end
-    if(~strcmp(name, 'DISC_AMPLITUDES'))
-        val = data.configinfo(i).parameters;
-    else
+    if(strcmp(name, 'DISC_AMPLITUDES'))
         val = priors.currentPrior.Dir;
+    elseif(strcmp(name , 'STIMULUS_TYPE'))
+        val = priors.currentPrior.StimulusType;
+    else
+        val = data.configinfo(i).parameters;
     end
+    
+    
     SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).name = name;
     SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).value = val;
     
