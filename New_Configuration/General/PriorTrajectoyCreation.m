@@ -202,6 +202,10 @@ if(real_stim_type == 6 || real_stim_type == 7 || real_stim_type == 8)
 end
 
 data.condvect.priors.currentPrior.Dir = prior_amps;
+data.condvect.priors.currentPrior.StimulusType = prior_stim_type;
+data.condvect.priors.currentPrior.Sigma = prior_sigma;
+data.condvect.priors.currentPrior.Mean = prior_mean;
+
 %setappdata(appHandle, 'protinfo',data)
 
 %% ------end
