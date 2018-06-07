@@ -1345,6 +1345,7 @@ if ~paused
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %tell the moog that the matlab waits for the Oculus head tracking.
         errorCode = cbDConfigPort(0, 13, 1);%FIRSTPORTCH
+        
         cbDOut(0 , 13 , 2);%FIRSTPORTCH
         
         
@@ -1352,8 +1353,15 @@ if ~paused
         dataVal = 0;
         errorCode = cbDConfigPort(0, 17, 0);%SECONDPORTCH
         disp('before staring receiving the communication');
+        waitTime = tic; %wait a limit time for the Oculus data sending from the MoogDots.
+        waitTimeout = false;
         while(dataVal == 0)%SECONDPORTCH
             dataVal = cbDIn(0, 17);%SECONDPORTCH
+            if(waitTime > 3.0)  %if bigger than 3 seconds - go out and don't wait.
+                disp('before staring receiving the communication - timeout');
+                waitTimeout = true;
+                break;
+            end
             %disp('aaa');
             %disp(dataVal);
         end
