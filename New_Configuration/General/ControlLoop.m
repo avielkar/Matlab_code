@@ -1479,8 +1479,15 @@ if ~paused
                  end
                  %%
             catch ME
-               disp('Error in writing the head tracking angles this step!!!!!!') 
+               disp('Error in writing the head tracking angles this step!!!!!!');
             end
+        else %if the data received was with error or not received , save NaN instead.
+            vector_of_angles = NaN(180,1);
+            savedInfo = getappdata(appHandle,'SavedInfo');
+            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headYaw(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(1:3:end);
+            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headRoll(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(2:3:end);
+            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headPitch(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(3:3:end);
+            setappdata(appHandle,'SavedInfo',savedInfo);
         end
         
         disp('ending the processing communication');
