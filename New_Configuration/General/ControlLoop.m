@@ -1352,13 +1352,13 @@ if ~paused
         %wait untill it ack matlab for start sending the data.
         dataVal = 0;
         errorCode = cbDConfigPort(0, 17, 0);%SECONDPORTCH
-        disp('before staring receiving the communication');
+        disp('Waiting Moogdots ack for start sending the data.');
         waitTime = tic; %wait a limit time for the Oculus data sending from the MoogDots.
         waitTimeout = false;
         while(dataVal == 0)%SECONDPORTCH
             dataVal = cbDIn(0, 17);%SECONDPORTCH
-            if(waitTime > 3.0)  %if bigger than 3 seconds - go out and don't wait.
-                disp('before staring receiving the communication - timeout');
+            if(toc(waitTime) > 1.5)  %if bigger than 3 seconds - go out and don't wait.
+                disp('before staring receiving the communication - timeout SECONDPORTCH');
                 waitTimeout = true;
                 break;
             end
@@ -1369,42 +1369,49 @@ if ~paused
         %reset the matlab waits for Oculus Head Tracking bit.
         cbDOut(0 , 13 , 0);%FIRSTPORTCH
         
-        %waiting for the OculusHeadTracking starts.
-        errorCode = cbDConfigPort(0, 16, 0);%SCONDPORTCL
-        dataVal = cbDIn(0, 16);%SCONDPORTCL
-        while(dataVal == 0)
-            dataVal = cbDIn(0, 16);%SCONDPORTCL
-            %disp('bbb');
-            %disp(dataVal);
-        end
-        
-        s = 'sss';  %empty string - 'sss' for default
         CBWDReadStringError = 0;    %indicate error of timeout during reading the OculusHeadTracking data from Moog.
-        try
-            %read the OculusHeadTracking data from Moog.
-            s = CBWDReadString(0 ,12 , 5000);%read the data after the moog send the init data bit.
-        catch ME
-            disp('ERROR - CBWDReadString')
-            %error ocuured - power up the bit to indicate that.
-            CBWDReadStringError = 1;
+        if(waitTimeout == false)
+            %waiting for the OculusHeadTracking starts.
+            disp('before staring receiving the communication');
+            errorCode = cbDConfigPort(0, 16, 0);%SCONDPORTCL
+            waitTime = tic;
+            dataVal = cbDIn(0, 16);%SECONDPORTCL
+            while(dataVal == 0)
+                dataVal = cbDIn(0, 16);%SECONDPORTCL
+                if(toc(waitTime) > 1.5)
+                    disp('before staring receiving the communication - timeout SECONDPORTCL');
+                    waitTimeout = true;
+                    break;
+                end
+            end
+
+            if(waitTimeout == false)
+                s = 'sss';  %empty string - 'sss' for default
+                try
+                    %read the OculusHeadTracking data from Moog.
+                    s = CBWDReadString(0 ,12 , 5000);%read the data after the moog send the init data bit.
+                catch ME
+                    disp('ERROR - CBWDReadString')
+                    %error ocuured - power up the bit to indicate that.
+                    CBWDReadStringError = 1;
+                end
+            end
         end
       
         disp('before ending the processing communication');
         %if there no error during reading - make the final handshake
         %between Matlab and Moog.
-        if(CBWDReadStringError == 0)
+        if(CBWDReadStringError == 0 && waitTimeout == false)
             errorCode = cbDConfigPort(0, 15, 0);%SECONDPORTB
             dataVal = cbDIn(0, 15);%SECONDPORTB
             while(dataVal ~= 0)
                 dataVal = cbDIn(0, 15);%SECONDPORTB
-                %disp('bbb');
-                %disp(dataVal);
             end
         end
         
         %if there was no errortry to save the data - if no error occures
         %during parsing the data.
-        if(CBWDReadStringError == 0)
+        if(CBWDReadStringError == 0 && waitTimeout == false)
             display('waiting for the 1');
             sd = unicode2native(s);
             length(sd);
