@@ -16,7 +16,7 @@ for i1 = 1:size(data.configinfo,2)
         val = data.configinfo(i1).parameters;
     else
         niceName = char(data.configinfo(i1).nice_name);
-        i2 = strmatch(niceName,{char(data.condvect.name)},'exact');
+        i2 = strmatch(niceName,{char(data.condvect.varying.name)},'exact');
         val = crossvals(trial.list(trial.cntr),i2);
     end
     SavedInfo.Rep(rep).Trial(trial.cntr).Param(i1).name = name;
