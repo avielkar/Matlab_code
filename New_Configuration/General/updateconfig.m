@@ -77,11 +77,20 @@ else %----jing end----Jing comment out 04/01/07----
     if strmatch(datapart, 'DataText', 'exact');
         val = str2num(get(findobj(basicdispfig,'Tag',tag),'String'));
         if isfield(data.configinfo(i).parameters,'moog')
-            if size(val,2)==2
-                data.configinfo(i).parameters.moog(inds) = val(1);
-                data.configinfo(i).parameters.openGL(inds) = val(2);
+            if(data.configinfo(i).name ~= 'ROT_CENTER_OFFSETS')
+                if size(val,2)==2
+                    data.configinfo(i).parameters.moog(inds) = val(1);
+                    data.configinfo(i).parameters.openGL(inds) = val(2);
+                else
+                    WarningOne;
+                end
             else
-                WarningOne;
+                if size(val,2) == 6
+                    data.configinfo(i).parameters.moog(inds) = val(1:3);
+                    data.configinfo(i).parameters.openGL(inds) = val(4:6);
+                else
+                    WarningTwo('6');
+                end
             end
         else
             len=size(data.configinfo(i).parameters, 2);
@@ -94,11 +103,20 @@ else %----jing end----Jing comment out 04/01/07----
     elseif strmatch(datapart, 'LowText', 'exact');
         val = str2num(get(findobj(basicdispfig,'Tag',tag),'String'));
         if isfield(data.configinfo(i).parameters,'moog')
-            if size(val,2)==2
-                data.configinfo(i).low_bound.moog(inds) = val(1);
-                data.configinfo(i).low_bound.openGL(inds) = val(2);
+            if(data.configinfo(i).name ~= 'ROT_CENTER_OFFSETS')
+                if size(val,2)==2
+                    data.configinfo(i).low_bound.moog(inds) = val(1);
+                    data.configinfo(i).low_bound.openGL(inds) = val(2);
+                else
+                    WarningOne;
+                end
             else
-                WarningOne;
+                  if size(val,2) == 6
+                    data.configinfo(i).parameters.moog(inds) = val(1:3);
+                    data.configinfo(i).parameters.openGL(inds) = val(4:6);
+                else
+                    WarningTwo('6');
+                end
             end
         else
             len=size(data.configinfo(i).low_bound,2);
@@ -111,11 +129,20 @@ else %----jing end----Jing comment out 04/01/07----
     elseif strmatch(datapart, 'HighText', 'exact');
         val = str2num(get(findobj(basicdispfig,'Tag',tag),'String'));
         if isfield(data.configinfo(i).parameters,'moog')
-            if size(val,2)==2
-                data.configinfo(i).high_bound.moog(inds) = val(1);
-                data.configinfo(i).high_bound.openGL(inds) = val(2);
+            if(data.configinfo(i).name ~= 'ROT_CENTER_OFFSETS')
+                if size(val,2)==2
+                    data.configinfo(i).high_bound.moog(inds) = val(1);
+                    data.configinfo(i).high_bound.openGL(inds) = val(2);
+                else
+                    WarningOne;
+                end
             else
-                WarningOne;
+                if size(val,2) == 6
+                    data.configinfo(i).parameters.moog(inds) = val(1:3);
+                    data.configinfo(i).parameters.openGL(inds) = val(4:6);
+                else
+                    WarningTwo('6');
+                end
             end
         else
             len=size(data.configinfo(i).high_bound,2);
@@ -128,11 +155,20 @@ else %----jing end----Jing comment out 04/01/07----
     elseif strmatch(datapart, 'IncrText', 'exact');
         val = str2num(get(findobj(basicdispfig,'Tag',tag),'String'));
         if isfield(data.configinfo(i).parameters,'moog')
-            if size(val,2)==2
-                data.configinfo(i).increment.moog(inds) = val(1);
-                data.configinfo(i).increment.openGL(inds) = val(2);
+            if(data.configinfo(i).name ~= 'ROT_CENTER_OFFSETS')
+                if size(val,2)==2
+                    data.configinfo(i).increment.moog(inds) = val(1);
+                    data.configinfo(i).increment.openGL(inds) = val(2);
+                else
+                    WarningOne;
+                end
             else
-                WarningOne;
+                if size(val,2) == 6
+                    data.configinfo(i).parameters.moog(inds) = val(1:3);
+                    data.configinfo(i).parameters.openGL(inds) = val(4:6);
+                else
+                    WarningTwo('6');
+                end
             end
         else
             len=size(data.configinfo(i).increment,2);

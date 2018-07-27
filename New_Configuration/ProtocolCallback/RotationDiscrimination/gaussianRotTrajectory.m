@@ -86,21 +86,23 @@ else
     el(2,1) = data.configinfo(i).parameters.openGL;
 end
 
-i = strmatch('ROT_ELEVATION_OFFSET',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Rotation Elevation Offset',{char(varying.name)},'exact');
-    elOffset(1,1) = crossvals(cntrVarying,i1);
-    elOffset(2,1) = crossvalsGL(cntrVarying,i1);
-elseif data.configinfo(i).status == 3
-    elOffset(1,1) = across.parameters.moog(activeStair);
-    elOffset(2,1) = across.parameters.openGL(activeStair);
-elseif data.configinfo(i).status == 4
-    elOffset(1,1) = within.parameters.moog(cntr);
-    elOffset(2,1) = within.parameters.openGL(cntr);
-else
-    elOffset(1,1) = data.configinfo(i).parameters.moog;
-    elOffset(2,1) = data.configinfo(i).parameters.openGL;
-end
+% i = strmatch('ROT_ELEVATION_OFFSET',{char(data.configinfo.name)},'exact');
+% if data.configinfo(i).status == 2
+%     i1 = strmatch('Rotation Elevation Offset',{char(varying.name)},'exact');
+%     elOffset(1,1) = crossvals(cntrVarying,i1);
+%     elOffset(2,1) = crossvalsGL(cntrVarying,i1);
+% elseif data.configinfo(i).status == 3
+%     elOffset(1,1) = across.parameters.moog(activeStair);
+%     elOffset(2,1) = across.parameters.openGL(activeStair);
+% elseif data.configinfo(i).status == 4
+%     elOffset(1,1) = within.parameters.moog(cntr);
+%     elOffset(2,1) = within.parameters.openGL(cntr);
+% else
+%     elOffset(1,1) = data.configinfo(i).parameters.moog;
+%     elOffset(2,1) = data.configinfo(i).parameters.openGL;
+% end
+elOffset(1,1) = 0;
+elOffset(2,1) = 0;
 
 i = strmatch('ROT_AZIMUTH',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -118,21 +120,23 @@ else
     az(2,1) = data.configinfo(i).parameters.openGL;
 end
 
-i = strmatch('ROT_AZIMUTH_OFFSET',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Rotation Azimuth Offset',{char(varying.name)},'exact');
-    azOffset(1,1) = crossvals(cntrVarying,i1);
-    azOffset(2,1) = crossvalsGL(cntrVarying,i1);
-elseif data.configinfo(i).status == 3
-    azOffset(1,1) = across.parameters.moog(activeStair);
-    azOffset(2,1) = across.parameters.openGL(activeStair);
-elseif data.configinfo(i).status == 4
-    azOffset(1,1) = within.parameters.moog(cntr);
-    azOffset(2,1) = within.parameters.openGL(cntr);
-else
-    azOffset(1,1) = data.configinfo(i).parameters.moog;
-    azOffset(2,1) = data.configinfo(i).parameters.openGL;
-end
+% i = strmatch('ROT_AZIMUTH_OFFSET',{char(data.configinfo.name)},'exact');
+% if data.configinfo(i).status == 2
+%     i1 = strmatch('Rotation Azimuth Offset',{char(varying.name)},'exact');
+%     azOffset(1,1) = crossvals(cntrVarying,i1);
+%     azOffset(2,1) = crossvalsGL(cntrVarying,i1);
+% elseif data.configinfo(i).status == 3
+%     azOffset(1,1) = across.parameters.moog(activeStair);
+%     azOffset(2,1) = across.parameters.openGL(activeStair);
+% elseif data.configinfo(i).status == 4
+%     azOffset(1,1) = within.parameters.moog(cntr);
+%     azOffset(2,1) = within.parameters.openGL(cntr);
+% else
+%     azOffset(1,1) = data.configinfo(i).parameters.moog;
+%     azOffset(2,1) = data.configinfo(i).parameters.openGL;
+% end
+azOffset(1,1) = 0;
+azOffset(2,1) = 0;
 
 i = strmatch('ROT_AMPLITUDE',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2

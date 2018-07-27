@@ -64,7 +64,7 @@ else
 end
 i = strmatch('ROT_AMPLITUDE',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
-    i1 = strmatch('Rotation Amplitude',{char(data.condvect.name)},'exact');
+    i1 = strmatch('Rotation Amplitude',{char(data.condvect.varying.name)},'exact');
     amp(1,1) = crossvals(cntr,i1);
     amp(2,1) = crossvalsGL(cntr,i1);
 else
@@ -73,7 +73,7 @@ else
 end
 i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
-    i1 = strmatch('Rotation Duration',{char(data.condvect.name)},'exact');
+    i1 = strmatch('Rotation Duration',{char(data.condvect.varying.name)},'exact');
     dur(1,1) = crossvals(cntr,i1);
     dur(2,1) = crossvalsGL(cntr,i1);
 else

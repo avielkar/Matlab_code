@@ -23,8 +23,8 @@ motiontype = data.configinfo(i).parameters;
 
 
 
-val1 = strmatch('Rotation Amplitude',{char(data.condvect.name)},'exact');
-val2 = strmatch('Rotation Amplitude 2nd Int',{char(data.condvect.name)},'exact');
+val1 = strmatch('Rotation Amplitude',{char(data.condvect.varying.name)},'exact');
+val2 = strmatch('Rotation Amplitude 2nd Int',{char(data.condvect.varying.name)},'exact');
 if ~isempty(val1) || ~isempty(val2)
     dir = Resp(data.repNum).dir(trial.cntr);
     corr = Resp(data.repNum).corr(trial.cntr);%---2/22---

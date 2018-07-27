@@ -25,8 +25,8 @@ i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
 
 %     i = strmatch('ROT_AMPLITUDE',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).parameters == 1   % For single interval
-    if ~isempty(strmatch('Rotation Amplitude',{char(data.condvect.name)},'exact'))
-        i1 = strmatch('Rotation Amplitude',{char(data.condvect.name)},'exact');
+    if ~isempty(strmatch('Rotation Amplitude',{char(data.condvect.varying.name)},'exact'))
+        i1 = strmatch('Rotation Amplitude',{char(data.condvect.varying.name)},'exact');
         dir = crossVals(trial.list(trial.cntr),i1);
     else
         i = strmatch('ROT_AMPLITUDE',{char(data.configinfo.name)},'exact');
