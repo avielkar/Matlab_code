@@ -181,7 +181,7 @@ if ~paused && flagdata.isStopButton == 0
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
         iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
-        iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name},'exact'); %the flash time is in a unit of frames.
+        iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
         iTARG_YCTR = strmatch('TARG_YCTR',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -455,7 +455,7 @@ if ~paused && flagdata.isStopButton == 0
         %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.\
         %initialize the vector to be with 1's, so that all the frames
         %appear with the fixation point.
-        flash_square_data = ones(1,60)    
+        flash_square_data = ones(60,1);    
         if(cldata.prior_now == 1)
             %decide in which fram the square disappear.
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
