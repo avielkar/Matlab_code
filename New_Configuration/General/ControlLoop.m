@@ -467,7 +467,7 @@ if ~paused && flagdata.isStopButton == 0
         else
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
-            flash_square_data = ones(1,60);
+            flash_square_data = ones(60,1);
         end
         %send the data to the Moogdots.
         outString = ['FLASH_SQUARE_DATA' ' ' num2str(flash_square_data) sprintf('\n')];
