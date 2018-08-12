@@ -181,6 +181,7 @@ if ~paused && flagdata.isStopButton == 0
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
         iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
+        iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name},'exact');
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
         iTARG_YCTR = strmatch('TARG_YCTR',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -457,6 +458,7 @@ if ~paused && flagdata.isStopButton == 0
             
             %decide in which fram the square disappear.
             flash_frame = randi([2,59],1)
+            flash_time = 
             %change that fram so that it would flash.
             flash_square_data(flash_frame) = 0
         else
