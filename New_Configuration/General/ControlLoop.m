@@ -452,12 +452,12 @@ if ~paused && flagdata.isStopButton == 0
         end
         %%
         
-        %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.
+        %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.\
+        %initialize the vector to be with 1's, so that all the frames
+        %appear with the fixation point.
+        flash_square_data = ones(1,60)
+        
         if(cldata.prior_now == 1)
-            %initialize the vector to be with 1's, so that all the frames
-            %appear with the fixation point.
-            flash_square_data = ones(1,60)
-            
             %decide in which fram the square disappear.
             flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
             flash_frame = randi([2 , 59 - flash_time] , 1);
@@ -468,6 +468,13 @@ if ~paused && flagdata.isStopButton == 0
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
             flash_square_data = ones(1,60);
+        end
+        %send the data to the Moogdots.
+        outString = ['FLASH_SQUARE_DATA' ' ' flash_square_data sprintf('\n')]
+        if i1 == 1 % first time send newline before data to separate junk from commands
+            cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
+        else
+            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
         end
         %%
         
