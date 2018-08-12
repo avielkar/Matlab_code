@@ -451,6 +451,21 @@ if ~paused && flagdata.isStopButton == 0
         end
         %%
         
+        %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.
+        if(cldata.prior_now == 1)
+            flash_square_data = ones(1,60)
+            
+            %decide in which fram the square disappear.
+            flash_frame = randi([2,59],1)
+            %change that fram so that it would flash.
+            flash_square_data(flash_frame) = 0
+        else
+            %the data should be all 1's (means that the fixtion point is
+            %alwyas there at every frame).
+            flash_square_data = ones(1,60);
+        end
+        %%
+        
         %% Plot trajectories data if DEBUG mode
         if debug
             if PLOTS == 1
