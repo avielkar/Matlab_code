@@ -454,11 +454,14 @@ if ~paused && flagdata.isStopButton == 0
         
         %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.
         if(cldata.prior_now == 1)
+            %initialize the vector to be with 1's, so that all the frames
+            %appear with the fixation point.
             flash_square_data = ones(1,60)
             
             %decide in which fram the square disappear.
             flash_frame = randi([2,59],1)
-            flash_time = 
+            flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
+            
             %change that fram so that it would flash.
             flash_square_data(flash_frame) = 0
         else
