@@ -470,7 +470,7 @@ if ~paused && flagdata.isStopButton == 0
             flash_square_data = ones(1,60);
         end
         %send the data to the Moogdots.
-        outString = ['FLASH_SQUARE_DATA' ' ' flash_square_data sprintf('\n')]
+        outString = ['FLASH_SQUARE_DATA' ' ' flash_square_data sprintf('\n')];
         if i1 == 1 % first time send newline before data to separate junk from commands
             cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
         else
