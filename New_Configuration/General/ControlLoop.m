@@ -458,10 +458,12 @@ if ~paused && flagdata.isStopButton == 0
         flash_square_data = ones(1,60)    
         if(cldata.prior_now == 1)
             %decide in which fram the square disappear.
-            flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
-            flash_frame = randi([2 , 59 - flash_time] , 1);
-            %change that fram so that it would flash.
-            flash_square_data(flash_frame : 1 : flash_frame + flash_time) = 0;
+            if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
+                flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
+                flash_frame = randi([2 , 59 - flash_time] , 1);
+                %change that fram so that it would flash.
+                flash_square_data(flash_frame : 1 : flash_frame + flash_time) = 0;
+            end
         else
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
