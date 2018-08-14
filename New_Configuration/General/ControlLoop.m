@@ -455,10 +455,11 @@ if ~paused && flagdata.isStopButton == 0
         %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.\
         %initialize the vector to be with 1's, so that all the frames
         %appear with the fixation point.
-        flash_square_data = ones(1,60);    
+        flash_square_data = zeros(1,60);    
         if(cldata.prior_now == 1)
             %decide in which fram the square disappear.
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
+                flash_square_data = ones(1,60);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
                 flash_frame = randi([2 , 59 - flash_time] , 1);
                 %change that fram so that it would flash.
@@ -467,7 +468,7 @@ if ~paused && flagdata.isStopButton == 0
         else
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
-            flash_square_data = ones(1,60);
+            flash_square_data = zeros(1,60);
         end
         %send the data to the Moogdots.
         outString = ['FLASH_SQUARE_DATA' ' ' num2str(flash_square_data) sprintf('\n')];
