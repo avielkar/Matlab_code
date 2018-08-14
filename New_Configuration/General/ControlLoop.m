@@ -183,7 +183,6 @@ if ~paused && flagdata.isStopButton == 0
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
         iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
-        i_FLASHIN_FP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
         iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
