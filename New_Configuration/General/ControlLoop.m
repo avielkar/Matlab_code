@@ -454,7 +454,7 @@ if ~paused && flagdata.isStopButton == 0
         end
         %%
         
-        %% Send the FLAH_SQUARE_DATA if it is prior, else send a vector of all ones.\
+        %% Send the FLASH_SQUARE_DATA if it is prior, else send a vector of all zeros.
         %initialize the vector to be with 1's, so that all the frames
         %appear with the fixation point.
         flash_square_data = zeros(1,60);    
@@ -463,9 +463,24 @@ if ~paused && flagdata.isStopButton == 0
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
                 flash_square_data = ones(1 , f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
-                flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
-                %change that fram so that it would flash.
-                flash_square_data(flash_frame : 1 : flash_frame + flash_time) = 0;
+                %choose randomly if to add 1 flashe or 2 flahes.
+                num_of_flashes = randi(2);
+                if(num_of_flashes == 1)  %make one flash
+                        flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
+                        %change that frame so that it would flash 1 time.
+                        flash_square_data(flash_frame : 1 : flash_frame + flash_time) = 0;
+                else   %make two flashes if needed
+                        flash_square_start_index_frames = randi([2, (f-1) - flash_time] , 1, 2);
+                        %make random start flashing indexes time untill
+                        %there is a real "flash" (between the flashes there
+                        %is a time to the fixation point to appear).
+                        while (abs(flash_square_start_index_frames(1) - flash_square_start_index_frames(2))  <  flash_time * 2)
+                            flash_square_start_index_frames = randi([2, (f-1) - flash_time] , 1, 2);
+                        end
+                        %change that frame so that it would flash 2 times.
+                        flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
+                        flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time) = 0;
+                end
             end
         else
             %the data should be all 1's (means that the fixtion point is
