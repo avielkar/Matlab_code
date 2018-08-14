@@ -490,6 +490,8 @@ if ~paused && flagdata.isStopButton == 0
         else
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
+            outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
             flash_square_data = zeros(1 , f);
         end
         %send the data to the Moogdots.
