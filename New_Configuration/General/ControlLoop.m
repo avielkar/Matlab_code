@@ -183,6 +183,7 @@ if ~paused && flagdata.isStopButton == 0
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
         iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
+        i_FLASHIN_FP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
         iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -311,6 +312,13 @@ if ~paused && flagdata.isStopButton == 0
                         
                         if connected
                             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            if(cldata.prior_now == 1 && ~isempty(iFP_FLASH_TIME))
+                                outString = ['FP_FLASH_ON' ' ' num2str(1) sprintf('\n')];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            else
+                                outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            end
                         end
                     else
                         outString = [data.configinfo(i).name ' ' num2str(data.configinfo(i).parameters)];
@@ -481,11 +489,6 @@ if ~paused && flagdata.isStopButton == 0
                         flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
                         flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time) = 0;
                 end
-                outString = ['FP_FLASH_ON' ' ' num2str(1) sprintf('\n')];
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-            else
-                outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
             end
         else
             %the data should be all 1's (means that the fixtion point is
