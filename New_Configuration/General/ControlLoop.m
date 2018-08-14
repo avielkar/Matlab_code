@@ -481,6 +481,11 @@ if ~paused && flagdata.isStopButton == 0
                         flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
                         flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time) = 0;
                 end
+                outString = ['FP_FLASH_ON' ' ' num2str(1) sprintf('\n')];
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+            else
+                outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
             end
         else
             %the data should be all 1's (means that the fixtion point is
