@@ -17,6 +17,8 @@ global in   %---Jing added 03/11/08---
 global bxbport
 global basicfig
 
+f = 60; % This is frequency / update rate (Hz)
+
 
 data = getappdata(appHandle, 'protinfo');
 cldata = getappdata(appHandle, 'ControlLoopData');
@@ -459,16 +461,16 @@ if ~paused && flagdata.isStopButton == 0
         if(cldata.prior_now == 1)
             %decide in which fram the square disappear.
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
-                flash_square_data = ones(1,60);    
+                flash_square_data = ones(1 , f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
-                flash_frame = randi([2 , 59 - flash_time] , 1);
+                flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
                 %change that fram so that it would flash.
                 flash_square_data(flash_frame : 1 : flash_frame + flash_time) = 0;
             end
         else
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
-            flash_square_data = zeros(1,60);
+            flash_square_data = zeros(1 , f);
         end
         %send the data to the Moogdots.
         outString = ['FLASH_SQUARE_DATA' ' ' num2str(flash_square_data) sprintf('\n')];
