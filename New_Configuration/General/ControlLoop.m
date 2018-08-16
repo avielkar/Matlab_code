@@ -470,8 +470,25 @@ if ~paused && flagdata.isStopButton == 0
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
                 flash_square_data = ones(1 , f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
-                %choose randomly if to add 1 flashe or 2 flahes.
-                num_of_flashes = randi(2);
+                %choose randomly if to add 1 flashe or 2 flahes according
+                %to the 'FP_FLASH_ODD_PROB' parameter.
+                rand_num = rand;
+                if(rand_num > data.configinfo(iFP_FLASH_ODD_PROB).parameters) 
+                    %make the num of flashes even.
+                    num_of_flashes = 2;
+                else
+                    %make the num of flashes odd (1 or 3 with uniform
+                    %probability).
+                    rand_num = rand;
+                    if(rand_num > 0.5)
+                        %make 1 flashes.
+                        num_of_flashes = 1;
+                    else
+                        %make 3 flashes.
+                        num_of_flashes = 3;
+                    end
+                end
+                %make the choosen number of flashes.
                 if(num_of_flashes == 1)  %make one flash
                         flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
                         %change that frame so that it would flash 1 time.
