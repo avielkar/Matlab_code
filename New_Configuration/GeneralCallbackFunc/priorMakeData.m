@@ -67,6 +67,16 @@ for i = 1:size(data.configinfo,2)
     
 end
 
+%countinue to add dynamic parameter according to the priors control loop
+%data.
+    if(cldata.is_flashing_priors == true) 
+        %increse the ith place of the parameter.
+        i = i + 1;
+        SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).name = 'NUM_OF_FLASHES';
+        SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).value = cldata.num_of_flashes;
+    end
+
+
 %% ======Save eye Data for each trial. Jing 01/27/09=========
 flagdata = getappdata(appHandle,'flagdata');
 if flagdata.isEyeTracking

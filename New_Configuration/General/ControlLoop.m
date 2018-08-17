@@ -471,7 +471,7 @@ if ~paused && flagdata.isStopButton == 0
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
                 %save in the control loop data that the prior trial is
                 %flashing.
-                cldata.is_flashing_priors = True;
+                cldata.is_flashing_priors = true;
                 flash_square_data = ones(1 , f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
                 %choose randomly if to add 1 flashe or 2 flahes according
@@ -524,7 +524,7 @@ if ~paused && flagdata.isStopButton == 0
         else
             %save in the control loop data that the prior trial is
             %not flashing.
-            cldata.is_flashing_priors = False;
+            cldata.is_flashing_priors = false;
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
             outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
