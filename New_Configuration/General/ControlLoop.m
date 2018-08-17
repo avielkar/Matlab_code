@@ -17,6 +17,8 @@ global in   %---Jing added 03/11/08---
 global bxbport
 global basicfig
 
+f = 60; % This is frequency / update rate (Hz)
+
 
 data = getappdata(appHandle, 'protinfo');
 cldata = getappdata(appHandle, 'ControlLoopData');
@@ -181,6 +183,8 @@ if ~paused && flagdata.isStopButton == 0
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
         iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
+        iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
+        iFP_FLASH_ODD_PROB = strmatch('FP_FLASH_ODD_PROB',{char(data.configinfo.name)},'exact'); %the probability for odd number of flashes with the fixation point.
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
         iTARG_YCTR = strmatch('TARG_YCTR',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -301,6 +305,13 @@ if ~paused && flagdata.isStopButton == 0
                         outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];                        
                         if connected
                             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            if(cldata.prior_now == 1 && ~isempty(iFP_FLASH_TIME))
+                                outString = ['FP_FLASH_ON' ' ' num2str(1) sprintf('\n')];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            else
+                                outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            end
                         end
                     else
                         outString = [data.configinfo(i).name ' ' num2str(data.configinfo(i).parameters)];
@@ -442,6 +453,88 @@ if ~paused && flagdata.isStopButton == 0
                 end
             end
         end
+        %%
+        
+        %% Send the FLASH_SQUARE_DATA if it is prior, else send a vector of all zeros.
+        %initialize the vector to be with 1's, so that all the frames
+        %appear with the fixation point.
+        flash_square_data = zeros(1,60);    
+        if(cldata.prior_now == 1)
+            %decide in which fram the square disappear.
+            if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
+                %save in the control loop data that the prior trial is
+                %flashing.
+                cldata.is_flashing_priors = true;
+                flash_square_data = ones(1 , f);    
+                flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
+                %choose randomly if to add 1 flashe or 2 flahes according
+                %to the 'FP_FLASH_ODD_PROB' parameter.
+                rand_num = rand;
+                if(rand_num > data.configinfo(iFP_FLASH_ODD_PROB).parameters) 
+                    %make the num of flashes even.
+                    num_of_flashes = 2;
+                else
+                    %make the num of flashes odd (1 or 3 with uniform
+                    %probability).
+                    rand_num = rand;
+                    if(rand_num > 0.5)
+                        %make 1 flashes.
+                        num_of_flashes = 1;
+                    else
+                        %make 3 flashes.
+                        num_of_flashes = 3;
+                    end
+                end
+                %make the choosen number of flashes.
+                if(num_of_flashes == 1)
+                        %make 1 flash.
+                        flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
+                        %change that frame so that it would flash 1 time.
+                        flash_square_data(flash_frame : 1 : flash_frame + flash_time) = 0;
+                elseif (num_of_flashes == 2)   
+                        %make 2 flashes if needed.
+                        flash_square_start_index_frames(1) = randi([2, round((f - 1) / 2)] , 1);
+                        min_frame = max(f / 2 , flash_square_start_index_frames(1));
+                        flash_square_start_index_frames(2) = randi([min_frame, (f - 1) - flash_time] , 1);
+                        %change that frame so that it would flash 2 times.
+                        flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
+                        flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time) = 0;
+                else
+                    %make 3 flashes.
+                    flash_square_start_index_frames(1) = randi([2, round((f - 1) / 3)] , 1);
+                    min_frame = max(f / 3 , flash_square_start_index_frames(1));
+                    flash_square_start_index_frames(2) = randi([min_frame, round(2 * (f - 1) / 3 - flash_time)] , 1);
+                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2));
+                    flash_square_start_index_frames(3) = randi([min_frame, round(f - flash_time)] , 1);
+                    %change that frame so that it would flash 2 times.
+                    flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
+                    flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time) = 0;
+                    flash_square_data(flash_square_start_index_frames(3) : 1 : flash_square_start_index_frames(3) + flash_time) = 0;
+                end
+                %save to the cldata the number of flashes.
+                cldata.num_of_flashes = num_of_flashes;
+                %save to the cldata the vector of flash square fixation point.
+                cldata.flash_square_data = flash_square_data;
+            end
+        else
+            %save in the control loop data that the prior trial is
+            %not flashing.
+            cldata.is_flashing_priors = false;
+            %the data should be all 1's (means that the fixtion point is
+            %alwyas there at every frame).
+            outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+            flash_square_data = zeros(1 , f);
+        end
+        %send the data to the Moogdots.
+        outString = ['FLASH_SQUARE_DATA' ' ' num2str(flash_square_data) sprintf('\n')];
+        if i1 == 1 % first time send newline before data to separate junk from commands
+            cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
+        else
+            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+        end
+        %save the info about the flashing_prior to the ControlLoopData.
+        setappdata(appHandle,'ControlLoopData',cldata);
         %%
         
         %% Plot trajectories data if DEBUG mode
