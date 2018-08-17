@@ -302,14 +302,24 @@ if ~paused && flagdata.isStopButton == 0
                         end
                         
                     elseif(i == iFP_ON)
-                        outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];                        
                         if connected
-                            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             if(cldata.prior_now == 1 && ~isempty(iFP_FLASH_TIME))
+                                %flash prior trial type.
+                                outString = ['FP_ON' ' ' num2str(0)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                                 outString = ['FP_FLASH_ON' ' ' num2str(1) sprintf('\n')];
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            elseif(cldata.prior_now == 1)
+                                %regular prior trial type.
+                                outString = ['FP_ON' ' ' num2str(0)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                                outString = ['FP_FLASH_ON' ' ' num2str(0)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             else
-                                outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+                                %not a prior trial type.
+                                outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                                outString = ['FP_FLASH_ON' ' ' num2str(0)];
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             end
                         end
@@ -494,7 +504,7 @@ if ~paused && flagdata.isStopButton == 0
                 elseif (num_of_flashes == 2)   
                         %make 2 flashes if needed.
                         flash_square_start_index_frames(1) = randi([2, round((f - 1) / 2)] , 1);
-                        min_frame = max(f / 2 , flash_square_start_index_frames(1));
+                        min_frame = max(f / 2 , flash_square_start_index_frames(1) + flash_time);
                         flash_square_start_index_frames(2) = randi([min_frame, (f - 1) - flash_time] , 1);
                         %change that frame so that it would flash 2 times.
                         flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
@@ -502,9 +512,9 @@ if ~paused && flagdata.isStopButton == 0
                 else
                     %make 3 flashes.
                     flash_square_start_index_frames(1) = randi([2, round((f - 1) / 3)] , 1);
-                    min_frame = max(f / 3 , flash_square_start_index_frames(1));
+                    min_frame = max(f / 3 , flash_square_start_index_frames(1) + flash_time);
                     flash_square_start_index_frames(2) = randi([min_frame, round(2 * (f - 1) / 3 - flash_time)] , 1);
-                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2));
+                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2) + flash_time);
                     flash_square_start_index_frames(3) = randi([min_frame, round(f - flash_time)] , 1);
                     %change that frame so that it would flash 2 times.
                     flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;

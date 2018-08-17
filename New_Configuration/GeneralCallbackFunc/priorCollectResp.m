@@ -33,25 +33,74 @@ if connected && ~debug
     %if there was not response in the middle of the movement and it was enabled
     %so wait for a resposne
     if(cldata.resp == 0)
-        while(toc <= cldata.respTime)
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6));
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                      response = bitshift (r(2), -5);    %leftmost 3 bits
-                      if(response == 3) %left buttom
-                          response = 1;
-                      elseif(response == 5)  %right buttom
-                          response = 2;
-                      else
-                          response = 0; 
-                      end
+        if(cldata.is_flashing_priors == false)
+            %if not a flashing prior type trial.
+            while(toc <= cldata.respTime)
+                if(bxbport.BytesAvailable() >= 6)
+                    r = uint32(fread(bxbport,6));
+                    %uint32(fread(bxbport,6));
+                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                    if press
+                          response = bitshift (r(2), -5);    %leftmost 3 bits
+                          if(response == 3) %left buttom
+                              response = 1;
+                          elseif(response == 5)  %right buttom
+                              response = 2;
+                          else
+                              response = 0; 
+                          end
+                    end
+                end
+                if(response ~= 0)
+                    display('YESSSSSSSSSSSSSSSSSSSSS');
+                    break;
                 end
             end
-            if(response ~= 0)
-                display('YESSSSSSSSSSSSSSSSSSSSS');
-                break;
+        else
+            %if does a flashing prior trial type.
+            %decode which of the buttons is for even and which is for odd.
+            iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+            button_option = data.configinfo(iBUTTON_RESPONSE_OPTION).parameters;
+            %default values for buttons press odd and even.
+            even_button = 5;    %right button
+            odd_button = 3;     %left button
+            if(button_oprion == 1)
+                %even - right ,odd - left
+                even_button = 5;    %right button
+                odd_button = 3;     %left button
+            elseif(button_option == 2)
+                %even - left ,odd - right
+                even_button = 3;    %left button
+                odd_button = 5;     %right button
+            elseif(button_option == 3)
+                %even - up ,odd - down
+                even_button = 1;    %up button
+                odd_button = 6;     %down button
+            elseif(button_option == 4)
+                %even - down ,odd - up
+                even_button = 6;    %down button
+                odd_button = 1;     %up button
+            end
+            while(toc <= cldata.respTime)
+                if(bxbport.BytesAvailable() >= 6)
+                    r = uint32(fread(bxbport,6));
+                    %uint32(fread(bxbport,6));
+                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                    if press
+                          response = bitshift (r(2), -5);    %leftmost 3 bits
+                          if(response == even_button) %even button response.
+                              response = 1;     % '1' means odd response.
+                          elseif(response == odd_button)  %odd button response.
+                              response = 2;     % '2' means even response.
+                          else
+                              response = 0;     % '0' means no response (yet).
+                          end
+                    end
+                end
+                if(response ~= 0)
+                    display('YESSSSSSSSSSSSSSSSSSSSS');
+                    break;
+                end
             end
         end
     else
@@ -71,20 +120,68 @@ if connected && ~debug
 elseif (connected && debug) || (~connected && debug)           
     disp('Press Left/Right Button in Debug Window for response');
     tic
-    while  (toc <= cldata.respTime) && (strcmp(in,'')==1)
-        DebugWindow;
-        pause(cldata.respTime);
-    end
-    if strcmp(in,'f')
-        response = 2;
-    elseif strcmp(in,'d')
-        response = 1;
-    elseif strcmp(in,'i')
-        response = 4;
+    response = 0;
+    if(cldata.is_flashing_priors == false)
+        %if no flushing prior type trial.
+        while  (toc <= cldata.respTime)
+            pause(0.1);
+            debugResponse = getappdata(appHandle , 'debugResponse');
+            if strcmp(debugResponse,'f') %right
+                display('Choice = Right');
+                response = 2;
+                break;
+            elseif strcmp(debugResponse,'d') %left
+                display('Choice = Left');
+                response = 1;
+                break;
+            elseif strcmp(debugResponse,'i')
+                response = 4;
+                break;
+            end
+            %pause(cldata.respTime);
+        end
     else
-        response = 0;
+        %if does a flashing prior trial type.
+        %decode which of the buttons is for even and which is for odd.
+        iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+        button_option = data.configinfo(iBUTTON_RESPONSE_OPTION).parameters;
+        %default values for buttons press odd and even.
+        even_button = 'f';    %right button
+        odd_button = 'd';     %left button
+        if(button_option == 1)
+            %even - right ,odd - left
+            even_button = 'f';    %right button
+            odd_button = 'd';     %left button
+        elseif(button_option == 2)
+            %even - left ,odd - right
+            even_button = 'd';    %left button
+            odd_button = 'f';     %right button
+        elseif(button_option == 3)
+            %even - up ,odd - down
+            even_button = 'e';    %up button
+            odd_button = 'x';     %down button
+        elseif(button_option == 4)
+            %even - down ,odd - up
+            even_button = 'x';    %down button
+            odd_button = 'e';     %up button
+        end
+        while  (toc <= cldata.respTime)
+            pause(0.1);
+            debugResponse = getappdata(appHandle , 'debugResponse');
+            if strcmp(debugResponse,even_button)    %choose even number.
+                display('Choice = Even');
+                response = 2;
+                break;
+            elseif strcmp(debugResponse,odd_button')    %choose odd number.
+                display('Choice = Odd');
+                response = 1;
+                break;
+            end
+            %pause(cldata.respTime);
+        end
     end
-    in = '';  
+        debugResponse = ''; 
+        setappdata(appHandle , 'debugResponse' , debugResponse);
 end
 % Feedback for 'Received Answer' case ++++++++++
 if response == 1 || response == 2 
