@@ -538,6 +538,8 @@ if ~paused && flagdata.isStopButton == 0
         else
             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
         end
+        %save the info about the flashing_prior to the ControlLoopData.
+        setappdata(appHandle,'ControlLoopData',cldata);
         %%
         
         %% Plot trajectories data if DEBUG mode
