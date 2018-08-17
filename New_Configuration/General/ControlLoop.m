@@ -504,7 +504,7 @@ if ~paused && flagdata.isStopButton == 0
                 elseif (num_of_flashes == 2)   
                         %make 2 flashes if needed.
                         flash_square_start_index_frames(1) = randi([2, round((f - 1) / 2)] , 1);
-                        min_frame = max(f / 2 , flash_square_start_index_frames(1));
+                        min_frame = max(f / 2 , flash_square_start_index_frames(1) + flash_time);
                         flash_square_start_index_frames(2) = randi([min_frame, (f - 1) - flash_time] , 1);
                         %change that frame so that it would flash 2 times.
                         flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
@@ -512,9 +512,9 @@ if ~paused && flagdata.isStopButton == 0
                 else
                     %make 3 flashes.
                     flash_square_start_index_frames(1) = randi([2, round((f - 1) / 3)] , 1);
-                    min_frame = max(f / 3 , flash_square_start_index_frames(1));
+                    min_frame = max(f / 3 , flash_square_start_index_frames(1) + flash_time);
                     flash_square_start_index_frames(2) = randi([min_frame, round(2 * (f - 1) / 3 - flash_time)] , 1);
-                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2));
+                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2) + flash_time);
                     flash_square_start_index_frames(3) = randi([min_frame, round(f - flash_time)] , 1);
                     %change that frame so that it would flash 2 times.
                     flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time) = 0;
