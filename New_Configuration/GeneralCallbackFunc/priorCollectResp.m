@@ -60,7 +60,7 @@ if connected && ~debug
             %if does a flashing prior trial type.
             %decode which of the buttons is for even and which is for odd.
             iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
-            button_option = data.configinfo(i).parameters;
+            button_option = data.configinfo(iBUTTON_RESPONSE_OPTION).parameters;
             %default values for buttons press odd and even.
             even_button = 5;    %right button
             odd_button = 3;     %left button
@@ -121,22 +121,64 @@ elseif (connected && debug) || (~connected && debug)
     disp('Press Left/Right Button in Debug Window for response');
     tic
     response = 0;
-    while  (toc <= cldata.respTime)
-        pause(0.1);
-        debugResponse = getappdata(appHandle , 'debugResponse');
-        if strcmp(debugResponse,'f') %right
-            display('Choice = Right');
-            response = 2;
-            break;
-        elseif strcmp(debugResponse,'d') %left
-            display('Choice = Left');
-            response = 1;
-            break;
-        elseif strcmp(debugResponse,'i')
-            response = 4;
-            break;
+    if(cldata.is_flashing_priors == false)
+        %if no flushing prior type trial.
+        while  (toc <= cldata.respTime)
+            pause(0.1);
+            debugResponse = getappdata(appHandle , 'debugResponse');
+            if strcmp(debugResponse,'f') %right
+                display('Choice = Right');
+                response = 2;
+                break;
+            elseif strcmp(debugResponse,'d') %left
+                display('Choice = Left');
+                response = 1;
+                break;
+            elseif strcmp(debugResponse,'i')
+                response = 4;
+                break;
+            end
+            %pause(cldata.respTime);
         end
-        %pause(cldata.respTime);
+    else
+        %if does a flashing prior trial type.
+        %decode which of the buttons is for even and which is for odd.
+        iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+        button_option = data.configinfo(iBUTTON_RESPONSE_OPTION).parameters;
+        %default values for buttons press odd and even.
+        even_button = 'f';    %right button
+        odd_button = 'd';     %left button
+        if(button_option == 1)
+            %even - right ,odd - left
+            even_button = 'f';    %right button
+            odd_button = 'd';     %left button
+        elseif(button_option == 2)
+            %even - left ,odd - right
+            even_button = 'd';    %left button
+            odd_button = 'f';     %right button
+        elseif(button_option == 3)
+            %even - up ,odd - down
+            even_button = 'e';    %up button
+            odd_button = 'x';     %down button
+        elseif(button_option == 4)
+            %even - down ,odd - up
+            even_button = 'x';    %down button
+            odd_button = 'e';     %up button
+        end
+        while  (toc <= cldata.respTime)
+            pause(0.1);
+            debugResponse = getappdata(appHandle , 'debugResponse');
+            if strcmp(debugResponse,even_button)    %choose even number.
+                display('Choice = Even');
+                response = 2;
+                break;
+            elseif strcmp(debugResponse,odd_button')    %choose odd number.
+                display('Choice = Odd');
+                response = 1;
+                break;
+            end
+            %pause(cldata.respTime);
+        end
     end
         debugResponse = ''; 
         setappdata(appHandle , 'debugResponse' , debugResponse);
