@@ -88,11 +88,11 @@ if connected && ~debug
                     if press
                           response = bitshift (r(2), -5);    %leftmost 3 bits
                           if(response == even_button) %even button response.
-                              response = 1;
+                              response = 1;     % '1' means odd response.
                           elseif(response == odd_button)  %odd button response.
-                              response = 2;
+                              response = 2;     % '2' means even response.
                           else
-                              response = 0; 
+                              response = 0;     % '0' means no response (yet).
                           end
                     end
                 end
