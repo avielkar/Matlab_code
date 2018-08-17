@@ -87,9 +87,9 @@ if connected && ~debug
                     press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
                     if press
                           response = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(response == 3) %left buttom
+                          if(response == even_button) %even button response.
                               response = 1;
-                          elseif(response == 5)  %right buttom
+                          elseif(response == odd_response)  %odd button response.
                               response = 2;
                           else
                               response = 0; 
