@@ -33,8 +33,42 @@ if connected && ~debug
     %if there was not response in the middle of the movement and it was enabled
     %so wait for a resposne
     if(cldata.resp == 0)
-        %if not a flashing prior type trial.
         if(cldata.is_flashing_priors == false)
+            %if not a flashing prior type trial.
+            while(toc <= cldata.respTime)
+                if(bxbport.BytesAvailable() >= 6)
+                    r = uint32(fread(bxbport,6));
+                    %uint32(fread(bxbport,6));
+                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                    if press
+                          response = bitshift (r(2), -5);    %leftmost 3 bits
+                          if(response == 3) %left buttom
+                              response = 1;
+                          elseif(response == 5)  %right buttom
+                              response = 2;
+                          else
+                              response = 0; 
+                          end
+                    end
+                end
+                if(response ~= 0)
+                    display('YESSSSSSSSSSSSSSSSSSSSS');
+                    break;
+                end
+            end
+        else
+            %if does a flashing prior trial type.
+            %decode which of the buttons is for even and which is for odd.
+            button_option = 1;
+            if(button_oprion == 1)
+                %even - right ,odd - left
+            elseif(button_option == 2)
+                %even - left ,odd - right
+            elseif(button_option == 3)
+                %even - up ,odd - down
+            elseif(button_option == 4)
+                %even - down ,odd - up
+            end
             while(toc <= cldata.respTime)
                 if(bxbport.BytesAvailable() >= 6)
                     r = uint32(fread(bxbport,6));
