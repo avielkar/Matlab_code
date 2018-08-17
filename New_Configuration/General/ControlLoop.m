@@ -522,6 +522,9 @@ if ~paused && flagdata.isStopButton == 0
                 cldata.num_of_flashes = num_of_flashes;
             end
         else
+            %save in the control loop data that the prior trial is
+            %not flashing.
+            cldata.is_flashing_priors = False;
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
             outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
