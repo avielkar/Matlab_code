@@ -89,7 +89,7 @@ if connected && ~debug
                           response = bitshift (r(2), -5);    %leftmost 3 bits
                           if(response == even_button) %even button response.
                               response = 1;
-                          elseif(response == odd_response)  %odd button response.
+                          elseif(response == odd_button)  %odd button response.
                               response = 2;
                           else
                               response = 0; 
