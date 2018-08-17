@@ -138,6 +138,8 @@ elseif (connected && debug) || (~connected && debug)
         end
         %pause(cldata.respTime);
     end
+        debugResponse = ''; 
+        setappdata(appHandle , 'debugResponse' , debugResponse);
 end
 % Feedback for 'Received Answer' case ++++++++++
 if response == 1 || response == 2 
