@@ -59,7 +59,8 @@ if connected && ~debug
         else
             %if does a flashing prior trial type.
             %decode which of the buttons is for even and which is for odd.
-            button_option = 1;
+            iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+            button_option = data.configinfo(i).parameters;
             %default values for buttons press odd and even.
             even_button = 5;    %right button
             odd_button = 3;     %left button
