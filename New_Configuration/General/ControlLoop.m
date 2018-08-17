@@ -469,6 +469,9 @@ if ~paused && flagdata.isStopButton == 0
         if(cldata.prior_now == 1)
             %decide in which fram the square disappear.
             if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
+                %save in the control loop data that the prior trial is
+                %flashing.
+                cldata.is_flashing_priors = True;
                 flash_square_data = ones(1 , f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
                 %choose randomly if to add 1 flashe or 2 flahes according
@@ -515,6 +518,8 @@ if ~paused && flagdata.isStopButton == 0
                     flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time) = 0;
                     flash_square_data(flash_square_start_index_frames(3) : 1 : flash_square_start_index_frames(3) + flash_time) = 0;
                 end
+                %save to the cldata the number of flashes.
+                cldata.num_of_flashes = num_of_flashes;
             end
         else
             %the data should be all 1's (means that the fixtion point is
