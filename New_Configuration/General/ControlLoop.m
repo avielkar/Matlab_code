@@ -520,6 +520,8 @@ if ~paused && flagdata.isStopButton == 0
                 end
                 %save to the cldata the number of flashes.
                 cldata.num_of_flashes = num_of_flashes;
+                %save to the cldata the vector of flash square fixation point.
+                cldata.flash_vector_data = flash_square_data;
             end
         else
             %save in the control loop data that the prior trial is
