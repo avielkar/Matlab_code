@@ -124,7 +124,7 @@ elseif (connected && debug) || (~connected && debug)
     while  (toc <= cldata.respTime)
         pause(0.1);
         debugResponse = getappdata(appHandle , 'debugResponse');
-        if strcmp(debugResponse,'f') %rigth
+        if strcmp(debugResponse,'f') %right
             display('Choice = Right');
             response = 2;
             break;
