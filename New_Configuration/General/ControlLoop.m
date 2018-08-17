@@ -302,14 +302,24 @@ if ~paused && flagdata.isStopButton == 0
                         end
                         
                     elseif(i == iFP_ON)
-                        outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];                        
                         if connected
-                            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             if(cldata.prior_now == 1 && ~isempty(iFP_FLASH_TIME))
+                                %flash prior trial type.
+                                outString = ['FP_ON' ' ' num2str(0)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                                 outString = ['FP_FLASH_ON' ' ' num2str(1) sprintf('\n')];
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                            elseif(cldata.prior_now == 1)
+                                %regular prior trial type.
+                                outString = ['FP_ON' ' ' num2str(0)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                                outString = ['FP_FLASH_ON' ' ' num2str(0)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             else
-                                outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
+                                %not a prior trial type.
+                                outString = ['FP_ON' ' ' num2str(data.configinfo(i).parameters)];
+                                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                                outString = ['FP_FLASH_ON' ' ' num2str(0)];
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             end
                         end
