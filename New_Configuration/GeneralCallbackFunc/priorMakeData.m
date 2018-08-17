@@ -74,6 +74,9 @@ end
         i = i + 1;
         SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).name = 'NUM_OF_FLASHES';
         SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).value = cldata.num_of_flashes;
+        i = i + 1;
+        SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).name = 'FLASH_SQUARE_DATA';
+        SavedInfo(activeStair,activeRule).PriorRep(rep).Trial(cntr).Param(i).value = cldata.flash_square_data;
     end
 
 
