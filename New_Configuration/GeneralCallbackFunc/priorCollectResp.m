@@ -60,14 +60,25 @@ if connected && ~debug
             %if does a flashing prior trial type.
             %decode which of the buttons is for even and which is for odd.
             button_option = 1;
+            %default values for buttons press odd and even.
+            even_button = 5;    %right button
+            odd_button = 3;     %left button
             if(button_oprion == 1)
                 %even - right ,odd - left
+                even_button = 5;    %right button
+                odd_button = 3;     %left button
             elseif(button_option == 2)
                 %even - left ,odd - right
+                even_button = 3;    %left button
+                odd_button = 5;     %right button
             elseif(button_option == 3)
                 %even - up ,odd - down
+                even_button = 1;    %up button
+                odd_button = 6;     %down button
             elseif(button_option == 4)
                 %even - down ,odd - up
+                even_button = 6;    %down button
+                odd_button = 1;     %up button
             end
             while(toc <= cldata.respTime)
                 if(bxbport.BytesAvailable() >= 6)
