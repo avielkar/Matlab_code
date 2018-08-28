@@ -53,7 +53,7 @@ else
     rco(1,:) = data.configinfo(i).parameters.moog;
     rco(2,:) = data.configinfo(i).parameters.openGL;
 end
-outString = ['ROT_CENTER_OFFSETS' ' ' num2str(rco(1))];
+outString = ['ROT_CENTER_OFFSETS' ' ' num2str(rco(1,:))];
 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 
@@ -203,7 +203,7 @@ else
     dur(1,1) = data.configinfo(i).parameters.moog;
     dur(2,1) = data.configinfo(i).parameters.openGL;
 end
-outString = ['DURATION' ' ' num2str(dur(1,:))];
+outString = ['ROT_DURATION' ' ' num2str(dur(1,:))];
 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 i = strmatch('HEAD_CENTER',{char(data.configinfo.name)},'exact');
