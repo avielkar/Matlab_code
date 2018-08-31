@@ -186,7 +186,7 @@ if ~paused && flagdata.isStopButton == 0
         iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
         iFP_FLASH_ODD_PROB = strmatch('FP_FLASH_ODD_PROB',{char(data.configinfo.name)},'exact'); %the probability for odd number of flashes with the fixation point.
 
-        iMOOG_CREATE_TRAJ = strmatch('MOOG_CREATE_TRAJ', {char(data.configinfo.name)});
+        iMOOG_CREATE_TRAJ = strmatch('MOOG_CREATE_TRAJ', {char(data.configinfo.name)},'exact');
         
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
         iTARG_YCTR = strmatch('TARG_YCTR',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -268,10 +268,6 @@ if ~paused && flagdata.isStopButton == 0
                             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                         end
                         %-----Jing end 09/03/2008-----------------------
-                        
-                    elseif i == iMOOG_CREATE_TRAJ
-                        outString = ['MOOG_CREATE_TRAJ' ' ' num2str(data.configinfo(i).parameters)];
-                        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                         
                     %----avi:for Sol Delta Protocol - check what coherence
                     %to send (the duplicated or the real)
@@ -420,7 +416,7 @@ if ~paused && flagdata.isStopButton == 0
                 end
 
             end
-
+            
             if i == iROT_ORIGIN
                 outString = ['ROT_ORIGIN' ' ' num2str(data.configinfo(i).parameters.moog)];
                 if connected
