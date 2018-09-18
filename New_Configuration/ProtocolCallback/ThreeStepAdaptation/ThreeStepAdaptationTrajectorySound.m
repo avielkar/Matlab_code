@@ -250,8 +250,8 @@ if stim_type == 2   %Visual only
    heaveM = zeros(1,length(heaveM));
 end
 
-%not vestibular and not visual.
-if stim_type == 0
+%not vestibular and not visual (no stimulus at all) or only sound.
+if stim_type == 0 || stim_type == 100
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
@@ -260,6 +260,12 @@ if stim_type == 0
    surgeGL = zeros(1,length(surgeM));
    heaveGL = zeros(1,length(heaveM));
 end
+
+if(stim_type == 101 || stim_type == 102 || stim_type==103)  %as stim_type 1,2,3 with sound. 
+    outString = ['MOOG_CREATE_TRAJ' ' ' num2str(1)];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+end
+
 
 M(1).name = 'LATERAL_DATA';
 M(1).data = lateralM + ori(1,1); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
@@ -292,6 +298,10 @@ iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
 if stim_type == 1  %vestibula only
     data.configinfo(iBackground).parameters = 0;
 elseif stim_type == 0  %non vestibular and non visual.
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 100 %sound only
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 101 %sound with vetibular only.
     data.configinfo(iBackground).parameters = 0;
 else   %Combine & Visual only
     data.configinfo(iBackground).parameters = 1;
