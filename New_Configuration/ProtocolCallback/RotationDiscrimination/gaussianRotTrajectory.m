@@ -7,6 +7,8 @@ platformCenter=zeros(1,3);
 
 global debug
 
+COMBOARDNUM = 0;
+
 if debug
     disp('Entering gaussianRot Trajectory');
 end
@@ -51,6 +53,9 @@ else
     rco(1,:) = data.configinfo(i).parameters.moog;
     rco(2,:) = data.configinfo(i).parameters.openGL;
 end
+outString = ['ROT_CENTER_OFFSETS' ' ' num2str(rco(1,:))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
 
 i = strmatch('ORIGIN',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -69,6 +74,9 @@ else
     ori(1,:) = data.configinfo(i).parameters;
     ori(2,:) = data.configinfo(i).parameters;
 end
+outString = ['ORIGIN' ' ' num2str(ori(1 , :))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
 
 i = strmatch('ROT_ELEVATION',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -85,6 +93,9 @@ else
     el(1,1) = data.configinfo(i).parameters.moog;
     el(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['ROT_ELEVATION' ' ' num2str(el(1,:))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
 
 % i = strmatch('ROT_ELEVATION_OFFSET',{char(data.configinfo.name)},'exact');
 % if data.configinfo(i).status == 2
@@ -119,6 +130,8 @@ else
     az(1,1) = data.configinfo(i).parameters.moog;
     az(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['ROT_AZIMUTH' ' ' num2str(az(1,:))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 % i = strmatch('ROT_AZIMUTH_OFFSET',{char(data.configinfo.name)},'exact');
 % if data.configinfo(i).status == 2
@@ -153,6 +166,8 @@ else
     amp(1,1) = data.configinfo(i).parameters.moog;
     amp(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['ROT_AMPLITUDE' ' ' num2str(amp(1,:))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 i = strmatch('ROT_SIGMA',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -169,6 +184,8 @@ else
     sig(1,1) = data.configinfo(i).parameters.moog;
     sig(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['ROT_SIGMA' ' ' num2str(sig(1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 
 i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
@@ -186,6 +203,8 @@ else
     dur(1,1) = data.configinfo(i).parameters.moog;
     dur(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['ROT_DURATION' ' ' num2str(dur(1,:))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 i = strmatch('HEAD_CENTER',{char(data.configinfo.name)},'exact');
 hc = data.configinfo(i).parameters;

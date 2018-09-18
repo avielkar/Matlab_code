@@ -414,7 +414,7 @@ if ~paused && flagdata.isStopButton == 0
                 end
 
             end
-
+            
             if i == iROT_ORIGIN
                 outString = ['ROT_ORIGIN' ' ' num2str(data.configinfo(i).parameters.moog)];
                 if connected
