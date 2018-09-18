@@ -186,8 +186,6 @@ if ~paused && flagdata.isStopButton == 0
         iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
         iFP_FLASH_ODD_PROB = strmatch('FP_FLASH_ODD_PROB',{char(data.configinfo.name)},'exact'); %the probability for odd number of flashes with the fixation point.
 
-        iMOOG_CREATE_TRAJ = strmatch('MOOG_CREATE_TRAJ', {char(data.configinfo.name)},'exact');
-        
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
         iTARG_YCTR = strmatch('TARG_YCTR',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
 
