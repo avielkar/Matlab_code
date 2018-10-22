@@ -294,6 +294,8 @@ M(12).data = zeros(dur(2,1)*f,1);
 
 sprintf('ampVes=%f  ampGL=%f', amp(1,1)*180/pi, amp(2,1)*180/pi)
 
+% todo: check if to do it also fr osund and not for trajectory because if
+% there is no movement the MoogDots creates the movement.
 iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
 if stim_type == 1  %vestibula only
     data.configinfo(iBackground).parameters = 0;
