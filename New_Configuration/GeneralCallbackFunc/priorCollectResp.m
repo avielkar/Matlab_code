@@ -64,7 +64,7 @@ if connected && ~debug
             %default values for buttons press odd and even.
             even_button = 5;    %right button
             odd_button = 3;     %left button
-            if(button_oprion == 1)
+            if(button_option == 1)
                 %even - right ,odd - left
                 even_button = 5;    %right button
                 odd_button = 3;     %left button
