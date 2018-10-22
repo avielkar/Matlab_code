@@ -261,7 +261,7 @@ if stim_type == 0 || stim_type == 100
    heaveGL = zeros(1,length(heaveM));
 end
 
-if(stim_type == 101 || stim_type == 102 || stim_type==103)  %as stim_type 1,2,3 with sound. 
+if(stim_type == 100 || stim_type == 101 || stim_type == 102 || stim_type==103)  %as stim_type 1,2,3 with sound. 
     outString = ['MOOG_CREATE_TRAJ' ' ' num2str(1)];
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 end
@@ -294,6 +294,8 @@ M(12).data = zeros(dur(2,1)*f,1);
 
 sprintf('ampVes=%f  ampGL=%f', amp(1,1)*180/pi, amp(2,1)*180/pi)
 
+% todo: check if to do it also fr osund and not for trajectory because if
+% there is no movement the MoogDots creates the movement.
 iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
 if stim_type == 1  %vestibula only
     data.configinfo(iBackground).parameters = 0;
