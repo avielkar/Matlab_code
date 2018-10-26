@@ -1541,9 +1541,15 @@ if ~paused
                 savedInfo = getappdata(appHandle,'SavedInfo');
                 inverse_sdf_matrix = sdf_in_euler_matrix';
                 vector_of_angles = inverse_sdf_matrix(:)';
-                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headYaw(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(1:3:end);
-                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headRoll(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(2:3:end);
-                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headPitch(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(3:3:end);
+                if(~cldata.prior_now)  %save it to the real trials saved data.
+                    savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headYaw(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(1:3:end);
+                    savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headRoll(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(2:3:end);
+                    savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).headPitch(trial(data.activeStair, data.activeRule).cntr , 1:length(vector_of_angles)/3) = vector_of_angles(3:3:end);
+                else                                %save it to the priors saved data.
+                    savedInfo(data.activeStair, data.activeRule).PriorResp(data.repNum).headYaw(trial(data.activeStair, data.activeRule).priorCntr , 1:length(vector_of_angles)/3) = vector_of_angles(1:3:end);
+                    savedInfo(data.activeStair, data.activeRule).PriorResp(data.repNum).headRoll(trial(data.activeStair, data.activeRule).priorCntr , 1:length(vector_of_angles)/3) = vector_of_angles(2:3:end);
+                    savedInfo(data.activeStair, data.activeRule).PriorResp(data.repNum).headPitch(trial(data.activeStair, data.activeRule).priorCntr , 1:length(vector_of_angles)/3) = vector_of_angles(3:3:end);
+                end
                 setappdata(appHandle,'SavedInfo',savedInfo);
                 %end of saving the results of head tracking
 
