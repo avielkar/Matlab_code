@@ -27,7 +27,7 @@ end
 isEyeInWindow = eyeInWindow(appHandle);
 if isEyeInWindow 
     if debug || flagdata.isSubControl
-        soundsc(data.correctWav,42000);
+        %soundsc(data.correctWav,42000);
     end  
     savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 1;
     savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 0;
