@@ -260,9 +260,9 @@ setappdata(appHandle,'ResponseInfo',Resp);
 
 if debug
     if Resp(stairInfo.currStair).corr(stairInfo.trialCount(stairInfo.currStair)) == 1
-        soundsc(data.correctWav,42000);
+        %soundsc(data.correctWav,42000);
     else
-        soundsc(data.wrongWav,42000);
+        %soundsc(data.wrongWav,42000);
     end
     disp('Exiting analyzeResp new')
 end

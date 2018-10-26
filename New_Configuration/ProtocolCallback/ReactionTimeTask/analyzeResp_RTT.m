@@ -211,9 +211,9 @@ setappdata(appHandle,'SavedInfo',savedInfo);
 
 if debug
     if savedInfo.Resp(data.repNum).corr(trial.cntr) == 1
-        soundsc(data.correctWav,42000);
+        %soundsc(data.correctWav,42000);
     else
-        soundsc(data.wrongWav,42000);
+        %soundsc(data.wrongWav,42000);
     end
     disp('Exiting analyzeResp_RTT')
 end

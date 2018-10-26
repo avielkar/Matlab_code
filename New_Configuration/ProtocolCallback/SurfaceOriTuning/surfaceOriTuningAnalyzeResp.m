@@ -207,9 +207,9 @@ setappdata(appHandle,'SavedInfo',savedInfo);
 
 if debug || flagdata.isSubControl
     if savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) == 1
-        soundsc(data.correctWav,42000);
+        %soundsc(data.correctWav,42000);
     else
-        soundsc(data.wrongWav,42000);
+        %soundsc(data.wrongWav,42000);
     end
     disp('Exiting surfaceOriTuning analyzeResp')
 end

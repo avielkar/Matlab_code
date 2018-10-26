@@ -364,9 +364,9 @@ setappdata(appHandle,'ResponseInfo',Resp);
 
 if debug
     if Resp(data.repNum).corr(trial.cntr) == 1
-        soundsc(data.correctWav,42000);
+        %soundsc(data.correctWav,42000);
     else
-        soundsc(data.wrongWav,42000);
+        %soundsc(data.wrongWav,42000);
     end
     disp('Exiting RotAnalyzeResp')
 end

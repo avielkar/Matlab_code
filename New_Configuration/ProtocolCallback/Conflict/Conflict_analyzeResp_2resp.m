@@ -104,9 +104,9 @@ setappdata(appHandle,'SavedInfo',savedInfo);
 if debug
     if savedInfo(activeStair,activeRule).Resp(currRep).corr1(currTrial) == 1 && ...
        savedInfo(activeStair,activeRule).Resp(currRep).corr2(currTrial) == 1
-        soundsc(data.correctWav,42000);
+        %soundsc(data.correctWav,42000);
     else
-        soundsc(data.wrongWav,42000);
+        %soundsc(data.wrongWav,42000);
     end
     disp('Exiting Conflict_analyzeResp_2resp')
 end
