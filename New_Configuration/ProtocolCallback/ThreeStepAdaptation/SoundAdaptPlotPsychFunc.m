@@ -13,6 +13,7 @@ cldata = getappdata(appHandle, 'ControlLoopData');
 savedInfo = getappdata(appHandle,'SavedInfo');
 plotData = getappdata(appHandle,'psychPlot');
 
+iDir = plotData.iDir;
 dirArray = plotData.dirArray;
 dirRepNum = plotData.dirRepNum;
 rightChoice = plotData.rightChoice;
@@ -67,6 +68,11 @@ response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 if stim_type == 102  %combined sound + visual
     iInd = find(dirArray == dir);
     if isempty(iInd)
+        iDir = iDir+1;
+        dirArray(iDir) = dir;
+        dirRepNum(iDir) = 1;
+        rightChoice(iDir) = 0;
+        iInd = iDir;
     else
         dirRepNum(iInd)=dirRepNum(iInd)+1;
     end
@@ -149,6 +155,7 @@ if iDirVisual>0
     hold on;
 end
 
+if iDir>0
     %for different symbols for each active stair.
     if(activeStair == 1)
         plot(sortDir, sortRight, 'og' , 'linewidth' , 2);
@@ -206,6 +213,7 @@ plot(x1,y,'-r');
 grid on;
 hold off;
 
+plotData.iDir = iDir;
 plotData.dirArray = dirArray;
 plotData.dirRepNum = dirRepNum;
 plotData.rightChoice = rightChoice;
