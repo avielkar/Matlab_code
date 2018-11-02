@@ -13,10 +13,10 @@ cldata = getappdata(appHandle, 'ControlLoopData');
 savedInfo = getappdata(appHandle,'SavedInfo');
 plotData = getappdata(appHandle,'psychPlot');
 
-iDir = plotData.iDir;
-dirArray = plotData.dirArray;
-dirRepNum = plotData.dirRepNum;
-rightChoice = plotData.rightChoice;
+iDirSoundVesVis = plotData.iDir;
+dirArraySoundVesVis = plotData.dirArray;
+dirRepNumSoundVesVis = plotData.dirRepNum;
+rightChoiceSoundVesVis = plotData.rightChoice;
 
 iDirSound = plotData.iDirSound;
 dirArraySound = plotData.dirArraySound;
@@ -66,15 +66,15 @@ dir = savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial);
 response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 
 if stim_type == 102  %combined sound + visual
-    iInd = find(dirArray == dir);
+    iInd = find(dirArraySoundVesVis == dir);
     if isempty(iInd)
-        iDir = iDir+1;
-        dirArray(iDir) = dir;
-        dirRepNum(iDir) = 1;
-        rightChoice(iDir) = 0;
-        iInd = iDir;
+        iDirSoundVesVis = iDirSoundVesVis+1;
+        dirArraySoundVesVis(iDirSoundVesVis) = dir;
+        dirRepNumSoundVesVis(iDirSoundVesVis) = 1;
+        rightChoiceSoundVesVis(iDirSoundVesVis) = 0;
+        iInd = iDirSoundVesVis;
     else
-        dirRepNum(iInd)=dirRepNum(iInd)+1;
+        dirRepNumSoundVesVis(iInd)=dirRepNumSoundVesVis(iInd)+1;
     end
 
     if response == 2
@@ -83,7 +83,7 @@ if stim_type == 102  %combined sound + visual
         right=0;
     end
 
-    rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);    
+    rightChoiceSoundVesVis(iInd)=((dirRepNumSoundVesVis(iInd)-1)*rightChoiceSoundVesVis(iInd)+right)/dirRepNumSoundVesVis(iInd);    
     
 elseif stim_type == 2  %visual
     iInd = find(dirArrayVisual == dir);
@@ -124,8 +124,8 @@ elseif stim_type == 100 %sound only
 
     rightChoiceSound(iInd)=((dirRepNumSound(iInd)-1)*rightChoiceSound(iInd)+right)/dirRepNumSound(iInd);
 end
-[sortDir, sortInd] = sort(dirArray, 2);
-sortRight = rightChoice(sortInd);
+[sortDir, sortInd] = sort(dirArraySoundVesVis, 2);
+sortRight = rightChoiceSoundVesVis(sortInd);
 [sortDirVisual, sortIndVisual] = sort(dirArrayVisual, 2);
 sortRightVisual = rightChoiceVisual(sortIndVisual);
 [sortDirSound, sortIndSound] = sort(dirArraySound, 2);
@@ -155,7 +155,7 @@ if iDirVisual>0
     hold on;
 end
 
-if iDir>0
+if iDirSoundVesVis>0
     %for different symbols for each active stair.
     if(activeStair == 1)
         plot(sortDir, sortRight, 'og' , 'linewidth' , 2);
@@ -213,10 +213,10 @@ plot(x1,y,'-r');
 grid on;
 hold off;
 
-plotData.iDir = iDir;
-plotData.dirArray = dirArray;
-plotData.dirRepNum = dirRepNum;
-plotData.rightChoice = rightChoice;
+plotData.iDir = iDirSoundVesVis;
+plotData.dirArray = dirArraySoundVesVis;
+plotData.dirRepNum = dirRepNumSoundVesVis;
+plotData.rightChoice = rightChoiceSoundVesVis;
 
 plotData.iDirVisual = iDirVisual;
 plotData.dirArrayVisual = dirArrayVisual;
