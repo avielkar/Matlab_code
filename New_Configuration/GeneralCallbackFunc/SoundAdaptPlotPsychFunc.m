@@ -216,7 +216,7 @@ hold off;
 plotData.iDirSoundVis = iDirSoundVis;
 plotData.dirArraySoundVis = dirArraySoundVis;
 plotData.dirRepNumSoundVis = dirRepNumSoundVis;
-plotData.rightChoice = rightChoiceSoundVis;
+plotData.rightChoiceSoundVis = rightChoiceSoundVis;
 
 plotData.iDirVisual = iDirVisual;
 plotData.dirArrayVisual = dirArrayVisual;
