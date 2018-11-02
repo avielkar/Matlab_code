@@ -251,6 +251,28 @@ psychPlot.dirRepNumRightPriorVisual = [];
 psychPlot.rightChoiceRightPriorVisual = [];
 %% ------end
 
+%% -----Adam1_sound protocol for sound 
+psychPlot.iDirSound = 0;            
+psychPlot.dirArraySound = [];
+psychPlot.dirRepNumSound = [];
+psychPlot.rightChoiceSound = [];
+
+psychPlot.iDirSoundVes = 0;            
+psychPlot.dirArraySoundVes = [];
+psychPlot.dirRepNumSoundVes = [];
+psychPlot.rightChoiceSoundVes = [];
+
+psychPlot.iDirSoundVis = 0;            
+psychPlot.dirArraySoundVis = [];
+psychPlot.dirRepNumSoundVis = [];
+psychPlot.rightChoiceSoundVis = [];
+
+psychPlot.iDirSoundVisVes = 0;            
+psychPlot.dirArraySoundVisVes = [];
+psychPlot.dirRepNumSoundVisVes = [];
+psychPlot.rightChoiceSoundVisVes = [];
+%% ------end
+
 %---------end: for Adam1_Prior protocol and sol Adam1_Delta protocol.
 
 setappdata(basicfig,'psychPlot',psychPlot);
