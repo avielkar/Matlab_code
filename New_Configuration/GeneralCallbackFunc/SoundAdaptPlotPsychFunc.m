@@ -213,9 +213,9 @@ plot(x1,y,'-r');
 grid on;
 hold off;
 
-plotData.iDir = iDirSoundVis;
-plotData.dirArray = dirArraySoundVis;
-plotData.dirRepNum = dirRepNumSoundVis;
+plotData.iDirSoundVis = iDirSoundVis;
+plotData.dirArraySoundVis = dirArraySoundVis;
+plotData.dirRepNumSoundVis = dirRepNumSoundVis;
 plotData.rightChoice = rightChoiceSoundVis;
 
 plotData.iDirVisual = iDirVisual;
