@@ -216,25 +216,25 @@ psychPlot.dirArrayDuplicated = [];
 psychPlot.dirRepNumDuplicated = [];
 psychPlot.rightChoiceDuplicated = [];
 
-psychPlot.iDirStim114 = 0;
-psychPlot.dirArray114 = [];
-psychPlot.dirRepNum114 = [];
-psychPlot.rightChoice114 = [];
+psychPlot.iDirStim114Delta = 0;
+psychPlot.dirArray114Delta = [];
+psychPlot.dirRepNum114Delta = [];
+psychPlot.rightChoice114Delta = [];
 
-psychPlot.iDirStim115 = 0;
-psychPlot.dirArray115 = [];
-psychPlot.dirRepNum115 = [];
-psychPlot.rightChoice115 = [];
+psychPlot.iDirStim115Delta = 0;
+psychPlot.dirArray115Delta = [];
+psychPlot.dirRepNum115Delta = [];
+psychPlot.rightChoice115Delta = [];
 
-psychPlot.iDirStim124 = 0;
-psychPlot.dirArray124 = [];
-psychPlot.dirRepNum124 = [];
-psychPlot.rightChoice124 = [];
+psychPlot.iDirStim124Delta = 0;
+psychPlot.dirArray124Delta = [];
+psychPlot.dirRepNum124Delta = [];
+psychPlot.rightChoice124Delta= [];
 
-psychPlot.iDirStim125 = 0;
-psychPlot.dirArray125 = [];
-psychPlot.dirRepNum125 = [];
-psychPlot.rightChoice125 = [];
+psychPlot.iDirStim125Delta = 0;
+psychPlot.dirArray125Delta = [];
+psychPlot.dirRepNum125Delta = [];
+psychPlot.rightChoice125Delta = [];
 %% -----end
 
 %% -----Adam1_Priors protocol for left priors
