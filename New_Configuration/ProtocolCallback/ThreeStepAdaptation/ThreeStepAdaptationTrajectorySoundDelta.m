@@ -1,5 +1,5 @@
 %Three Step Adapte heading discrimination protocol. Jing for Mandy 2/02/2010
-function [M] = ThreeStepAdaptationTrajectorySound(appHandle)
+function [M] = ThreeStepAdaptationTrajectorySoundDelta(appHandle)
 
 global debug
 
@@ -205,6 +205,22 @@ else
     stim_type = data.configinfo(i).parameters;
 end
 
+%avi - sol protocol with DELTA
+i = strmatch('DELTA',{char(data.configinfo.name)},'exact');
+delta = data.configinfo(i).parameters;
+if(stim_type == 4)  %Combine plus left delta
+    amps(1) = amps(1) + delta/2;    %opengl increase
+    amps(2) = amps(2) - delta/2;    %Moog decrease
+    %for this stymulus type the delta is saved as positive in makeData.m
+end
+
+if(stim_type == 5)  %Combine plus right delta
+    amps(1) = amps(1) - delta/2;    %opengl decrease
+    amps(2) = amps(2) + delta/2;    %Moog incerease
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+%avi - end sol protocol for DELTA
+
 f = 60;
 
 vM1 = GenGaussian(dur(1,1), sig(1,1), dist(1,1), f);
@@ -244,7 +260,7 @@ lateralGL = dGL1*yGL;
 surgeGL = dGL1*xGL;
 heaveGL = dGL1*zGL;
     
-if stim_type == 2   %Visual only
+if stim_type == 2 || stim_type == -2   %Visual only
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
@@ -315,5 +331,4 @@ setappdata(appHandle, 'trialInfo',trial)
 if debug
     disp('Exiting Three Step Adaptation Heading Trajectory');
 end
-
 
