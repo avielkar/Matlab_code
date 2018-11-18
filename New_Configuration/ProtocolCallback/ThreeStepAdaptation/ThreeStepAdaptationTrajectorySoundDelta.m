@@ -107,24 +107,6 @@ end
 outString = ['DISC_PLANE_TILT' ' ' num2str(tiltP(1,1))];
 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
-i = strmatch('DISC_AMPLITUDES',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Heading Direction',{char(varying.name)},'exact');
-    amps(1,1) = crossvals(cntrVarying,i1);
-    amps(2,1) = crossvalsGL(cntrVarying,i1);
-elseif data.configinfo(i).status == 3   
-    amps(1,1) = across.parameters.moog(activeStair);
-    amps(2,1) = across.parameters.openGL(activeStair);
-elseif data.configinfo(i).status == 4   
-    amps(1,1) = within.parameters.moog(cntr);
-    amps(2,1) = within.parameters.openGL(cntr);
-else
-    amps(1,1) = data.configinfo(i).parameters.moog;
-    amps(2,1) = data.configinfo(i).parameters.openGL;
-end
-outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
-cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-
 i = strmatch('DIST',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
     i1 = strmatch('Distance',{char(varying.name)},'exact');
@@ -204,6 +186,25 @@ elseif data.configinfo(i).status == 4
 else
     stim_type = data.configinfo(i).parameters;
 end
+
+
+i = strmatch('DISC_AMPLITUDES',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Heading Direction',{char(varying.name)},'exact');
+    amps(1,1) = crossvals(cntrVarying,i1);
+    amps(2,1) = crossvalsGL(cntrVarying,i1);
+elseif data.configinfo(i).status == 3   
+    amps(1,1) = across.parameters.moog(activeStair);
+    amps(2,1) = across.parameters.openGL(activeStair);
+elseif data.configinfo(i).status == 4   
+    amps(1,1) = within.parameters.moog(cntr);
+    amps(2,1) = within.parameters.openGL(cntr);
+else
+    amps(1,1) = data.configinfo(i).parameters.moog;
+    amps(2,1) = data.configinfo(i).parameters.openGL;
+end
+outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 %avi - sol protocol with DELTA
 i = strmatch('DELTA',{char(data.configinfo.name)},'exact');
