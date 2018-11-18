@@ -215,6 +215,26 @@ psychPlot.iDirDuplicated = 0;
 psychPlot.dirArrayDuplicated = [];
 psychPlot.dirRepNumDuplicated = [];
 psychPlot.rightChoiceDuplicated = [];
+
+psychPlot.iDirStim114 = 0;
+psychPlot.dirArray114 = [];
+psychPlot.dirRepNum114 = [];
+psychPlot.rightChoice114 = [];
+
+psychPlot.iDirStim115 = 0;
+psychPlot.dirArray115 = [];
+psychPlot.dirRepNum115 = [];
+psychPlot.rightChoice115 = [];
+
+psychPlot.iDirStim124 = 0;
+psychPlot.dirArray124 = [];
+psychPlot.dirRepNum124 = [];
+psychPlot.rightChoice124 = [];
+
+psychPlot.iDirStim125 = 0;
+psychPlot.dirArray125 = [];
+psychPlot.dirRepNum125 = [];
+psychPlot.rightChoice125 = [];
 %% -----end
 
 %% -----Adam1_Priors protocol for left priors
