@@ -203,10 +203,13 @@ else
     amps(1,1) = data.configinfo(i).parameters.moog;
     amps(2,1) = data.configinfo(i).parameters.openGL;
 end
-outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
-cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 %avi - sol protocol with DELTA
+if(stim_type == 1 || stim_type == 2 || stim_type == 3)
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+end
+
 i = strmatch('DELTA',{char(data.configinfo.name)},'exact');
 delta = data.configinfo(i).parameters;
 if(stim_type == 4)  %Combine plus left delta
@@ -218,6 +221,13 @@ end
 if(stim_type == 5)  %Combine plus right delta
     amps(1) = amps(1) - delta/2;    %opengl decrease
     amps(2) = amps(2) + delta/2;    %Moog incerease
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+    %audio decrease
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) - delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %opengl increaes
+    amps(1) = amps(1) + delta/2;
     %for this symulus type the delta is saved as negative in makeData.m
 end
 %avi - end sol protocol for DELTA
