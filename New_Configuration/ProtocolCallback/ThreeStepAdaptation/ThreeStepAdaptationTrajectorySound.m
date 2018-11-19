@@ -250,8 +250,8 @@ if stim_type == 2   %Visual only
    heaveM = zeros(1,length(heaveM));
 end
 
-%not vestibular and not visual (no stimulus at all) or only sound.
-if stim_type == 0 || stim_type == 100
+%do not move the robot - empty || vis || sound || sound + vis.
+if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 102
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
@@ -261,7 +261,7 @@ if stim_type == 0 || stim_type == 100
    heaveGL = zeros(1,length(heaveM));
 end
 
-if(stim_type == 100 || stim_type == 101 || stim_type == 102 || stim_type==103)  %as stim_type 1,2,3 with sound. 
+if(stim_type == 100 || stim_type == 101 || stim_type ==102  || stim_type==103)  %as stim_type 1,2,3 with sound. 
     outString = ['MOOG_CREATE_TRAJ' ' ' num2str(1)];
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 end
