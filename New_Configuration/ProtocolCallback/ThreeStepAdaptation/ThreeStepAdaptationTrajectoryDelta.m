@@ -188,14 +188,14 @@ end
 i = strmatch('DELTA',{char(data.configinfo.name)},'exact');
 delta = data.configinfo(i).parameters;
 if(stim_type == 4)  %Combine plus left delta
-    amps(1) = amps(1) + delta/2;    %opengl increase
-    amps(2) = amps(2) - delta/2;    %Moog decrease
+    amps(1) = amps(1) + delta/2;    %Moog increase
+    amps(2) = amps(2) - delta/2;    %opengl decrease
     %for this stymulus type the delta is saved as positive in makeData.m
 end
 
 if(stim_type == 5)  %Combine plus right delta
-    amps(1) = amps(1) - delta/2;    %opengl decrease
-    amps(2) = amps(2) + delta/2;    %Moog incerease
+    amps(1) = amps(1) - delta/2;    %Moog decrease
+    amps(2) = amps(2) + delta/2;    %opengl incerease
     %for this symulus type the delta is saved as negative in makeData.m
 end
 %avi - end sol protocol for DELTA
