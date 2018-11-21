@@ -272,25 +272,25 @@ psychPlot.rightChoiceRightPriorVisual = [];
 %% ------end
 
 %% -----Adam1_sound protocol for sound 
-psychPlot.iDirSound = 0;            
-psychPlot.dirArraySound = [];
-psychPlot.dirRepNumSound = [];
-psychPlot.rightChoiceSound = [];
+psychPlot.iDir100 = 0;            
+psychPlot.dirArray100 = [];
+psychPlot.dirRepNum100 = [];
+psychPlot.rightChoice100 = [];
 
-psychPlot.iDirSoundVes = 0;            
-psychPlot.dirArraySoundVes = [];
-psychPlot.dirRepNumSoundVes = [];
-psychPlot.rightChoiceSoundVes = [];
+psychPlot.iDir110 = 0;            
+psychPlot.dirArray110 = [];
+psychPlot.dirRepNum110 = [];
+psychPlot.rightChoice110 = [];
 
-psychPlot.iDirSoundVis = 0;            
-psychPlot.dirArraySoundVis = [];
-psychPlot.dirRepNumSoundVis = [];
-psychPlot.rightChoiceSoundVis = [];
+psychPlot.iDir120 = 0;            
+psychPlot.dirArray120 = [];
+psychPlot.dirRepNum120 = [];
+psychPlot.rightChoice120 = [];
 
-psychPlot.iDirSoundVisVes = 0;            
-psychPlot.dirArraySoundVisVes = [];
-psychPlot.dirRepNumSoundVisVes = [];
-psychPlot.rightChoiceSoundVisVes = [];
+psychPlot.iDir130 = 0;            
+psychPlot.dirArray130 = [];
+psychPlot.dirRepNum130 = [];
+psychPlot.rightChoice130 = [];
 %% ------end
 psychPlot.iDir114 = 0;            
 psychPlot.dirArray114 = [];
