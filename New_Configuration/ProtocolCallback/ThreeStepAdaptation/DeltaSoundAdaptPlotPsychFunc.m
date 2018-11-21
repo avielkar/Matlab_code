@@ -1,4 +1,4 @@
-function DeltaAdaptPlotPsychFunc(appHandle)
+function DeltaSoundAdaptPlotPsychFunc(appHandle)
 
 global debug
 
@@ -839,7 +839,7 @@ if iDir115>0
     hold off;
 end
 
-if iDir116>0
+if iDir124>0
     subplot(plot_lines,plot_columns,3*plot_columns+3)
         
     %%
@@ -864,11 +864,11 @@ if iDir116>0
     grid on;
     %%
     
-    plot(sortDir116, sortRight116, 'vg' , 'MarkerSize' , 20);
+    plot(sortDir124, sortRight124, 'vg' , 'MarkerSize' , 20);
     hold off;
 end
 
-if iDir117>0
+if iDir125>0
     subplot(plot_lines,plot_columns,3*plot_columns +4)
         
     %%
@@ -893,7 +893,7 @@ if iDir117>0
     grid on;
     %%
     
-    plot(sortDir117, sortRight117, 'vg' , 'MarkerSize' , 20);
+    plot(sortDir125, sortRight125, 'vg' , 'MarkerSize' , 20);
     hold off;
 end
 
