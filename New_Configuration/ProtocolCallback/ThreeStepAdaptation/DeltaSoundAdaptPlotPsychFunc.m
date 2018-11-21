@@ -16,30 +16,30 @@ plotData = getappdata(appHandle,'psychPlot');
 %%
 
 %% plot data veriables initialization.
-iDir = plotData.iDir;
-dirArray = plotData.dirArray;
-dirRepNum = plotData.dirRepNum;
-rightChoice = plotData.rightChoice;
+iDir2 = plotData.iDir;
+dirArray2 = plotData.dirArray;
+dirRepNum2 = plotData.dirRepNum;
+rightChoice2 = plotData.rightChoice;
 
-iDirVes = plotData.iDirVes;
-dirArrayVes = plotData.dirArrayVes;
-dirRepNumVes = plotData.dirRepNumVes;
-rightChoiceVes = plotData.rightChoiceVes;
+iDir1 = plotData.iDirVes;
+dirArray1 = plotData.dirArrayVes;
+dirRepNum1 = plotData.dirRepNumVes;
+rightChoice1 = plotData.rightChoiceVes;
 
-iDirVisual = plotData.iDirVisual;
-dirArrayVisual = plotData.dirArrayVisual;
-dirRepNumVisual = plotData.dirRepNumVisual;
-rightChoiceVisual = plotData.rightChoiceVisual;
+iDir3 = plotData.iDirVisual;
+dirArray3 = plotData.dirArrayVisual;
+dirRepNum3 = plotData.dirRepNumVisual;
+rightChoice3 = plotData.rightChoiceVisual;
 
-iDirLeftDelta = plotData.iDirLeftDelta;
-dirArrayLeftDelta = plotData.dirArrayLeftDelta;
-dirRepNumLeftDelta = plotData.dirRepNumLeftDelta;
-rightChoiceLeftDelta = plotData.rightChoiceLeftDelta;
+iDir4 = plotData.iDirLeftDelta;
+dirArray4 = plotData.dirArrayLeftDelta;
+dirRepNum4 = plotData.dirRepNumLeftDelta;
+rightChoice4 = plotData.rightChoiceLeftDelta;
 
-iDirRightDelta = plotData.iDirRightDelta;
-dirArrayRightDelta = plotData.dirArrayRightDelta;
-dirRepNumRightDelta = plotData.dirRepNumRightDelta;
-rightChoiceRightDelta = plotData.rightChoiceRightDelta;
+iDir5 = plotData.iDirRightDelta;
+dirArray5 = plotData.dirArrayRightDelta;
+dirRepNum5 = plotData.dirRepNumRightDelta;
+rightChoice5 = plotData.rightChoiceRightDelta;
 
 iDir100 = plotData.iDir100;
 dirArray100 = plotData.dirArray100;
@@ -130,15 +130,15 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
     
     %% Vestibular only.
     if stim_type == 1 
-        iInd = find(dirArrayVes == dir);
+        iInd = find(dirArray1 == dir);
         if isempty(iInd)
-            iDirVes = iDirVes+1;
-            dirArrayVes(iDirVes) = dir;
-            dirRepNumVes(iDirVes) = 1;
-            rightChoiceVes(iDirVes) = 0;
-            iInd = iDirVes;
+            iDir1 = iDir1+1;
+            dirArray1(iDir1) = dir;
+            dirRepNum1(iDir1) = 1;
+            rightChoice1(iDir1) = 0;
+            iInd = iDir1;
         else
-            dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
+            dirRepNum1(iInd)=dirRepNum1(iInd)+1;
         end
 
         if response == 2
@@ -147,20 +147,20 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
             right=0;
         end
 
-        rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
+        rightChoice1(iInd)=((dirRepNum1(iInd)-1)*rightChoice1(iInd)+right)/dirRepNum1(iInd);
     %%
 
     %% visual only.
     elseif stim_type == 2 
-        iInd = find(dirArrayVisual == dir);
+        iInd = find(dirArray3 == dir);
         if isempty(iInd)
-            iDirVisual = iDirVisual+1;
-            dirArrayVisual(iDirVisual) = dir;
-            dirRepNumVisual(iDirVisual) = 1;
-            rightChoiceVisual(iDirVisual) = 0;
-            iInd = iDirVisual;
+            iDir3 = iDir3+1;
+            dirArray3(iDir3) = dir;
+            dirRepNum3(iDir3) = 1;
+            rightChoice3(iDir3) = 0;
+            iInd = iDir3;
         else
-            dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
+            dirRepNum3(iInd)=dirRepNum3(iInd)+1;
         end
 
         if response == 2
@@ -169,20 +169,20 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
             right=0;
         end
 
-        rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);
+        rightChoice3(iInd)=((dirRepNum3(iInd)-1)*rightChoice3(iInd)+right)/dirRepNum3(iInd);
     %%
 
     %% combine.
     elseif stim_type == 3 
-        iInd = find(dirArray == dir);
+        iInd = find(dirArray2 == dir);
         if isempty(iInd)
-            iDir = iDir+1;
-            dirArray(iDir) = dir;
-            dirRepNum(iDir) = 1;
-            rightChoice(iDir) = 0;
-            iInd = iDir;
+            iDir2 = iDir2+1;
+            dirArray2(iDir2) = dir;
+            dirRepNum2(iDir2) = 1;
+            rightChoice2(iDir2) = 0;
+            iInd = iDir2;
         else
-            dirRepNum(iInd)=dirRepNum(iInd)+1;
+            dirRepNum2(iInd)=dirRepNum2(iInd)+1;
         end
 
         if response == 2
@@ -191,20 +191,20 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
             right=0;
         end
 
-        rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);
+        rightChoice2(iInd)=((dirRepNum2(iInd)-1)*rightChoice2(iInd)+right)/dirRepNum2(iInd);
     %%
 
     %% combine with left delta.
     elseif stim_type == 4 
-        iInd = find(dirArrayLeftDelta == dir);
+        iInd = find(dirArray4 == dir);
         if isempty(iInd)
-            iDirLeftDelta = iDirLeftDelta+1;
-            dirArrayLeftDelta(iDirLeftDelta) = dir;
-            dirRepNumLeftDelta(iDirLeftDelta) = 1;
-            rightChoiceLeftDelta(iDirLeftDelta) = 0;
-            iInd = iDirLeftDelta;
+            iDir4 = iDir4+1;
+            dirArray4(iDir4) = dir;
+            dirRepNum4(iDir4) = 1;
+            rightChoice4(iDir4) = 0;
+            iInd = iDir4;
         else
-            dirRepNumLeftDelta(iInd)=dirRepNumLeftDelta(iInd)+1;
+            dirRepNum4(iInd)=dirRepNum4(iInd)+1;
         end
 
         if response == 2
@@ -213,20 +213,20 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
             right=0;
         end
 
-        rightChoiceLeftDelta(iInd)=((dirRepNumLeftDelta(iInd)-1)*rightChoiceLeftDelta(iInd)+right)/dirRepNumLeftDelta(iInd);
+        rightChoice4(iInd)=((dirRepNum4(iInd)-1)*rightChoice4(iInd)+right)/dirRepNum4(iInd);
     %%
 
     %% combine with right delta.
     elseif stim_type == 5 
-        iInd = find(dirArrayRightDelta == dir);
+        iInd = find(dirArray5 == dir);
         if isempty(iInd)
-            iDirRightDelta = iDirRightDelta+1;
-            dirArrayRightDelta(iDirRightDelta) = dir;
-            dirRepNumRightDelta(iDirRightDelta) = 1;
-            rightChoiceRightDelta(iDirRightDelta) = 0;
-            iInd = iDirRightDelta;
+            iDir5 = iDir5+1;
+            dirArray5(iDir5) = dir;
+            dirRepNum5(iDir5) = 1;
+            rightChoice5(iDir5) = 0;
+            iInd = iDir5;
         else
-            dirRepNumRightDelta(iInd)=dirRepNumRightDelta(iInd)+1;
+            dirRepNum5(iInd)=dirRepNum5(iInd)+1;
         end
 
         if response == 2
@@ -235,7 +235,7 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
             right=0;
         end
 
-        rightChoiceRightDelta(iInd)=((dirRepNumRightDelta(iInd)-1)*rightChoiceRightDelta(iInd)+right)/dirRepNumRightDelta(iInd);
+        rightChoice5(iInd)=((dirRepNum5(iInd)-1)*rightChoice5(iInd)+right)/dirRepNum5(iInd);
     %%
     end
 %if the trial is the duplicated type trial    
@@ -263,20 +263,20 @@ else
 end
 
 %% sorting stimulus types for plot include duplicated.
-[sortDir, sortInd] = sort(dirArray, 2);
-sortRight = rightChoice(sortInd);
+[sortDir, sortInd] = sort(dirArray2, 2);
+sortRight = rightChoice2(sortInd);
 
-[sortDirVisual, sortIndVisual] = sort(dirArrayVisual, 2);
-sortRightVisual = rightChoiceVisual(sortIndVisual);
+[sortDirVisual, sortIndVisual] = sort(dirArray3, 2);
+sortRightVisual = rightChoice3(sortIndVisual);
 
-[sortDirVes, sortIndVes] = sort(dirArrayVes, 2);
-sortRightVes = rightChoiceVes(sortIndVes);   
+[sortDirVes, sortIndVes] = sort(dirArray1, 2);
+sortRightVes = rightChoice1(sortIndVes);   
 
-[sortDirLeftDelta, sortIndLeftDelta] = sort(dirArrayLeftDelta, 2);
-sortRightLeftDelta = rightChoiceLeftDelta(sortIndLeftDelta);
+[sortDirLeftDelta, sortIndLeftDelta] = sort(dirArray4, 2);
+sortRightLeftDelta = rightChoice4(sortIndLeftDelta);
 
-[sortDirRightDelta, sortIndRightDelta] = sort(dirArrayRightDelta, 2);
-sortRightRightDelta = rightChoiceRightDelta(sortIndRightDelta);
+[sortDirRightDelta, sortIndRightDelta] = sort(dirArray5, 2);
+sortRightRightDelta = rightChoice5(sortIndRightDelta);
 
 [sortDirDuplicated, sortIndDuplicated] = sort(dirArrayDuplicated, 2);
 sortRightDuplicated = rightChoiceDuplicated(sortIndDuplicated);
@@ -289,7 +289,7 @@ figure(10)
 set(gcf,'Name','Online Analysis','NumberTitle','off');
 
 %% Plot for all stimulus type.
-if iDirVes>0
+if iDir1>0
     subplot(2,3,1)
         
     %%
@@ -318,7 +318,7 @@ if iDirVes>0
     hold off;
 end
 
-if iDirVisual>0
+if iDir3>0
     subplot(2,3,2)
         
     %%
@@ -348,7 +348,7 @@ if iDirVisual>0
 end
 
 
-if iDir>0
+if iDir2>0
     subplot(2,3,3)
         
     %%
@@ -377,7 +377,7 @@ if iDir>0
     hold off;
 end
 
-if iDirLeftDelta>0
+if iDir4>0
     subplot(2,3,4)
         
     %%
@@ -406,7 +406,7 @@ if iDirLeftDelta>0
     hold off;
 end
 
-if iDirRightDelta>0
+if iDir5>0
     subplot(2,3,5)
         
     %%
@@ -492,30 +492,30 @@ end
 %%
 
 %% saving the online plot data.
-plotData.iDir = iDir;
-plotData.dirArray = dirArray;
-plotData.dirRepNum = dirRepNum;
-plotData.rightChoice= rightChoice;
+plotData.iDir = iDir2;
+plotData.dirArray = dirArray2;
+plotData.dirRepNum = dirRepNum2;
+plotData.rightChoice= rightChoice2;
 
-plotData.iDirVes = iDirVes;
-plotData.dirArrayVes = dirArrayVes;
-plotData.dirRepNumVes = dirRepNumVes;
-plotData.rightChoiceVes= rightChoiceVes;
+plotData.iDirVes = iDir1;
+plotData.dirArrayVes = dirArray1;
+plotData.dirRepNumVes = dirRepNum1;
+plotData.rightChoiceVes= rightChoice1;
 
-plotData.iDirVisual = iDirVisual;
-plotData.dirArrayVisual = dirArrayVisual;
-plotData.dirRepNumVisual = dirRepNumVisual;
-plotData.rightChoiceVisual = rightChoiceVisual;
+plotData.iDirVisual = iDir3;
+plotData.dirArrayVisual = dirArray3;
+plotData.dirRepNumVisual = dirRepNum3;
+plotData.rightChoiceVisual = rightChoice3;
 
-plotData.iDirLeftDelta = iDirLeftDelta;
-plotData.dirArrayLeftDelta = dirArrayLeftDelta;
-plotData.dirRepNumLeftDelta = dirRepNumLeftDelta;
-plotData.rightChoiceLeftDelta= rightChoiceLeftDelta;
+plotData.iDirLeftDelta = iDir4;
+plotData.dirArrayLeftDelta = dirArray4;
+plotData.dirRepNumLeftDelta = dirRepNum4;
+plotData.rightChoiceLeftDelta= rightChoice4;
 
-plotData.iDirRightDelta = iDirRightDelta;
-plotData.dirArrayRightDelta = dirArrayRightDelta;
-plotData.dirRepNumRightDelta = dirRepNumRightDelta;
-plotData.rightChoiceRightDelta = rightChoiceRightDelta;
+plotData.iDirRightDelta = iDir5;
+plotData.dirArrayRightDelta = dirArray5;
+plotData.dirRepNumRightDelta = dirRepNum5;
+plotData.rightChoiceRightDelta = rightChoice5;
 
 plotData.iDirDuplicated = iDirDuplicated;
 plotData.dirArrayDuplicated = dirArrayDuplicated;
