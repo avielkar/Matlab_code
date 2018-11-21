@@ -492,11 +492,6 @@ end
 %%
 
 %% saving the online plot data.
-plotData.iDir = iDir3;
-plotData.dirArray = dirArray3;
-plotData.dirRepNum = dirRepNum3;
-plotData.rightChoice= rightChoice3;
-
 plotData.iDirVes = iDir1;
 plotData.dirArrayVes = dirArray1;
 plotData.dirRepNumVes = dirRepNum1;
@@ -506,6 +501,11 @@ plotData.iDirVisual = iDir2;
 plotData.dirArrayVisual = dirArray2;
 plotData.dirRepNumVisual = dirRepNum2;
 plotData.rightChoiceVisual = rightChoice2;
+
+plotData.iDir = iDir3;
+plotData.dirArray = dirArray3;
+plotData.dirRepNum = dirRepNum3;
+plotData.rightChoice= rightChoice3;
 
 plotData.iDirLeftDelta = iDir4;
 plotData.dirArrayLeftDelta = dirArray4;
