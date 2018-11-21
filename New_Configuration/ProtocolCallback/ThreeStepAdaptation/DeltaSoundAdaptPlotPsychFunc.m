@@ -439,20 +439,41 @@ else
 end
 
 %% sorting stimulus types for plot include duplicated.
-[sortDir, sortInd] = sort(dirArray3, 2);
-sortRight = rightChoice3(sortInd);
+[sortDir1, sortInd1] = sort(dirArray1, 2);
+sortRight1 = rightChoice1(sortInd1);   
 
-[sortDirVisual, sortIndVisual] = sort(dirArray2, 2);
-sortRightVisual = rightChoice2(sortIndVisual);
+[sortDir2, sortInd2] = sort(dirArray2, 2);
+sortRight2 = rightChoice2(sortInd2);
 
-[sortDirVes, sortIndVes] = sort(dirArray1, 2);
-sortRightVes = rightChoice1(sortIndVes);   
+[sortDir3, sortInd3] = sort(dirArray3, 2);
+sortRight3 = rightChoice3(sortInd3);
 
-[sortDirLeftDelta, sortIndLeftDelta] = sort(dirArray4, 2);
-sortRightLeftDelta = rightChoice4(sortIndLeftDelta);
+[sortDir4, sortInd4] = sort(dirArray4, 2);
+sortRight4 = rightChoice4(sortInd4);
 
-[sortDirRightDelta, sortIndRightDelta] = sort(dirArray5, 2);
-sortRightRightDelta = rightChoice5(sortIndRightDelta);
+[sortDir100, sortInd100] = sort(dirArray100, 2);
+sortRight100 = rightChoice5(sortInd100);
+
+[sortDir110, sortInd110] = sort(dirArray110, 2);
+sortRight110 = rightChoice110(sortInd110);
+
+[sortDir120, sortInd120] = sort(dirArray120, 2);
+sortRight120 = rightChoice120(sortInd120);
+
+[sortDir130, sortInd130] = sort(dirArray130, 2);
+sortRight130 = rightChoice130(sortInd130);
+
+[sortDir114, sortInd114] = sort(dirArray114, 2);
+sortRight114 = rightChoice114(sortInd114);
+
+[sortDir115, sortInd115] = sort(dirArray115, 2);
+sortRight115 = rightChoice115(sortInd115);
+
+[sortDir124, sortInd124] = sort(dirArray124, 2);
+sortRight124 = rightChoice124(sortInd124);
+
+[sortDir125, sortInd125] = sort(dirArray125, 2);
+sortRight125 = rightChoice125(sortInd125);
 
 [sortDirDuplicated, sortIndDuplicated] = sort(dirArrayDuplicated, 2);
 sortRightDuplicated = rightChoiceDuplicated(sortIndDuplicated);
@@ -490,7 +511,7 @@ if iDir1>0
     grid on;
     %%
     
-    plot(sortDirVes, sortRightVes, 'og' , 'MarkerSize' , 20);
+    plot(sortDir1, sortRight1, 'og' , 'MarkerSize' , 20);
     hold off;
 end
 
@@ -519,7 +540,7 @@ if iDir2>0
     grid on;
     %%
     
-    plot(sortDirVisual, sortRightVisual, 'xr' , 'MarkerSize' , 20);
+    plot(sortDir2, sortRight2, 'xr' , 'MarkerSize' , 20);
     hold off;
 end
 
@@ -549,7 +570,7 @@ if iDir3>0
     grid on;
     %%
     
-    plot(sortDir, sortRight, '+b' , 'MarkerSize' , 20);
+    plot(sortDir3, sortRight3, '+b' , 'MarkerSize' , 20);
     hold off;
 end
 
@@ -578,7 +599,7 @@ if iDir4>0
     grid on;
     %%
     
-    plot(sortDirLeftDelta, sortRightLeftDelta, 'sb' , 'MarkerSize' , 20);
+    plot(sortDir4, sortRight4, 'sb' , 'MarkerSize' , 20);
     hold off;
 end
 
@@ -607,7 +628,7 @@ if iDir5>0
     grid on;
     %%
     
-    plot(sortDirRightDelta, sortRightRightDelta, 'pr' , 'MarkerSize' , 20);
+    plot(sortDir5, sortRight5, 'pr' , 'MarkerSize' , 20);
     hold off;
 end
 
