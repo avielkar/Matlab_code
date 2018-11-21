@@ -237,6 +237,182 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
 
         rightChoice5(iInd)=((dirRepNum5(iInd)-1)*rightChoice5(iInd)+right)/dirRepNum5(iInd);
     %%
+    
+    %% sound only.
+    elseif stim_type == 100 
+        iInd = find(dirArray100 == dir);
+        if isempty(iInd)
+            iDir100 = iDir100+1;
+            dirArray100(iDir100) = dir;
+            dirRepNum100(iDir100) = 1;
+            rightChoice10(iDir100) = 0;
+            iInd = iDir100;
+        else
+            dirRepNum100(iInd)=dirRepNum100(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice100(iInd)=((dirRepNum100(iInd)-1)*rightChoice100(iInd)+right)/dirRepNum100(iInd);
+    %%
+    
+    %% sound + ves
+    elseif stim_type == 110 
+        iInd = find(dirArray110 == dir);
+        if isempty(iInd)
+            iDir110 = iDir110+1;
+            dirArray110(iDir110) = dir;
+            dirRepNum110(iDir110) = 1;
+            rightChoice110(iDir110) = 0;
+            iInd = iDir110;
+        else
+            dirRepNum110(iInd)=dirRepNum110(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice110(iInd)=((dirRepNum110(iInd)-1)*rightChoice110(iInd)+right)/dirRepNum110(iInd);
+    %%
+    
+    %% sound + vis
+    elseif stim_type == 120 
+        iInd = find(dirArray120 == dir);
+        if isempty(iInd)
+            iDir120 = iDir120+1;
+            dirArray120(iDir120) = dir;
+            dirRepNum120(iDir120) = 1;
+            rightChoice120(iDir120) = 0;
+            iInd = iDir120;
+        else
+            dirRepNum120(iInd)=dirRepNum120(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice120(iInd)=((dirRepNum120(iInd)-1)*rightChoice120(iInd)+right)/dirRepNum120(iInd);
+    %%
+    
+    %% sound + ves + vis
+ elseif stim_type == 130 
+        iInd = find(dirArray130 == dir);
+        if isempty(iInd)
+            iDir130 = iDir130+1;
+            dirArray130(iDir130) = dir;
+            dirRepNum130(iDir130) = 1;
+            rightChoice130(iDir130) = 0;
+            iInd = iDir130;
+        else
+            dirRepNum130(iInd)=dirRepNum130(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice130(iInd)=((dirRepNum130(iInd)-1)*rightChoice130(iInd)+right)/dirRepNum130(iInd);
+    %%
+    
+    %% delta sound < ves
+ elseif stim_type == 114 
+        iInd = find(dirArray114 == dir);
+        if isempty(iInd)
+            iDir114 = iDir114+1;
+            dirArray114(iDir114) = dir;
+            dirRepNum114(iDir114) = 1;
+            rightChoice114(iDir114) = 0;
+            iInd = iDir114;
+        else
+            dirRepNum114(iInd)=dirRepNum114(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice114(iInd)=((dirRepNum114(iInd)-1)*rightChoice114(iInd)+right)/dirRepNum114(iInd);
+    %%
+    
+    %% delta sound > ves
+ elseif stim_type == 115 
+        iInd = find(dirArray115 == dir);
+        if isempty(iInd)
+            iDir115 = iDir115+1;
+            dirArray115(iDir115) = dir;
+            dirRepNum115(iDir115) = 1;
+            rightChoice115(iDir115) = 0;
+            iInd = iDir115;
+        else
+            dirRepNum115(iInd)=dirRepNum115(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice115(iInd)=((dirRepNum115(iInd)-1)*rightChoice115(iInd)+right)/dirRepNum115(iInd);
+    %%
+    
+    %% delta sound < vis
+     elseif stim_type == 124 
+        iInd = find(dirArray124 == dir);
+        if isempty(iInd)
+            iDir124 = iDir124+1;
+            dirArray124(iDir124) = dir;
+            dirRepNum124(iDir124) = 1;
+            rightChoice124(iDir124) = 0;
+            iInd = iDir124;
+        else
+            dirRepNum124(iInd)=dirRepNum124(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice124(iInd)=((dirRepNum124(iInd)-1)*rightChoice124(iInd)+right)/dirRepNum124(iInd);
+    %%
+    
+     %% delta sound > vis
+     elseif stim_type == 125 
+        iInd = find(dirArray125 == dir);
+        if isempty(iInd)
+            iDir125 = iDir125+1;
+            dirArray125(iDir125) = dir;
+            dirRepNum125(iDir125) = 1;
+            rightChoice125(iDir125) = 0;
+            iInd = iDir125;
+        else
+            dirRepNum125(iInd)=dirRepNum125(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice125(iInd)=((dirRepNum125(iInd)-1)*rightChoice125(iInd)+right)/dirRepNum125(iInd);
+    %%
     end
 %if the trial is the duplicated type trial    
 else
