@@ -486,8 +486,12 @@ figure(10)
 set(gcf,'Name','Online Analysis','NumberTitle','off');
 
 %% Plot for all stimulus type.
+
+plot_lines = 4;
+plot_columns = 4;
+
 if iDir1>0
-    subplot(2,3,1)
+    subplot(plot_lines,plot_columns,1)
         
     %%
     title('Vestibular only');
@@ -516,7 +520,7 @@ if iDir1>0
 end
 
 if iDir2>0
-    subplot(2,3,2)
+    subplot(plot_lines,plot_columns,2)
         
     %%
     title('Visual only');
@@ -546,7 +550,7 @@ end
 
 
 if iDir3>0
-    subplot(2,3,3)
+    subplot(plot_lines,plot_columns,3)
         
     %%
     title('Combined');
@@ -575,7 +579,7 @@ if iDir3>0
 end
 
 if iDir4>0
-    subplot(2,3,4)
+    subplot(plot_lines,plot_columns,plot_columns+1)
         
     %%
     title('Left Delta');
@@ -604,7 +608,7 @@ if iDir4>0
 end
 
 if iDir5>0
-    subplot(2,3,5)
+    subplot(plot_lines,plot_columns,plot_columns+2)
         
     %%
     title('Right Delta');
@@ -633,7 +637,7 @@ if iDir5>0
 end
 
 if iDirDuplicated>0
-    subplot(2,3,6)
+    subplot(plot_lines,plot_columns,plot_columns+3)
         
     %%
     title('Duplicated');
@@ -661,31 +665,238 @@ if iDirDuplicated>0
     hold off;
 end
 
-%%
+if iDir100>0
+    subplot(plot_lines,plot_columns,2*plot_columns+1)
+        
+    %%
+    title('Audio');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
 
-%% Plot on the same graph the axes pf the graph. - Dont want all in one graph , in subplots maked upsatir code.
-% subplot(3,3,8)
-% title('Online Psychometric Function');
-% i = strmatch('Heading Direction',{char(within.name)},'exact');
-% x = within(i).parameters.moog;
-% set(gca, 'XTick', x);
-% hold on;
-% y1 = 0.5*ones(size(x));
-% plot(x,y1,'-r');
-% 
-% xlabel('Heading Angle (deg)');
-% 
-% y=0 : 0.1 : 1;
-% ylim([0 1]);
-% set(gca, 'YTick', y);
-% ylabel('Rightward Dicisions%');
-% 
-% hold on;
-% x1 = zeros(size(y));
-% plot(x1,y,'-r');
-% 
-% grid on;
-% hold off;
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir100, sortRight100, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir110>0
+    subplot(plot_lines,plot_columns,2*plot_columns+1)
+        
+    %%
+    title('Audio + Ves');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir110, sortRight110, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir120>0
+    subplot(plot_lines,plot_columns,2*plot_columns+1)
+        
+    %%
+    title('Audio + Vis');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir120, sortRight120, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir130>0
+    subplot(plot_lines,plot_columns,2*plot_columns+1)
+        
+    %%
+    title('Audio + Ves + Vis');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir130, sortRight130, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir114>0
+    subplot(plot_lines,plot_columns,3*plot_columns+1)
+        
+    %%
+    title('Audio < Ves');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir114, sortRight114, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir115>0
+    subplot(plot_lines,plot_columns,3*plot_columns+2)
+        
+    %%
+    title('Audio > Ves');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir115, sortRight115, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir116>0
+    subplot(plot_lines,plot_columns,3*plot_columns+3)
+        
+    %%
+    title('Audio < Vis');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir116, sortRight116, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
+if iDir117>0
+    subplot(plot_lines,plot_columns,3*plot_columns +4)
+        
+    %%
+    title('Audio > Vis');
+    i = strmatch('Heading Direction',{char(within.name)},'exact');
+    x = within(i).parameters.moog;
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r');
+
+    xlabel('Heading Angle (deg)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
+
+    x1 = zeros(size(y));
+    plot(x1,y,'-r');
+
+    grid on;
+    %%
+    
+    plot(sortDir117, sortRight117, 'vg' , 'MarkerSize' , 20);
+    hold off;
+end
+
 %%
 
 %% saving the online plot data.
