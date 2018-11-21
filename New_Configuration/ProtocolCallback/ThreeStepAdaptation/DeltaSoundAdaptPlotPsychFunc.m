@@ -16,20 +16,20 @@ plotData = getappdata(appHandle,'psychPlot');
 %%
 
 %% plot data veriables initialization.
-iDir2 = plotData.iDir;
-dirArray2 = plotData.dirArray;
-dirRepNum2 = plotData.dirRepNum;
-rightChoice2 = plotData.rightChoice;
-
 iDir1 = plotData.iDirVes;
 dirArray1 = plotData.dirArrayVes;
 dirRepNum1 = plotData.dirRepNumVes;
 rightChoice1 = plotData.rightChoiceVes;
 
-iDir3 = plotData.iDirVisual;
-dirArray3 = plotData.dirArrayVisual;
-dirRepNum3 = plotData.dirRepNumVisual;
-rightChoice3 = plotData.rightChoiceVisual;
+iDir2 = plotData.iDirVisual;
+dirArray2 = plotData.dirArrayVisual;
+dirRepNum2 = plotData.dirRepNumVisual;
+rightChoice2 = plotData.rightChoiceVisual;
+
+iDir3 = plotData.iDir;
+dirArray3 = plotData.dirArray;
+dirRepNum3 = plotData.dirRepNum;
+rightChoice3 = plotData.rightChoice;
 
 iDir4 = plotData.iDirLeftDelta;
 dirArray4 = plotData.dirArrayLeftDelta;
@@ -152,28 +152,6 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
 
     %% visual only.
     elseif stim_type == 2 
-        iInd = find(dirArray3 == dir);
-        if isempty(iInd)
-            iDir3 = iDir3+1;
-            dirArray3(iDir3) = dir;
-            dirRepNum3(iDir3) = 1;
-            rightChoice3(iDir3) = 0;
-            iInd = iDir3;
-        else
-            dirRepNum3(iInd)=dirRepNum3(iInd)+1;
-        end
-
-        if response == 2
-            right=1;
-        else
-            right=0;
-        end
-
-        rightChoice3(iInd)=((dirRepNum3(iInd)-1)*rightChoice3(iInd)+right)/dirRepNum3(iInd);
-    %%
-
-    %% combine.
-    elseif stim_type == 3 
         iInd = find(dirArray2 == dir);
         if isempty(iInd)
             iDir2 = iDir2+1;
@@ -192,6 +170,28 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
         end
 
         rightChoice2(iInd)=((dirRepNum2(iInd)-1)*rightChoice2(iInd)+right)/dirRepNum2(iInd);
+    %%
+
+    %% combine.
+    elseif stim_type == 3 
+        iInd = find(dirArray3 == dir);
+        if isempty(iInd)
+            iDir3 = iDir3+1;
+            dirArray3(iDir3) = dir;
+            dirRepNum3(iDir3) = 1;
+            rightChoice3(iDir3) = 0;
+            iInd = iDir3;
+        else
+            dirRepNum3(iInd)=dirRepNum3(iInd)+1;
+        end
+
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
+
+        rightChoice3(iInd)=((dirRepNum3(iInd)-1)*rightChoice3(iInd)+right)/dirRepNum3(iInd);
     %%
 
     %% combine with left delta.
@@ -263,11 +263,11 @@ else
 end
 
 %% sorting stimulus types for plot include duplicated.
-[sortDir, sortInd] = sort(dirArray2, 2);
-sortRight = rightChoice2(sortInd);
+[sortDir, sortInd] = sort(dirArray3, 2);
+sortRight = rightChoice3(sortInd);
 
-[sortDirVisual, sortIndVisual] = sort(dirArray3, 2);
-sortRightVisual = rightChoice3(sortIndVisual);
+[sortDirVisual, sortIndVisual] = sort(dirArray2, 2);
+sortRightVisual = rightChoice2(sortIndVisual);
 
 [sortDirVes, sortIndVes] = sort(dirArray1, 2);
 sortRightVes = rightChoice1(sortIndVes);   
@@ -318,7 +318,7 @@ if iDir1>0
     hold off;
 end
 
-if iDir3>0
+if iDir2>0
     subplot(2,3,2)
         
     %%
@@ -348,7 +348,7 @@ if iDir3>0
 end
 
 
-if iDir2>0
+if iDir3>0
     subplot(2,3,3)
         
     %%
@@ -492,20 +492,20 @@ end
 %%
 
 %% saving the online plot data.
-plotData.iDir = iDir2;
-plotData.dirArray = dirArray2;
-plotData.dirRepNum = dirRepNum2;
-plotData.rightChoice= rightChoice2;
+plotData.iDir = iDir3;
+plotData.dirArray = dirArray3;
+plotData.dirRepNum = dirRepNum3;
+plotData.rightChoice= rightChoice3;
 
 plotData.iDirVes = iDir1;
 plotData.dirArrayVes = dirArray1;
 plotData.dirRepNumVes = dirRepNum1;
 plotData.rightChoiceVes= rightChoice1;
 
-plotData.iDirVisual = iDir3;
-plotData.dirArrayVisual = dirArray3;
-plotData.dirRepNumVisual = dirRepNum3;
-plotData.rightChoiceVisual = rightChoice3;
+plotData.iDirVisual = iDir2;
+plotData.dirArrayVisual = dirArray2;
+plotData.dirRepNumVisual = dirRepNum2;
+plotData.rightChoiceVisual = rightChoice2;
 
 plotData.iDirLeftDelta = iDir4;
 plotData.dirArrayLeftDelta = dirArray4;
