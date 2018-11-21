@@ -224,7 +224,7 @@ if(stim_type == 5)  %Combine plus right delta
     %for this symulus type the delta is saved as negative in makeData.m
 end
 
-if(stim_type == 100 || stim_type == 101 || stim_type == 102 || stim_type == 103)  %Combine plus right delta
+if(stim_type == 100 || stim_type == 110 || stim_type == 120 || stim_type == 130)  %Combine plus right delta
     outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 end
@@ -313,7 +313,7 @@ end
 
 %do not move the robot - empty || vis || sound || sound + vis || sound + vis
 %deltas.
-if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 102 || stim_type == 124 || stim_type == 125
+if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 120 || stim_type == 124 || stim_type == 125
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
@@ -323,7 +323,7 @@ if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 102 || s
    heaveGL = zeros(1,length(heaveM));
 end
 
-if(stim_type == 100 || stim_type == 101 || stim_type == 102 || stim_type==103 || stim_type==114 || stim_type==115 || stim_type==124 || stim_type==125)  %as stim_type 1,2,3 with sound. 
+if(stim_type == 100 || stim_type == 110 || stim_type == 120 || stim_type==130 || stim_type==114 || stim_type==115 || stim_type==124 || stim_type==125)  %as stim_type 1,2,3 with sound. 
     outString = ['MOOG_CREATE_TRAJ' ' ' num2str(1)];
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 end
@@ -365,7 +365,7 @@ elseif stim_type == 0  %non vestibular and non visual.
     data.configinfo(iBackground).parameters = 0;
 elseif stim_type == 100 %sound only
     data.configinfo(iBackground).parameters = 0;
-elseif stim_type == 101 %sound with vetibular only.
+elseif stim_type == 110 %sound with vetibular only.
     data.configinfo(iBackground).parameters = 0;
 else   %Combine & Visual only
     data.configinfo(iBackground).parameters = 1;
