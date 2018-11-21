@@ -229,39 +229,39 @@ if(stim_type == 100 || stim_type == 101 || stim_type == 102 || stim_type == 103)
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 end
 
-if(stim_type == 114)  %Combine audio+/vestibular-
+if(stim_type == 114)  %Combine audio-/vestibular+
+    %audio decrease
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) - delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %Moog increase
+    amps(1) = amps(1) + delta/2;  
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+
+if(stim_type == 115)  %Combine audio+/vestibular-
     %audio increase
     outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) + delta/2 )];
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
     %Moog decrease
-    amps(1) = amps(1) - delta/2;  
+    amps(1) = amps(1) - delta/2; 
     %for this symulus type the delta is saved as negative in makeData.m
 end
 
-if(stim_type == 115)  %Combine audio-/vestibular+
-    %audio decrease
-    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) - delta/2 )];
-    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-    %Moog incerease
-    amps(1) = amps(1) + delta/2; 
-    %for this symulus type the delta is saved as negative in makeData.m
-end
-
-if(stim_type == 124)  %Combine audio+/visual-
-    %audio increase
-    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) + delta/2 )];
-    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-    %opengl decrease
-    amps(2) = amps(2) - delta/2;
-    %for this symulus type the delta is saved as negative in makeData.m
-end
-
-if(stim_type == 125)  %Combine audio-/visual+
+if(stim_type == 124)  %Combine audio-/visual+
     %audio decrease
     outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) - delta/2 )];
     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
     %opengl increaes
     amps(2) = amps(2) + delta/2;
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+
+if(stim_type == 125)  %Combine audio+/visual-
+    %audio increaes
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) + delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %opengl decrease
+    amps(2) = amps(2) - delta/2;
     %for this symulus type the delta is saved as negative in makeData.m
 end
 %avi - end sol protocol for DELTA
