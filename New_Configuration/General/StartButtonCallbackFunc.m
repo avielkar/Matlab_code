@@ -292,6 +292,28 @@ psychPlot.dirArraySoundVisVes = [];
 psychPlot.dirRepNumSoundVisVes = [];
 psychPlot.rightChoiceSoundVisVes = [];
 %% ------end
+psychPlot.iDir114 = 0;            
+psychPlot.dirArray114 = [];
+psychPlot.dirRepNum114 = [];
+psychPlot.rightChoice114 = [];
+
+psychPlot.iDir115 = 0;            
+psychPlot.dirArray115 = [];
+psychPlot.dirRepNum115 = [];
+psychPlot.rightChoice115 = [];
+
+psychPlot.iDir124 = 0;            
+psychPlot.dirArray124 = [];
+psychPlot.dirRepNum124 = [];
+psychPlot.rightChoice124 = [];
+
+psychPlot.iDir125 = 0;            
+psychPlot.dirArray125 = [];
+psychPlot.dirRepNum125 = [];
+psychPlot.rightChoice125 = [];
+%%Sound protocols for sound+delta
+
+%%
 
 %---------end: for Adam1_Prior protocol and sol Adam1_Delta protocol.
 

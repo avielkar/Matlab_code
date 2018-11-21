@@ -41,25 +41,45 @@ dirArrayRightDelta = plotData.dirArrayRightDelta;
 dirRepNumRightDelta = plotData.dirRepNumRightDelta;
 rightChoiceRightDelta = plotData.rightChoiceRightDelta;
 
-iDir114Delta = plotData.iDir114Delta;
-dirArray114Delta = plotData.dirArray114Delta;
-dirRepNum114Delta = plotData.dirRepNum114Delta;
-rightChoice114Delta = plotData.rightChoice114Delta;
+iDirRightDelta = plotData.iDirRightDelta;
+dirArrayRightDelta = plotData.dirArrayRightDelta;
+dirRepNumRightDelta = plotData.dirRepNumRightDelta;
+rightChoiceRightDelta = plotData.rightChoiceRightDelta;
 
-iDir115Delta = plotData.iDir115Delta;
-dirArray115Delta = plotData.dirArray115Delta;
-dirRepNum115Delta = plotData.dirRepNum115Delta;
-rightChoice115Delta = plotData.rightChoice115Delta;
+iDirRightDelta = plotData.iDirRightDelta;
+dirArrayRightDelta = plotData.dirArrayRightDelta;
+dirRepNumRightDelta = plotData.dirRepNumRightDelta;
+rightChoiceRightDelta = plotData.rightChoiceRightDelta;
 
-iDir124Delta = plotData.iDir124Delta;
-dirArray124Delta = plotData.dirArray124Delta;
-dirRepNum124Delta = plotData.dirRepNum124Delta;
-rightChoice124Delta = plotData.rightChoice124Delta;
+iDirRightDelta = plotData.iDirRightDelta;
+dirArrayRightDelta = plotData.dirArrayRightDelta;
+dirRepNumRightDelta = plotData.dirRepNumRightDelta;
+rightChoiceRightDelta = plotData.rightChoiceRightDelta;
 
-iDir125Delta = plotData.iDir125Delta;
-dirArray125Delta = plotData.dirArray125Delta;
-dirRepNum125Delta = plotData.dirRepNum125Delta;
-rightChoice125Delta = plotData.rightChoice125Delta;
+iDirRightDelta = plotData.iDirRightDelta;
+dirArrayRightDelta = plotData.dirArrayRightDelta;
+dirRepNumRightDelta = plotData.dirRepNumRightDelta;
+rightChoiceRightDelta = plotData.rightChoiceRightDelta;
+
+iDir114 = plotData.iDir114;
+dirArray114 = plotData.dirArray114;
+dirRepNum114 = plotData.dirRepNum114;
+rightChoice114 = plotData.rightChoice114;
+
+iDir115 = plotData.iDir115;
+dirArray115 = plotData.dirArray115Delta;
+dirRepNum115 = plotData.dirRepNum115;
+rightChoice115 = plotData.rightChoice115;
+
+iDir124 = plotData.iDir124;
+dirArray124 = plotData.dirArray124;
+dirRepNum124 = plotData.dirRepNum124;
+rightChoice124 = plotData.rightChoice124;
+
+iDir125 = plotData.iDir125;
+dirArray125 = plotData.dirArray125;
+dirRepNum125 = plotData.dirRepNum125;
+rightChoice125 = plotData.rightChoice125;
 
 iDirDuplicated = plotData.iDirDuplicated;
 dirArrayDuplicated = plotData.dirArrayDuplicated;
