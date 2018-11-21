@@ -579,7 +579,7 @@ if iDir3>0
 end
 
 if iDir4>0
-    subplot(plot_lines,plot_columns,plot_columns+1)
+    subplot(plot_lines,plot_columns,2*plot_columns+1)
         
     %%
     title('Left Delta');
@@ -608,7 +608,7 @@ if iDir4>0
 end
 
 if iDir5>0
-    subplot(plot_lines,plot_columns,plot_columns+2)
+    subplot(plot_lines,plot_columns,2*plot_columns+2)
         
     %%
     title('Right Delta');
@@ -724,7 +724,7 @@ if iDir110>0
 end
 
 if iDir120>0
-    subplot(plot_lines,plot_columns,2*plot_columns+1)
+    subplot(plot_lines,plot_columns,2*plot_columns+2)
         
     %%
     title('Audio + Vis');
@@ -753,7 +753,7 @@ if iDir120>0
 end
 
 if iDir130>0
-    subplot(plot_lines,plot_columns,2*plot_columns+1)
+    subplot(plot_lines,plot_columns,2*plot_columns+3)
         
     %%
     title('Audio + Ves + Vis');
