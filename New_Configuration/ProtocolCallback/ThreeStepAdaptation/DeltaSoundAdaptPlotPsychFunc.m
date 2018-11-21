@@ -245,7 +245,7 @@ if(~trial(activeStair,activeRule).duplicatedTrial)
             iDir100 = iDir100+1;
             dirArray100(iDir100) = dir;
             dirRepNum100(iDir100) = 1;
-            rightChoice10(iDir100) = 0;
+            rightChoice100(iDir100) = 0;
             iInd = iDir100;
         else
             dirRepNum100(iInd)=dirRepNum100(iInd)+1;
@@ -451,8 +451,11 @@ sortRight3 = rightChoice3(sortInd3);
 [sortDir4, sortInd4] = sort(dirArray4, 2);
 sortRight4 = rightChoice4(sortInd4);
 
+[sortDir5, sortInd5] = sort(dirArray5, 2);
+sortRight5 = rightChoice5(sortInd5);
+
 [sortDir100, sortInd100] = sort(dirArray100, 2);
-sortRight100 = rightChoice5(sortInd100);
+sortRight100 = rightChoice100(sortInd100);
 
 [sortDir110, sortInd110] = sort(dirArray110, 2);
 sortRight110 = rightChoice110(sortInd110);
@@ -578,7 +581,7 @@ if iDir3>0
 end
 
 if iDir4>0
-    subplot(plot_lines,plot_columns,2*plot_columns+1)
+    subplot(plot_lines,plot_columns,plot_columns+1)
         
     %%
     title('Left Delta');
@@ -607,7 +610,7 @@ if iDir4>0
 end
 
 if iDir5>0
-    subplot(plot_lines,plot_columns,2*plot_columns+2)
+    subplot(plot_lines,plot_columns,plot_columns+2)
         
     %%
     title('Right Delta');
@@ -694,7 +697,7 @@ if iDir100>0
 end
 
 if iDir110>0
-    subplot(plot_lines,plot_columns,2*plot_columns+1)
+    subplot(plot_lines,plot_columns,2*plot_columns+2)
         
     %%
     title('Audio + Ves');
@@ -723,7 +726,7 @@ if iDir110>0
 end
 
 if iDir120>0
-    subplot(plot_lines,plot_columns,2*plot_columns+2)
+    subplot(plot_lines,plot_columns,2*plot_columns+3)
         
     %%
     title('Audio + Vis');
@@ -752,7 +755,7 @@ if iDir120>0
 end
 
 if iDir130>0
-    subplot(plot_lines,plot_columns,2*plot_columns+3)
+    subplot(plot_lines,plot_columns,2*plot_columns+4)
         
     %%
     title('Audio + Ves + Vis');
