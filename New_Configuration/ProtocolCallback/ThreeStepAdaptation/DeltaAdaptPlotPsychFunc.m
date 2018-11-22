@@ -259,7 +259,7 @@ if iDirVes>0
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
+    plot(x,y1,'-r','MarkerSize' , 5);
 
     xlabel('Heading Angle (deg)');
 
@@ -269,12 +269,12 @@ if iDirVes>0
     ylabel('Rightward Dicisions%');
 
     x1 = zeros(size(y));
-    plot(x1,y,'-r');
+    plot(x1,y,'-r','MarkerSize' , 5);
 
     grid on;
     %%
     
-    plot(sortDirVes, sortRightVes, 'og' , 'MarkerSize' , 20);
+    plot(sortDirVes, sortRightVes, 'og' ,'MarkerSize' , 5);
     hold off;
 end
 
@@ -288,7 +288,7 @@ if iDirVisual>0
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
+    plot(x,y1,'-r','MarkerSize' , 5);
 
     xlabel('Heading Angle (deg)');
 
@@ -298,12 +298,12 @@ if iDirVisual>0
     ylabel('Rightward Dicisions%');
 
     x1 = zeros(size(y));
-    plot(x1,y,'-r');
+    plot(x1,y,'-r','MarkerSize' , 5);
 
     grid on;
     %%
     
-    plot(sortDirVisual, sortRightVisual, 'xr' , 'MarkerSize' , 20);
+    plot(sortDirVisual, sortRightVisual, 'xr' ,'MarkerSize' , 5);
     hold off;
 end
 
@@ -318,7 +318,7 @@ if iDir>0
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
+    plot(x,y1,'-r','MarkerSize' , 5);
 
     xlabel('Heading Angle (deg)');
 
@@ -328,12 +328,12 @@ if iDir>0
     ylabel('Rightward Dicisions%');
 
     x1 = zeros(size(y));
-    plot(x1,y,'-r');
+    plot(x1,y,'-r','MarkerSize' , 5);
 
     grid on;
     %%
     
-    plot(sortDir, sortRight, '+b' , 'MarkerSize' , 20);
+    plot(sortDir, sortRight, '+b' ,'MarkerSize' , 5);
     hold off;
 end
 
@@ -347,7 +347,7 @@ if iDirLeftDelta>0
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
+    plot(x,y1,'-r','MarkerSize' , 5);
 
     xlabel('Heading Angle (deg)');
 
@@ -357,12 +357,12 @@ if iDirLeftDelta>0
     ylabel('Rightward Dicisions%');
 
     x1 = zeros(size(y));
-    plot(x1,y,'-r');
+    plot(x1,y,'-r','MarkerSize' , 5);
 
     grid on;
     %%
     
-    plot(sortDirLeftDelta, sortRightLeftDelta, 'sb' , 'MarkerSize' , 20);
+    plot(sortDirLeftDelta, sortRightLeftDelta, 'sb' ,'MarkerSize' , 5);
     hold off;
 end
 
@@ -376,7 +376,7 @@ if iDirRightDelta>0
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
+    plot(x,y1,'-r','MarkerSize' , 5);
 
     xlabel('Heading Angle (deg)');
 
@@ -386,12 +386,12 @@ if iDirRightDelta>0
     ylabel('Rightward Dicisions%');
 
     x1 = zeros(size(y));
-    plot(x1,y,'-r');
+    plot(x1,y,'-r','MarkerSize' , 5);
 
     grid on;
     %%
     
-    plot(sortDirRightDelta, sortRightRightDelta, 'pr' , 'MarkerSize' , 20);
+    plot(sortDirRightDelta, sortRightRightDelta, 'pr' ,'MarkerSize' , 5);
     hold off;
 end
 
@@ -405,7 +405,7 @@ if iDirDuplicated>0
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
-    plot(x,y1,'-r');
+    plot(x,y1,'-r','MarkerSize' , 5);
 
     xlabel('Heading Angle (deg)');
 
@@ -415,12 +415,12 @@ if iDirDuplicated>0
     ylabel('Rightward Dicisions%');
 
     x1 = zeros(size(y));
-    plot(x1,y,'-r');
+    plot(x1,y,'-r','MarkerSize' , 5);
 
     grid on;
     %%
     
-    plot(sortDirDuplicated, sortRightDuplicated, 'vg' , 'MarkerSize' , 20);
+    plot(sortDirDuplicated, sortRightDuplicated, 'vg' ,'MarkerSize' , 5);
     hold off;
 end
 

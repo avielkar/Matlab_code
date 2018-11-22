@@ -215,6 +215,26 @@ psychPlot.iDirDuplicated = 0;
 psychPlot.dirArrayDuplicated = [];
 psychPlot.dirRepNumDuplicated = [];
 psychPlot.rightChoiceDuplicated = [];
+
+psychPlot.iDirStim114Delta = 0;
+psychPlot.dirArray114Delta = [];
+psychPlot.dirRepNum114Delta = [];
+psychPlot.rightChoice114Delta = [];
+
+psychPlot.iDirStim115Delta = 0;
+psychPlot.dirArray115Delta = [];
+psychPlot.dirRepNum115Delta = [];
+psychPlot.rightChoice115Delta = [];
+
+psychPlot.iDirStim124Delta = 0;
+psychPlot.dirArray124Delta = [];
+psychPlot.dirRepNum124Delta = [];
+psychPlot.rightChoice124Delta= [];
+
+psychPlot.iDirStim125Delta = 0;
+psychPlot.dirArray125Delta = [];
+psychPlot.dirRepNum125Delta = [];
+psychPlot.rightChoice125Delta = [];
 %% -----end
 
 %% -----Adam1_Priors protocol for left priors
@@ -252,26 +272,48 @@ psychPlot.rightChoiceRightPriorVisual = [];
 %% ------end
 
 %% -----Adam1_sound protocol for sound 
-psychPlot.iDirSound = 0;            
-psychPlot.dirArraySound = [];
-psychPlot.dirRepNumSound = [];
-psychPlot.rightChoiceSound = [];
+psychPlot.iDir100 = 0;            
+psychPlot.dirArray100 = [];
+psychPlot.dirRepNum100 = [];
+psychPlot.rightChoice100 = [];
 
-psychPlot.iDirSoundVes = 0;            
-psychPlot.dirArraySoundVes = [];
-psychPlot.dirRepNumSoundVes = [];
-psychPlot.rightChoiceSoundVes = [];
+psychPlot.iDir110 = 0;            
+psychPlot.dirArray110 = [];
+psychPlot.dirRepNum110 = [];
+psychPlot.rightChoice110 = [];
 
-psychPlot.iDirSoundVis = 0;            
-psychPlot.dirArraySoundVis = [];
-psychPlot.dirRepNumSoundVis = [];
-psychPlot.rightChoiceSoundVis = [];
+psychPlot.iDir120 = 0;            
+psychPlot.dirArray120 = [];
+psychPlot.dirRepNum120 = [];
+psychPlot.rightChoice120 = [];
 
-psychPlot.iDirSoundVisVes = 0;            
-psychPlot.dirArraySoundVisVes = [];
-psychPlot.dirRepNumSoundVisVes = [];
-psychPlot.rightChoiceSoundVisVes = [];
+psychPlot.iDir130 = 0;            
+psychPlot.dirArray130 = [];
+psychPlot.dirRepNum130 = [];
+psychPlot.rightChoice130 = [];
 %% ------end
+psychPlot.iDir114 = 0;            
+psychPlot.dirArray114 = [];
+psychPlot.dirRepNum114 = [];
+psychPlot.rightChoice114 = [];
+
+psychPlot.iDir115 = 0;            
+psychPlot.dirArray115 = [];
+psychPlot.dirRepNum115 = [];
+psychPlot.rightChoice115 = [];
+
+psychPlot.iDir124 = 0;            
+psychPlot.dirArray124 = [];
+psychPlot.dirRepNum124 = [];
+psychPlot.rightChoice124 = [];
+
+psychPlot.iDir125 = 0;            
+psychPlot.dirArray125 = [];
+psychPlot.dirRepNum125 = [];
+psychPlot.rightChoice125 = [];
+%%Sound protocols for sound+delta
+
+%%
 
 %---------end: for Adam1_Prior protocol and sol Adam1_Delta protocol.
 

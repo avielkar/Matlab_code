@@ -1,7 +1,9 @@
 %Three Step Adapte heading discrimination protocol. Jing for Mandy 2/02/2010
-function [M] = ThreeStepAdaptationTrajectoryDelta(appHandle)
+function [M] = ThreeStepAdaptationTrajectorySoundDelta(appHandle)
 
 global debug
+
+COMBOARDNUM = 0;
 
 if debug
     disp('Entering Three Step Adaptation Heading Trajectory');
@@ -47,6 +49,9 @@ else
     ori(1,:) = data.configinfo(i).parameters;
     ori(2,:) = data.configinfo(i).parameters;
 end
+% first time send newline before data to separate junk from commands
+outString = ['ORIGIN' ' ' num2str(ori(1,:))];
+cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
 
 i = strmatch('DISC_PLANE_ELEVATION',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -63,6 +68,8 @@ else
     elP(1,1) = data.configinfo(i).parameters.moog;
     elP(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['DISC_PLANE_ELEVATION' ' ' num2str(elP(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 i = strmatch('DISC_PLANE_AZIMUTH',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -79,6 +86,8 @@ else
     azP(1,1) = data.configinfo(i).parameters.moog;
     azP(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['DISC_PLANE_AZIMUTH' ' ' num2str(azP(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
 
 i = strmatch('DISC_PLANE_TILT',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -95,6 +104,89 @@ else
     tiltP(1,1) = data.configinfo(i).parameters.moog;
     tiltP(2,1) = data.configinfo(i).parameters.openGL;
 end
+outString = ['DISC_PLANE_TILT' ' ' num2str(tiltP(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
+i = strmatch('DIST',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Distance',{char(varying.name)},'exact');
+    dist(1,1) = crossvals(cntrVarying,i1);
+    dist(2,1) = crossvalsGL(cntrVarying,i1);
+elseif data.configinfo(i).status == 3   
+    dist(1,1) = across.parameters.moog(activeStair);
+    dist(2,1) = across.parameters.openGL(activeStair);
+elseif data.configinfo(i).status == 4   
+    dist(1,1) = within.parameters.moog(cntr);
+    dist(2,1) = within.parameters.openGL(cntr);
+else
+    dist(1,1) = data.configinfo(i).parameters.moog;
+    dist(2,1) = data.configinfo(i).parameters.openGL;
+end
+outString = ['DIST' ' ' num2str(dist(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
+i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Duration',{char(varying.name)},'exact');
+    dur(1,1) = crossvals(cntrVarying,i1);
+    dur(2,1) = crossvalsGL(cntrVarying,i1);
+elseif data.configinfo(i).status == 3   
+    dur(1,1) = across.parameters.moog(activeStair);
+    dur(2,1) = across.parameters.openGL(activeStair);
+elseif data.configinfo(i).status == 4   
+    dur(1,1) = within.parameters.moog(cntr);
+    dur(2,1) = within.parameters.openGL(cntr);
+else
+    dur(1,1) = data.configinfo(i).parameters.moog;
+    dur(2,1) = data.configinfo(i).parameters.openGL;
+end
+outString = ['DURATION' ' ' num2str(dur(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
+i = strmatch('SIGMA',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Sigma',{char(varying.name)},'exact');
+    sig(1,1) = crossvals(cntrVarying,i1);
+    sig(2,1) = crossvalsGL(cntrVarying,i1);
+elseif data.configinfo(i).status == 3   
+    sig(1,1) = across.parameters.moog(activeStair);
+    sig(2,1) = across.parameters.openGL(activeStair);
+elseif data.configinfo(i).status == 4   
+    sig(1,1) = within.parameters.moog(cntr);
+    sig(2,1) = within.parameters.openGL(cntr);
+else
+    sig(1,1) = data.configinfo(i).parameters.moog;
+    sig(2,1) = data.configinfo(i).parameters.openGL;
+end
+outString = ['SIGMA' ' ' num2str(sig(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
+i = strmatch('ADAPTATION_ANGLE',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Adaptation Angle',{char(varying.name)},'exact');
+    adaptation_amp = crossvals(cntrVarying,i1);
+elseif data.configinfo(i).status == 3 
+    adaptation_amp = across.parameters(activeStair);
+elseif data.configinfo(i).status == 4   
+    adaptation_amp = within.parameters(cntr);
+else
+    adaptation_amp = data.configinfo(i).parameters;
+end
+outString = ['ADAPTATION_ANGLE' ' ' num2str(adaptation_amp(1,1))];
+cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+
+i = strmatch('STIMULUS_TYPE',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Stimulus Type',{char(varying.name)},'exact');
+    stim_type = crossvals(cntrVarying,i1);
+elseif data.configinfo(i).status == 3 
+    stim_type = across.parameters(activeStair);
+elseif data.configinfo(i).status == 4   
+    stim_type = within.parameters(cntr);
+else
+    stim_type = data.configinfo(i).parameters;
+end
+
 
 i = strmatch('DISC_AMPLITUDES',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).status == 2
@@ -112,79 +204,12 @@ else
     amps(2,1) = data.configinfo(i).parameters.openGL;
 end
 
-i = strmatch('DIST',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Distance',{char(varying.name)},'exact');
-    dist(1,1) = crossvals(cntrVarying,i1);
-    dist(2,1) = crossvalsGL(cntrVarying,i1);
-elseif data.configinfo(i).status == 3   
-    dist(1,1) = across.parameters.moog(activeStair);
-    dist(2,1) = across.parameters.openGL(activeStair);
-elseif data.configinfo(i).status == 4   
-    dist(1,1) = within.parameters.moog(cntr);
-    dist(2,1) = within.parameters.openGL(cntr);
-else
-    dist(1,1) = data.configinfo(i).parameters.moog;
-    dist(2,1) = data.configinfo(i).parameters.openGL;
-end
-
-i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Duration',{char(varying.name)},'exact');
-    dur(1,1) = crossvals(cntrVarying,i1);
-    dur(2,1) = crossvalsGL(cntrVarying,i1);
-elseif data.configinfo(i).status == 3   
-    dur(1,1) = across.parameters.moog(activeStair);
-    dur(2,1) = across.parameters.openGL(activeStair);
-elseif data.configinfo(i).status == 4   
-    dur(1,1) = within.parameters.moog(cntr);
-    dur(2,1) = within.parameters.openGL(cntr);
-else
-    dur(1,1) = data.configinfo(i).parameters.moog;
-    dur(2,1) = data.configinfo(i).parameters.openGL;
-end
-
-i = strmatch('SIGMA',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Sigma',{char(varying.name)},'exact');
-    sig(1,1) = crossvals(cntrVarying,i1);
-    sig(2,1) = crossvalsGL(cntrVarying,i1);
-elseif data.configinfo(i).status == 3   
-    sig(1,1) = across.parameters.moog(activeStair);
-    sig(2,1) = across.parameters.openGL(activeStair);
-elseif data.configinfo(i).status == 4   
-    sig(1,1) = within.parameters.moog(cntr);
-    sig(2,1) = within.parameters.openGL(cntr);
-else
-    sig(1,1) = data.configinfo(i).parameters.moog;
-    sig(2,1) = data.configinfo(i).parameters.openGL;
-end
-
-i = strmatch('ADAPTATION_ANGLE',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Adaptation Angle',{char(varying.name)},'exact');
-    adaptation_amp = crossvals(cntrVarying,i1);
-elseif data.configinfo(i).status == 3 
-    adaptation_amp = across.parameters(activeStair);
-elseif data.configinfo(i).status == 4   
-    adaptation_amp = within.parameters(cntr);
-else
-    adaptation_amp = data.configinfo(i).parameters;
-end
-
-i = strmatch('STIMULUS_TYPE',{char(data.configinfo.name)},'exact');
-if data.configinfo(i).status == 2
-    i1 = strmatch('Stimulus Type',{char(varying.name)},'exact');
-    stim_type = crossvals(cntrVarying,i1);
-elseif data.configinfo(i).status == 3 
-    stim_type = across.parameters(activeStair);
-elseif data.configinfo(i).status == 4   
-    stim_type = within.parameters(cntr);
-else
-    stim_type = data.configinfo(i).parameters;
-end
-
 %avi - sol protocol with DELTA
+if(stim_type == 1 || stim_type == 2 || stim_type == 3)
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+end
+
 i = strmatch('DELTA',{char(data.configinfo.name)},'exact');
 delta = data.configinfo(i).parameters;
 if(stim_type == 4)  %Combine plus left delta
@@ -196,6 +221,47 @@ end
 if(stim_type == 5)  %Combine plus right delta
     amps(1) = amps(1) - delta/2;    %Moog decrease
     amps(2) = amps(2) + delta/2;    %opengl incerease
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+
+if(stim_type == 100 || stim_type == 110 || stim_type == 120 || stim_type == 130)  %Combine plus right delta
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1))];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+end
+
+if(stim_type == 114)  %Combine audio-/vestibular+
+    %audio decrease
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) - delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %Moog increase
+    amps(1) = amps(1) + delta/2;  
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+
+if(stim_type == 115)  %Combine audio+/vestibular-
+    %audio increase
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) + delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %Moog decrease
+    amps(1) = amps(1) - delta/2; 
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+
+if(stim_type == 124)  %Combine audio-/visual+
+    %audio decrease
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) - delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %opengl increaes
+    amps(2) = amps(2) + delta/2;
+    %for this symulus type the delta is saved as negative in makeData.m
+end
+
+if(stim_type == 125)  %Combine audio+/visual-
+    %audio increaes
+    outString = ['DISC_AMPLITUDES' ' ' num2str(amps(1,1) + delta/2 )];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    %opengl decrease
+    amps(2) = amps(2) - delta/2;
     %for this symulus type the delta is saved as negative in makeData.m
 end
 %avi - end sol protocol for DELTA
@@ -243,7 +309,25 @@ if stim_type == 2 || stim_type == -2   %Visual only
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
-end;
+end
+
+%do not move the robot - empty || vis || sound || sound + vis || sound + vis
+%deltas.
+if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 120 || stim_type == 124 || stim_type == 125
+   lateralM = zeros(1,length(lateralM));
+   surgeM = zeros(1,length(surgeM));
+   heaveM = zeros(1,length(heaveM));
+   
+   lateralGL = zeros(1,length(lateralM));
+   surgeGL = zeros(1,length(surgeM));
+   heaveGL = zeros(1,length(heaveM));
+end
+
+if(stim_type == 100 || stim_type == 110 || stim_type == 120 || stim_type==130 || stim_type==114 || stim_type==115 || stim_type==124 || stim_type==125)  %as stim_type 1,2,3 with sound. 
+    outString = ['MOOG_CREATE_TRAJ' ' ' num2str(1)];
+    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+end
+
 
 M(1).name = 'LATERAL_DATA';
 M(1).data = lateralM + ori(1,1); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
@@ -272,8 +356,16 @@ M(12).data = zeros(dur(2,1)*f,1);
 
 sprintf('ampVes=%f  ampGL=%f', amp(1,1)*180/pi, amp(2,1)*180/pi)
 
+% todo: check if to do it also fr osund and not for trajectory because if
+% there is no movement the MoogDots creates the movement.
 iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
 if stim_type == 1  %vestibula only
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 0  %non vestibular and non visual.
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 100 %sound only
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 110 %sound with vetibular only.
     data.configinfo(iBackground).parameters = 0;
 else   %Combine & Visual only
     data.configinfo(iBackground).parameters = 1;
@@ -285,5 +377,4 @@ setappdata(appHandle, 'trialInfo',trial)
 if debug
     disp('Exiting Three Step Adaptation Heading Trajectory');
 end
-
 
