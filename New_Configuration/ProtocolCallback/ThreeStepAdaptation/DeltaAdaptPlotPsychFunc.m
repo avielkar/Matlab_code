@@ -41,26 +41,6 @@ dirArrayRightDelta = plotData.dirArrayRightDelta;
 dirRepNumRightDelta = plotData.dirRepNumRightDelta;
 rightChoiceRightDelta = plotData.rightChoiceRightDelta;
 
-iDir114Delta = plotData.iDir114Delta;
-dirArray114Delta = plotData.dirArray114Delta;
-dirRepNum114Delta = plotData.dirRepNum114Delta;
-rightChoice114Delta = plotData.rightChoice114Delta;
-
-iDir115Delta = plotData.iDir115Delta;
-dirArray115Delta = plotData.dirArray115Delta;
-dirRepNum115Delta = plotData.dirRepNum115Delta;
-rightChoice115Delta = plotData.rightChoice115Delta;
-
-iDir124Delta = plotData.iDir124Delta;
-dirArray124Delta = plotData.dirArray124Delta;
-dirRepNum124Delta = plotData.dirRepNum124Delta;
-rightChoice124Delta = plotData.rightChoice124Delta;
-
-iDir125Delta = plotData.iDir125Delta;
-dirArray125Delta = plotData.dirArray125Delta;
-dirRepNum125Delta = plotData.dirRepNum125Delta;
-rightChoice125Delta = plotData.rightChoice125Delta;
-
 iDirDuplicated = plotData.iDirDuplicated;
 dirArrayDuplicated = plotData.dirArrayDuplicated;
 dirRepNumDuplicated = plotData.dirRepNumDuplicated;
