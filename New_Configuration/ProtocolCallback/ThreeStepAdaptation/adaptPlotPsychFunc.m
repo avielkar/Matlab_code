@@ -138,9 +138,9 @@ set(gcf,'Name','Online Analysis','NumberTitle','off');
 if iDirVes>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2);
+        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2 , 'MarkerSize' , 5);
     else
-        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2);
+        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2 , 'MarkerSize' , 5);
     end
     hold on;
 end
@@ -148,9 +148,9 @@ end
 if iDirVisual>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2);
+        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2 , 'MarkerSize' , 5);
     else
-        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2);
+        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2 , 'MarkerSize' , 5);
     end
     hold on;
 end
@@ -158,9 +158,9 @@ end
 if iDir>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDir, sortRight, 'og' , 'linewidth' , 2);
+        plot(sortDir, sortRight, 'og' , 'linewidth' , 2 , 'MarkerSize' , 5);
     else
-        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2);
+        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2 , 'MarkerSize' , 5);
     end
     hold on;
 end
@@ -197,7 +197,7 @@ end
 set(gca, 'XTick', x);
 hold on;
 y1 = 0.5*ones(size(x));
-plot(x,y1,'-r');
+plot(x,y1,'-r' , 'MarkerSize' , 5);
 
 xlabel('Heading Angle (deg)');
 
@@ -208,7 +208,7 @@ ylabel('Rightward Dicisions%');
 
 hold on;
 x1 = zeros(size(y));
-plot(x1,y,'-r');
+plot(x1,y,'-r' , 'MarkerSize' , 5);
 
 grid on;
 hold off;
