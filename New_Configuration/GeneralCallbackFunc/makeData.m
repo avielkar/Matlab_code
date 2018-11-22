@@ -86,10 +86,10 @@ end
 %avi - for sol protocol of DELTA
 if(stimulus_type_index ~= -1 && delta_index ~= -1)
     stim_type = SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(stimulus_type_index).value;
-    if(stim_type == 5)%reverse the DELTA
+    if(stim_type == 5 || stim_type == 115 || stim_type == 125)%reverse the DELTA
         inverse_delta = -SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(delta_index).value;
         SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(delta_index).value = inverse_delta;
-    elseif(stim_type == 1 || stim_type == 2 || stim_type == 3)
+    elseif(stim_type == 1 || stim_type == 2 || stim_type == 3 || stim_type == 100 || stim_type == 110 || stim_type == 120 || stim_type == 130)
         inverse_delta = 0;
         SavedInfo(activeStair,activeRule).Rep(rep).Trial(cntr).Param(delta_index).value = inverse_delta;
     end
