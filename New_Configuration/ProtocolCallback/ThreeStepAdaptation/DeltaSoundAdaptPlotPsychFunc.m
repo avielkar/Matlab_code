@@ -518,7 +518,7 @@ if iDir1>0
     grid on;
     %%
     
-    plot(sortDir1, sortRight1, 'ob' , 'MarkerSize' , 20);
+    plot(sortDir1, sortRight1, 'ob' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -547,7 +547,7 @@ if iDir2>0
     grid on;
     %%
     
-    plot(sortDir2, sortRight2, 'or' , 'MarkerSize' , 20);
+    plot(sortDir2, sortRight2, 'or' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -576,7 +576,7 @@ if iDir3>0
     grid on;
     %%
     
-    plot(sortDir3, sortRight3, 'og' , 'MarkerSize' , 20);
+    plot(sortDir3, sortRight3, 'og' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -605,7 +605,7 @@ if iDir4>0
     grid on;
     %%
     
-    plot(sortDir4, sortRight4, '>g' , 'MarkerSize' , 20);
+    plot(sortDir4, sortRight4, '>g' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -634,7 +634,7 @@ if iDir5>0
     grid on;
     %%
     
-    plot(sortDir5, sortRight5, '<g' , 'MarkerSize' , 20);
+    plot(sortDir5, sortRight5, '<g' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -663,7 +663,7 @@ if iDirDuplicated>0
     grid on;
     %%
     
-    plot(sortDirDuplicated, sortRightDuplicated, 'sb' , 'MarkerSize' , 20);
+    plot(sortDirDuplicated, sortRightDuplicated, 'sb' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -692,7 +692,7 @@ if iDir100>0
     grid on;
     %%
     
-    plot(sortDir100, sortRight100, 'oc' , 'MarkerSize' , 20);
+    plot(sortDir100, sortRight100, 'oc' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -721,7 +721,7 @@ if iDir110>0
     grid on;
     %%
     
-    plot(sortDir110, sortRight110, 'ob' , 'MarkerSize' , 20);
+    plot(sortDir110, sortRight110, 'ob' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -750,7 +750,7 @@ if iDir120>0
     grid on;
     %%
     
-    plot(sortDir120, sortRight120, 'og' , 'MarkerSize' , 20);
+    plot(sortDir120, sortRight120, 'og' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -779,7 +779,7 @@ if iDir130>0
     grid on;
     %%
     
-    plot(sortDir130, sortRight130, 'vg' , 'MarkerSize' , 20);
+    plot(sortDir130, sortRight130, 'vg' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -808,7 +808,7 @@ if iDir114>0
     grid on;
     %%
     
-    plot(sortDir114, sortRight114, '>g' , 'MarkerSize' , 20);
+    plot(sortDir114, sortRight114, '>g' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -837,7 +837,7 @@ if iDir115>0
     grid on;
     %%
     
-    plot(sortDir115, sortRight115, '<g' , 'MarkerSize' , 20);
+    plot(sortDir115, sortRight115, '<g' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -866,7 +866,7 @@ if iDir124>0
     grid on;
     %%
     
-    plot(sortDir124, sortRight124, '>g' , 'MarkerSize' , 20);
+    plot(sortDir124, sortRight124, '>g' , 'MarkerSize' , 5);
     hold off;
 end
 
@@ -895,7 +895,7 @@ if iDir125>0
     grid on;
     %%
     
-    plot(sortDir125, sortRight125, '<g' , 'MarkerSize' , 20);
+    plot(sortDir125, sortRight125, '<g' , 'MarkerSize' , 5);
     hold off;
 end
 
