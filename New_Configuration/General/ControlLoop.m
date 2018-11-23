@@ -201,6 +201,10 @@ if ~paused && flagdata.isStopButton == 0
         %-----end
         i_DUPLICATE_COHERNEC_VALUE = strmatch('DUPLICATED_STYYMULUS_TYPE_COHERENCE' ,{char(data.configinfo.name)},'exact');
         
+        %sounds protocols
+        iSound_WAVE_TYPE = strmatch('WAV_TYPE' ,{char(data.configinfo.name)},'exact');
+        %
+        
         %%
         
         %indcates if the current protocol is that DELTA protocol.
