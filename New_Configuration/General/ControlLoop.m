@@ -1558,7 +1558,7 @@ if ~paused
                 %end of saving the results of head tracking
 
                  %% Plot graphs of the OculusHeadMotionTacking if DEBUG mode.
-                 if(debug)
+                 if(debug && False)
                     figure
                     subplot(3,2,1)
                     plot(sin(vector_of_angles(1:3:end)))
