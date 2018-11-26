@@ -317,10 +317,6 @@ if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 120 || s
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
-   
-   lateralGL = zeros(1,length(lateralM));
-   surgeGL = zeros(1,length(surgeM));
-   heaveGL = zeros(1,length(heaveM));
 end
 
 if(stim_type == 100 || stim_type == 110 || stim_type == 120 || stim_type==130 || stim_type==114 || stim_type==115 || stim_type==124 || stim_type==125)  %as stim_type 1,2,3 with sound. 
@@ -367,7 +363,11 @@ elseif stim_type == 100 %sound only
     data.configinfo(iBackground).parameters = 0;
 elseif stim_type == 110 %sound with vetibular only.
     data.configinfo(iBackground).parameters = 0;
-else   %Combine & Visual only
+elseif stim_type == 114 %sound with vetibular delta+.
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 115 %sound with vetibular delta-.
+    data.configinfo(iBackground).parameters = 0;
+else   %others.
     data.configinfo(iBackground).parameters = 1;
 end
 setappdata(appHandle, 'protinfo', data)
