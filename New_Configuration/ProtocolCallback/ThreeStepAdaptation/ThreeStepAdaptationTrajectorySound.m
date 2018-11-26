@@ -255,10 +255,6 @@ if stim_type == 0 || stim_type == 2 || stim_type == 100 || stim_type == 120
    lateralM = zeros(1,length(lateralM));
    surgeM = zeros(1,length(surgeM));
    heaveM = zeros(1,length(heaveM));
-   
-   lateralGL = zeros(1,length(lateralM));
-   surgeGL = zeros(1,length(surgeM));
-   heaveGL = zeros(1,length(heaveM));
 end
 
 if(stim_type == 100 || stim_type == 110 || stim_type ==120  || stim_type==130)  %as stim_type 1,2,3 with sound. 
