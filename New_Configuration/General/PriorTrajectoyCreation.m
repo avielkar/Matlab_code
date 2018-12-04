@@ -201,6 +201,12 @@ if(real_stim_type == 6 || real_stim_type == 7 || real_stim_type == 8)
     prior_amps = -prior_amps;
 end
 
+%transfer the button option also if flahing priors experiment.
+if cldata.is_flashing_priors == true
+    iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+    button_option = data.configinfo(iBUTTON_RESPONSE_OPTION).parameters;
+    data.condvect.priors.currentPrior.ButtonOption = button_option;
+end
 data.condvect.priors.currentPrior.Dir = prior_amps;
 data.condvect.priors.currentPrior.StimulusType = prior_stim_type;
 data.condvect.priors.currentPrior.Sigma = prior_sigma;
