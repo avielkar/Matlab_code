@@ -103,11 +103,28 @@ else
     %analyze.
     button_option = priors.currentPrior.ButtonOption;
     num_of_flashes = cldata.num_of_flashes;
-    if response == 1 % Respond 1 %Left/Down
+   if(button_option == 1)
+        %even - right ,odd - left
+        even_button = 2;    %right button
+        odd_button = 1;     %left button
+    elseif(button_option == 2)
+        %even - left ,odd - right
+        even_button = 1;    %left button
+        odd_button = 2;     %right button
+    elseif(button_option == 3)
+        %even - up ,odd - down
+        even_button = 3;    %up button
+        odd_button = 4;     %down button
+    elseif(button_option == 4)
+        %even - down ,odd - up
+        even_button = 4;    %down button
+        odd_button = 3;     %up button
+   end
+    if response == odd_button % Respond was odd number of flashes.
         if debug
             disp('You answered Left/Down')
         end
-        if dir < 0
+        if num_of_flashes == 1 || num_of_flashes == 3
             if debug
                 disp('correct')
             end
@@ -115,7 +132,7 @@ else
             savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
             savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
             savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
-        elseif dir > 0
+        elseif num_of_flashes == 2
             if debug
                 disp('Not correct')
             end
@@ -132,11 +149,11 @@ else
             savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
             savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
         end
-    elseif response == 2 % Respond 2 Right/Up
+    elseif response == even_button % Respond was even number of flashes.
         if debug
             disp('you answered right/up')
         end
-        if dir > 0
+        if num_of_flashes ==2
             if debug
                 disp('correct')
             end
@@ -144,7 +161,7 @@ else
             savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
             savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
             savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
-        elseif dir < 0
+        elseif num_of_flashes == 1 || num_of_flashes == 3
             if debug
                 disp('Not correct')
             end
