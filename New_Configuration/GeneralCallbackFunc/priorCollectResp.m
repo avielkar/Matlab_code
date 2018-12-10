@@ -173,10 +173,12 @@ elseif (connected && debug) || (~connected && debug)
             pause(0.1);
             debugResponse = getappdata(appHandle , 'debugResponse');
             if strcmp(debugResponse,even_button)    %choose even number.
+                press = debugResponse;
                 display('Choice = Even');
                 response = 2;
                 break;
             elseif strcmp(debugResponse,odd_button')    %choose odd number.
+                press = debugResponse;
                 display('Choice = Odd');
                 response = 1;
                 break;
