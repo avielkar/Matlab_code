@@ -28,150 +28,165 @@ HR = cldata.hReference;
 dir = priors.currentPrior.Dir;
 savedInfo(activeStair,activeRule).PriorResp(currRep).dir(currTrial) = dir;
 
-%% -------------------avi:for Adam1_Prior protocol was deleted - not necessary.
-% % % % if cldata.staircase % If it is staircase, use withinStair parameter to analyze Resp.
-% % % %     if isfield(within.parameters, 'moog')
-% % % %         dir = within.parameters.moog((trial(activeStair,activeRule).list(currTrial)));
-% % % %     else
-% % % %         dir = within.parameters((trial(activeStair,activeRule).list(currTrial)));
-% % % %     end
-% % % %     controlName = within.name;
-% % % % else     %Else, use control parameter to analyze Resp.
-% % % %     ind = get(findobj(appHandle,'Tag','controlParaPopupmenu'),'Value');
-% % % %     if ~isempty(varying)  % if there are varying parameters, control para is got from them.
-% % % %         dir = crossVals(trial.list(trial.cntr),ind);
-% % % %         controlName = varying(ind).name;
-% % % %     else    %else, control para is got from the parameters listing in the front panel
-% % % %         str = get(findobj(appHandle,'Tag','controlParaPopupmenu'),'String');
-% % % %         i = strmatch(char(str(ind)),{char(data.configinfo.nice_name)},'exact');
-% % % %         if isfield(data.configinfo(i).parameters,'moog')
-% % % %             dir = data.configinfo(i).parameters.moog;
-% % % %         else
-% % % %             dir = data.configinfo(i).parameters;
-% % % %         end
-% % % %         controlName = data.configinfo(i).nice_name;
-% % % %     end
-% % % % end
-% % % % 
-% % % % i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
-% % % % is1IControl = 0;
-% % % % if data.configinfo(i).parameters == 3   % For two interval
-% % % %     if isempty(findstr(controlName,'2nd Int'))   % 1I parameter is a control parameter.
-% % % %         refName = [controlName ' 2nd Int'];
-% % % %         is1IControl = 1;
-% % % %     else   % 2I parameter is a control parameter.
-% % % %         refName = strtrim(strtok(controlName,'2'));
-% % % %     end
-% % % % 
-% % % %     if ~isempty(strmatch(refName,{char(across.name)},'exact'))
-% % % %         if isfield(across.parameters,'moog')
-% % % %             dir2 = across.parameters.moog(activeStair);
-% % % %         else
-% % % %             dir2 = across.parameters(activeStair);
-% % % %         end
-% % % %     elseif ~isempty(strmatch(refName,{char(varying.name)},'exact'))
-% % % %         ind = strmatch(refName,{char(varying.name)},'exact');
-% % % %         if cldata.staircase
-% % % %             dir2 = crossVals(cldata.varyingCurrInd,ind);
-% % % %         else
-% % % %             dir2 = crossVals(trial.list(trial.cntr),ind);
-% % % %         end
-% % % %     else
-% % % %         ind = strmatch(refName,{char(data.configinfo.nice_name)},'exact');
-% % % %         if isfield(data.configinfo(ind).parameters,'moog')
-% % % %             dir2 = data.configinfo(ind).parameters.moog;
-% % % %         else
-% % % %             dir2 = data.configinfo(ind).parameters;
-% % % %         end
-% % % %     end
-% % % %     
-% % % %     if is1IControl
-% % % %         tmpDir(1) = dir;
-% % % %         tmpDir(2) = dir2;
-% % % %     else
-% % % %         tmpDir(1) = dir2;
-% % % %         tmpDir(2) = dir;
-% % % %     end
-% % % %     
-% % % %     if HR 
-% % % %         tmpDir(2) = tmpDir(2) + tmpDir(1);
-% % % %     end 
-% % % %     
-% % % %     intOrder = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
-% % % %     dir = tmpDir(intOrder(2))- tmpDir(intOrder(1));
-% % % %     
-% % % %     savedInfo(activeStair,activeRule).PriorResp(currRep).intOrder(currTrial,:) = intOrder;
-% % % % end
-% % % % 
-% % % % savedInfo(activeStair,activeRule).PriorResp(currRep).dir(currTrial) = dir;
-%% -------------------
-
-if response == 1 % Respond 1 %Left/Down
-    if debug
-        disp('You answered Left/Down')
-    end
-    if dir < 0
+%if regular analyze for the priors
+if cldata.is_flashing_priors == false
+    if response == 1 % Respond 1 %Left/Down
         if debug
-            disp('correct')
+            disp('You answered Left/Down')
         end
-        savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 1;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
-    elseif dir > 0
-        if debug
-            disp('Not correct')
+        if dir < 0
+            if debug
+                disp('correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        elseif dir > 0
+            if debug
+                disp('Not correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        else
+            if debug
+                disp('No Answer')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
         end
-        savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 1;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
-    else
+    elseif response == 2 % Respond 2 Right/Up
         if debug
-            disp('No Answer')
+            disp('you answered right/up')
+        end
+        if dir > 0
+            if debug
+                disp('correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        elseif dir < 0
+            if debug
+                disp('Not correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        else
+            if debug
+                disp('No Answer')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        end
+    else % Unrecognized answer  Question: What to do when straight ahead is the heading? There is not corr/incorr
+        if debug
+            disp('Time Expired: Move Faster!!')
         end
         savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
         savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
         savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
         savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
     end
-elseif response == 2 % Respond 2 Right/Up
-    if debug
-        disp('you answered right/up')
-    end
-    if dir > 0
+%if flashing analyze for the priors
+else
+    %take the curretnt button response option in order to know how to
+    %analyze.
+    button_option = priors.currentPrior.ButtonOption;
+    num_of_flashes = cldata.num_of_flashes;
+   if(button_option == 1)
+        %even - right ,odd - left
+        even_button = 2;    %right button
+        odd_button = 1;     %left button
+    elseif(button_option == 2)
+        %even - left ,odd - right
+        even_button = 1;    %left button
+        odd_button = 2;     %right button
+    elseif(button_option == 3)
+        %even - up ,odd - down
+        even_button = 3;    %up button
+        odd_button = 4;     %down button
+    elseif(button_option == 4)
+        %even - down ,odd - up
+        even_button = 4;    %down button
+        odd_button = 3;     %up button
+   end
+    if response == odd_button % Respond was odd number of flashes.
         if debug
-            disp('correct')
+            disp('You answered Left/Down')
         end
-        savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 1;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
-    elseif dir < 0
-        if debug
-            disp('Not correct')
+        if num_of_flashes == 1 || num_of_flashes == 3
+            if debug
+                disp('correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        elseif num_of_flashes == 2
+            if debug
+                disp('Not correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        else
+            if debug
+                disp('No Answer')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
         end
-        savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 1;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
-        savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
-    else
+    elseif response == even_button % Respond was even number of flashes.
         if debug
-            disp('No Answer')
+            disp('you answered right/up')
+        end
+        if num_of_flashes ==2
+            if debug
+                disp('correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        elseif num_of_flashes == 1 || num_of_flashes == 3
+            if debug
+                disp('Not correct')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        else
+            if debug
+                disp('No Answer')
+            end
+            savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
+            savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
+        end
+    else % Unrecognized answer  Question: What to do when straight ahead is the heading? There is not corr/incorr
+        if debug
+            disp('Time Expired: Move Faster!!')
         end
         savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
         savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
         savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
         savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
     end
-else % Unrecognized answer  Question: What to do when straight ahead is the heading? There is not corr/incorr
-    if debug
-        disp('Time Expired: Move Faster!!')
-    end
-    savedInfo(activeStair,activeRule).PriorResp(currRep).corr(currTrial) = 0;
-    savedInfo(activeStair,activeRule).PriorResp(currRep).incorr(currTrial) = 0;
-    savedInfo(activeStair,activeRule).PriorResp(currRep).null(currTrial) = 1;
-    savedInfo(activeStair,activeRule).PriorResp(currRep).dontKnow(currTrial) = 0;
 end
 
 

@@ -137,6 +137,17 @@ if ~paused && flagdata.isStopButton == 0
             %later.
             if(trial(activeStair,activeRule).cntr  > start_prior_round) %if we have skipped the num of initial real trials that not with priors trials before.
                 if(priors.left > 0) %and the num of priors between real is not over
+                    %save in the control loop data that the prior trial is
+                    %not flashing.
+                    iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
+                    if(~isempty(iFP_FLASH_TIME))
+                        cldata.is_flashing_priors = true;
+                    else
+                        cldata.is_flashing_priors = false;
+                    end
+                    %save it in order that the PriorTrajectoyCreation gets
+                    %the is_flashing_priors value.
+                    setappdata(appHandle,'ControlLoopData',cldata);
                     trajinfo = PriorTrajectoyCreation(appHandle);
                     cldata.prior_now = 1;
                 else            %if priors between the trials are over
@@ -183,7 +194,6 @@ if ~paused && flagdata.isStopButton == 0
         iWAIT_FOR_RESP = strmatch('WAIT_FOR_RESP',{char(data.configinfo.name)},'exact');
         iROT_ORIGIN = strmatch('ROT_ORIGIN',{char(data.configinfo.name)},'exact');
         iFP_ON = strmatch('FP_ON',{char(data.configinfo.name)},'exact');
-        iFP_FLASH_TIME = strmatch('FP_FLASH_TIME',{char(data.configinfo.name)},'exact'); %the flash time is in a unit of frames.
         iFP_FLASH_ODD_PROB = strmatch('FP_FLASH_ODD_PROB',{char(data.configinfo.name)},'exact'); %the probability for odd number of flashes with the fixation point.
 
         iD_PRIME = strmatch('D_PRIME',{char(data.configinfo.name)},'exact');  %---Jing added for targetshow 09/03/2008
@@ -475,10 +485,7 @@ if ~paused && flagdata.isStopButton == 0
         flash_square_data = zeros(1,60);    
         if(cldata.prior_now == 1)
             %decide in which fram the square disappear.
-            if ~isempty(iFP_FLASH_TIME) %if there is no flash time - do not make flashes.
-                %save in the control loop data that the prior trial is
-                %flashing.
-                cldata.is_flashing_priors = true;
+            if cldata.is_flashing_priors %if there is no flash time - do not make flashes.
                 flash_square_data = ones(1 , f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
                 %choose randomly if to add 1 flashe or 2 flahes according
@@ -500,6 +507,7 @@ if ~paused && flagdata.isStopButton == 0
                     end
                 end
                 %make the choosen number of flashes.
+                min_flashes_offset = 3;
                 if(num_of_flashes == 1)
                         %make 1 flash.
                         flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
@@ -508,7 +516,7 @@ if ~paused && flagdata.isStopButton == 0
                 elseif (num_of_flashes == 2)   
                         %make 2 flashes if needed.
                         flash_square_start_index_frames(1) = randi([2, round((f - 1) / 2)] , 1);
-                        min_frame = max(f / 2 , flash_square_start_index_frames(1) + flash_time);
+                        min_frame = max(f / 2 , flash_square_start_index_frames(1) + flash_time) + min_flashes_offset;
                         flash_square_start_index_frames(2) = randi([min_frame, (f - 1) - flash_time] , 1);
                         %change that frame so that it would flash 2 times.
                         flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time - 1) = 0;
@@ -516,9 +524,9 @@ if ~paused && flagdata.isStopButton == 0
                 else
                     %make 3 flashes.
                     flash_square_start_index_frames(1) = randi([2, round((f - 1) / 3)] , 1);
-                    min_frame = max(f / 3 , flash_square_start_index_frames(1) + flash_time);
+                    min_frame = max(f / 3 , flash_square_start_index_frames(1) + flash_time) + min_flashes_offset;
                     flash_square_start_index_frames(2) = randi([min_frame, round(2 * (f - 1) / 3 - flash_time)] , 1);
-                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2) + flash_time);
+                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2) + flash_time) + min_flashes_offset;
                     flash_square_start_index_frames(3) = randi([min_frame, round(f - flash_time)] , 1);
                     %change that frame so that it would flash 2 times.
                     flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time - 1) = 0;
@@ -531,9 +539,6 @@ if ~paused && flagdata.isStopButton == 0
                 cldata.flash_square_data = flash_square_data;
             end
         else
-            %save in the control loop data that the prior trial is
-            %not flashing.
-            cldata.is_flashing_priors = false;
             %the data should be all 1's (means that the fixtion point is
             %alwyas there at every frame).
             outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];

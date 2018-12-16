@@ -16,6 +16,8 @@ boardNum = 1; % Acquistion board
 portNum = 1; % Dig Port #
 direction = 1;
 response = cldata.resp; % ---Jing and added 01/29/07---
+press = 0;
+debugResponse = 0;
 
 if connected && ~debug
     % Configure Port
@@ -30,6 +32,7 @@ if connected && ~debug
     display('waiting for answer');
     display('======================');
     response = 0;
+    press = 0;
     %if there was not response in the middle of the movement and it was enabled
     %so wait for a resposne
     if(cldata.resp == 0)
@@ -121,6 +124,7 @@ elseif (connected && debug) || (~connected && debug)
     disp('Press Left/Right Button in Debug Window for response');
     tic
     response = 0;
+    debugResponse = 0;
     if(cldata.is_flashing_priors == false)
         %if no flushing prior type trial.
         while  (toc <= cldata.respTime)
@@ -169,10 +173,12 @@ elseif (connected && debug) || (~connected && debug)
             pause(0.1);
             debugResponse = getappdata(appHandle , 'debugResponse');
             if strcmp(debugResponse,even_button)    %choose even number.
+                press = debugResponse;
                 display('Choice = Even');
                 response = 2;
                 break;
             elseif strcmp(debugResponse,odd_button')    %choose odd number.
+                press = debugResponse;
                 display('Choice = Odd');
                 response = 1;
                 break;
@@ -202,6 +208,39 @@ fprintf('THE RESPONSE IS %d\n' , response);
 activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
 activeRule = data.activeRule;
 %activePrior = data.activePrior;
+
+if( connected && ~debug)
+    if(response == 1 || response == 2)
+       if(press ==5)    %right press
+           response =2;
+       elseif press == 3    %left press
+           response = 1;
+       elseif press == 1 %up press
+           response = 3;
+       elseif press == 6    %down press
+           response = 4;
+       end
+    else
+        response = 0;
+    end
+elseif(connected && debug) || (~connected && debug)
+    if(response == 1 || response == 2)
+        if(press =='f')    %right press
+           response =2;
+       elseif press == 'd'    %left press
+           response = 1;
+       elseif press == 'e' %up press
+           response = 3;
+       elseif press == 'x'    %down press
+           response = 4;
+       end
+    else
+        response = 0;
+    end
+else
+    response = 0;
+end
+
 savedInfo(activeStair,activeRule).PriorResp.response(trial(activeStair,activeRule).priorCntr) = response;
 %%Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = response;
 setappdata(appHandle,'SavedInfo',savedInfo);
