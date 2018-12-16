@@ -16,6 +16,7 @@ global connected debug PLOTS  %pogen_oddity
 global in   %---Jing added 03/11/08---
 global bxbport
 global basicfig
+global startTime
 
 f = 60; % This is frequency / update rate (Hz)
 
@@ -823,6 +824,7 @@ if ~paused && flagdata.isStopButton == 0
         % Checks which button was pressed (3-left, 4-center, 5-right) --shir
         if response == 4  %---Jing for light control 12/03/07---
             fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
+            startTime = tic;
             %---Jing for Reaction_time_task Protocol 11/10/08-----
             cldata = getappdata(appHandle, 'ControlLoopData');
             if cldata.movdelaycontrol && cldata.startbeep == 0

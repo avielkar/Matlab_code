@@ -3,6 +3,7 @@ function priorCollectResp(appHandle)
 global connected debug in
 global bxbport
 global print_var
+global startTime
 
 if debug
     disp('Entering PriorCollectResp')
@@ -18,6 +19,7 @@ direction = 1;
 response = cldata.resp; % ---Jing and added 01/29/07---
 press = 0;
 debugResponse = 0;
+responseTime = -1;
 
 if connected && ~debug
     % Configure Port
@@ -47,8 +49,10 @@ if connected && ~debug
                           response = bitshift (r(2), -5);    %leftmost 3 bits
                           if(response == 3) %left buttom
                               response = 1;
+                              responseTime = toc(startTime);
                           elseif(response == 5)  %right buttom
                               response = 2;
+                              responseTime = toc(startTime);
                           else
                               response = 0; 
                           end
@@ -93,8 +97,10 @@ if connected && ~debug
                           response = bitshift (r(2), -5);    %leftmost 3 bits
                           if(response == even_button) %even button response.
                               response = 1;     % '1' means odd response.
+                              responseTime = toc(startTime);
                           elseif(response == odd_button)  %odd button response.
                               response = 2;     % '2' means even response.
+                              responseTime = toc(startTime);
                           else
                               response = 0;     % '0' means no response (yet).
                           end
@@ -241,6 +247,8 @@ else
     response = 0;
 end
 
+
+savedInfo(activeStair,activeRule).PriorResp.responseTime(trial(activeStair,activeRule).priorCntr) = responseTime;
 savedInfo(activeStair,activeRule).PriorResp.response(trial(activeStair,activeRule).priorCntr) = response;
 %%Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = response;
 setappdata(appHandle,'SavedInfo',savedInfo);
