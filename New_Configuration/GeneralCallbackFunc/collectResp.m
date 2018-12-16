@@ -3,6 +3,7 @@ function collectResp(appHandle)
 global connected debug in
 global bxbport
 global print_var
+global startTime
 
 % Received legit answer sound
 a = [ones(1,200); zeros(1,200)];
@@ -11,7 +12,9 @@ a_legit = a(:)';
 a = [ones(10,25); zeros(10,25)];
 a_timeout = a(:)';
 
-        
+
+responseTime = -1;
+confidenceResponseTime = -1;
 
 if debug
     disp('Entering collectResp')
@@ -53,10 +56,12 @@ if connected && ~debug
                     responseBox = bitshift (r(2), -5);    %leftmost 3 bits
                     if(responseBox == 3) %left buttom
                         response = 1;
+                        responseTime = toc(startTime);
                         display('Choice = Left');
                         break;
                     elseif(responseBox == 5)  %right buttom
                         response = 2;
+                        responseTime = toc(startTime);
                         display('Choice = Right');
                         break;
                     else
@@ -99,6 +104,7 @@ if connected && ~debug
                           confidenceResponseBox = bitshift (r(2), -5);    %leftmost 3 bits
                           if(confidenceResponseBox == 1) %up buttom
                               confidenceResponse = 3;
+                              confidenceResponseTime = toc(startTime);
                               display('Confidence choice  =  High');
                               break;
                           elseif(confidenceResponseBox == 6)  %down buttom
@@ -107,6 +113,7 @@ if connected && ~debug
                               break;
                           else
                               confidenceResponse = 0; 
+                              confidenceResponseTime = toc(startTime);
                           end
                     end
                 end
@@ -210,6 +217,8 @@ fprintf('THE RESPONSE IS %d\n' , response);
 
 activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
 activeRule = data.activeRule;
+savedInfo(activeStair,activeRule).Resp(data.repNum).responseTime(trial(activeStair,activeRule).cntr) = responseTime;
+savedInfo(activeStair,activeRule).Resp(data.repNum).confidenceResponseTime(trial(activeStair,activeRule).cntr) = confidenceResponseTime;
 savedInfo(activeStair,activeRule).Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = response;
 savedInfo(activeStair,activeRule).Resp(data.repNum).confidence(trial(activeStair,activeRule).cntr) = confidenceResponse;
 setappdata(appHandle,'SavedInfo',savedInfo);
