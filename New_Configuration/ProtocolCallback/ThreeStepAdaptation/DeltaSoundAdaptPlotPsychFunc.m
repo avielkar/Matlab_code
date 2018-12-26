@@ -67,7 +67,7 @@ dirRepNum114 = plotData.dirRepNum114;
 rightChoice114 = plotData.rightChoice114;
 
 iDir115 = plotData.iDir115;
-dirArray115 = plotData.dirArray115Delta;
+dirArray115 = plotData.dirArray115;
 dirRepNum115 = plotData.dirRepNum115;
 rightChoice115 = plotData.rightChoice115;
 
