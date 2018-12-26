@@ -497,7 +497,7 @@ if iDir1>0
     subplot(plot_lines,plot_columns,1)
         
     %%
-    title('Vestibular only');
+    title('Vestibular only (1)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -526,7 +526,7 @@ if iDir2>0
     subplot(plot_lines,plot_columns,2)
         
     %%
-    title('Visual only');
+    title('Visual only (2)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -555,7 +555,7 @@ if iDir3>0
     subplot(plot_lines,plot_columns,3)
         
     %%
-    title('Combined');
+    title('Combined (3)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -584,7 +584,7 @@ if iDir4>0
     subplot(plot_lines,plot_columns,plot_columns+1)
         
     %%
-    title('Left Delta');
+    title('Left Delta (4)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -613,7 +613,7 @@ if iDir5>0
     subplot(plot_lines,plot_columns,plot_columns+2)
         
     %%
-    title('Right Delta');
+    title('Right Delta (5)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -671,7 +671,7 @@ if iDir100>0
     subplot(plot_lines,plot_columns,2*plot_columns+1)
         
     %%
-    title('Audio');
+    title('Audio (100)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -700,7 +700,7 @@ if iDir110>0
     subplot(plot_lines,plot_columns,2*plot_columns+2)
         
     %%
-    title('Audio + Ves');
+    title('Audio + Ves (110)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -729,7 +729,7 @@ if iDir120>0
     subplot(plot_lines,plot_columns,2*plot_columns+3)
         
     %%
-    title('Audio + Vis');
+    title('Audio + Vis (120)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -758,7 +758,7 @@ if iDir130>0
     subplot(plot_lines,plot_columns,2*plot_columns+4)
         
     %%
-    title('Audio + Ves + Vis');
+    title('Audio + Ves + Vis (130)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -787,7 +787,7 @@ if iDir114>0
     subplot(plot_lines,plot_columns,3*plot_columns+1)
         
     %%
-    title('Audio < Ves');
+    title('Audio < Ves (114)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -816,7 +816,7 @@ if iDir115>0
     subplot(plot_lines,plot_columns,3*plot_columns+2)
         
     %%
-    title('Audio > Ves');
+    title('Audio > Ves (115)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -845,7 +845,7 @@ if iDir124>0
     subplot(plot_lines,plot_columns,3*plot_columns+3)
         
     %%
-    title('Audio < Vis');
+    title('Audio < Vis (124)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
@@ -874,7 +874,7 @@ if iDir125>0
     subplot(plot_lines,plot_columns,3*plot_columns +4)
         
     %%
-    title('Audio > Vis');
+    title('Audio > Vis (125)');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     x = within(i).parameters.moog;
     set(gca, 'XTick', x);
