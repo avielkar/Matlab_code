@@ -461,8 +461,7 @@ MotionOptions
 
 % --- Executes on button press in TimingOptionsButton.
 function TimingOptionsButton_Callback(hObject, eventdata, handles)
-% hObject    handle to TimingOptionsButton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
+% hObject    handle to TimingOptionsButton (see GCBO)% eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 TimingOptions
@@ -493,7 +492,12 @@ function StartButton_Callback(hObject, eventdata, handles)
 format long
 global bxbport
 global basicfig
-        %check if the variable bxbport is already config to the port or not
+
+%disable the button immediately after press.
+set(handles.StartButton,'Enable','off');
+set(handles.StopButton,'Enable','on');
+        
+%check if the variable bxbport is already config to the port or not
         %because if it does, the serial declare makes it define again and show it
         %as closed so the status is closed but the port is actually open
         %and that is error.
@@ -521,6 +525,13 @@ delete(timerfind('Tag','CLoop'));
 CLoop = timer('TimerFcn',clfunc,'Period',period,'Tag','CLoop','ExecutionMode','fixedRate');
 setappdata(basicfig,'Timer',CLoop);
 eval([sbCallback '(hObject, eventdata, handles);']);
+
+%after the end of the experiment enable the start btn and disable the stop
+%btn.
+set(handles.StartButton,'Enable','on');
+set(handles.StopButton,'Enable','off');
+
+
 
 % --- Executes on radiobutton press in enable response during movement option.
 function Response_during_movement_RB_CallBack(hObject, eventdata, handles)
@@ -552,8 +563,13 @@ function StopButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+
 global basicfig connected
 global bxbport
+
+set(handles.StartButton,'Enable','on');
+set(handles.StopButton,'Enable','off');
+
 flagdata = getappdata(basicfig,'flagdata');
 CLoop = getappdata(basicfig,'Timer');
 %there was stop control loop here, but this is a BUG (causes the moog to
