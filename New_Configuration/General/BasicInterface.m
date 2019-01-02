@@ -504,7 +504,7 @@ global basicfig
         end
         %if the port is closed but defined, so open it.
         %if(strcmp(bxbport.Status , 'closed') == true)
-        if(bxbport.Status == 'closed')
+        if(strcmp(bxbport.Status,'closed') == 1)
             fopen(bxbport);
             fprintf(bxbport,['c10', char(13)]); %XID mode
         end
