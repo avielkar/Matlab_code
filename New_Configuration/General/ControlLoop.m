@@ -326,7 +326,7 @@ if ~paused && flagdata.isStopButton == 0
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                             elseif(cldata.prior_now == 1)
                                 %regular prior trial type.
-                                outString = ['FP_ON' ' ' num2str(0)];
+                                outString = ['FP_ON' ' ' num2str(1)];
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                                 outString = ['FP_FLASH_ON' ' ' num2str(0)];
                                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
