@@ -461,8 +461,7 @@ MotionOptions
 
 % --- Executes on button press in TimingOptionsButton.
 function TimingOptionsButton_Callback(hObject, eventdata, handles)
-% hObject    handle to TimingOptionsButton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
+% hObject    handle to TimingOptionsButton (see GCBO)% eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 TimingOptions
@@ -495,7 +494,8 @@ global bxbport
 global basicfig
 
 %disable the button immediately after press.
-set(handles.StartButton,'Enable','off');        
+set(handles.StartButton,'Enable','off');
+set(handles.StopButton,'Enable','on');
         
 %check if the variable bxbport is already config to the port or not
         %because if it does, the serial declare makes it define again and show it
@@ -556,8 +556,13 @@ function StopButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+
 global basicfig connected
 global bxbport
+
+set(handles.StartButton,'Enable','on');
+set(handles.StopButton,'Enable','off');
+
 flagdata = getappdata(basicfig,'flagdata');
 CLoop = getappdata(basicfig,'Timer');
 %there was stop control loop here, but this is a BUG (causes the moog to
