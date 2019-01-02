@@ -526,6 +526,13 @@ CLoop = timer('TimerFcn',clfunc,'Period',period,'Tag','CLoop','ExecutionMode','f
 setappdata(basicfig,'Timer',CLoop);
 eval([sbCallback '(hObject, eventdata, handles);']);
 
+%after the end of the experiment enable the start btn and disable the stop
+%btn.
+set(handles.StartButton,'Enable','on');
+set(handles.StopButton,'Enable','off');
+
+
+
 % --- Executes on radiobutton press in enable response during movement option.
 function Response_during_movement_RB_CallBack(hObject, eventdata, handles)
 % hObject    handle to RadioBtn (see GCBO)
