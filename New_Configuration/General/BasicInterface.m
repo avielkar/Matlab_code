@@ -515,6 +515,8 @@ setappdata(basicfig,'resp_answer',-1);
 clfunc = {@ControlLoop basicfig};
 sbCallback = 'StartButtonCallbackFunc';
 
+set(handles.StartButton,'Enable','off');
+
 period = .01;
 delete(timerfind('Tag','CLoop'));
 %here should be period and has been changed here
