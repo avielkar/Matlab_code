@@ -493,7 +493,11 @@ function StartButton_Callback(hObject, eventdata, handles)
 format long
 global bxbport
 global basicfig
-        %check if the variable bxbport is already config to the port or not
+
+%disable the button immediately after press.
+set(handles.StartButton,'Enable','off');        
+        
+%check if the variable bxbport is already config to the port or not
         %because if it does, the serial declare makes it define again and show it
         %as closed so the status is closed but the port is actually open
         %and that is error.
@@ -514,8 +518,6 @@ global basicfig
 setappdata(basicfig,'resp_answer',-1);
 clfunc = {@ControlLoop basicfig};
 sbCallback = 'StartButtonCallbackFunc';
-
-set(handles.StartButton,'Enable','off');
 
 period = .01;
 delete(timerfind('Tag','CLoop'));
