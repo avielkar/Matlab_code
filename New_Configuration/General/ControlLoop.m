@@ -1461,14 +1461,11 @@ if ~paused
         %avi's readString for the head motion tracking values.
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %tell the moog that the matlab waits for the Oculus head tracking.
-        errorCode = cbDConfigPort(0, 13, 1);%FIRSTPORTCH
-        
         cbDOut(0 , FIRSTPORTCH , 2);
         
         
         %wait untill it ack matlab for start sending the data.
         dataVal = 0;
-        errorCode = cbDConfigPort(0, 17, 0);%SECONDPORTCH
         disp('Waiting Moogdots ack for start sending the data.');
         waitTime = tic; %wait a limit time for the Oculus data sending from the MoogDots.
         waitTimeout = false;
@@ -1490,7 +1487,6 @@ if ~paused
         if(waitTimeout == false)
             %waiting for the OculusHeadTracking starts.
             disp('before staring receiving the communication');
-            errorCode = cbDConfigPort(0, 16, 0);%SCONDPORTCL
             waitTime = tic;
             dataVal = cbDIn(0, SECONDPORTCL);
             while(dataVal == 0)
@@ -1519,7 +1515,6 @@ if ~paused
         %if there no error during reading - make the final handshake
         %between Matlab and Moog.
         if(CBWDReadStringError == 0 && waitTimeout == false)
-            errorCode = cbDConfigPort(0, SECONDPORTB, 0);
             dataVal = cbDIn(0, SECONDPORTB);
             while(dataVal ~= 0)
                 dataVal = cbDIn(0, SECONDPORTB);

@@ -38,6 +38,15 @@ else
     cbDOut(COMBOARDNUM, FIRSTPORTCL, 0);
 end
 
+%tell the moog that the matlab waits for the Oculus head tracking.
+errorCode = cbDConfigPort(COMBOARDNUM, FIRSTPORTCH, DIGITALOUT);
+if errorCode ~= 0
+    disp(['*** Could not configure server FIRSTPORTCH: ', cbGetErrMsg(errorCode)]);
+else
+    % Zero the port.
+    cbDOut(COMBOARDNUM, FIRSTPORTCL, 0);
+end
+
 
 % Configure the client receive bit port.
 errorCode = cbDConfigPort(COMBOARDNUM, SECONDPORTA, DIGITALIN);
@@ -63,5 +72,13 @@ if errorCode ~= 0
     %cbDOut(COMBOARDNUM, SECONDPORTCL, 0);
 end
 
+%wait untill it ack matlab for start sending the data.
+errorCode = cbDConfigPort(COMBOARDNUM, SECONDPORTCH, DIGITALIN);%DIGITALOUT);
+if errorCode ~= 0
+    disp(['*** Could not configure server SECONDPORTCH: ', cbGetErrMsg(errorCode)]);
+%else
+    %Zero the port.
+    %cbDOut(COMBOARDNUM, SECONDPORTCL, 0);
+end
 
 disp('- server com init complete');
