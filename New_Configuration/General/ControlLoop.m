@@ -1,5 +1,5 @@
 % ControlLoop(obj, event, appHandle)
-% Main control loop for the Human Moog Matlab control system.
+% Main control loop for the Human Moog Matlab conrol system.
 function ControlLoop(obj, event, appHandle)
 
 % Grab the current stage and execute it.
@@ -18,6 +18,7 @@ global bxbport
 global basicfig
 global startTime
 
+cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
 
 
@@ -936,6 +937,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function MainTimerStage(appHandle)
 
+cbwDefs;
 global connected debug %pogen_oddity %----Jing 01/29/07---
 global bxbport
 global basicfig
@@ -1276,6 +1278,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function PostTrialStage(appHandle)
 
+cbwDefs;
 global connected debug
 global bxbport
 global print_var
@@ -1460,7 +1463,7 @@ if ~paused
         %tell the moog that the matlab waits for the Oculus head tracking.
         errorCode = cbDConfigPort(0, 13, 1);%FIRSTPORTCH
         
-        cbDOut(0 , 13 , 2);%FIRSTPORTCH
+        cbDOut(0 , FIRSTPORTCH , 2);
         
         
         %wait untill it ack matlab for start sending the data.
@@ -1470,7 +1473,7 @@ if ~paused
         waitTime = tic; %wait a limit time for the Oculus data sending from the MoogDots.
         waitTimeout = false;
         while(dataVal == 0)%SECONDPORTCH
-            dataVal = cbDIn(0, 17);%SECONDPORTCH
+            dataVal = cbDIn(0, SECONDPORTCH);
             if(toc(waitTime) > 1.5)  %if bigger than 3 seconds - go out and don't wait.
                 disp('before staring receiving the communication - timeout SECONDPORTCH');
                 waitTimeout = true;
@@ -1481,7 +1484,7 @@ if ~paused
         end
         
         %reset the matlab waits for Oculus Head Tracking bit.
-        cbDOut(0 , 13 , 0);%FIRSTPORTCH
+        cbDOut(0 , FIRSTPORTCH , 0);
         
         CBWDReadStringError = 0;    %indicate error of timeout during reading the OculusHeadTracking data from Moog.
         if(waitTimeout == false)
@@ -1489,9 +1492,9 @@ if ~paused
             disp('before staring receiving the communication');
             errorCode = cbDConfigPort(0, 16, 0);%SCONDPORTCL
             waitTime = tic;
-            dataVal = cbDIn(0, 16);%SECONDPORTCL
+            dataVal = cbDIn(0, SECONDPORTCL);
             while(dataVal == 0)
-                dataVal = cbDIn(0, 16);%SECONDPORTCL
+                dataVal = cbDIn(0, SECONDPORTCL);
                 if(toc(waitTime) > 1.5)
                     disp('before staring receiving the communication - timeout SECONDPORTCL');
                     waitTimeout = true;
@@ -1516,10 +1519,10 @@ if ~paused
         %if there no error during reading - make the final handshake
         %between Matlab and Moog.
         if(CBWDReadStringError == 0 && waitTimeout == false)
-            errorCode = cbDConfigPort(0, 15, 0);%SECONDPORTB
-            dataVal = cbDIn(0, 15);%SECONDPORTB
+            errorCode = cbDConfigPort(0, SECONDPORTB, 0);
+            dataVal = cbDIn(0, SECONDPORTB);
             while(dataVal ~= 0)
-                dataVal = cbDIn(0, 15);%SECONDPORTB
+                dataVal = cbDIn(0, SECONDPORTB);
             end
         end
         
