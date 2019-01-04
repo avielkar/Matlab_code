@@ -1,5 +1,5 @@
 % ControlLoop(obj, event, appHandle)
-% Main control loop for the Human Moog Matlab control system.
+% Main control loop for the Human Moog Matlab conrol system.
 function ControlLoop(obj, event, appHandle)
 
 % Grab the current stage and execute it.
@@ -18,6 +18,7 @@ global bxbport
 global basicfig
 global startTime
 
+cbwdefs;
 f = 60; % This is frequency / update rate (Hz)
 
 
@@ -936,6 +937,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function MainTimerStage(appHandle)
 
+cbwdefs;
 global connected debug %pogen_oddity %----Jing 01/29/07---
 global bxbport
 global basicfig
@@ -1276,6 +1278,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function PostTrialStage(appHandle)
 
+cbwdefs;
 global connected debug
 global bxbport
 global print_var
@@ -1460,7 +1463,7 @@ if ~paused
         %tell the moog that the matlab waits for the Oculus head tracking.
         errorCode = cbDConfigPort(0, 13, 1);%FIRSTPORTCH
         
-        cbDOut(0 , 13 , 2);%FIRSTPORTCH
+        cbDOut(0 , FIRSTPORTCH , 2);
         
         
         %wait untill it ack matlab for start sending the data.
