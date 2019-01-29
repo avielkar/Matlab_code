@@ -386,10 +386,25 @@ if ~paused && flagdata.isStopButton == 0
                     
                 elseif data.configinfo(i).status == 3  % acrossStair
                     i1 = strmatch(data.configinfo(i).nice_name,{char(across.name)},'exact');
-                    if isfield(across(i1).parameters, 'moog')
-                        tmpVal = across(i1).parameters.moog(activeStair);
-                    else
-                        tmpVal = across(i1).parameters(activeStair);
+                    
+                    if(i ~= iSTIMULUS_TYPE)
+                        if isfield(across(i1).parameters, 'moog')
+                            tmpVal = across(i1).parameters.moog(activeStair);
+                        else
+                            tmpVal = across(i1).parameters(activeStair);
+                        end
+                    else%(i1 == iSTIMULUS_TYPE)
+                        if(data.condvect.priors.enabled && cldata.prior_now == 0)
+                             if isfield(across(i1).parameters, 'moog')
+                                tmpVal = across(i1).parameters.moog(activeStair);
+                             else
+                                tmpVal = across(i1).parameters(activeStair);
+                            end
+                        else %prior now
+                            index = strmatch('PRIOR_STIMULUS_TYPE' ,{char(data.configinfo.name)},'exact');
+                            prior_stim_type = data.configinfo(index).parameters;
+                            tmpVal = prior_stim_type;
+                        end
                     end
 
                     valStr = [];
