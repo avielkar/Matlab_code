@@ -394,7 +394,9 @@ if ~paused && flagdata.isStopButton == 0
                             tmpVal = across(i1).parameters(activeStair);
                         end
                     else%(i1 == iSTIMULUS_TYPE)
-                        if(data.condvect.priors.enabled && cldata.prior_now == 0)
+                        %if not priors enabled , or enabled , but not prior
+                        %now.
+                        if(data.condvect.priors.enabled == 0 || cldata.prior_now == 0)
                              if isfield(across(i1).parameters, 'moog')
                                 tmpVal = across(i1).parameters.moog(activeStair);
                              else
