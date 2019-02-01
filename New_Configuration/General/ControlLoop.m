@@ -1680,13 +1680,32 @@ if ~paused
 
             if sum(sum(data.stillActive)) ~=0
                 [lenS,lenR] = size(data.stillActive);
-                tmpS = randperm(lenS);
                 tmpR = randperm(lenR);
-                while data.stillActive(tmpS(1),tmpR(1)) == 0
-                    tmpS = randperm(lenS);
-                    tmpR = randperm(lenR);
+                staircaseOptionsSize = size(trial);
+                leftTrials= [];
+                for staircaseOptions = 1:staircaseOptionsSize(1)
+                    %(trial(staircaseOptions,tmpR(1)).cntr - 1) because
+                    %cntr is init with 1 at program initialization.
+                    remainTrials = trial(staircaseOptions,tmpR(1)).num - (trial(staircaseOptions,tmpR(1)).cntr - 1);
+                    if(remainTrials > 0)
+                        leftTrials = [leftTrials , staircaseOptions*ones(1 , remainTrials)];
+                    end
                 end
-                activeStair =  tmpS(1);
+                leftTrialsSize = size(leftTrials);
+                while leftTrialsSize(1) == 0 %|| leftTrialsSize(2) == 0
+                    tmpR = randperm(lenR);
+                    for staircaseOptions = 1:staircaseOptionsSize(1)
+                        %(trial(staircaseOptions,tmpR(1)).cntr - 1) because
+                        %cntr is init with 1 at program initialization.
+                        remainTrials = trial(staircaseOptions,tmpR(1)).num - (trial(staircaseOptions,tmpR(1)).cntr - 1);
+                        if(remainTrials > 0)
+                            leftTrials = [leftTrials , staircaseOptions*ones(1 , remainTrials)];
+                        end
+                    end
+                    leftTrialsSize = size(leftTrials);
+                end
+                randIndex = randi(size(leftTrials));
+                activeStair =  leftTrials(randIndex);
                 activeRule = tmpR(1);
             else
                 stop(CLoop);
