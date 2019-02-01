@@ -244,10 +244,14 @@ if ~paused && flagdata.isStopButton == 0
                         %                       correctly named parameter
 
                     elseif i == iINT_ORDER_2I || i == iPRED_OFFSET || i == iCORR_ALT_PROB || i == iERR_ALT_PROB || i == iGAUSSIAN_SEED || i == iMOTION_TYPE ...
-                            || i == iRAND_METHOD || i == iSTAIRCASE || i == iSTAIR_DOWN_PCT || i == iSTAIR_UP_PCT || i == iSTIMULUS_TYPE || i == iTT_MODE ...
+                            || i == iRAND_METHOD || i == iSTAIRCASE || i == iSTAIR_DOWN_PCT || i == iSTAIR_UP_PCT || i == iTT_MODE ...
                             || i == iPOST_TRIAL_TIME || i == iPRE_TRIAL_TIME || i == iWAIT_FOR_RESP
                         %                         do nothing i.e. print nothing to moogdots
 
+                    elseif i == iSTIMULUS_TYPE%print the stim_type so moogdots know whether to check position or not.
+                        outString = ['STIMULUS_TYPE' ' ' num2str(data.configinfo(i).parameters)];
+                        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                        
                         %---Jing added for targetshow 09/03/2008--------------------------
                     elseif i == iTARG_YCTR %&& ~isempty(iD_PRIME)    %---Jing 01/06/09--------
                         if ~isempty(iD_PRIME)   %---Jing 01/06/09--------
