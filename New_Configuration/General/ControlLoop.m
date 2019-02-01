@@ -1679,8 +1679,7 @@ if ~paused
             end
 
             if sum(sum(data.stillActive)) ~=0
-                [lenS,lenR] = size(data.stillActive);
-                tmpS = randperm(lenS);
+                lenR = size(data.stillActive);
                 tmpR = randperm(lenR);
                 while data.stillActive(tmpS(1),tmpR(1)) == 0
                     tmpS = randperm(lenS);
