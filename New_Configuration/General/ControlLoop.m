@@ -1679,7 +1679,7 @@ if ~paused
             end
 
             if sum(sum(data.stillActive)) ~=0
-                lenR = size(data.stillActive);
+                [lenS,lenR] = size(data.stillActive);
                 tmpR = randperm(lenR);
                 staircaseOptionsSize = size(trial);
                 leftTrials= [];
