@@ -402,7 +402,7 @@ else
     M(3).name = 'HEAVE_DATA';
     M(3).data = heaveM + ori(1,3); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
     M(4).name = 'YAW_DATA';
-    M(4).data = 90*ones(1,(dur(1,1)+delay(1)+dur(1,2))*f);
+    M(4).data = 90*zeros(1,(dur(1,1)+delay(1)+dur(1,2))*f);
     M(5).name = 'PITCH_DATA';
     M(5).data = zeros(1,(dur(1,1)+delay(1)+dur(1,2))*f);
     M(6).name = 'ROLL_DATA';
