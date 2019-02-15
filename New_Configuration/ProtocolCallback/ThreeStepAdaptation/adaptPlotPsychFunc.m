@@ -186,7 +186,7 @@ i = strmatch('Heading Direction',{char(varying.name)},'exact');
 if(size(i) == 0) %if heading direction is not varying.
     i = strmatch('Heading Direction',{char(within.name)},'exact');
     if(size(i) ~= 0)%if heading direction is not within.
-        x = across(i).parameters.moog;
+        x = within(i).parameters.moog;
     end
 else%Heading Direction is varying type.
     x = varying(i).parameters.moog;
