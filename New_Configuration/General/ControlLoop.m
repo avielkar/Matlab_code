@@ -506,7 +506,8 @@ if ~paused && flagdata.isStopButton == 0
         %initialize the vector to be with 1's, so that all the frames
         %appear with the fixation point.
         flash_square_data = zeros(1,60);    
-        if(cldata.prior_now == 1)
+        
+        motiontype = data.configinfo(iMOTION_TYPE).parameters;
             if motiontype == 3 % 2I vars required as well
                  i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
                 if data.configinfo(i).status == 2
@@ -519,7 +520,7 @@ if ~paused && flagdata.isStopButton == 0
                 else
                     stim_dur = data.configinfo(i).parameters.moog;
                 end
-                
+
                 i = strmatch('DURATION_2I',{char(data.configinfo.name)},'exact');
                 if data.configinfo(i).status == 2
                     i1 = strmatch('Duration 2nd Int',{char(varying.name)},'exact');
@@ -529,8 +530,22 @@ if ~paused && flagdata.isStopButton == 0
                 elseif data.configinfo(i).status == 4
                     stim_dur = stim_dur + within.parameters.moog(cntr);
                 else
-                    stim_dur(1,2) = data.configinfo(i).parameters.moog;
+                stim_dur = stim_dur + data.configinfo(i).parameters.moog;
                 end
+            
+            i = strmatch('DELAY_2I',{char(data.configinfo.name)},'exact');
+            if data.configinfo(i).status == 2
+                i2 = strmatch('Delay 2nd Int',{char(varying.name)},'exact');
+                stim_dur = stim_dur + crossvals(cntrVarying,i2);
+            elseif data.configinfo(i).status == 3
+                stim_dur = stim_dur + across.parameters.moog(activeStair);
+            elseif data.configinfo(i).status == 4
+                stim_dur = stim_dur + within.parameters.moog(cntr);
+            else
+                stim_dur = stim_dur + data.configinfo(i).parameters.moog;
+            end
+            
+            
             else
                 i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
                 if data.configinfo(i).status == 2
@@ -547,6 +562,7 @@ if ~paused && flagdata.isStopButton == 0
             
             flash_square_data = zeros(1,60 * stim_dur);  
             
+        if(cldata.prior_now == 1) 
             %decide in which fram the square disappear.
             if cldata.is_flashing_priors %if there is no flash time - do not make flashes.
                 flash_square_data = ones(1 , f);    
