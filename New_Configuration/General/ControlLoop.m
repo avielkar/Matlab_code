@@ -505,7 +505,7 @@ if ~paused && flagdata.isStopButton == 0
         %% Send the FLASH_SQUARE_DATA if it is prior, else send a vector of all zeros.
         %initialize the vector to be with 1's, so that all the frames
         %appear with the fixation point.
-        flash_square_data = zeros(1,60);    
+        flash_square_data = zeros(1,f);      
         
         motiontype = data.configinfo(iMOTION_TYPE).parameters;
             if motiontype == 3 % 2I vars required as well
@@ -560,12 +560,12 @@ if ~paused && flagdata.isStopButton == 0
                 end
             end
 
-            flash_square_data = zeros(1,60 * stim_dur);  
+        flash_square_data = zeros(1,f * stim_dur);    
             
         if(cldata.prior_now == 1) 
             %decide in which fram the square disappear.
             if cldata.is_flashing_priors %if there is no flash time - do not make flashes.
-                flash_square_data = ones(1 , stim_dur * 60);    
+                flash_square_data = ones(1 , stim_dur * f);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
                 %choose randomly if to add 1 flashe or 2 flahes according
                 %to the 'FP_FLASH_ODD_PROB' parameter.
@@ -622,7 +622,7 @@ if ~paused && flagdata.isStopButton == 0
             %alwyas there at every frame).
             outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-            flash_square_data = zeros(1 , stim_dur * 60);
+            flash_square_data = zeros(1 , stim_dur * f);
         end
         %send the data to the Moogdots.
         outString = ['FLASH_SQUARE_DATA' ' ' num2str(flash_square_data) sprintf('\n')];
