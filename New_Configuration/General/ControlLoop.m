@@ -589,24 +589,24 @@ if ~paused && flagdata.isStopButton == 0
                 min_flashes_offset = 3;
                 if(num_of_flashes == 1)
                         %make 1 flash.
-                        flash_frame = randi([2 , ( f - 1) - flash_time] , 1);
+                        flash_frame = randi([2 , ( stim_dur - 1) - flash_time] , 1);
                         %change that frame so that it would flash 1 time.
                         flash_square_data(flash_frame : 1 : flash_frame + flash_time - 1) = 0;
                 elseif (num_of_flashes == 2)   
                         %make 2 flashes if needed.
-                        flash_square_start_index_frames(1) = randi([2, round((f - 1) / 2)] , 1);
-                        min_frame = max(f / 2 , flash_square_start_index_frames(1) + flash_time) + min_flashes_offset;
-                        flash_square_start_index_frames(2) = randi([min_frame, (f - 1) - flash_time] , 1);
+                        flash_square_start_index_frames(1) = randi([2, round((stim_dur - 1) / 2)] , 1);
+                        min_frame = max(stim_dur / 2 , flash_square_start_index_frames(1) + flash_time) + min_flashes_offset;
+                        flash_square_start_index_frames(2) = randi([min_frame, (stim_dur - 1) - flash_time] , 1);
                         %change that frame so that it would flash 2 times.
                         flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time - 1) = 0;
                         flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time - 1) = 0;
                 else
                     %make 3 flashes.
-                    flash_square_start_index_frames(1) = randi([2, round((f - 1) / 3)] , 1);
-                    min_frame = max(f / 3 , flash_square_start_index_frames(1) + flash_time) + min_flashes_offset;
-                    flash_square_start_index_frames(2) = randi([min_frame, round(2 * (f - 1) / 3 - flash_time)] , 1);
-                    min_frame = max(2 * f / 3 , flash_square_start_index_frames(2) + flash_time) + min_flashes_offset;
-                    flash_square_start_index_frames(3) = randi([min_frame, round(f - flash_time)] , 1);
+                    flash_square_start_index_frames(1) = randi([2, round((stim_dur - 1) / 3)] , 1);
+                    min_frame = max(stim_dur / 3 , flash_square_start_index_frames(1) + flash_time) + min_flashes_offset;
+                    flash_square_start_index_frames(2) = randi([min_frame, round(2 * (stim_dur - 1) / 3 - flash_time)] , 1);
+                    min_frame = max(2 * stim_dur / 3 , flash_square_start_index_frames(2) + flash_time) + min_flashes_offset;
+                    flash_square_start_index_frames(3) = randi([min_frame, round(stim_dur - flash_time)] , 1);
                     %change that frame so that it would flash 2 times.
                     flash_square_data(flash_square_start_index_frames(1) : 1 : flash_square_start_index_frames(1) + flash_time - 1) = 0;
                     flash_square_data(flash_square_start_index_frames(2) : 1 : flash_square_start_index_frames(2) + flash_time - 1) = 0;
@@ -622,7 +622,7 @@ if ~paused && flagdata.isStopButton == 0
             %alwyas there at every frame).
             outString = ['FP_FLASH_ON' ' ' num2str(0) sprintf('\n')];
             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-            flash_square_data = zeros(1 , f);
+            flash_square_data = zeros(1 , stim_dur * 60);
         end
         %send the data to the Moogdots.
         outString = ['FLASH_SQUARE_DATA' ' ' num2str(flash_square_data) sprintf('\n')];
