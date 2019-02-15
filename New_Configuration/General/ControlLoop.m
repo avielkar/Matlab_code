@@ -559,13 +559,13 @@ if ~paused && flagdata.isStopButton == 0
                     stim_dur = data.configinfo(i).parameters.openGL;
                 end
             end
-            
+
             flash_square_data = zeros(1,60 * stim_dur);  
             
         if(cldata.prior_now == 1) 
             %decide in which fram the square disappear.
             if cldata.is_flashing_priors %if there is no flash time - do not make flashes.
-                flash_square_data = ones(1 , f);    
+                flash_square_data = ones(1 , stim_dur * 60);    
                 flash_time = data.configinfo(iFP_FLASH_TIME).parameters;
                 %choose randomly if to add 1 flashe or 2 flahes according
                 %to the 'FP_FLASH_ODD_PROB' parameter.
