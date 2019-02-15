@@ -197,7 +197,9 @@ is_heading = true;
 if(isempty(i))
     is_heading= false;
    i = strmatch('Distance',{char(within.name)},'exact');
-   x = within(i).parameters.moog;
+   i_2ndDistance = strmatch('DIST_2I',{char(data.configinfo.name)},'exact');
+   x_graph_values = within(i).parameters.moog - data.configinfo(i_2ndDistance).parameters.moog;
+   x = union(x_graph_values , -x_graph_values);
 end
 
 if(is_heading == true)
