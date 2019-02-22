@@ -858,89 +858,99 @@ if ~paused && flagdata.isStopButton == 0
     end
 
 
-    %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
-    % Wait for red button to be pressed to start movement
-    if connected && ~debug
+    start_mode = data.configinfo(iStartMode).parameters;
+    if(start_mode == 1)
+        %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
+        % Wait for red button to be pressed to start movement
+        if connected && ~debug
 
-        if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')
+            if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')
 
-            if strcmp(CBWDReadString(0, 5, 512*12),'STARTED')
-                response = 4;
+                if strcmp(CBWDReadString(0, 5, 512*12),'STARTED')
+                    response = 4;
+                else
+                    response = 0;
+                end
             else
-                response = 0;
+    %             % Configure Port
+    %             boardNum = 1;
+    %             portNum = 1;
+    %             direction = 1;
+    %             errorCode = cbDConfigPort(boardNum, portNum, direction);
+    %             if errorCode ~= 0
+    %                 str = cbGetErrMsg(errorCode);
+    % %                 disp(['WRONG cbDConfigPort ' str])
+    %             end
+    %             response = cbDIn(boardNum, portNum); % boardNum = 1, DigPort = 1
+    %             %         response = 4;   %%%% automatic start!
             end
-        else
-%             % Configure Port
-%             boardNum = 1;
-%             portNum = 1;
-%             direction = 1;
-%             errorCode = cbDConfigPort(boardNum, portNum, direction);
-%             if errorCode ~= 0
-%                 str = cbGetErrMsg(errorCode);
-% %                 disp(['WRONG cbDConfigPort ' str])
-%             end
-%             response = cbDIn(boardNum, portNum); % boardNum = 1, DigPort = 1
-%             %         response = 4;   %%%% automatic start!
-        end
-        response = 0; % No response yet - shir
-        % byte 2 determines button number, press/release and port
-        if(bxbport.BytesAvailable() >= 6)
-            r = uint32(fread(bxbport,6)); % reads 6 first bytes
-            %uint32(fread(bxbport,6));
-            press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-            if press
-                 response = bitshift (r(2), -5);    %leftmost 3 bits
+            response = 0; % No response yet - shir
+            % byte 2 determines button number, press/release and port
+            if(bxbport.BytesAvailable() >= 6)
+                r = uint32(fread(bxbport,6)); % reads 6 first bytes
+                %uint32(fread(bxbport,6));
+                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                if press
+                     response = bitshift (r(2), -5);    %leftmost 3 bits
+                end
+                fprintf('byteas available but not a red press!!!!\n')
             end
-            fprintf('byteas available but not a red press!!!!\n')
-        end
-        
-        %avi - delete that line (for automatic answer) 
-% % % % % %         timeToWait  = rand;
-% % % % % %         elapsedTime = tic;
-% % % % % %         while(toc(elapsedTime) < timeToWait)
-% % % % % %         end
-% % % % % %         
-% % % % % %         response = 4;
-        
-        
-        % Checks which button was pressed (3-left, 4-center, 5-right) --shir
-        if response == 4  %---Jing for light control 12/03/07---
-            fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
-            startTime = tic;
-            %---Jing for Reaction_time_task Protocol 11/10/08-----
-            cldata = getappdata(appHandle, 'ControlLoopData');
-            if cldata.movdelaycontrol && cldata.startbeep == 0
-                cldata.preTrialTime = GenVariableDelayTime;
-                tic
-                soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
-                cldata.startbeep = 1;
-            end
-            % got response -> go to next stage
-            cldata.go = 1;
-            setappdata(appHandle,'ControlLoopData',cldata);
-            %---End 11/10/08-----
-        end
 
-    elseif (connected && debug) || (~connected && debug)
-        DebugWindow(appHandle);
-        debugResponse = getappdata(appHandle , 'debugResponse');
-        if strcmp(debugResponse,'s')
-            response = 4;
-            cldata.go = 1;
-            debugResponse = '';  %---Jing 3/11/2008---
-            setappdata(appHandle , 'debugResponse' , debugResponse);
+            %avi - delete that line (for automatic answer) 
+    % % % % % %         timeToWait  = rand;
+    % % % % % %         elapsedTime = tic;
+    % % % % % %         while(toc(elapsedTime) < timeToWait)
+    % % % % % %         end
+    % % % % % %         
+    % % % % % %         response = 4;
 
-            %---Jing for Reaction_time_task Protocol 11/10/08-----
-            if cldata.movdelaycontrol
-                cldata.preTrialTime = GenVariableDelayTime;
-                tic
-                soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+
+            % Checks which button was pressed (3-left, 4-center, 5-right) --shir
+            if response == 4  %---Jing for light control 12/03/07---
+                fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
+                startTime = tic;
+                %---Jing for Reaction_time_task Protocol 11/10/08-----
+                cldata = getappdata(appHandle, 'ControlLoopData');
+                if cldata.movdelaycontrol && cldata.startbeep == 0
+                    cldata.preTrialTime = GenVariableDelayTime;
+                    tic
+                    soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                    cldata.startbeep = 1;
+                end
+                % got response -> go to next stage
+                cldata.go = 1;
+                setappdata(appHandle,'ControlLoopData',cldata);
+                %---End 11/10/08-----
             end
-            setappdata(appHandle,'ControlLoopData',cldata);
-            %---End 11/10/08-----
+
+        elseif (connected && debug) || (~connected && debug)
+            DebugWindow(appHandle);
+            debugResponse = getappdata(appHandle , 'debugResponse');
+            if strcmp(debugResponse,'s')
+                response = 4;
+                cldata.go = 1;
+                debugResponse = '';  %---Jing 3/11/2008---
+                setappdata(appHandle , 'debugResponse' , debugResponse);
+
+                %---Jing for Reaction_time_task Protocol 11/10/08-----
+                if cldata.movdelaycontrol
+                    cldata.preTrialTime = GenVariableDelayTime;
+                    tic
+                    soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                end
+                setappdata(appHandle,'ControlLoopData',cldata);
+                %---End 11/10/08-----
+            end
         end
+        %%
+    elseif (start_mode == 2)
+        %% robot-countdown and automatic-start
+        
+        %%
+    elseif(start_mode == 3)
+        %% self-countdown and user start
+        %%
     end
-    %%
 
     cldata = getappdata(appHandle, 'ControlLoopData');
     
