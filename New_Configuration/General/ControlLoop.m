@@ -218,7 +218,8 @@ if ~paused && flagdata.isStopButton == 0
         %
         
         %start modes
-        iStartMode = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+        iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+        iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
         %
         
         %%
@@ -858,7 +859,7 @@ if ~paused && flagdata.isStopButton == 0
     end
 
 
-    start_mode = data.configinfo(iStartMode).parameters;
+    start_mode = data.configinfo(iSTART_MODE).parameters;
     if(start_mode == 1)
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
@@ -945,7 +946,7 @@ if ~paused && flagdata.isStopButton == 0
         %%
     elseif (start_mode == 2)
         %% robot-countdown and automatic-start
-        
+        count_from = data.configinfo(iCOUNT_FROM).parameters;
         %%
     elseif(start_mode == 3)
         %% self-countdown and user start
