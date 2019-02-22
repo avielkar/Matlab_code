@@ -217,6 +217,10 @@ if ~paused && flagdata.isStopButton == 0
         iSound_WAVE_TYPE = strmatch('WAV_TYPE' ,{char(data.configinfo.name)},'exact');
         %
         
+        %start modes
+        iStartMode = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+        %
+        
         %%
         
         %indcates if the current protocol is that DELTA protocol.
