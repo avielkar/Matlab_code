@@ -865,27 +865,6 @@ if ~paused && flagdata.isStopButton == 0
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
-
-            if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')
-
-                if strcmp(CBWDReadString(0, 5, 512*12),'STARTED')
-                    response = 4;
-                else
-                    response = 0;
-                end
-            else
-    %             % Configure Port
-    %             boardNum = 1;
-    %             portNum = 1;
-    %             direction = 1;
-    %             errorCode = cbDConfigPort(boardNum, portNum, direction);
-    %             if errorCode ~= 0
-    %                 str = cbGetErrMsg(errorCode);
-    % %                 disp(['WRONG cbDConfigPort ' str])
-    %             end
-    %             response = cbDIn(boardNum, portNum); % boardNum = 1, DigPort = 1
-    %             %         response = 4;   %%%% automatic start!
-            end
             response = 0; % No response yet - shir
             % byte 2 determines button number, press/release and port
             if(bxbport.BytesAvailable() >= 6)
@@ -967,6 +946,24 @@ if ~paused && flagdata.isStopButton == 0
         %%
     elseif(start_mode == 3)
         %% self-countdown and user start
+        count_from = data.configinfo(iCOUNT_FROM).parameters;
+        count_time = data.configinfo(iCOUNT_TIME).parameters;
+        a = [ones(1,100); zeros(1,100)];
+        a_t = a(:)';            
+        for i =0:1:count_from
+            %sounds the countdown sound.
+            soundsc(a_t,2000);
+            intervalTime = tic;
+            %time to wait betweeen count sound.
+            while(toc(intervalTime) < count_time)
+            end
+        end
+        %wait fot the start response in the window time.
+        response = 0;
+        
+        cldata = getappdata(appHandle, 'ControlLoopData');
+        cldata.go = 1;
+        setappdata(appHandle,'ControlLoopData',cldata);
         %%
     end
 
