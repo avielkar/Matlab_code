@@ -949,7 +949,7 @@ if ~paused && flagdata.isStopButton == 0
         %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
-        a = [ones(1,200); zeros(1,200)];
+        a = [ones(1,100); zeros(1,100)];
         a_t = a(:)';            
         for i =0:1:count_from
             %sounds the countdown sound.
@@ -959,7 +959,11 @@ if ~paused && flagdata.isStopButton == 0
             while(toc(intervalTime) < count_time)
             end
         end
-        
+        %automatic response
+        response = 4;
+        cldata = getappdata(appHandle, 'ControlLoopData');
+        cldata.go = 1;
+        setappdata(appHandle,'ControlLoopData',cldata);
         %%
     elseif(start_mode == 3)
         %% self-countdown and user start
