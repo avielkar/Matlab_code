@@ -183,35 +183,64 @@ title('Online Psychometric Function');
 
 %avi - check the type of the Heading Direction parameter.
 i = strmatch('Heading Direction',{char(varying.name)},'exact');
-if(size(i) == 0) %if the size is 0 , it means that no match found ,else a match has been found.
+if(size(i) == 0) %if heading direction is not varying.
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    if(size(i) == 0)%Heading Direction is across type.
-        x = across(i).parameters.moog;        
-    else%Heading Direction is within type.
+    if(size(i) ~= 0)%if heading direction is not within.
         x = within(i).parameters.moog;
     end
 else%Heading Direction is varying type.
     x = varying(i).parameters.moog;
 end
 
-set(gca, 'XTick', x);
-hold on;
-y1 = 0.5*ones(size(x));
-plot(x,y1,'-r' , 'MarkerSize' , 5);
+%if i==0 it means that the paramter is not heading discrimination.
+is_heading = true;
+if(isempty(i))
+    is_heading= false;
+   i = strmatch('Distance',{char(within.name)},'exact');
+   i_2ndDistance = strmatch('DIST_2I',{char(data.configinfo.name)},'exact');
+   x_graph_values = within(i).parameters.moog - data.configinfo(i_2ndDistance).parameters.moog;
+   x = union(x_graph_values , -x_graph_values);
+end
 
-xlabel('Heading Angle (deg)');
+if(is_heading == true)
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r' , 'MarkerSize' , 5);
 
-y=0 : 0.1 : 1;
-ylim([0 1]);
-set(gca, 'YTick', y);
-ylabel('Rightward Dicisions%');
+    xlabel('Heading Angle (deg)');
 
-hold on;
-x1 = zeros(size(y));
-plot(x1,y,'-r' , 'MarkerSize' , 5);
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Rightward Dicisions%');
 
-grid on;
-hold off;
+    hold on;
+    x1 = zeros(size(y));
+    plot(x1,y,'-r' , 'MarkerSize' , 5);
+
+    grid on;
+    hold off;
+else
+    set(gca, 'XTick', x);
+    hold on;
+    y1 = 0.5*ones(size(x));
+    plot(x,y1,'-r' , 'MarkerSize' , 5);
+
+    xlabel('Distance1 - Distance2 (cm)');
+
+    y=0 : 0.1 : 1;
+    ylim([0 1]);
+    set(gca, 'YTick', y);
+    ylabel('Larger Dicisions%');
+
+    hold on;
+    x1 = zeros(size(y));
+    plot(x1,y,'-r' , 'MarkerSize' , 5);
+
+    grid on;
+    hold off;
+end
 
 plotData.iDir = iDir;
 plotData.dirArray = dirArray;
