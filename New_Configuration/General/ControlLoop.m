@@ -220,6 +220,7 @@ if ~paused && flagdata.isStopButton == 0
         %start modes
         iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
         iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
+        iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
         %
         
         %%
@@ -947,6 +948,18 @@ if ~paused && flagdata.isStopButton == 0
     elseif (start_mode == 2)
         %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
+        count_time = data.configinfo(iCOUNT_TIME).parameters;
+        a = [ones(1,200); zeros(1,200)];
+        a_t = a(:)';            
+        for i =0:1:count_from
+            %sounds the countdown sound.
+            soundsc(a_t,2000);
+            intervalTime = tic;
+            %time to wait betweeen count sound.
+            while(toc(intervalTime) < count_time)
+            end
+        end
+        
         %%
     elseif(start_mode == 3)
         %% self-countdown and user start
