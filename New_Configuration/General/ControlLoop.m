@@ -958,11 +958,19 @@ if ~paused && flagdata.isStopButton == 0
             end
         end
         %wait fot the start response in the window time.
-        response = 0;
-        
-        cldata = getappdata(appHandle, 'ControlLoopData');
-        cldata.go = 1;
-        setappdata(appHandle,'ControlLoopData',cldata);
+         if connected && ~debug
+             response = 0; % No response yet
+            % byte 2 determines button number, press/release and port
+            if(bxbport.BytesAvailable() >= 6)
+                r = uint32(fread(bxbport,6)); % reads 6 first bytes
+                %uint32(fread(bxbport,6));
+                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                if press
+                     response = bitshift (r(2), -5);    %leftmost 3 bits
+                end
+                fprintf('byteas available but not a red press!!!!\n')
+            end
+         end
         %%
     end
 
