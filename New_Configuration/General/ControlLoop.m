@@ -860,6 +860,9 @@ if ~paused && flagdata.isStopButton == 0
     end
 
 
+    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+    iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
+    iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
     start_mode = data.configinfo(iSTART_MODE).parameters;
     if(start_mode == 1)
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
@@ -957,20 +960,42 @@ if ~paused && flagdata.isStopButton == 0
             while(toc(intervalTime) < count_time)
             end
         end
-        %wait fot the start response in the window time.
-         if connected && ~debug
-             response = 0; % No response yet
-            % byte 2 determines button number, press/release and port
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                     response = bitshift (r(2), -5);    %leftmost 3 bits
+        
+        response = 0; % No response yet
+        while(response == 0)
+            %wait fot the start response in the window time.
+             if connected && ~debug
+                % byte 2 determines button number, press/release and port
+                if(bxbport.BytesAvailable() >= 6)
+                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
+                    %uint32(fread(bxbport,6));
+                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                    if press
+                         response = bitshift (r(2), -5);    %leftmost 3 bits
+                    end
+                    fprintf('byteas available but not a red press!!!!\n')
                 end
-                fprintf('byteas available but not a red press!!!!\n')
-            end
-         end
+             elseif (connected && debug) || (~connected && debug)
+                DebugWindow(appHandle);
+                debugResponse = getappdata(appHandle , 'debugResponse');
+                if strcmp(debugResponse,'s')
+                    response = 4;
+                    cldata.go = 1;
+                    debugResponse = '';  %---Jing 3/11/2008---
+                    setappdata(appHandle , 'debugResponse' , debugResponse);
+
+                    %---Jing for Reaction_time_task Protocol 11/10/08-----
+                    if cldata.movdelaycontrol
+                        cldata.preTrialTime = GenVariableDelayTime;
+                        tic
+                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                    end
+                    setappdata(appHandle,'ControlLoopData',cldata);
+                    %---End 11/10/08-----
+                end
+             end
+            pause(0.01);
+        end
         %%
     end
 
