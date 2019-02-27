@@ -962,7 +962,8 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         response = 0; % No response yet
-        while(response == 0)
+        while(response == 0 && flagdata.isStopButton == 0)
+            flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
              if connected && ~debug
                 % byte 2 determines button number, press/release and port
