@@ -866,6 +866,7 @@ if ~paused && flagdata.isStopButton == 0
     iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
     iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
     iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
+    iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     start_mode = data.configinfo(iSTART_MODE).parameters;
     if(start_mode == 1)
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
@@ -953,6 +954,7 @@ if ~paused && flagdata.isStopButton == 0
         %% self-countdown and user start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
+        window_size = data.configinfo(iWINDOW_SIZE).parameters;
         a = [ones(1,100); zeros(1,100)];
         a_t = a(:)';            
         for i =1:1:count_from
@@ -965,7 +967,8 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         response = 0; % No response yet
-        while(response == 0 && flagdata.isStopButton == 0)
+        window_size_timer = tic;
+        while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size/2)
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
              if connected && ~debug
