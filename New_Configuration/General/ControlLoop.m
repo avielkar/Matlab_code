@@ -823,9 +823,20 @@ if ~paused && flagdata.isStopButton == 0
             pause(2);
         end
         %%
-
+        
+        %decide about the start mode value.
+        iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+        iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
+        iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
+        iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
+        if(~isempty(iSTART_MODE))
+            start_mode = data.configinfo(iSTART_MODE).parameters;
+        else
+            start_mode = 1;
+        end
+        
         %% Ready to start sound and flushing all inputs from bxbport to clean garbage.
-        if(data.configinfo(iSTART_MODE).parameters == 1) %make sound only if not startMod3 == 3
+        if(start_mode == 1) %make sound only if not startMod3 == 3
             soundsc(cldata.beginWav,100000)
             %flush all the input from the board because we dont want to start
             %before the beep
@@ -861,13 +872,17 @@ if ~paused && flagdata.isStopButton == 0
         end
         %%  
     end
-
-
+    
+    %decide about the start mode value.
     iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
     iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
     iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
-    start_mode = data.configinfo(iSTART_MODE).parameters;
+    if(~isempty(iSTART_MODE))
+        start_mode = data.configinfo(iSTART_MODE).parameters;
+    else
+        start_mode = 1;
+    end
     if(start_mode == 1)
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
