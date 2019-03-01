@@ -936,13 +936,16 @@ if ~paused && flagdata.isStopButton == 0
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         a = [ones(1,100); zeros(1,100)];
         a_t = a(:)';            
-        for i =1:1:count_from
-            %sounds the countdown sound.
-            soundsc(a_t,2000);
+        %sounds the first countdown sound.
+        soundsc(a_t,2000);
+        %sound the other countdown sound.
+        for i =2:1:count_from
             intervalTime = tic;
             %time to wait betweeen count sound.
             while(toc(intervalTime) < count_time)
             end
+            %sounds the countdown sound.
+            soundsc(a_t,2000);
         end
         %automatic response
         response = 4;
@@ -956,14 +959,17 @@ if ~paused && flagdata.isStopButton == 0
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         a = [ones(1,100); zeros(1,100)];
-        a_t = a(:)';            
-        for i =1:1:count_from
-            %sounds the countdown sound.
-            soundsc(a_t,2000);
+        a_t = a(:)';         
+        %sounds the first countdown sound.
+        soundsc(a_t,2000);
+        %sounds the other countdown sound.
+        for i =2:1:count_from
             intervalTime = tic;
             %time to wait betweeen count sound.
             while(toc(intervalTime) < count_time)
             end
+            %sounds the countdown sound.
+            soundsc(a_t,2000);
         end
         
         response = 0; % No response yet
