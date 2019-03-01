@@ -221,6 +221,7 @@ if ~paused && flagdata.isStopButton == 0
         iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
         iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
         iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
+        i_WINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
         %
         
         %%
@@ -824,10 +825,12 @@ if ~paused && flagdata.isStopButton == 0
         %%
 
         %% Ready to start sound and flushing all inputs from bxbport to clean garbage.
-        soundsc(cldata.beginWav,100000)
-        %flush all the input from the board because we dont want to start
-        %before the beep
-        flushinput(bxbport);
+        if(data.configinfo(iSTART_MODE).parameters == 1) %make sound only if not startMod3 == 3
+            soundsc(cldata.beginWav,100000)
+            %flush all the input from the board because we dont want to start
+            %before the beep
+            flushinput(bxbport);
+        end
         
         %----Jing added on 02/06/07---
         outString = [data.configinfo(iBackground).name ' ' num2str(data.configinfo(iBackground).parameters)];
@@ -932,7 +935,7 @@ if ~paused && flagdata.isStopButton == 0
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         a = [ones(1,100); zeros(1,100)];
         a_t = a(:)';            
-        for i =0:1:count_from
+        for i =1:1:count_from
             %sounds the countdown sound.
             soundsc(a_t,2000);
             intervalTime = tic;
@@ -952,7 +955,7 @@ if ~paused && flagdata.isStopButton == 0
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         a = [ones(1,100); zeros(1,100)];
         a_t = a(:)';            
-        for i =0:1:count_from
+        for i =1:1:count_from
             %sounds the countdown sound.
             soundsc(a_t,2000);
             intervalTime = tic;
