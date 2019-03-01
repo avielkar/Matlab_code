@@ -949,10 +949,8 @@ if ~paused && flagdata.isStopButton == 0
         %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
-        a = [ones(1,100); zeros(1,100)];
-        a_t = a(:)';            
         %sounds the first countdown sound.
-        soundsc(a_t,2000);
+        soundsc(cldata.beginWav2,100000);
         %sound the other countdown sound.
         for i =2:1:count_from
             intervalTime = tic;
@@ -960,7 +958,7 @@ if ~paused && flagdata.isStopButton == 0
             while(toc(intervalTime) < count_time)
             end
             %sounds the countdown sound.
-            soundsc(a_t,2000);
+            soundsc(cldata.beginWav2,100000);
         end
         %automatic response
         response = 4;
@@ -972,11 +970,9 @@ if ~paused && flagdata.isStopButton == 0
         %% self-countdown and user start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
-        window_size = data.configinfo(iWINDOW_SIZE).parameters;
-        a = [ones(1,100); zeros(1,100)];
-        a_t = a(:)';         
+        window_size = data.configinfo(iWINDOW_SIZE).parameters;      
         %sounds the first countdown sound.
-        soundsc(a_t,2000);
+        soundsc(cldata.beginWav3,100000);
         %sounds the other countdown sound.
         for i =2:1:count_from
             intervalTime = tic;
@@ -984,7 +980,7 @@ if ~paused && flagdata.isStopButton == 0
             while(toc(intervalTime) < count_time)
             end
             %sounds the countdown sound.
-            soundsc(a_t,2000);
+            soundsc(cldata.beginWav3,100000);
         end
         
         response = 0; % No response yet
