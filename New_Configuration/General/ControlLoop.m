@@ -967,6 +967,11 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         response = 0; % No response yet
+        %flush all the input from the board because we dont want to start
+        %before the beep
+        flushinput(bxbport);
+        %also for the debug, flush the inputs.
+        setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
         while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size/2)
             flagdata = getappdata(basicfig,'flagdata');
@@ -981,6 +986,22 @@ if ~paused && flagdata.isStopButton == 0
                          response = bitshift (r(2), -5);    %leftmost 3 bits
                     end
                     fprintf('byteas available but not a red press!!!!\n')
+                end
+                if response == 4  %---Jing for light control 12/03/07---
+                fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
+                startTime = tic;
+                %---Jing for Reaction_time_task Protocol 11/10/08-----
+                cldata = getappdata(appHandle, 'ControlLoopData');
+                    if cldata.movdelaycontrol && cldata.startbeep == 0
+                        cldata.preTrialTime = GenVariableDelayTime;
+                        tic
+                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                        cldata.startbeep = 1;
+                    end
+                % got response -> go to next stage
+                cldata.go = 1;
+                setappdata(appHandle,'ControlLoopData',cldata);
+                %---End 11/10/08-----
                 end
              elseif (connected && debug) || (~connected && debug)
                 DebugWindow(appHandle);
