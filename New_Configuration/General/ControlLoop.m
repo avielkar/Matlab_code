@@ -971,12 +971,19 @@ if ~paused && flagdata.isStopButton == 0
         window_size = data.configinfo(iWINDOW_SIZE).parameters;      
         %sounds the countdown sounds.
         for i =1:1:count_from
+            %sounds the countdown sound.
             soundsc(cldata.beginWav3,100000);
             intervalTime = tic;
             %time to wait betweeen count sound.
-            while(toc(intervalTime) < count_time)
+            if(i < count_from)
+                while(toc(intervalTime) < count_time)
+                end
+            else
+                %for begining waiting for a response a window_size/2 before
+                %the time.
+                while(toc(intervalTime) < count_time - window_size/2)
+                end
             end
-            %sounds the countdown sound.
         end
         
         response = 0; % No response yet
@@ -986,7 +993,7 @@ if ~paused && flagdata.isStopButton == 0
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
-        while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size/2)
+        while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size)%not /2 for the prior beep response and post response.)
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
              if connected && ~debug
