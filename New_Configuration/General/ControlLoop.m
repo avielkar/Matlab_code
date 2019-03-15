@@ -1072,6 +1072,8 @@ if ~paused && flagdata.isStopButton == 0
         %before the movement starts
         flushinput(bxbport);
         
+        iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
+        iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
         %wait for the 2nd start press for the 2nd interval if need.
         if(~isempty(iINT_ORDER_2I))
             if(data.configinfo(iSTART_MODE_2I).parameters == 3)

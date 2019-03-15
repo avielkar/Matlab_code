@@ -2,6 +2,8 @@ function [M] = generalTrajectory(appHandle)
 
 global debug
 
+COMBOARDNUM = 0;
+
 if debug
     disp('Entering general Trajectory');
 end
@@ -422,6 +424,8 @@ else
 end
 
 %if it is 2 interval and the second interval is start mode 3.
+iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
+iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
 if(~isempty(iINT_ORDER_2I))
     if(data.configinfo(iSTART_MODE_2I).parameters == 3)
         intOrder = data.configinfo(iINT_ORDER_2I).parameters;
