@@ -420,7 +420,18 @@ else
     M(12).name = 'GL_ROT_DATA';
     M(12).data = zeros((dur(2,1)+delay(1)+dur(2,2))*f,1);
 end
-    
+
+%if it is 2 interval and the second interval is start mode 3.
+if(~isempty(iINT_ORDER_2I))
+    if(data.configinfo(iSTART_MODE_2I).parameters == 3)
+        intOrder = data.configinfo(iINT_ORDER_2I).parameters;
+        %wait for the 2nd start press, so send a freeze flasg indicates the
+        %moogdots that it should freeze the last frame in the
+        %freeze_frame_number untill the user press start.
+        outString = ['Freeze Frame' ' ' num2str(dur(1,1)* f )]; 
+        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+    end
+end
 
 if motiontype == 1
     sprintf('amp=%f', amps(1,1))

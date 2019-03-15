@@ -1073,8 +1073,8 @@ if ~paused && flagdata.isStopButton == 0
         flushinput(bxbport);
         
         %wait for the 2nd start press for the 2nd interval if need.
-        if(data.configinfo(iSTART_MODE_2I).parameters == 3)
-            if(~isempty(iINT_ORDER_2I))
+        if(~isempty(iINT_ORDER_2I))
+            if(data.configinfo(iSTART_MODE_2I).parameters == 3)
                 intOrder = data.configinfo(iINT_ORDER_2I).parameters;
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
