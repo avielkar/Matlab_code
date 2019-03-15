@@ -826,6 +826,7 @@ if ~paused && flagdata.isStopButton == 0
         
         %decide about the start mode value.
         iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+        iSTART_MODE_2I = strmatch('START_MODE_2I' ,{char(data.configinfo.name)},'exact');
         iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
         iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
         iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
@@ -1070,6 +1071,16 @@ if ~paused && flagdata.isStopButton == 0
         %flush all the input from the board because we dont want a response
         %before the movement starts
         flushinput(bxbport);
+        
+        %wait for the 2nd start press for the 2nd interval if need.
+        if(data.configinfo(iSTART_MODE_2I).parameters == 3)
+            if(~isempty(iINT_ORDER_2I))
+                intOrder = data.configinfo(iINT_ORDER_2I).parameters;
+                %wait for the 2nd start press
+                fprintf('Waiting for the 2nds start press\n');
+            end
+        end
+        
         %the command for the MoogDoots with the current properties for
         %making the movement and after this line the movement starts.
         if connected
