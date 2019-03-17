@@ -432,7 +432,7 @@ if(~isempty(iINT_ORDER_2I))
         %wait for the 2nd start press, so send a freeze flasg indicates the
         %moogdots that it should freeze the last frame in the
         %freeze_frame_number untill the user press start.
-        outString = ['Freeze Frame' ' ' num2str(dur(1,1)* f )]; 
+        outString = ['FREEZE_FRAME' ' ' num2str(dur(1,1)* f )]; 
         cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
     end
 end

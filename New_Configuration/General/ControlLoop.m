@@ -1072,6 +1072,13 @@ if ~paused && flagdata.isStopButton == 0
         %before the movement starts
         flushinput(bxbport);
         
+        %the command for the MoogDoots with the current properties for
+        %making the movement and after this line the movement starts.
+        if connected
+            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+        end
+        
+                
         iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
         iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
         %wait for the 2nd start press for the 2nd interval if need.
@@ -1080,13 +1087,10 @@ if ~paused && flagdata.isStopButton == 0
                 intOrder = data.configinfo(iINT_ORDER_2I).parameters;
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
+                pause(10);
+                outString = 'DO_MOVEMENT_FREEZE 3.0';
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
             end
-        end
-        
-        %the command for the MoogDoots with the current properties for
-        %making the movement and after this line the movement starts.
-        if connected
-            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
         end
 
         %---Jing for light control. Turn off the light any way when trial starts. 12/03/07---
