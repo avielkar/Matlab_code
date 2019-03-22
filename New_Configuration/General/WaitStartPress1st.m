@@ -1,10 +1,13 @@
 function WaitStartPress1st(appHandle , start_mode)
+
+global basicfig
 global bxbport
 global startTime
 global connected
 global debug
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
+    flagdata = getappdata(basicfig,'flagdata');
     
     iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
     iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
