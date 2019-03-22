@@ -427,13 +427,13 @@ end
 iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
 iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
 if(~isempty(iINT_ORDER_2I))
-    if(data.configinfo(iSTART_MODE_2I).parameters == 3)
+    if(data.configinfo(iSTART_MODE_2I).parameters == 3 || data.configinfo(iSTART_MODE_2I).parameters == 2|| data.configinfo(iSTART_MODE_2I).parameters == 1)
         intOrder = data.configinfo(iINT_ORDER_2I).parameters;
         %wait for the 2nd start press, so send a freeze flasg indicates the
         %moogdots that it should freeze the last frame in the
         %freeze_frame_number untill the user press start.
         outString = ['FREEZE_FRAME' ' ' num2str(dur(1,1)* f )]; 
-        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+        cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
     end
 end
 
