@@ -899,15 +899,6 @@ if ~paused && flagdata.isStopButton == 0
                 end
                 fprintf('byteas available but not a red press!!!!\n')
             end
-            %%
-            %avi - delete that line (for automatic answer) 
-            % % % % % %         timeToWait  = rand;
-            % % % % % %         elapsedTime = tic;
-            % % % % % %         while(toc(elapsedTime) < timeToWait)
-            % % % % % %         end
-            % % % % % %         
-            % % % % % %         response = 4;
-            %%
             % Checks which button was pressed (3-left, 4-center, 5-right) --shir
             if response == 4  %---Jing for light control 12/03/07---
                 fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
@@ -1110,15 +1101,6 @@ if ~paused && flagdata.isStopButton == 0
                                 end
                                 fprintf('byteas available but not a red press!!!!\n')
                             end
-                            %%
-                            %avi - delete that line (for automatic answer) 
-                            % % % % % %         timeToWait  = rand;
-                            % % % % % %         elapsedTime = tic;
-                            % % % % % %         while(toc(elapsedTime) < timeToWait)
-                            % % % % % %         end
-                            % % % % % %         
-                            % % % % % %         response = 4;
-                            %%
                             % Checks which button was pressed (3-left, 4-center, 5-right) --shir
                             if response == 4  %---Jing for light control 12/03/07---
                                 fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
