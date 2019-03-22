@@ -915,12 +915,12 @@ if ~paused && flagdata.isStopButton == 0
             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
         end
         
-        %wait for the movement duration.
-        pause(1);
         iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
         iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
         %wait for the 2nd start press for the 2nd interval if need.
         if(~isempty(iSTART_MODE_2I))
+            %wait for the movement duration.
+            pause(1);
             %if(data.configinfo(iSTART_MODE_2I).parameters == 3)
             if(5>2)
                 intOrder = data.configinfo(iINT_ORDER_2I).parameters;
