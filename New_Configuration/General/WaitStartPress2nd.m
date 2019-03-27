@@ -1,4 +1,4 @@
-function WaitStartPress2nd(appHandle , start_mode)
+function secondPressInTime = WaitStartPress2nd(appHandle , start_mode)
 
 global basicfig
 global bxbport
@@ -15,6 +15,8 @@ global debug
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
     if(start_mode == 1)
+        %press has no time limit.
+        secondPressInTime = 1;
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
@@ -72,6 +74,8 @@ global debug
         end
         %%
     elseif (start_mode == 2)
+        %press is automatic and no time limit.
+        secondPressInTime = 1;
         %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
@@ -171,6 +175,11 @@ global debug
                 end
              end
             pause(0.01);
+        end
+        if(response == 4)
+            secondPressInTime = 1;
+        else
+            secondPressInTime = 0;
         end
         %%
     end
