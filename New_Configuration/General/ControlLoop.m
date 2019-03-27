@@ -920,7 +920,9 @@ if ~paused && flagdata.isStopButton == 0
         %wait for the 2nd start press for the 2nd interval if need.
         if(~isempty(iSTART_MODE_2I))
             %wait for the movement duration.
-            pause(1);
+            i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
+            movement_duration = data.configinfo(i).parameters.moog(1);
+            pause(movement_duration);
             %if(data.configinfo(iSTART_MODE_2I).parameters == 3)
             if(5>2)
                 intOrder = data.configinfo(iINT_ORDER_2I).parameters;
