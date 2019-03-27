@@ -930,12 +930,27 @@ if ~paused && flagdata.isStopButton == 0
                 fprintf('Waiting for the 2nds start press\n');
                 start_mode = data.configinfo(iSTART_MODE_2I).parameters;
                 
-                WaitStartPress2nd(appHandle , start_mode);
+                secondPressInTime = WaitStartPress2nd(appHandle , start_mode);
                 
-                %send the moogdots that need to continue the next frames it
-                %gots and stopsending the same frame (freeze frame).
-                outString = 'DO_MOVEMENT_FREEZE 3.0';
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                if(secondPressInTime)
+                    %send the moogdots that need to continue the next frames it
+                    %gots and stopsending the same frame (freeze frame).
+                    outString = 'DO_MOVEMENT_FREEZE 3.0';
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                else
+                    %send the moogdots that need to go back and stop the
+                    %trial from the 2nd interval.
+                    %gots and stopsending the same frame (freeze frame).
+                    outString = 'DO_MOVEMENT_FREEZE 4.0';
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                    %make the matlab skip all remainig stages and come back
+                    %to the init stage.
+                    cldata = getappdata(appHandle, 'ControlLoopData');            
+                    cldata.go = 0;
+                    cldata.stage = 'InitializationStage';
+                    cldata.initStage = 1;
+                    setappdata(appHandle,'ControlLoopData',cldata);
+                end
             end
         end
         
