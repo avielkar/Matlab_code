@@ -884,6 +884,7 @@ if ~paused && flagdata.isStopButton == 0
     
     %wait for the 1st start mode.
     WaitStartPress1st(appHandle, start_mode);
+    iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
 
     cldata = getappdata(appHandle, 'ControlLoopData');
     
@@ -917,6 +918,8 @@ if ~paused && flagdata.isStopButton == 0
         
         iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
         iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+        %in case of second press init the default value as true (for case if no 2nd interval)
+        secondPressInTime = 1;
         %wait for the 2nd start press for the 2nd interval if need.
         if(~isempty(iSTART_MODE_2I))
             %wait for the movement duration.
@@ -943,6 +946,24 @@ if ~paused && flagdata.isStopButton == 0
                     %gots and stopsending the same frame (freeze frame).
                     outString = 'DO_MOVEMENT_FREEZE 4.0';
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                    disp(outString);
+                    %add the response time delay for the moogdots finish
+                    %the processing before updating it's trajectory to
+                    %origin.
+                    responseTime = tic;
+                    while(cldata.respTime > toc(responseTime))
+                    end
+                    %send the moog to go to origin.
+                    outString = 'GO_TO_ORIGIN 1';%%%%%%% 
+                    disp(outString);
+                    if connected
+                        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                    end
+                    %wait the post trial time (the robot is making it's
+                    %movement to origin in this time).
+                    postTrialWaitTime = tic;
+                    while(cldata.postTrialTime > toc(postTrialWaitTime))
+                    end
                     %make the matlab skip all remainig stages and come back
                     %to the init stage.
                     cldata = getappdata(appHandle, 'ControlLoopData');            
@@ -977,15 +998,17 @@ if ~paused && flagdata.isStopButton == 0
         end
         %----Jing end 12/03/07---
 
-        % Increment the stage.
-        
-        cldata.stage = 'MainTimerStage';
-        cldata.initStage = 1;
-        
-        %for reseting the response in the middle as a initial value
-        cldata.in_the_middle_response = 0;
-        setappdata(appHandle, 'ControlLoopData', cldata);
-        setappdata(appHandle, 'ControlLoopData', cldata);
+        if(secondPressInTime == 1)
+            % Increment the stage.
+
+            cldata.stage = 'MainTimerStage';
+            cldata.initStage = 1;
+
+            %for reseting the response in the middle as a initial value
+            cldata.in_the_middle_response = 0;
+            setappdata(appHandle, 'ControlLoopData', cldata);
+            setappdata(appHandle, 'ControlLoopData', cldata);
+        end
     end
     %%
     
