@@ -11,6 +11,7 @@ data = getappdata(basicfig,'protinfo');
 flagdata = getappdata(basicfig,'flagdata');
 crossvals = getappdata(basicfig,'CrossVals');
 
+COMBOARDNUM = 0;
 % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %% Set Control Loop data, and initialize Variables used in Control Loop
 cldata.stage = 'InitializationStage';
@@ -542,6 +543,13 @@ while iRep<=data.reps && ~flagdata.isTrialStop && ~flagdata.isStopButton %Jing 0
     run = get(timerfind('Tag','CLoop'),'Running');
     if strmatch(run,'off','exact')
         start(CLoop);
+        %send the command to move to the origin after each start
+        iORIGIN = strmatch('ORIGIN',{char(data.configinfo.name)},'exact');
+        outString = ['M_ORIGIN' ' ' num2str(data.configinfo(iORIGIN).parameters/100)];
+        cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
+        outString = 'GO_TO_ORIGIN 2';
+        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+        pause(5);
     else
         disp('Control Loop already running');
     end
