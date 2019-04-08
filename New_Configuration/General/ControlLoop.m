@@ -877,7 +877,6 @@ if ~paused && flagdata.isStopButton == 0
     %decide about the start mode value.
     iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
     if(~isempty(iSTART_MODE))
-        %start_mode = data.configinfo(iSTART_MODE).parameters;
         ord = getappdata(appHandle,'Order');
         if(ord(1) == 1)
             start_mode = data.configinfo(iSTART_MODE).parameters;
@@ -933,7 +932,7 @@ if ~paused && flagdata.isStopButton == 0
             pause(movement_duration);
             %if(data.configinfo(iSTART_MODE_2I).parameters == 3)
             if(5>2)
-                if(ord(1) == 1)
+                if(ord(2) == 1)
                     start_mode = data.configinfo(iSTART_MODE).parameters;
                 else
                     intOrder = data.configinfo(iINT_ORDER_2I).parameters;
@@ -941,7 +940,6 @@ if ~paused && flagdata.isStopButton == 0
                 end
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
-                start_mode = data.configinfo(iSTART_MODE_2I).parameters;
                 
                 secondPressInTime = WaitStartPress2nd(appHandle , start_mode);
                 
