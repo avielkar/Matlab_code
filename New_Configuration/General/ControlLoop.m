@@ -875,16 +875,21 @@ if ~paused && flagdata.isStopButton == 0
     end
     
     %decide about the start mode value.
-    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
     if(~isempty(iSTART_MODE))
-        start_mode = data.configinfo(iSTART_MODE).parameters;
+        %start_mode = data.configinfo(iSTART_MODE).parameters;
+        ord = getappdata(appHandle,'Order');
+        if(ord(1) == 1)
+            start_mode = data.configinfo(iSTART_MODE).parameters;
+        else
+            start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+        end
     else
         start_mode = 1;
     end
     
     %wait for the 1st start mode.
     WaitStartPress1st(appHandle, start_mode);
-    iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
 
     cldata = getappdata(appHandle, 'ControlLoopData');
     
@@ -928,7 +933,12 @@ if ~paused && flagdata.isStopButton == 0
             pause(movement_duration);
             %if(data.configinfo(iSTART_MODE_2I).parameters == 3)
             if(5>2)
-                intOrder = data.configinfo(iINT_ORDER_2I).parameters;
+                if(ord(1) == 1)
+                    start_mode = data.configinfo(iSTART_MODE).parameters;
+                else
+                    intOrder = data.configinfo(iINT_ORDER_2I).parameters;
+                    start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+                end
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
                 start_mode = data.configinfo(iSTART_MODE_2I).parameters;
