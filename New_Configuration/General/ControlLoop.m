@@ -926,56 +926,52 @@ if ~paused && flagdata.isStopButton == 0
             i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
             movement_duration = data.configinfo(i).parameters.moog(1);
             pause(movement_duration);
-            %if(data.configinfo(iSTART_MODE_2I).parameters == 3)
-            if(5>2)
-                if(ord(2) == 1)
-                    start_mode = data.configinfo(iSTART_MODE).parameters;
-                else
-                    intOrder = data.configinfo(iINT_ORDER_2I).parameters;
-                    start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+            if(ord(2) == 1)
+                start_mode = data.configinfo(iSTART_MODE).parameters;
+            else
+                start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+            end
+            %wait for the 2nd start press
+            fprintf('Waiting for the 2nds start press\n');
+
+            secondPressInTime = WaitStartPress2nd(appHandle , start_mode);
+
+            if(secondPressInTime)
+                %send the moogdots that need to continue the next frames it
+                %gots and stopsending the same frame (freeze frame).
+                outString = 'DO_MOVEMENT_FREEZE 3.0';
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+            else
+                %send the moogdots that need to go back and stop the
+                %trial from the 2nd interval.
+                %gots and stopsending the same frame (freeze frame).
+                outString = 'DO_MOVEMENT_FREEZE 4.0';
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                disp(outString);
+                %add the response time delay for the moogdots finish
+                %the processing before updating it's trajectory to
+                %origin.
+                responseTime = tic;
+                while(cldata.respTime > toc(responseTime))
                 end
-                %wait for the 2nd start press
-                fprintf('Waiting for the 2nds start press\n');
-                
-                secondPressInTime = WaitStartPress2nd(appHandle , start_mode);
-                
-                if(secondPressInTime)
-                    %send the moogdots that need to continue the next frames it
-                    %gots and stopsending the same frame (freeze frame).
-                    outString = 'DO_MOVEMENT_FREEZE 3.0';
-                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-                else
-                    %send the moogdots that need to go back and stop the
-                    %trial from the 2nd interval.
-                    %gots and stopsending the same frame (freeze frame).
-                    outString = 'DO_MOVEMENT_FREEZE 4.0';
-                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-                    disp(outString);
-                    %add the response time delay for the moogdots finish
-                    %the processing before updating it's trajectory to
-                    %origin.
-                    responseTime = tic;
-                    while(cldata.respTime > toc(responseTime))
-                    end
-                    %send the moog to go to origin.
-                    outString = 'GO_TO_ORIGIN 1';%%%%%%% 
-                    disp(outString);
-                    if connected
-                        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-                    end
-                    %wait the post trial time (the robot is making it's
-                    %movement to origin in this time).
-                    postTrialWaitTime = tic;
-                    while(cldata.postTrialTime > toc(postTrialWaitTime))
-                    end
-                    %make the matlab skip all remainig stages and come back
-                    %to the init stage.
-                    cldata = getappdata(appHandle, 'ControlLoopData');            
-                    cldata.go = 0;
-                    cldata.stage = 'InitializationStage';
-                    cldata.initStage = 1;
-                    setappdata(appHandle,'ControlLoopData',cldata);
+                %send the moog to go to origin.
+                outString = 'GO_TO_ORIGIN 1';%%%%%%% 
+                disp(outString);
+                if connected
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                 end
+                %wait the post trial time (the robot is making it's
+                %movement to origin in this time).
+                postTrialWaitTime = tic;
+                while(cldata.postTrialTime > toc(postTrialWaitTime))
+                end
+                %make the matlab skip all remainig stages and come back
+                %to the init stage.
+                cldata = getappdata(appHandle, 'ControlLoopData');            
+                cldata.go = 0;
+                cldata.stage = 'InitializationStage';
+                cldata.initStage = 1;
+                setappdata(appHandle,'ControlLoopData',cldata);
             end
         end
         
