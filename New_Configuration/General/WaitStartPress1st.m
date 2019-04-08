@@ -14,36 +14,41 @@ global debug
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
     if(start_mode == 1)
+        soundsc(cldata.beginWav,100000);
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
-            response = 0; % No response yet - shir
-            % byte 2 determines button number, press/release and port
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                     response = bitshift (r(2), -5);    %leftmost 3 bits
+            response = 0; % No response yet
+            flushinput(bxbport);
+            while(response ~= 4)
+                % byte 2 determines button number, press/release and port
+                if(bxbport.BytesAvailable() >= 6)
+                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
+                    %uint32(fread(bxbport,6));
+                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                    if press
+                         response = bitshift (r(2), -5);    %leftmost 3 bits
+                    end
+                    fprintf('byteas available but not a red press!!!!\n')
                 end
-                fprintf('byteas available but not a red press!!!!\n')
-            end
-            % Checks which button was pressed (3-left, 4-center, 5-right) --shir
-            if response == 4  %---Jing for light control 12/03/07---
-                fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
-                startTime = tic;
-                %---Jing for Reaction_time_task Protocol 11/10/08-----
-                cldata = getappdata(appHandle, 'ControlLoopData');
-                if cldata.movdelaycontrol && cldata.startbeep == 0
-                    cldata.preTrialTime = GenVariableDelayTime;
-                    tic
-                    soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
-                    cldata.startbeep = 1;
+                % Checks which button was pressed (3-left, 4-center, 5-right) --shir
+                if response == 4  %---Jing for light control 12/03/07---
+                    fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
+                    startTime = tic;
+                    %---Jing for Reaction_time_task Protocol 11/10/08-----
+                    cldata = getappdata(appHandle, 'ControlLoopData');
+                    if cldata.movdelaycontrol && cldata.startbeep == 0
+                        cldata.preTrialTime = GenVariableDelayTime;
+                        tic
+                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                        cldata.startbeep = 1;
+                    end
+                    % got response -> go to next stage
+                    cldata.go = 1;
+                    setappdata(appHandle,'ControlLoopData',cldata);
+                    %---End 11/10/08-----
                 end
-                % got response -> go to next stage
-                cldata.go = 1;
-                setappdata(appHandle,'ControlLoopData',cldata);
-                %---End 11/10/08-----
+                pause(0.01);
             end
 
         elseif (connected && debug) || (~connected && debug)

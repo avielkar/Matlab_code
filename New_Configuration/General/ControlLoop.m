@@ -883,13 +883,9 @@ if ~paused && flagdata.isStopButton == 0
         else
             start_mode = data.configinfo(iSTART_MODE_2I).parameters;
         end
-    else
-        start_mode = 1;
+        %wait for the 1st start mode.
+        WaitStartPress1st(appHandle, start_mode);
     end
-    
-    %wait for the 1st start mode.
-    WaitStartPress1st(appHandle, start_mode);
-
     cldata = getappdata(appHandle, 'ControlLoopData');
     
     %% Sending the command to the MoogDots and flushing againg the bxbport for cleaning it and go to the MainTimerStage..

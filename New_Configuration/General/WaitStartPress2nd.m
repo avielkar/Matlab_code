@@ -15,12 +15,13 @@ global debug
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
     if(start_mode == 1)
+        soundsc(cldata.beginWav,100000);
         %press has no time limit.
         secondPressInTime = 1;
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
-            response = 0; % No response yet - shir
+            response = 0; % No response yet
             flushinput(bxbport);
             while(response ~= 4)
                 % byte 2 determines button number, press/release and port
