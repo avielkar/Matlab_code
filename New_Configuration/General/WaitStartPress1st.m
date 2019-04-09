@@ -174,4 +174,11 @@ global debug
         end
         %%
         %%
+        %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
+        %randomiza the intOrder and the trajectory again.
+        if(cldata.go == 0)
+            cldata = getappdata(appHandle,'ControlLoopData');
+            cldata.initStage = 1;
+            setappdata(appHandle, 'ControlLoopData' , cldata);
+        end
     end
