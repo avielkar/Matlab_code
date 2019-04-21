@@ -97,12 +97,12 @@ global debug
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;              
         %sounds the countdown sounds.
-        for i =1:1:count_from
-            %sounds the countdown sound.
-            soundsc(cldata.beginWav3,100000);
+        for i =1:1:count_from+1 %plus 1 because the press should be at the last non sound beep (interval).
             intervalTime = tic;
             %time to wait betweeen count sound.
-            if(i < count_from)
+            if(i <= count_from)
+                %sounds the countdown sound.
+                soundsc(cldata.beginWav3,100000);
                 while(toc(intervalTime) < count_time)
                 end
             else
@@ -174,6 +174,10 @@ global debug
         end
         %%
         %%
+        %test line
+% % % % % % % % % % % % %         secondPressInTime = 2 - randi(2) ;
+% % % % % % % % % % % % %         cldata.go = secondPressInTime;
+% % % % % % % % % % % % %         setappdata(appHandle,'ControlLoopData',cldata);
         %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
         %randomiza the intOrder and the trajectory again.
         if(cldata.go == 0)

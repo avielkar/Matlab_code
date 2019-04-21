@@ -182,6 +182,8 @@ global debug
         else
             secondPressInTime = 0;
         end
+        %%test line:
+% % % % % % % % % % % % % % % % % % %         secondPressInTime = 2 - randi(2) ;
         %%
         %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
         %randomiza the intOrder and the trajectory again.
