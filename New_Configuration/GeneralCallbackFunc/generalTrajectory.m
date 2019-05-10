@@ -25,6 +25,18 @@ within = data.condvect.withinStair;
 across = data.condvect.acrossStair;
 varying = data.condvect.varying;
 
+i = strmatch('STIMULUS_TYPE',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Stimulus Type',{char(varying.name)},'exact');
+    stim_type = crossvals(cntrVarying,i1);
+elseif data.configinfo(i).status == 3 
+    stim_type = across.parameters(activeStair);
+elseif data.configinfo(i).status == 4   
+    stim_type = within.parameters(cntr);
+else
+    stim_type = data.configinfo(i).parameters;
+end
+
 %---Jing 12/20/08------
 if ~isempty(varying)
     if cldata.staircase
@@ -370,6 +382,12 @@ else
         
 end 
    
+
+if stim_type == 2   %Visual only
+   lateralM = zeros(1,length(lateralM));
+   surgeM = zeros(1,length(surgeM));
+   heaveM = zeros(1,length(heaveM));
+end
 
 if motiontype == 1
     M(1).name = 'LATERAL_DATA';
