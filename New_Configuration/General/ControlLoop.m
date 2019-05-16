@@ -826,6 +826,7 @@ if ~paused && flagdata.isStopButton == 0
         
         %decide about the start mode value.
         iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+        iSTART_MODE_2I = strmatch('START_MODE_2I' ,{char(data.configinfo.name)},'exact');
         iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
         iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
         iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
@@ -874,176 +875,17 @@ if ~paused && flagdata.isStopButton == 0
     end
     
     %decide about the start mode value.
-    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
-    iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
-    iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
-    iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
+    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
     if(~isempty(iSTART_MODE))
-        start_mode = data.configinfo(iSTART_MODE).parameters;
-    else
-        start_mode = 1;
+        ord = getappdata(appHandle,'Order');
+        if(ord(1) == 1)
+            start_mode = data.configinfo(iSTART_MODE).parameters;
+        else
+            start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+        end
+        %wait for the 1st start mode.
+        WaitStartPress1st(appHandle, start_mode);
     end
-    if(start_mode == 1)
-        %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
-        % Wait for red button to be pressed to start movement
-        if connected && ~debug
-            response = 0; % No response yet - shir
-            % byte 2 determines button number, press/release and port
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                     response = bitshift (r(2), -5);    %leftmost 3 bits
-                end
-                fprintf('byteas available but not a red press!!!!\n')
-            end
-            %%
-            %avi - delete that line (for automatic answer) 
-            % % % % % %         timeToWait  = rand;
-            % % % % % %         elapsedTime = tic;
-            % % % % % %         while(toc(elapsedTime) < timeToWait)
-            % % % % % %         end
-            % % % % % %         
-            % % % % % %         response = 4;
-            %%
-            % Checks which button was pressed (3-left, 4-center, 5-right) --shir
-            if response == 4  %---Jing for light control 12/03/07---
-                fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
-                startTime = tic;
-                %---Jing for Reaction_time_task Protocol 11/10/08-----
-                cldata = getappdata(appHandle, 'ControlLoopData');
-                if cldata.movdelaycontrol && cldata.startbeep == 0
-                    cldata.preTrialTime = GenVariableDelayTime;
-                    tic
-                    soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
-                    cldata.startbeep = 1;
-                end
-                % got response -> go to next stage
-                cldata.go = 1;
-                setappdata(appHandle,'ControlLoopData',cldata);
-                %---End 11/10/08-----
-            end
-
-        elseif (connected && debug) || (~connected && debug)
-            DebugWindow(appHandle);
-            debugResponse = getappdata(appHandle , 'debugResponse');
-            if strcmp(debugResponse,'s')
-                response = 4;
-                cldata.go = 1;
-                debugResponse = '';  %---Jing 3/11/2008---
-                setappdata(appHandle , 'debugResponse' , debugResponse);
-
-                %---Jing for Reaction_time_task Protocol 11/10/08-----
-                if cldata.movdelaycontrol
-                    cldata.preTrialTime = GenVariableDelayTime;
-                    tic
-                    soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
-                end
-                setappdata(appHandle,'ControlLoopData',cldata);
-                %---End 11/10/08-----
-            end
-        end
-        %%
-    elseif (start_mode == 2)
-        %% robot-countdown and automatic-start
-        count_from = data.configinfo(iCOUNT_FROM).parameters;
-        count_time = data.configinfo(iCOUNT_TIME).parameters;
-        %sounds the first countdown sound.
-        soundsc(cldata.beginWav2,100000);
-        %sound the other countdown sound.
-        for i =2:1:count_from
-            intervalTime = tic;
-            %time to wait betweeen count sound.
-            while(toc(intervalTime) < count_time)
-            end
-            %sounds the countdown sound.
-            soundsc(cldata.beginWav2,100000);
-        end
-        %automatic response
-        response = 4;
-        cldata = getappdata(appHandle, 'ControlLoopData');
-        cldata.go = 1;
-        setappdata(appHandle,'ControlLoopData',cldata);
-        %%
-    elseif(start_mode == 3)
-        %% self-countdown and user start
-        count_from = data.configinfo(iCOUNT_FROM).parameters;
-        count_time = data.configinfo(iCOUNT_TIME).parameters;
-        window_size = data.configinfo(iWINDOW_SIZE).parameters;      
-        %sounds the first countdown sound.
-        soundsc(cldata.beginWav3,100000);
-        %sounds the other countdown sound.
-        for i =2:1:count_from
-            intervalTime = tic;
-            %time to wait betweeen count sound.
-            while(toc(intervalTime) < count_time)
-            end
-            %sounds the countdown sound.
-            soundsc(cldata.beginWav3,100000);
-        end
-        
-        response = 0; % No response yet
-        %flush all the input from the board because we dont want to start
-        %before the beep
-        flushinput(bxbport);
-        %also for the debug, flush the inputs.
-        setappdata(appHandle , 'debugResponse' , 0);
-        window_size_timer = tic;
-        while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size/2)
-            flagdata = getappdata(basicfig,'flagdata');
-            %wait fot the start response in the window time.
-             if connected && ~debug
-                % byte 2 determines button number, press/release and port
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                         response = bitshift (r(2), -5);    %leftmost 3 bits
-                    end
-                    fprintf('byteas available but not a red press!!!!\n')
-                end
-                if response == 4  %---Jing for light control 12/03/07---
-                fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
-                startTime = tic;
-                %---Jing for Reaction_time_task Protocol 11/10/08-----
-                cldata = getappdata(appHandle, 'ControlLoopData');
-                    if cldata.movdelaycontrol && cldata.startbeep == 0
-                        cldata.preTrialTime = GenVariableDelayTime;
-                        tic
-                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
-                        cldata.startbeep = 1;
-                    end
-                % got response -> go to next stage
-                cldata.go = 1;
-                setappdata(appHandle,'ControlLoopData',cldata);
-                %---End 11/10/08-----
-                end
-             elseif (connected && debug) || (~connected && debug)
-                DebugWindow(appHandle);
-                debugResponse = getappdata(appHandle , 'debugResponse');
-                if strcmp(debugResponse,'s')
-                    response = 4;
-                    cldata.go = 1;
-                    debugResponse = '';  %---Jing 3/11/2008---
-                    setappdata(appHandle , 'debugResponse' , debugResponse);
-
-                    %---Jing for Reaction_time_task Protocol 11/10/08-----
-                    if cldata.movdelaycontrol
-                        cldata.preTrialTime = GenVariableDelayTime;
-                        tic
-                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
-                    end
-                    setappdata(appHandle,'ControlLoopData',cldata);
-                    %---End 11/10/08-----
-                end
-             end
-            pause(0.01);
-        end
-        %%
-    end
-
     cldata = getappdata(appHandle, 'ControlLoopData');
     
     %% Sending the command to the MoogDots and flushing againg the bxbport for cleaning it and go to the MainTimerStage..
@@ -1067,12 +909,73 @@ if ~paused && flagdata.isStopButton == 0
         %flush all the input from the board because we dont want a response
         %before the movement starts
         flushinput(bxbport);
+        
         %the command for the MoogDoots with the current properties for
         %making the movement and after this line the movement starts.
         if connected
             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
         end
+        
+        iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
+        iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+        %in case of second press init the default value as true (for case if no 2nd interval)
+        secondPressInTime = 1;
+        %wait for the 2nd start press for the 2nd interval if need.
+        if(~isempty(iSTART_MODE_2I))
+            %wait for the movement duration.
+            i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
+            movement_duration = data.configinfo(i).parameters.moog(1);
+            pause(movement_duration);
+            if(ord(2) == 1)
+                start_mode = data.configinfo(iSTART_MODE).parameters;
+            else
+                start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+            end
+            %wait for the 2nd start press
+            fprintf('Waiting for the 2nds start press\n');
 
+            secondPressInTime = WaitStartPress2nd(appHandle , start_mode);
+
+            if(secondPressInTime)
+                %send the moogdots that need to continue the next frames it
+                %gots and stopsending the same frame (freeze frame).
+                outString = 'DO_MOVEMENT_FREEZE 3.0';
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+            else
+                %send the moogdots that need to go back and stop the
+                %trial from the 2nd interval.
+                %gots and stopsending the same frame (freeze frame).
+                outString = 'DO_MOVEMENT_FREEZE 4.0';
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                disp(outString);
+                %add the response time delay for the moogdots finish
+                %the processing before updating it's trajectory to
+                %origin.
+                responseTime = tic;
+                while(cldata.respTime > toc(responseTime))
+                end
+                %send the moog to go to origin.
+                outString = 'GO_TO_ORIGIN 1';%%%%%%% 
+                disp(outString);
+                if connected
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                end
+                %wait the post trial time (the robot is making it's
+                %movement to origin in this time).
+                postTrialWaitTime = tic;
+                while(cldata.postTrialTime > toc(postTrialWaitTime))
+                end
+                %make the matlab skip all remainig stages and come back
+                %to the init stage.
+                cldata = getappdata(appHandle, 'ControlLoopData');            
+                cldata.go = 0;
+                cldata.stage = 'InitializationStage';
+                cldata.initStage = 1;
+                setappdata(appHandle,'ControlLoopData',cldata);
+            end
+        end
+        
+        cldata = getappdata(appHandle, 'ControlLoopData');
         %---Jing for light control. Turn off the light any way when trial starts. 12/03/07---
         if connected
             boardNum = 1;
@@ -1095,15 +998,17 @@ if ~paused && flagdata.isStopButton == 0
         end
         %----Jing end 12/03/07---
 
-        % Increment the stage.
-        
-        cldata.stage = 'MainTimerStage';
-        cldata.initStage = 1;
-        
-        %for reseting the response in the middle as a initial value
-        cldata.in_the_middle_response = 0;
-        setappdata(appHandle, 'ControlLoopData', cldata);
-        setappdata(appHandle, 'ControlLoopData', cldata);
+        if(secondPressInTime == 1)
+            % Increment the stage.
+
+            cldata.stage = 'MainTimerStage';
+            cldata.initStage = 1;
+
+            %for reseting the response in the middle as a initial value
+            cldata.in_the_middle_response = 0;
+            setappdata(appHandle, 'ControlLoopData', cldata);
+            setappdata(appHandle, 'ControlLoopData', cldata);
+        end
     end
     %%
     

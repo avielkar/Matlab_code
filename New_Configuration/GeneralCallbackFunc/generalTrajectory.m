@@ -2,6 +2,8 @@ function [M] = generalTrajectory(appHandle)
 
 global debug
 
+COMBOARDNUM = 0;
+
 if debug
     disp('Entering general Trajectory');
 end
@@ -22,6 +24,18 @@ HR = cldata.hReference;
 within = data.condvect.withinStair; 
 across = data.condvect.acrossStair;
 varying = data.condvect.varying;
+
+i = strmatch('STIMULUS_TYPE',{char(data.configinfo.name)},'exact');
+if data.configinfo(i).status == 2
+    i1 = strmatch('Stimulus Type',{char(varying.name)},'exact');
+    stim_type = crossvals(cntrVarying,i1);
+elseif data.configinfo(i).status == 3 
+    stim_type = across.parameters(activeStair);
+elseif data.configinfo(i).status == 4   
+    stim_type = within.parameters(cntr);
+else
+    stim_type = data.configinfo(i).parameters;
+end
 
 %---Jing 12/20/08------
 if ~isempty(varying)
@@ -369,6 +383,12 @@ else
 end 
    
 
+if stim_type == 2   %Visual only
+   lateralM = zeros(1,length(lateralM));
+   surgeM = zeros(1,length(surgeM));
+   heaveM = zeros(1,length(heaveM));
+end
+
 if motiontype == 1
     M(1).name = 'LATERAL_DATA';
     M(1).data = lateralM + ori(1,1); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
@@ -420,7 +440,20 @@ else
     M(12).name = 'GL_ROT_DATA';
     M(12).data = zeros((dur(2,1)+delay(1)+dur(2,2))*f,1);
 end
-    
+
+%if it is 2 interval and the second interval is start mode 3.
+iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
+iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+if(~isempty(iINT_ORDER_2I))
+    if(data.configinfo(iSTART_MODE_2I).parameters == 3 || data.configinfo(iSTART_MODE_2I).parameters == 2|| data.configinfo(iSTART_MODE_2I).parameters == 1)
+        intOrder = data.configinfo(iINT_ORDER_2I).parameters;
+        %wait for the 2nd start press, so send a freeze flasg indicates the
+        %moogdots that it should freeze the last frame in the
+        %freeze_frame_number untill the user press start.
+        outString = ['FREEZE_FRAME' ' ' num2str(dur(1,1)* f )]; 
+        cbDWriteString(COMBOARDNUM, sprintf('\n%s\n', outString), 5);
+    end
+end
 
 if motiontype == 1
     sprintf('amp=%f', amps(1,1))
