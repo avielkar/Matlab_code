@@ -15,12 +15,14 @@ global debug
     
     if(start_mode == 1)
         soundsc(cldata.beginWav,100000);
+        fprintf('sound!!!!!!!!!!!!\n')
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
             flushinput(bxbport);
-            while(response ~= 4)
+            while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
+                flagdata = getappdata(basicfig,'flagdata');
                 % byte 2 determines button number, press/release and port
                 if(bxbport.BytesAvailable() >= 6)
                     r = uint32(fread(bxbport,6)); % reads 6 first bytes
@@ -52,22 +54,26 @@ global debug
             end
 
         elseif (connected && debug) || (~connected && debug)
-            DebugWindow(appHandle);
-            debugResponse = getappdata(appHandle , 'debugResponse');
-            if strcmp(debugResponse,'s')
-                response = 4;
-                cldata.go = 1;
-                debugResponse = '';  %---Jing 3/11/2008---
-                setappdata(appHandle , 'debugResponse' , debugResponse);
+            response = 0;
+            while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
+                DebugWindow(appHandle);
+                debugResponse = getappdata(appHandle , 'debugResponse');
+                if strcmp(debugResponse,'s')
+                    response = 4;
+                    cldata.go = 1;
+                    debugResponse = '';  %---Jing 3/11/2008---
+                    setappdata(appHandle , 'debugResponse' , debugResponse);
 
-                %---Jing for Reaction_time_task Protocol 11/10/08-----
-                if cldata.movdelaycontrol
-                    cldata.preTrialTime = GenVariableDelayTime;
-                    tic
-                    soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                    %---Jing for Reaction_time_task Protocol 11/10/08-----
+                    if cldata.movdelaycontrol
+                        cldata.preTrialTime = GenVariableDelayTime;
+                        tic
+                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                    end
+                    setappdata(appHandle,'ControlLoopData',cldata);
+                    %---End 11/10/08-----
                 end
-                setappdata(appHandle,'ControlLoopData',cldata);
-                %---End 11/10/08-----
+                pause(0.01);
             end
         end
         %%

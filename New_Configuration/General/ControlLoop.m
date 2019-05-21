@@ -830,19 +830,19 @@ if ~paused && flagdata.isStopButton == 0
         iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
         iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
         iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
-        if(~isempty(iSTART_MODE))
-            start_mode = data.configinfo(iSTART_MODE).parameters;
-        else
-            start_mode = 1;
-        end
-        
-        %% Ready to start sound and flushing all inputs from bxbport to clean garbage.
-        if(start_mode == 1) %make sound only if not startMod3 == 3
-            soundsc(cldata.beginWav,100000)
-            %flush all the input from the board because we dont want to start
-            %before the beep
-            flushinput(bxbport);
-        end
+%         if(~isempty(iSTART_MODE))
+%             start_mode = data.configinfo(iSTART_MODE).parameters;
+%         else
+%             start_mode = 1;
+%         end
+%         
+%         %% Ready to start sound and flushing all inputs from bxbport to clean garbage.
+%         if(start_mode == 1) %make sound only if not startMod3 == 3
+%             soundsc(cldata.beginWav,100000)
+%             %flush all the input from the board because we dont want to start
+%             %before the beep
+%             flushinput(bxbport);
+%         end
         
         %----Jing added on 02/06/07---
         outString = [data.configinfo(iBackground).name ' ' num2str(data.configinfo(iBackground).parameters)];
@@ -883,9 +883,12 @@ if ~paused && flagdata.isStopButton == 0
         else
             start_mode = data.configinfo(iSTART_MODE_2I).parameters;
         end
-        %wait for the 1st start mode.
-        WaitStartPress1st(appHandle, start_mode);
+    else
+        start_mode = 1;
     end
+    
+    %wait for the 1st start mode.
+    WaitStartPress1st(appHandle, start_mode);
     cldata = getappdata(appHandle, 'ControlLoopData');
     
     %% Sending the command to the MoogDots and flushing againg the bxbport for cleaning it and go to the MainTimerStage..

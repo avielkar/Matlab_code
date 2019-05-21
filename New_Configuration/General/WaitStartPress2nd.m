@@ -100,14 +100,14 @@ global debug
         %% self-countdown and user start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
-        window_size = data.configinfo(iWINDOW_SIZE).parameters;      
+        window_size = data.configinfo(iWINDOW_SIZE).parameters;              
         %sounds the countdown sounds.
-        for i =1:1:count_from
-            %sounds the countdown sound.
-            soundsc(cldata.beginWav3,100000);
+        for i =1:1:count_from+1 %plus 1 because the press should be at the last non sound beep (interval).
             intervalTime = tic;
             %time to wait betweeen count sound.
-            if(i < count_from)
+            if(i <= count_from)
+                %sounds the countdown sound.
+                soundsc(cldata.beginWav3,100000);
                 while(toc(intervalTime) < count_time)
                 end
             else
@@ -118,7 +118,7 @@ global debug
             end
         end
         %%
-        %%Wait for the start press
+        %%Wait for the start press.
         response = 0; % reset the reponse flag.
         %flush all the input from the board because we dont want to start
         %before the beep

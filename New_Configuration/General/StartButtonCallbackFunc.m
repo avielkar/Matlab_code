@@ -619,7 +619,7 @@ end
 
 flagdata.isTrialStart = 0;
 flagdata.isTrialStop = 0;
-flagdata.isStopButton = 0; %Jing 01/05/09---
+%flagdata.isStopButton = 0; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);
 
 %-----Jing for save comment 02/05/08--------
