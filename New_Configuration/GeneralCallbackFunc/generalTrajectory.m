@@ -455,6 +455,14 @@ if(~isempty(iINT_ORDER_2I))
     end
 end
 
+iBackground = strmatch('BACKGROUND_ON',{char(data.configinfo.name)},'exact');
+if stim_type == 1   %vestibula only
+    data.configinfo(iBackground).parameters = 0;
+elseif stim_type == 2   %Combine & Visual only
+    data.configinfo(iBackground).parameters = 1;
+end
+setappdata(appHandle, 'protinfo', data)
+
 if motiontype == 1
     sprintf('amp=%f', amps(1,1))
 else

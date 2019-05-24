@@ -134,7 +134,12 @@ del = data.configinfo(i).parameters.moog(1);
 
 i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).parameters == 3
-    cldata.mainStageTime = dur1 + dur2 + del;
+    %cldata.mainStageTime = dur1 + dur2 + del;
+    %%%%%todo:avi: this is changed to be without the dur2 because the
+    %%%%%mainTimerStage wait all this time and it should be only the rime
+    %%%%%of the delay and the dur2 : see :if toc >=
+    %%%%%cldata.mainStageTime+timeOffset  in control loop.
+    cldata.mainStageTime = dur1 + del;
     %---Jing added for collect response while movement. 01/30/07---
     cldata.firstIntTime = dur1;
     cldata.delayTime = del;
