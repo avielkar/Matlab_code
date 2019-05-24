@@ -199,7 +199,7 @@ if(isempty(i))
    i = strmatch('Distance',{char(within.name)},'exact');
    i_2ndDistance = strmatch('DIST_2I',{char(data.configinfo.name)},'exact');
    x_graph_values = within(i).parameters.moog - data.configinfo(i_2ndDistance).parameters.moog;
-   x = union(x_graph_values , -x_graph_values);
+   x = union(-x_graph_values , x_graph_values);
 end
 
 if(is_heading == true)
@@ -232,7 +232,7 @@ else
     y=0 : 0.1 : 1;
     ylim([0 1]);
     set(gca, 'YTick', y);
-    ylabel('Larger Dicisions%');
+    ylabel('Larger Dicisions (right = Distance 1 > Distance 2%');
 
     hold on;
     x1 = zeros(size(y));
