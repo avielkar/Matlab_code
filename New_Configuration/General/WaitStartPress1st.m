@@ -187,7 +187,10 @@ global debug
         %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
         %randomiza the intOrder and the trajectory again.
         if(cldata.go == 0)
+            %it is only for 2I , in order to offsets between the beeps
+            %because immediatley goes to the initial stage.
             cldata = getappdata(appHandle,'ControlLoopData');
+            cldata.stage = 'InitializationStage';
             cldata.initStage = 1;
             setappdata(appHandle, 'ControlLoopData' , cldata);
         end
