@@ -37,6 +37,9 @@ within = data.condvect.withinStair;
 across = data.condvect.acrossStair;
 varying = data.condvect.varying;
 
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+motionType = data.configinfo(i).parameters;
+
 if ~isempty(varying)
     if cldata.staircase
         cntrVarying = cldata.varyingCurrInd;
@@ -67,7 +70,7 @@ order = getappdata(appHandle,'Order'); % setting directions same order as in tra
 %remember that: dir = tmpDir(intOrder(2))- tmpDir(intOrder(1));
 dir = savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial);
 
-if(order(1) == 2)
+if(numel(order) == 2 && order(1) == 2)
     dir = - dir;
 end
 
@@ -85,12 +88,18 @@ if stim_type == 3  %combine
         dirRepNum(iInd)=dirRepNum(iInd)+1;
     end
 
-    %if answer is right and the 2nd was test , or the answer was left and
-    %the 2st was test.
-    if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
-        right=1;
+    if(motionType == 3)
+        if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
+            right=1;
+        else
+            right=0;
+        end
     else
-        right=0;
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
     end
 
     rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);    
@@ -107,10 +116,18 @@ elseif stim_type == 2  %visual
         dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
     end
 
-    if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
-        right=1;
+    if(motionType == 3)
+        if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
+            right=1;
+        else
+            right=0;
+        end
     else
-        right=0;
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
     end
     rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);    
 elseif stim_type == 1 %vestibula only
@@ -124,13 +141,21 @@ elseif stim_type == 1 %vestibula only
     else
         dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
     end
-
-    if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
-        right=1;
+    
+    if(motionType == 3)
+        if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
+            right=1;
+        else
+            right=0;
+        end
     else
-        right=0;
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
     end
-
+    
     rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
 end
 [sortDir, sortInd] = sort(dirArray, 2);

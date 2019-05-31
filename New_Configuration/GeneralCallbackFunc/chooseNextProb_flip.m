@@ -52,16 +52,11 @@ corrAlt = data.configinfo(i).parameters/100;
 
 
 referenceDir = 0;
+nextDir = 0;
 if motiontype == 3  % For 2I we need to handle response in different way.
-    currOrd = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
-    %if currOrd(1) == 2
-        lastDir = lastDir - referenceDir;
-    %else
-        %lastDir = referenceDir - lastDir;
-    %end
-    controlName = within.name; 
     
-    if ~isempty(findstr(controlName,'2nd Int'))   % 1I parameter is a control parameter.
+    controlName = within.name; 
+    if isempty(findstr(controlName,'2nd Int'))   % 1I parameter is a control parameter.
         refName = [controlName ' 2nd Int'];
         
         ind = strmatch(refName,{char(data.configinfo.nice_name)},'exact');
@@ -71,6 +66,13 @@ if motiontype == 3  % For 2I we need to handle response in different way.
             referenceDir = data.configinfo(ind).parameters;
         end
     end
+    
+    currOrd = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
+    %if currOrd(1) == 2
+        lastDir = lastDir - referenceDir;
+    %else
+        %lastDir = referenceDir - lastDir;
+    %end
 end
 
 if(motiontype == 3)
@@ -150,7 +152,8 @@ if(motiontype == 3)
                 end
             end
         end
-    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)if probDif <= stairDown
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)
+        if probDif <= stairDown
             if lastDir > 0
                 nextInd = lastInd + 1;
             else
