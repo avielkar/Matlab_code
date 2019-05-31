@@ -62,7 +62,15 @@ else
     stim_type = data.configinfo(i).parameters;
 end
 
+order = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
+
+%remember that: dir = tmpDir(intOrder(2))- tmpDir(intOrder(1));
 dir = savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial);
+
+if(order(1) == 2)
+    dir = - dir;
+end
+
 response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 
 if stim_type == 3  %combine
@@ -77,7 +85,9 @@ if stim_type == 3  %combine
         dirRepNum(iInd)=dirRepNum(iInd)+1;
     end
 
-    if response == 2
+    %if answer is right and the 2nd was test , or the answer was left and
+    %the 2st was test.
+    if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
         right=1;
     else
         right=0;
@@ -97,15 +107,14 @@ elseif stim_type == 2  %visual
         dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
     end
 
-    if response == 2
+    if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
         right=1;
     else
         right=0;
     end
-
     rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);    
 elseif stim_type == 1 %vestibula only
-    iInd = find(dirArrayVes == dir);
+    iInd = find(dirArrayVes == dir); 
     if isempty(iInd)
         iDirVes = iDirVes+1;
         dirArrayVes(iDirVes) = dir;
@@ -116,7 +125,7 @@ elseif stim_type == 1 %vestibula only
         dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
     end
 
-    if response == 2
+    if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
         right=1;
     else
         right=0;
@@ -227,12 +236,12 @@ else
     y1 = 0.5*ones(size(x));
     plot(x,y1,'-r' , 'MarkerSize' , 5);
 
-    xlabel('Test - Reference (cm)');
+    xlabel('Reference - Test (cm)');
 
     y=0 : 0.1 : 1;
     ylim([0 1]);
     set(gca, 'YTick', y);
-    ylabel('Test > Referenfce');
+    ylabel('Reference > Test');
 
     hold on;
     x1 = zeros(size(y));
