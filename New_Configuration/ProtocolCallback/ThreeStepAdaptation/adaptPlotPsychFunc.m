@@ -227,12 +227,12 @@ else
     y1 = 0.5*ones(size(x));
     plot(x,y1,'-r' , 'MarkerSize' , 5);
 
-    xlabel('Distance1 - Distance2 (cm)');
+    xlabel('Test - Reference (cm)');
 
     y=0 : 0.1 : 1;
     ylim([0 1]);
     set(gca, 'YTick', y);
-    ylabel('Larger Dicisions (right = Distance 1 > Distance 2%');
+    ylabel('Test > Referenfce');
 
     hold on;
     x1 = zeros(size(y));
