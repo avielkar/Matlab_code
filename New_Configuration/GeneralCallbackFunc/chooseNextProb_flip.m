@@ -51,6 +51,28 @@ i = strmatch('CORR_ALT_PROB',{char(data.configinfo.name)},'exact');
 corrAlt = data.configinfo(i).parameters/100;
 
 
+referenceDir = 0;
+if motiontype == 3  % For 2I we need to handle response in different way.
+    currOrd = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
+    %if currOrd(1) == 2
+        lastDir = lastDir - 8;
+    %else
+        %lastDir = 8 - lastDir;
+    %end
+    controlName = within.name; 
+    
+    if ~isempty(findstr(controlName,'2nd Int'))   % 1I parameter is a control parameter.
+        refName = [controlName ' 2nd Int'];
+        
+        ind = strmatch(refName,{char(data.configinfo.nice_name)},'exact');
+        if isfield(data.configinfo(ind).parameters,'moog')
+            referenceDir = data.configinfo(ind).parameters.moog;
+        else
+            referenceDir = data.configinfo(ind).parameters;
+        end
+    end
+end
+
 if(motiontype == 3)
     if savedInfo(activeStair,activeRule).Resp(data.repNum).corr(trial(activeStair,activeRule).cntr)
         if probDif <= stairUp
@@ -128,8 +150,7 @@ if(motiontype == 3)
                 end
             end
         end
-    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)
-        if probDif <= stairDown
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)if probDif <= stairDown
             if lastDir > 0
                 nextInd = lastInd + 1;
             else
