@@ -55,9 +55,9 @@ referenceDir = 0;
 if motiontype == 3  % For 2I we need to handle response in different way.
     currOrd = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
     %if currOrd(1) == 2
-        lastDir = lastDir - 8;
+        lastDir = lastDir - referenceDir;
     %else
-        %lastDir = 8 - lastDir;
+        %lastDir = referenceDir - lastDir;
     %end
     controlName = within.name; 
     
@@ -90,15 +90,15 @@ if(motiontype == 3)
                 end
                 if nextInd == 0 || nextInd > length(within_vect)
                     if(lastDir > 0)
-                        nextDir = 8-within_vect(lastInd); 
+                        nextDir = referenceDir - within_vect(lastInd); 
                     else
-                        nextDir = 8+within_vect(lastInd); 
+                        nextDir = referenceDir + within_vect(lastInd); 
                     end
                 else
                     if(lastDir > 0)
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir*2 -within_vect(nextInd); 
                     else
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir*2 -within_vect(nextInd); 
                     end
                 end
             else
@@ -128,15 +128,15 @@ if(motiontype == 3)
                 end
                 if nextInd == 0 || nextInd > length(within_vect)
                     if(lastDir > 0)
-                        nextDir = 8-within_vect(lastInd); 
+                        nextDir = referenceDir - within_vect(lastInd); 
                     else
-                        nextDir = 8+within_vect(lastInd); 
+                        nextDir = referenceDir + within_vect(lastInd); 
                     end
                 else
                     if(lastDir > 0)
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir * 2 -within_vect(nextInd); 
                     else
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir * 2 -within_vect(nextInd); 
                     end
                 end
             else
@@ -165,15 +165,15 @@ if(motiontype == 3)
                 end
                 if nextInd == 0 || nextInd > length(within_vect)
                     if(lastDir > 0)
-                        nextDir = 8-within_vect(lastInd); 
+                        nextDir = referenceDir - within_vect(lastInd); 
                     else
-                        nextDir = 8+within_vect(lastInd); 
+                        nextDir = referenceDir + within_vect(lastInd); 
                     end
                 else
                     if(lastDir > 0)
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir*2 - within_vect(nextInd); 
                     else
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir*2 - within_vect(nextInd); 
                     end
                 end
             else
@@ -203,15 +203,15 @@ if(motiontype == 3)
                 end
                 if nextInd == 0 || nextInd > length(within_vect)
                     if(lastDir > 0)
-                        nextDir = 8-within_vect(lastInd); 
+                        nextDir = referenceDir-within_vect(lastInd); 
                     else
-                        nextDir = 8+within_vect(lastInd); 
+                        nextDir = referenceDir+within_vect(lastInd); 
                     end
                 else
                     if(lastDir > 0)
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir*2 -within_vect(nextInd); 
                     else
-                        nextDir = 8 + 8 -within_vect(nextInd); 
+                        nextDir = referenceDir*2 -within_vect(nextInd); 
                     end
                 end
             else
