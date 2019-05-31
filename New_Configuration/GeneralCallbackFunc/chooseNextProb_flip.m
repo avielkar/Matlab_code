@@ -23,6 +23,9 @@ within = data.condvect.withinStair;
 activeStair = data.activeStair;
 activeRule =data.activeRule;
 
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+motiontype = data.configinfo(i).parameters;
+
 lastInd = trial(activeStair,activeRule).list(trial(activeStair,activeRule).cntr);
 if isfield(within.parameters, 'moog')
     within_vect = within.parameters.moog;
@@ -48,200 +51,358 @@ i = strmatch('CORR_ALT_PROB',{char(data.configinfo.name)},'exact');
 corrAlt = data.configinfo(i).parameters/100;
 
 
-if savedInfo(activeStair,activeRule).Resp(data.repNum).corr(trial(activeStair,activeRule).cntr)
-    if probDif < stairUp
-        if debug
-            disp('Correct: Go Harder')
-        end
-        if lastDir > 0
-            nextInd = lastInd - 1;
-        else
-            nextInd = lastInd + 1;
-        end
-        if probAlt < corrAlt
+if(motiontype == 3)
+    if savedInfo(activeStair,activeRule).Resp(data.repNum).corr(trial(activeStair,activeRule).cntr)
+        if probDif <= stairUp
             if debug
-                disp('And switch direction')
+                disp('Correct: Go Harder')
             end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = -within_vect(lastInd);
+            if lastDir > 0
+                nextInd = lastInd - 1;
             else
-                nextDir = -within_vect(nextInd);
+                nextInd = lastInd + 1;
             end
-        else
+            if probAlt < corrAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    if(lastDir > 0)
+                        nextDir = 8-within_vect(lastInd); 
+                    else
+                        nextDir = 8+within_vect(lastInd); 
+                    end
+                else
+                    if(lastDir > 0)
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    else
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    end
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        end
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).incorr(trial(activeStair,activeRule).cntr)
+        if probDif <= stairDown
+            if lastDir > 0
+                nextInd = lastInd + 1;
+            else
+                nextInd = lastInd - 1;
+            end
             if debug
-                disp('Same Direction')
+                disp('Wrong: Go Easier')
             end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = within_vect(lastInd);
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    if(lastDir > 0)
+                        nextDir = 8-within_vect(lastInd); 
+                    else
+                        nextDir = 8+within_vect(lastInd); 
+                    end
+                else
+                    if(lastDir > 0)
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    else
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    end
+                end
             else
-                nextDir = within_vect(nextInd);
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        end
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)
+        if probDif <= stairDown
+            if lastDir > 0
+                nextInd = lastInd + 1;
+            else
+                nextInd = lastInd - 1;
+            end
+            if debug
+                disp('Wrong: Go Easier')
+            end
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    if(lastDir > 0)
+                        nextDir = 8-within_vect(lastInd); 
+                    else
+                        nextDir = 8+within_vect(lastInd); 
+                    end
+                else
+                    if(lastDir > 0)
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    else
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    end
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        end
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).dontKnow(trial(activeStair,activeRule).cntr)
+        if probDif <= stairDown
+            if lastDir > 0
+                nextInd = lastInd + 1;
+            else
+                nextInd = lastInd - 1;
+            end
+            if debug
+                disp('Wrong: Go Easier')
+            end
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    if(lastDir > 0)
+                        nextDir = 8-within_vect(lastInd); 
+                    else
+                        nextDir = 8+within_vect(lastInd); 
+                    end
+                else
+                    if(lastDir > 0)
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    else
+                        nextDir = 8 + 8 -within_vect(nextInd); 
+                    end
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
             end
         end
     else
-        if debug
-            disp('Correct: Same level')
-        end
-        
-        nextInd = lastInd;
-        
-        if probAlt < corrAlt
-            if debug
-                disp('And switch direction')
-            end
-            nextDir = -within_vect(nextInd);
-        else
-            if debug
-               disp('Same Direction')
-            end
-            nextDir = within_vect(nextInd);
-        end
-    end
-elseif savedInfo(activeStair,activeRule).Resp(data.repNum).incorr(trial(activeStair,activeRule).cntr)
-    if probDif < stairDown
-        if lastDir > 0
-            nextInd = lastInd + 1;
-        else
-            nextInd = lastInd - 1;
-        end
-        if debug
-            disp('Wrong: Go Easier')
-        end
-        if probAlt < errAlt
-            if debug
-                disp('And switch direction')
-            end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = -within_vect(lastInd);
-            else
-                nextDir = -within_vect(nextInd);
-            end
-        else
-            if debug
-                disp('Same Direction')
-            end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = within_vect(lastInd);
-            else
-                nextDir = within_vect(nextInd);
-            end
-        end
-    else
-        if debug
-            disp('Wrong: Same Level')
-        end
-        
-        nextInd = lastInd;
-        
-        if probAlt < errAlt
-            if debug
-                disp('And switch direction')
-            end
-            nextDir = -within_vect(nextInd);
-        else
-            if debug
-                disp('Same Direction')
-            end
-            nextDir = within_vect(nextInd);
-        end
-    end
-elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)
-    if probDif < stairDown
-        if lastDir > 0
-            nextInd = lastInd + 1;
-        else
-            nextInd = lastInd - 1;
-        end
-        if debug
-            disp('Wrong: Go Easier')
-        end
-        if probAlt < errAlt
-            if debug
-                disp('And switch direction')
-            end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = -within_vect(lastInd);
-            else
-                nextDir = -within_vect(nextInd);
-            end
-        else
-            if debug
-                disp('Same Direction')
-            end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = within_vect(lastInd);
-            else
-                nextDir = within_vect(nextInd);
-            end
-        end
-    else
-        if debug
-            disp('Wrong: Same Level')
-        end
-
-        nextInd = lastInd;
-        
-        if probAlt < errAlt
-            if debug
-                disp('And switch direction')
-            end
-            nextDir = -within_vect(nextInd);
-        else
-            if debug
-                disp('Same Direction')
-            end
-            nextDir = within_vect(nextInd);
-        end
-    end
-elseif savedInfo(activeStair,activeRule).Resp(data.repNum).dontKnow(trial(activeStair,activeRule).cntr)
-    if probDif < stairDown
-        if lastDir > 0
-            nextInd = lastInd + 1;
-        else
-            nextInd = lastInd - 1;
-        end
-        if debug
-            disp('Too Hard?: Go Easier')
-        end
-        if probAlt < errAlt
-            if debug
-                disp('And switch direction')
-            end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = -within_vect(lastInd);
-            else
-                nextDir = -within_vect(nextInd);
-            end
-        else
-            if debug
-                disp('Same Direction')
-            end
-            if nextInd == 0 || nextInd > length(within_vect)
-                nextDir = within_vect(lastInd);
-            else
-                nextDir = within_vect(nextInd);
-            end
-        end
-    else
-        if debug
-            disp('Too Hard?: Same Level')
-        end
-
-        nextInd = lastInd;
-        
-        if probAlt < errAlt
-            if debug
-                disp('And switch direction')
-            end
-            nextDir = -within_vect(nextInd);
-        else
-            if debug
-                disp('Same Direction')
-            end
-            nextDir = within_vect(nextInd);
-        end
+        disp('Something screwed up!')
     end
 else
-    disp('Something screwed up!')
+    if savedInfo(activeStair,activeRule).Resp(data.repNum).corr(trial(activeStair,activeRule).cntr)
+        if probDif < stairUp
+            if debug
+                disp('Correct: Go Harder')
+            end
+            if lastDir > 0
+                nextInd = lastInd - 1;
+            else
+                nextInd = lastInd + 1;
+            end
+            if probAlt < corrAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = -within_vect(lastInd);
+                    else
+                    nextDir = -within_vect(nextInd);
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        else
+            if debug
+                disp('Correct: Same level')
+            end
+
+            nextInd = lastInd;
+
+            if probAlt < corrAlt
+                if debug
+                    disp('And switch direction')
+                end
+                nextDir = -within_vect(nextInd);
+            else
+                if debug
+                   disp('Same Direction')
+                end
+                nextDir = within_vect(nextInd);
+            end
+        end
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).incorr(trial(activeStair,activeRule).cntr)
+        if probDif < stairDown
+            if lastDir > 0
+                nextInd = lastInd + 1;
+            else
+                nextInd = lastInd - 1;
+            end
+            if debug
+                disp('Wrong: Go Easier')
+            end
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = -within_vect(lastInd);
+                    else
+                    nextDir = -within_vect(nextInd);
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        else
+            if debug
+                disp('Wrong: Same Level')
+            end
+
+            nextInd = lastInd;
+
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                nextDir = -within_vect(nextInd);
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                nextDir = within_vect(nextInd);
+            end
+        end
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).null(trial(activeStair,activeRule).cntr)
+        if probDif < stairDown
+            if lastDir > 0
+                nextInd = lastInd + 1;
+            else
+                nextInd = lastInd - 1;
+            end
+            if debug
+                disp('Wrong: Go Easier')
+            end
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = -within_vect(lastInd);
+                    else
+                    nextDir = -within_vect(nextInd);
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        else
+            if debug
+                disp('Wrong: Same Level')
+            end
+
+            nextInd = lastInd;
+
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                nextDir = -within_vect(nextInd);
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                nextDir = within_vect(nextInd);
+            end
+        end
+    elseif savedInfo(activeStair,activeRule).Resp(data.repNum).dontKnow(trial(activeStair,activeRule).cntr)
+        if probDif < stairDown
+            if lastDir > 0
+                nextInd = lastInd + 1;
+            else
+                nextInd = lastInd - 1;
+            end
+            if debug
+                disp('Too Hard?: Go Easier')
+            end
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = -within_vect(lastInd);
+                else
+                    nextDir = -within_vect(nextInd);
+                end
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                if nextInd == 0 || nextInd > length(within_vect)
+                    nextDir = within_vect(lastInd);
+                else
+                    nextDir = within_vect(nextInd);
+                end
+            end
+        else
+            if debug
+                disp('Too Hard?: Same Level')
+            end
+
+            nextInd = lastInd;
+
+            if probAlt < errAlt
+                if debug
+                    disp('And switch direction')
+                end
+                nextDir = -within_vect(nextInd);
+            else
+                if debug
+                    disp('Same Direction')
+                end
+                nextDir = within_vect(nextInd);
+            end
+        end
+    else
+        disp('Something screwed up!')
+    end
 end
 
 nextInd=find(within_vect == nextDir);
