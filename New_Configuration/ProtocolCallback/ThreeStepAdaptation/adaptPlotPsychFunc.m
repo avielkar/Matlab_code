@@ -172,9 +172,9 @@ set(gcf,'Name','Online Analysis','NumberTitle','off');
 if iDirVes>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2 , 'MarkerSize' , 8);
     else
-        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2 , 'MarkerSize' , 8);
     end
     hold on;
 end
@@ -182,9 +182,9 @@ end
 if iDirVisual>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2 , 'MarkerSize' , 8);
     else
-        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2 , 'MarkerSize' , 8);
     end
     hold on;
 end
@@ -192,9 +192,9 @@ end
 if iDir>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDir, sortRight, 'og' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDir, sortRight, 'og' , 'linewidth' , 2 , 'MarkerSize' , 8);
     else
-        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2 , 'MarkerSize' , 8);
     end
     hold on;
 end
