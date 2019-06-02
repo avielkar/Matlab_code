@@ -215,37 +215,37 @@ activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
 activeRule = data.activeRule;
 %activePrior = data.activePrior;
 
-if( connected && ~debug)
-    if(response == 1 || response == 2)
-       if(press ==5)    %right press
-           response =2;
-       elseif press == 3    %left press
-           response = 1;
-       elseif press == 1 %up press
-           response = 3;
-       elseif press == 6    %down press
-           response = 4;
-       end
-    else
-        response = 0;
-    end
-elseif(connected && debug) || (~connected && debug)
-    if(response == 1 || response == 2)
-        if(press =='f')    %right press
-           response =2;
-       elseif press == 'd'    %left press
-           response = 1;
-       elseif press == 'e' %up press
-           response = 3;
-       elseif press == 'x'    %down press
-           response = 4;
-       end
-    else
-        response = 0;
-    end
-else
-    response = 0;
-end
+% % % % if( connected && ~debug)
+% % % %     if(response == 1 || response == 2)
+% % % %        if(press ==5)    %right press
+% % % %            response =2;
+% % % %        elseif press == 3    %left press
+% % % %            response = 1;
+% % % %        elseif press == 1 %up press
+% % % %            response = 3;
+% % % %        elseif press == 6    %down press
+% % % %            response = 4;
+% % % %        end
+% % % %     else
+% % % %         response = 0;
+% % % %     end
+% % % % elseif(connected && debug) || (~connected && debug)
+% % % %     if(response == 1 || response == 2)
+% % % %         if(press =='f')    %right press
+% % % %            response =2;
+% % % %        elseif press == 'd'    %left press
+% % % %            response = 1;
+% % % %        elseif press == 'e' %up press
+% % % %            response = 3;
+% % % %        elseif press == 'x'    %down press
+% % % %            response = 4;
+% % % %        end
+% % % %     else
+% % % %         response = 0;
+% % % %     end
+% % % % else
+% % % %     response = 0;
+% % % % end
 
 
 savedInfo(activeStair,activeRule).PriorResp.responseTime(trial(activeStair,activeRule).priorCntr) = responseTime;
