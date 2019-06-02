@@ -80,12 +80,13 @@ if data.configinfo(i).parameters == 3   % For two interval
         end
     end
     
-    if is1IControl
-        tmpDir(1) = dir;
-        tmpDir(2) = dir2;
+    %putting always the const as the tmpDir(2).
+    if is1IControl %that what should be configured always.
+        tmpDir(1) = dir;    %dir1 is test and varying
+        tmpDir(2) = dir2;   %dir2 is reference and const
     else
-        tmpDir(1) = dir2;
-        tmpDir(2) = dir;
+        tmpDir(1) = dir2;   %dir2 is reference and varying
+        tmpDir(2) = dir;    %dir1 is test and const
     end
     
     if HR 
@@ -93,7 +94,14 @@ if data.configinfo(i).parameters == 3   % For two interval
     end 
     
     intOrder = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
+    %direction is the test (who is at 1st variable) minus the reference
+    %(who is at 2nd variable).
+    %remember tempDir(2) is always the const.
     dir = tmpDir(intOrder(2))- tmpDir(intOrder(1));
+    %for regular situation where Diatance 1st is varying , and Distance 2nd
+    %is const , and order is [1,2] (regular) , we get const-varying
+    %dir<o if const<varying --> Distance2 < Distance1
+    %dir>0 if const>varying --> Distance2 > Distance1
     
     savedInfo(activeStair,activeRule).Resp(currRep).intOrder(currTrial,:) = intOrder;
 end

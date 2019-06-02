@@ -37,6 +37,9 @@ within = data.condvect.withinStair;
 across = data.condvect.acrossStair;
 varying = data.condvect.varying;
 
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+motionType = data.configinfo(i).parameters;
+
 if ~isempty(varying)
     if cldata.staircase
         cntrVarying = cldata.varyingCurrInd;
@@ -62,7 +65,15 @@ else
     stim_type = data.configinfo(i).parameters;
 end
 
+order = getappdata(appHandle,'Order'); % setting directions same order as in trajectory
+
+%remember that: dir = tmpDir(intOrder(2))- tmpDir(intOrder(1));
 dir = savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial);
+
+if(numel(order) == 2 && order(1) == 2)
+    dir = - dir;
+end
+
 response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 
 if stim_type == 3  %combine
@@ -77,10 +88,18 @@ if stim_type == 3  %combine
         dirRepNum(iInd)=dirRepNum(iInd)+1;
     end
 
-    if response == 2
-        right=1;
+    if(motionType == 3)
+        if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
+            right=1;
+        else
+            right=0;
+        end
     else
-        right=0;
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
     end
 
     rightChoice(iInd)=((dirRepNum(iInd)-1)*rightChoice(iInd)+right)/dirRepNum(iInd);    
@@ -97,15 +116,22 @@ elseif stim_type == 2  %visual
         dirRepNumVisual(iInd)=dirRepNumVisual(iInd)+1;
     end
 
-    if response == 2
-        right=1;
+    if(motionType == 3)
+        if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
+            right=1;
+        else
+            right=0;
+        end
     else
-        right=0;
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
     end
-
     rightChoiceVisual(iInd)=((dirRepNumVisual(iInd)-1)*rightChoiceVisual(iInd)+right)/dirRepNumVisual(iInd);    
 elseif stim_type == 1 %vestibula only
-    iInd = find(dirArrayVes == dir);
+    iInd = find(dirArrayVes == dir); 
     if isempty(iInd)
         iDirVes = iDirVes+1;
         dirArrayVes(iDirVes) = dir;
@@ -115,13 +141,21 @@ elseif stim_type == 1 %vestibula only
     else
         dirRepNumVes(iInd)=dirRepNumVes(iInd)+1;
     end
-
-    if response == 2
-        right=1;
+    
+    if(motionType == 3)
+        if (response == 2 && order(2) == 2) || (response == 1 && order(1) == 2)
+            right=1;
+        else
+            right=0;
+        end
     else
-        right=0;
+        if response == 2
+            right=1;
+        else
+            right=0;
+        end
     end
-
+    
     rightChoiceVes(iInd)=((dirRepNumVes(iInd)-1)*rightChoiceVes(iInd)+right)/dirRepNumVes(iInd);
 end
 [sortDir, sortInd] = sort(dirArray, 2);
@@ -138,9 +172,9 @@ set(gcf,'Name','Online Analysis','NumberTitle','off');
 if iDirVes>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVes, sortRightVes, '+' , 'linewidth' , 2 , 'MarkerSize' , 8);
     else
-        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVes, sortRightVes, 'o' , 'linewidth' , 2 , 'MarkerSize' , 8);
     end
     hold on;
 end
@@ -148,9 +182,9 @@ end
 if iDirVisual>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVisual, sortRightVisual, 'xr' , 'linewidth' , 2 , 'MarkerSize' , 8);
     else
-        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVisual, sortRightVisual, 'or' , 'linewidth' , 2 , 'MarkerSize' , 8);
     end
     hold on;
 end
@@ -158,9 +192,9 @@ end
 if iDir>0
     %for different symbols for each active stair.
     if(activeStair == 1)
-        plot(sortDir, sortRight, 'og' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDir, sortRight, 'og' , 'linewidth' , 2 , 'MarkerSize' , 8);
     else
-        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2 , 'MarkerSize' , 5);
+        plot(sortDirVes, sortRightVes, 'xg' , 'linewidth' , 2 , 'MarkerSize' , 8);
     end
     hold on;
 end
@@ -227,12 +261,12 @@ else
     y1 = 0.5*ones(size(x));
     plot(x,y1,'-r' , 'MarkerSize' , 5);
 
-    xlabel('Distance1 - Distance2 (cm)');
+    xlabel('Reference - Test (cm)');
 
     y=0 : 0.1 : 1;
     ylim([0 1]);
     set(gca, 'YTick', y);
-    ylabel('Larger Dicisions (right = Distance 1 > Distance 2%');
+    ylabel('Reference > Test');
 
     hold on;
     x1 = zeros(size(y));
