@@ -173,7 +173,7 @@ end
 %-----end
 
 cldata.beginWav = sin(500*2*pi*(0:.00001:.125));
-cldata.beginWav2 = sin(800*2*pi*(0:.00001:.125));
+cldata.beginWav2 = sin(600*2*pi*(0:.00001:.125));
 cldata.beginWav3 = sin(1100*2*pi*(0:.00001:.125));
 setappdata(basicfig,'ControlLoopData',cldata);
 

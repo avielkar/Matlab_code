@@ -14,6 +14,10 @@ global debug
     iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
+    % Time Out Sound
+    a = [ones(10,25);zeros(10,25)];
+    a_timeout = a(:)';
+    
     if(start_mode == 1)
         soundsc(cldata.beginWav,100000);
         %press has no time limit.
@@ -181,6 +185,8 @@ global debug
             secondPressInTime = 1;
         else
             secondPressInTime = 0;
+            % Time Out Sound
+            soundsc(a_timeout,2000);
         end
         %%test line:
 % % % % % % % % % % % % % % % % % % %         secondPressInTime = 2 - randi(2) ;

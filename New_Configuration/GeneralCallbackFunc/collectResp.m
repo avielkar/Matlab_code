@@ -72,12 +72,12 @@ if connected && ~debug
         end
 
 %%%%%%%%%%%         avi add that for automatic answer.
-% % % % % % % %         timeToWait  = rand;
-% % % % % % % %         elapsedTime = tic;
-% % % % % % % %         while(toc(elapsedTime) < timeToWait)
-% % % % % % % %         end
-% % % % % % % %         
-% % % % % % % %         response = randi(2);
+%         timeToWait  = rand;
+%         elapsedTime = tic;
+%         while(toc(elapsedTime) < timeToWait)
+%         end
+%         
+%         response = randi(2);
         
         if(response == 0)   %no choice or pressed an illegal button
             display('R/L Choice timeout');

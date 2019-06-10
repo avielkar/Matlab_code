@@ -13,6 +13,10 @@ global debug
     iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
+    % Time Out Sound
+    a = [ones(10,25); zeros(10,25)];
+    a_timeout = a(:)';
+    
     if(start_mode == 1)
         soundsc(cldata.beginWav,100000);
         fprintf('sound!!!!!!!!!!!!\n')
@@ -22,6 +26,7 @@ global debug
             response = 0; % No response yet
             flushinput(bxbport);
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
+            %    response = 4;
                 flagdata = getappdata(basicfig,'flagdata');
                 % byte 2 determines button number, press/release and port
                 if(bxbport.BytesAvailable() >= 6)
@@ -189,6 +194,8 @@ global debug
         if(cldata.go == 0)
             %it is only for 2I , in order to offsets between the beeps
             %because immediatley goes to the initial stage.
+            % Time Out Sound
+            soundsc(a_timeout,2000);
             cldata = getappdata(appHandle,'ControlLoopData');
             cldata.stage = 'InitializationStage';
             cldata.initStage = 1;
