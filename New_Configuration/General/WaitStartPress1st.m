@@ -3,6 +3,7 @@ function WaitStartPress1st(appHandle , start_mode)
 global basicfig
 global bxbport
 global startPressStartTime
+global startSoundStartTime
 global connected
 global debug
     data = getappdata(appHandle, 'protinfo');
@@ -103,6 +104,8 @@ global debug
         setappdata(appHandle,'ControlLoopData',cldata);
         %%
     elseif(start_mode == 3)
+        response = 0; % reset the reponse flag.
+        
         %% self-countdown and user start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
@@ -113,6 +116,7 @@ global debug
             %time to wait betweeen count sound.
             if(i <= count_from)
                 %sounds the countdown sound.
+                startSoundStartTime = tic;
                 soundsc(cldata.beginWav3,100000);
                 while(toc(intervalTime) < count_time)
                 end
@@ -125,7 +129,6 @@ global debug
         end
         %%
         %%Wait for the start press.
-        response = 0; % reset the reponse flag.
         %flush all the input from the board because we dont want to start
         %before the beep
         flushinput(bxbport);
@@ -147,7 +150,13 @@ global debug
                     fprintf('byteas available but not a red press!!!!\n')
                 end
                 if response == 4  %---Jing for light control 12/03/07---
+                    startPressStartTimeSave = toc(startSoundStartTime);
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
+                    activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
+                    activeRule = data.activeRule;
+                    savedInfo = getappdata(appHandle,'SavedInfo');
+                    savedInfo(activeStair,activeRule).Resp(data.repNum).startPressResponseTime(trial(activeStair,activeRule).cntr) = startPressStartTimeSave;
+                    getappdata(appHandle,'SavedInfo',savedInfo );
                     startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
                     cldata = getappdata(appHandle, 'ControlLoopData');
