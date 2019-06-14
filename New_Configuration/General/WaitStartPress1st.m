@@ -84,6 +84,11 @@ global debug
         end
         %%
     elseif (start_mode == 2)
+        %flush all the input from the board because we dont want to start
+        %before the beep
+        flushinput(bxbport);
+        checkIfWasResponseWhenNotNeeded = 0;
+        
         %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
@@ -96,12 +101,31 @@ global debug
             while(toc(intervalTime) < count_time)
             end
         end
+        
+        while(bxbport.BytesAvailable() >= 6)
+            r = uint32(fread(bxbport,6)); % reads 6 first bytes
+            %uint32(fread(bxbport,6));
+            press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+            if press
+                 checkIfWasResponseWhenNotNeeded = bitshift (r(2), -5);    %leftmost 3 bits
+            end
+            fprintf('byteas available but not a red press!!!!\n')
+        end
+        
+        activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
+        activeRule = data.activeRule;
+        savedInfo = getappdata(appHandle,'SavedInfo');
+        savedInfo(activeStair,activeRule).Resp(data.repNum).startPressResponseTimeWhenNoNeed(trial(activeStair,activeRule).cntr) = checkIfWasResponseWhenNotNeeded;
+        setappdata(appHandle,'SavedInfo',savedInfo );
+        
         %automatic response
         response = 4;
         startPressStartTime = tic;
         cldata = getappdata(appHandle, 'ControlLoopData');
         cldata.go = 1;
         setappdata(appHandle,'ControlLoopData',cldata);
+        
+        
         %%
     elseif(start_mode == 3)
         response = 0; % reset the reponse flag.
@@ -111,12 +135,12 @@ global debug
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;              
         %sounds the countdown sounds.
+        startSoundStartTime = tic;
         for i =1:1:count_from+1 %plus 1 because the press should be at the last non sound beep (interval).
             intervalTime = tic;
             %time to wait betweeen count sound.
             if(i <= count_from)
                 %sounds the countdown sound.
-                startSoundStartTime = tic;
                 soundsc(cldata.beginWav3,100000);
                 while(toc(intervalTime) < count_time)
                 end
@@ -156,7 +180,7 @@ global debug
                     activeRule = data.activeRule;
                     savedInfo = getappdata(appHandle,'SavedInfo');
                     savedInfo(activeStair,activeRule).Resp(data.repNum).startPressResponseTime(trial(activeStair,activeRule).cntr) = startPressStartTimeSave;
-                    getappdata(appHandle,'SavedInfo',savedInfo );
+                    setappdata(appHandle,'SavedInfo',savedInfo );
                     startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
                     cldata = getappdata(appHandle, 'ControlLoopData');
