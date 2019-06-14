@@ -9,6 +9,7 @@ global debug
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
     flagdata = getappdata(basicfig,'flagdata');
+    trial = getappdata(appHandle,'trialInfo');
     
     iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
     iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
@@ -88,6 +89,7 @@ global debug
         %before the beep
         flushinput(bxbport);
         checkIfWasResponseWhenNotNeeded = 0;
+        window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
         %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
@@ -102,29 +104,38 @@ global debug
             end
         end
         
-        while(bxbport.BytesAvailable() >= 6)
-            r = uint32(fread(bxbport,6)); % reads 6 first bytes
-            %uint32(fread(bxbport,6));
-            press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-            if press
-                 checkIfWasResponseWhenNotNeeded = bitshift (r(2), -5);    %leftmost 3 bits
+        %wait half of the imaginary window start response
+        startWindowTime = tic;
+        while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
+            if(bxbport.BytesAvailable() >= 6)
+                r = uint32(fread(bxbport,6)); % reads 6 first bytes
+                %uint32(fread(bxbport,6));
+                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
+                if press
+                     checkIfWasResponseWhenNotNeeded = bitshift (r(2), -5);    %leftmost 3 bits
+                end
+                fprintf('byteas available but not a red press!!!!\n')
             end
-            fprintf('byteas available but not a red press!!!!\n')
         end
         
-        activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
-        activeRule = data.activeRule;
-        savedInfo = getappdata(appHandle,'SavedInfo');
-        savedInfo(activeStair,activeRule).Resp(data.repNum).startPressResponseTimeWhenNoNeed(trial(activeStair,activeRule).cntr) = checkIfWasResponseWhenNotNeeded;
-        setappdata(appHandle,'SavedInfo',savedInfo );
-        
-        %automatic response
-        response = 4;
-        startPressStartTime = tic;
-        cldata = getappdata(appHandle, 'ControlLoopData');
-        cldata.go = 1;
-        setappdata(appHandle,'ControlLoopData',cldata);
-        
+        %the user press start , altough no need to press , failure
+        if(checkIfWasResponseWhenNotNeeded == 4)
+            secondPressInTime = 0;
+            soundsc(a_timeout,2000);
+            cldata.go = 0;
+            %cldata = getappdata(appHandle,'ControlLoopData');
+            cldata.stage = 'InitializationStage';
+            cldata.initStage = 1;
+            setappdata(appHandle,'ControlLoopData',cldata);
+        else
+            %automatic response
+            secondPressInTime = 0;
+            response = 4;
+            startPressStartTime = tic;
+            cldata = getappdata(appHandle, 'ControlLoopData');
+            cldata.go = 1;
+            setappdata(appHandle,'ControlLoopData',cldata);
+        end
         
         %%
     elseif(start_mode == 3)
@@ -155,10 +166,12 @@ global debug
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
+        xxx=tic;
         flushinput(bxbport);
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
+        yyy=toc(xxx);
         while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size)%not /2 for the prior beep response and post response.)
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
