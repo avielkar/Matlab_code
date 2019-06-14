@@ -3,7 +3,7 @@ function priorCollectResp(appHandle)
 global connected debug in
 global bxbport
 global print_var
-global startTime
+global startPressStartTime
 
 if debug
     disp('Entering PriorCollectResp')
@@ -49,10 +49,10 @@ if connected && ~debug
                           response = bitshift (r(2), -5);    %leftmost 3 bits
                           if(response == 3) %left buttom
                               response = 1;
-                              responseTime = toc(startTime);
+                              responseTime = toc(startPressStartTime);
                           elseif(response == 5)  %right buttom
                               response = 2;
-                              responseTime = toc(startTime);
+                              responseTime = toc(startPressStartTime);
                           else
                               response = 0; 
                           end
@@ -97,10 +97,10 @@ if connected && ~debug
                           response = bitshift (r(2), -5);    %leftmost 3 bits
                           if(response == even_button) %even button response.
                               response = 1;     % '1' means odd response.
-                              responseTime = toc(startTime);
+                              responseTime = toc(startPressStartTime);
                           elseif(response == odd_button)  %odd button response.
                               response = 2;     % '2' means even response.
-                              responseTime = toc(startTime);
+                              responseTime = toc(startPressStartTime);
                           else
                               response = 0;     % '0' means no response (yet).
                           end

@@ -3,7 +3,7 @@ function collectResp(appHandle)
 global connected debug in
 global bxbport
 global print_var
-global startTime
+global startPressStartTime
 
 % Received legit answer sound
 a = [ones(1,200); zeros(1,200)];
@@ -56,12 +56,12 @@ if connected && ~debug
                     responseBox = bitshift (r(2), -5);    %leftmost 3 bits
                     if(responseBox == 3) %left buttom
                         response = 1;
-                        responseTime = toc(startTime);
+                        responseTime = toc(startPressStartTime);
                         display('Choice = Left');
                         break;
                     elseif(responseBox == 5)  %right buttom
                         response = 2;
-                        responseTime = toc(startTime);
+                        responseTime = toc(startPressStartTime);
                         display('Choice = Right');
                         break;
                     else
@@ -104,7 +104,7 @@ if connected && ~debug
                           confidenceResponseBox = bitshift (r(2), -5);    %leftmost 3 bits
                           if(confidenceResponseBox == 1) %up buttom
                               confidenceResponse = 3;
-                              confidenceResponseTime = toc(startTime);
+                              confidenceResponseTime = toc(startPressStartTime);
                               display('Confidence choice  =  High');
                               break;
                           elseif(confidenceResponseBox == 6)  %down buttom
@@ -113,7 +113,7 @@ if connected && ~debug
                               break;
                           else
                               confidenceResponse = 0; 
-                              confidenceResponseTime = toc(startTime);
+                              confidenceResponseTime = toc(startPressStartTime);
                           end
                     end
                 end

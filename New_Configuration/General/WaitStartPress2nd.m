@@ -2,7 +2,7 @@ function secondPressInTime = WaitStartPress2nd(appHandle , start_mode)
 
 global basicfig
 global bxbport
-global startTime
+global startPressStartTime
 global connected
 global debug
     data = getappdata(appHandle, 'protinfo');
@@ -41,7 +41,7 @@ global debug
                 % Checks which button was pressed (3-left, 4-center, 5-right) --shir
                 if response == 4  %---Jing for light control 12/03/07---
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
-                    startTime = tic;
+                    startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
                     cldata = getappdata(appHandle, 'ControlLoopData');
                     if cldata.movdelaycontrol && cldata.startbeep == 0
@@ -95,7 +95,7 @@ global debug
         end
         %automatic response
         response = 4;
-        startTime = tic;
+        startPressStartTime = tic;
         cldata = getappdata(appHandle, 'ControlLoopData');
         cldata.go = 1;
         setappdata(appHandle,'ControlLoopData',cldata);
@@ -146,7 +146,7 @@ global debug
                 end
                 if response == 4  %---Jing for light control 12/03/07---
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
-                    startTime = tic;
+                    startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
                     cldata = getappdata(appHandle, 'ControlLoopData');
                         if cldata.movdelaycontrol && cldata.startbeep == 0
