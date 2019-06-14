@@ -30,6 +30,13 @@ direction = 1;
 response = cldata.resp; % ---Jing and added 01/29/07---
 confidenceResponse = 0;
 flagdata = getappdata(appHandle,'flagdata');
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+motiontype = data.configinfo(i).parameters;
+if(motiontype == 3)
+    is2Interval = true;
+else
+    is2Interval = false;
+end
 
 if connected && ~debug
     % Configure Port
@@ -54,15 +61,25 @@ if connected && ~debug
                 press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
                 if press
                     responseBox = bitshift (r(2), -5);    %leftmost 3 bits
-                    if(responseBox == 3) %left buttom
+                    if(responseBox == 3 && ~is2Interval) %left buttom
                         response = 1;
                         responseTime = toc(startPressStartTime);
                         display('Choice = Left');
                         break;
-                    elseif(responseBox == 5)  %right buttom
+                    elseif(responseBox == 5 && ~is2Interval)  %right buttom
                         response = 2;
                         responseTime = toc(startPressStartTime);
                         display('Choice = Right');
+                        break;
+                    elseif(responseBox == 1&& is2Interval)
+                        response = 3;
+                        responseTime = toc(startPressStartTime);
+                        display('Choice = Up');
+                        break;
+                    elseif(responseBox == 6&& is2Interval)
+                        response = 4;
+                        responseTime = toc(startPressStartTime);
+                        display('Choice = Down');
                         break;
                     else
                         response = 0;
@@ -84,9 +101,9 @@ if connected && ~debug
         end
         
         %%
-        if response == 1 || response == 2 
-        % Received legit answer sound
-        soundsc(a_legit,2000);
+        if response == 1 || response == 2 || response == 3 || response == 4
+            % Received legit answer sound
+            soundsc(a_legit,2000);
         else
             % Time Out Sound
             soundsc(a_timeout,2000);
@@ -146,16 +163,24 @@ elseif (connected && debug) || (~connected && debug)
     while  (toc <= cldata.respTime)
         pause(0.1);
         debugResponse = getappdata(appHandle , 'debugResponse');
-        if strcmp(debugResponse,'f') %right
-            display('Choice = Right');
+        if (strcmp(debugResponse,'f') && ~is2Interval) %right
+            display('Choice = Right' );
             response = 2;
             break;
-        elseif strcmp(debugResponse,'d') %left
+        elseif (strcmp(debugResponse,'d') && ~is2Interval) %left
             display('Choice = Left');
             response = 1;
             break;
-        elseif strcmp(debugResponse,'i')
+        elseif (strcmp(debugResponse,'e') && is2Interval) %up
+            display('Choice = Up');
+            response = 3;
+            break;
+        elseif (strcmp(debugResponse,'x') && is2Interval) %down
+            display('Choice = Down');
             response = 4;
+            break;
+        elseif strcmp(debugResponse,'i')
+            response = 5;
             break;
         end
         %pause(cldata.respTime);
@@ -165,7 +190,7 @@ elseif (connected && debug) || (~connected && debug)
     setappdata(appHandle , 'debugResponse' , debugResponse);
     
     %%
-    if response == 1 || response == 2 
+    if response == 1 || response == 2 || response == 3 || response == 4
         soundsc(a_legit,2000);
     else
         soundsc(a_timeout,2000);

@@ -166,12 +166,10 @@ global debug
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
-        xxx=tic;
         flushinput(bxbport);
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
-        yyy=toc(xxx);
         while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size)%not /2 for the prior beep response and post response.)
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.

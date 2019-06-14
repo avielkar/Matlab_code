@@ -22,7 +22,7 @@ activeStair = data.activeStair;
 activeRule = data.activeRule;
 currRep = data.repNum;
 currTrial = trial(activeStair,activeRule).cntr;
-response =savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
+response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
 
 i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
 if data.configinfo(i).parameters == 1   % For single interval
