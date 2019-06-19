@@ -16,7 +16,7 @@ global connected debug PLOTS  %pogen_oddity
 global in   %---Jing added 03/11/08---
 global bxbport
 global basicfig
-global startTime
+global startPressStartTime
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)

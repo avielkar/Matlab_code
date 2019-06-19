@@ -21,7 +21,17 @@ activeRule = data.activeRule;
 currRep = data.repNum;
 currTrial = trial(activeStair,activeRule).cntr;
 
-response =savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
+response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
+%change the rsponse map if 2I , 4->1, 3->2
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+if( data.configinfo(i).parameters == 3)
+    if(response == 4)
+        response = 1;
+    elseif(response == 3)
+        response = 2;
+    end
+end
+
 HR = cldata.hReference;
 
 if cldata.staircase % If it is staircase, use withinStair parameter to analyze Resp.

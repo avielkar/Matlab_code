@@ -75,6 +75,15 @@ if(numel(order) == 2 && order(1) == 2)
 end
 
 response = savedInfo(activeStair,activeRule).Resp(currRep).response(currTrial);
+%change the rsponse map if 2I , 4->1, 3->2
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+if( data.configinfo(i).parameters == 3)
+    if(response == 4)
+        response = 1;
+    elseif(response == 3)
+        response = 2;
+    end
+end
 
 if stim_type == 3  %combine
     iInd = find(dirArray == dir);
