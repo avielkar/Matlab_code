@@ -26,7 +26,10 @@ global debug
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
-            CedrusResponseBox('FlushEvents', responseBoxHandler);
+            try
+                CedrusResponseBox('FlushEvents', responseBoxHandler);
+            catch
+            end
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
                 flagdata = getappdata(basicfig,'flagdata');
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
@@ -101,7 +104,10 @@ global debug
         %wait half of the imaginary window start response
         %flush all the input from the board because we dont want to start
         %before the beep
-        CedrusResponseBox('FlushEvents', responseBoxHandler);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
@@ -162,7 +168,10 @@ global debug
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
-        CedrusResponseBox('FlushEvents', responseBoxHandler);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;

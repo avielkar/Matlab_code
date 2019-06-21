@@ -28,7 +28,10 @@ global debug
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
-            CedrusResponseBox('FlushEvents', responseBoxHandler);
+            try
+                CedrusResponseBox('FlushEvents', responseBoxHandler);
+            catch
+            end
             while(response ~= 4)
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 if(~isempty(press))
@@ -96,7 +99,10 @@ global debug
         %wait half of the imaginary window start response
         %flush all the input from the board because we dont want to start
         %before the beep
-        CedrusResponseBox('FlushEvents', responseBoxHandler);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
