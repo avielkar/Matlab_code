@@ -1,7 +1,7 @@
 function collectResp(appHandle)
 
 global connected debug in
-global bxbport
+global responseBoxHandler
 global print_var
 global startPressStartTime
 
@@ -55,36 +55,30 @@ if connected && ~debug
     %so wait for a resposne
     if(cldata.resp == 0)
         while(toc <= cldata.respTime)
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6));
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                    responseBox = bitshift (r(2), -5);    %leftmost 3 bits
-                    if(responseBox == 3 && ~is2Interval) %left buttom
-                        response = 1;
-                        responseTime = toc(startPressStartTime);
-                        display('Choice = Left');
-                        break;
-                    elseif(responseBox == 5 && ~is2Interval)  %right buttom
-                        response = 2;
-                        responseTime = toc(startPressStartTime);
-                        display('Choice = Right');
-                        break;
-                    elseif(responseBox == 1&& is2Interval)
-                        response = 3;
-                        responseTime = toc(startPressStartTime);
-                        display('Choice = Up');
-                        break;
-                    elseif(responseBox == 6&& is2Interval)
-                        response = 4;
-                        responseTime = toc(startPressStartTime);
-                        display('Choice = Down');
-                        break;
-                    else
-                        response = 0;
-                    end
+            if(~isempty(responseBoxHandler))
+                press = CedrusResponseBox('GetButtons', handle);
+                if strcmp(press.buttonID , 'left') && ~is2Interval
+                    response = 1;
+                    responseTime = toc(startPressStartTime);
+                    display('Choice = Left');
+                    break;
+                elseif strcmp(press.buttonID , 'right') && ~is2Interval
+                    response = 2;
+                    responseTime = toc(startPressStartTime);
+                    display('Choice = Right');
+                    break;
+                elseif strcmp(press.buttonID , 'up') && is2Interval 
+                    response = 3;
+                    responseTime = toc(startPressStartTime);
+                    display('Choice = Up');
+                    break;
+                elseif strcmp(press.buttonID , 'bottom') && is2Interval
+                    response = 4;
+                    responseTime = toc(startPressStartTime);
+                    display('Choice = Down');
+                    break;
                 end
+                fprintf('byteas available but not a red press!!!!\n')
             end
         end
 
@@ -114,25 +108,25 @@ if connected && ~debug
         if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
             tic
             while(toc <=  cldata.respTime)
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                          confidenceResponseBox = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(confidenceResponseBox == 1) %up buttom
-                              confidenceResponse = 3;
-                              confidenceResponseTime = toc(startPressStartTime);
-                              display('Confidence choice  =  High');
-                              break;
-                          elseif(confidenceResponseBox == 6)  %down buttom
-                              confidenceResponse = 4;
-                              display('Confidence choice = Low');
-                              break;
-                          else
-                              confidenceResponse = 0; 
-                              confidenceResponseTime = toc(startPressStartTime);
-                          end
+                
+                
+                
+                
+                if(~isempty(responseBoxHandler))
+                    press = CedrusResponseBox('GetButtons', handle);
+                    if strcmp(press.buttonID , 'top')            
+                        confidenceResponse = 3;
+                        confidenceResponseTime = toc(startPressStartTime);
+                        display('Confidence choice  =  High');
+                        break;
+                    elseif strcmp(press.buttonID , 'bottom')
+                        confidenceResponse = 4;
+                        display('Confidence choice = Low');
+                        confidenceResponseTime = toc(startPressStartTime);
+                        break;
+                        
                     end
+                    fprintf('byteas available but not a red press!!!!\n')
                 end
             end
             
