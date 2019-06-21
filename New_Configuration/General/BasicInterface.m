@@ -495,30 +495,15 @@ function StartButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 format long
-global bxbport
+format long
+global responseBoxHandle
 global basicfig
 
-%disable the button immediately after press.
-set(handles.StartButton,'Enable','off');
-set(handles.StopButton,'Enable','on');
-        
-%check if the variable bxbport is already config to the port or not
-        %because if it does, the serial declare makes it define again and show it
-        %as closed so the status is closed but the port is actually open
-        %and that is error.
-        bxbport_empty = isempty(bxbport);
-        if(bxbport_empty == 1)
-            bxbport = serial('COM9', 'BaudRate', 115200, 'DataBits', 8, ...
-                'StopBits', 1, 'FlowControl', 'none', 'Parity', 'none');
-        end
-        %if the port is closed but defined, so open it.
-        %if(strcmp(bxbport.Status , 'closed') == true)
-        if(strcmp(bxbport.Status,'closed') == 1)
-            fopen(bxbport);
-            fprintf(bxbport,['c10', char(13)]); %XID mode
-        end
-        fprintf(bxbport,['e5',char(13)]);
-
+try
+    responseBoxHandle = CedrusResponseBox('Open', 'COM9');
+catch
+    display('The response box is already opened.')
+end
 
 setappdata(basicfig,'resp_answer',-1);
 clfunc = {@ControlLoop basicfig};
