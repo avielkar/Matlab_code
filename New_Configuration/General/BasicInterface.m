@@ -49,6 +49,10 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
+
+%close all cedrus ports.
+CedrusResponseBox('CloseAll');
+
 % End initialization code - DO NOT EDIT
 
 
