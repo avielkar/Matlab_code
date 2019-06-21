@@ -142,15 +142,16 @@ global debug
         window_size = data.configinfo(iWINDOW_SIZE).parameters;              
         %sounds the countdown sounds.
         startSoundStartTime = tic;
-        for i =1:1:count_from+1 %plus 1 because the press should be at the last non sound beep (interval).
+        for i =1:1:count_from %plus 1 because the press should be at the last non sound beep (interval).
             intervalTime = tic;
             %time to wait betweeen count sound.
-            if(i <= count_from)
+            if(i < count_from)
                 %sounds the countdown sound.
                 soundsc(cldata.beginWav3,100000);
                 while(toc(intervalTime) < count_time)
                 end
             else
+                soundsc(cldata.beginWav3,100000);
                 %for begining waiting for a response a window_size/2 before
                 %the time.
                 while(toc(intervalTime) < count_time - window_size/2)

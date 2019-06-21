@@ -576,11 +576,13 @@ flagdata.isTrialStart = 0;
 flagdata.isStopButton = 1; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);
 
-try
-    CedrusResponseBox('Close', responseBoxHandler);
-catch
-    display('The response box is already closed.')
-end
+%no need to that bcause that would be closed at the end of start button
+%callback.
+% try
+%     CedrusResponseBox('Close', responseBoxHandler);
+% catch
+%     display('The response box is already closed.')
+% end
 
 
 % --- Executes on button press in SaveButton.
