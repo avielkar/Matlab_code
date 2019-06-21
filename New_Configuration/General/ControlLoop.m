@@ -14,7 +14,7 @@ function InitializationStage(appHandle)
 
 global connected debug PLOTS  %pogen_oddity
 global in   %---Jing added 03/11/08---
-global bxbport
+global responseBoxHandler
 global basicfig
 global startPressStartTime
 

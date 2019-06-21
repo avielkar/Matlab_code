@@ -31,12 +31,10 @@ global debug
             CedrusResponseBox('FlushEvents', responseBoxHandler);
             while(response ~= 4)
                 % byte 2 determines button number, press/release and port
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                         response = bitshift (r(2), -5);    %leftmost 3 bits
+                if(~isempty(responseBoxHandler))
+                    press = CedrusResponseBox('GetButtons', handle);
+                    if strcmp(press.buttonID , 'middle')
+                         response = 4;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
@@ -103,27 +101,15 @@ global debug
         %wait half of the imaginary window start response
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                     checkIfWasResponseWhenNotNeeded = bitshift (r(2), -5);    %leftmost 3 bits
+            if(~isempty(responseBoxHandler))
+                press = CedrusResponseBox('GetButtons', handle);
+                if strcmp(press.buttonID , 'middle')
+                     checkIfWasResponseWhenNotNeeded = 4;
                 end
                 fprintf('byteas available but not a red press!!!!\n')
             end
         end
-        
-        while(bxbport.BytesAvailable() >= 6 && checkIfWasResponseWhenNotNeeded ~=4)
-            r = uint32(fread(bxbport,6)); % reads 6 first bytes
-            %uint32(fread(bxbport,6));
-            press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-            if press
-                 checkIfWasResponseWhenNotNeeded = bitshift (r(2), -5);    %leftmost 3 bits
-            end
-            fprintf('byteas available but not a red press!!!!\n')
-        end
-            
+
         %the user press start , altough no need to press , failure
         if(checkIfWasResponseWhenNotNeeded == 4)
             secondPressInTime = 0;
@@ -180,12 +166,10 @@ global debug
             %wait fot the start response in the window time.
              if connected && ~debug
                 % byte 2 determines button number, press/release and port
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                         response = bitshift (r(2), -5);    %leftmost 3 bits
+                if(~isempty(responseBoxHandler))
+                    press = CedrusResponseBox('GetButtons', handle);
+                    if strcmp(press.buttonID , 'middle')
+                         response = 4;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
