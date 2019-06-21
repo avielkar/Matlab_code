@@ -81,9 +81,7 @@ global debug
         end
         %%
     elseif (start_mode == 2)
-        %flush all the input from the board because we dont want to start
-        %before the beep
-        CedrusResponseBox('FlushEvents', responseBoxHandler);
+
         checkIfWasResponseWhenNotNeeded = 0;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
@@ -101,6 +99,9 @@ global debug
         end
         
         %wait half of the imaginary window start response
+        %flush all the input from the board because we dont want to start
+        %before the beep
+        CedrusResponseBox('FlushEvents', responseBoxHandler);
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);

@@ -499,6 +499,10 @@ format long
 global responseBoxHandler
 global basicfig
 
+%disable the button immediately after press.
+set(handles.StartButton,'Enable','off');
+set(handles.StopButton,'Enable','on');
+
 try
     responseBoxHandler = CedrusResponseBox('Open', 'COM9');
 catch
