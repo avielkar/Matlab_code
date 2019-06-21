@@ -1,7 +1,7 @@
 function WaitStartPress1st(appHandle , start_mode)
 
 global basicfig
-global bxbport
+global responseBoxHandler
 global startPressStartTime
 global startSoundStartTime
 global connected
@@ -26,7 +26,7 @@ global debug
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
-            flushinput(bxbport);
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
             %    response = 4;
                 flagdata = getappdata(basicfig,'flagdata');
@@ -87,7 +87,7 @@ global debug
     elseif (start_mode == 2)
         %flush all the input from the board because we dont want to start
         %before the beep
-        flushinput(bxbport);
+        CedrusResponseBox('FlushEvents', responseBoxHandler);
         checkIfWasResponseWhenNotNeeded = 0;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
@@ -166,7 +166,7 @@ global debug
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
-        flushinput(bxbport);
+        CedrusResponseBox('FlushEvents', responseBoxHandler);
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
