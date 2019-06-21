@@ -571,7 +571,13 @@ flagdata.isTrialStop = 1;
 flagdata.isTrialStart = 0;
 flagdata.isStopButton = 1; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);
-fclose(bxbport);
+
+try
+    CedrusResponseBox('Close', handle);
+catch
+    display('The response box is already closed.')
+end
+
 
 % --- Executes on button press in SaveButton.
 function SaveButton_Callback(hObject, eventdata, handles)
