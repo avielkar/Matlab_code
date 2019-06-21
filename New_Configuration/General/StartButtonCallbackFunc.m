@@ -5,7 +5,7 @@ function StartButtonCallbackFunc(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global basicfig connected debug
 global SUBJECT_NUM
-global bxbport
+global responseBoxHandler
 global print_var
 data = getappdata(basicfig,'protinfo');
 flagdata = getappdata(basicfig,'flagdata');
@@ -696,5 +696,9 @@ elseif cancel_save == 0
     cd ('C:\Program Files (x86)\MATLAB\R2013b\bin')  % returnt to home directory
 end
 %check if the port is not opened because it is a second start
-        %buttom after the first has benn pushed.
-fclose(bxbport);
+%buttom after the first has benn pushed.
+try
+    CedrusResponseBox('Close', handle);
+catch
+    display('The response box is already closed.')
+end
