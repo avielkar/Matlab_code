@@ -496,11 +496,11 @@ function StartButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 format long
 format long
-global responseBoxHandle
+global responseBoxHandler
 global basicfig
 
 try
-    responseBoxHandle = CedrusResponseBox('Open', 'COM9');
+    responseBoxHandler = CedrusResponseBox('Open', 'COM9');
 catch
     display('The response box is already opened.')
 end
