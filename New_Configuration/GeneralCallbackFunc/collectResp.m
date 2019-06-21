@@ -57,22 +57,22 @@ if connected && ~debug
         while(toc <= cldata.respTime)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
             if(~isempty(press))
-                if strcmp(press.buttonID , 'left') && ~is2Interval
+                if (strcmp(press.buttonID , 'left') && ~is2Interval)
                     response = 1;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Left');
                     break;
-                elseif strcmp(press.buttonID , 'right') && ~is2Interval
+                elseif (strcmp(press.buttonID , 'right') && ~is2Interval)
                     response = 2;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Right');
                     break;
-                elseif strcmp(press.buttonID , 'up') && is2Interval 
+                elseif (strcmp(press.buttonID , 'top') && is2Interval)
                     response = 3;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Up');
                     break;
-                elseif strcmp(press.buttonID , 'bottom') && is2Interval
+                elseif (strcmp(press.buttonID , 'bottom') && is2Interval)
                     response = 4;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Down');

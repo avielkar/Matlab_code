@@ -142,6 +142,11 @@ global debug
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         %sounds the countdown sounds.
         startSoundStartTime = tic;
+        %reset the timer zero based time
+        try
+            CedrusResponseBox('ResetRTTimer', responseBoxHandler);
+        catch
+        end
         for i =1:1:count_from %plus 1 because the press should be at the last non sound beep (interval).
             intervalTime = tic;
             %time to wait betweeen count sound.
@@ -162,7 +167,10 @@ global debug
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
-        CedrusResponseBox('FlushEvents', responseBoxHandler);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
@@ -178,7 +186,8 @@ global debug
                     fprintf('byteas available but not a red press!!!!\n')
                 end
                 if response == 4  %---Jing for light control 12/03/07---
-                    startPressStartTimeSave = toc(startSoundStartTime);
+                    %startPressStartTimeSave = toc(startSoundStartTime);
+                    startPressStartTimeSave = press.rawtime;
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
                     activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
                     activeRule = data.activeRule;
