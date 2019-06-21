@@ -29,8 +29,8 @@ global debug
             CedrusResponseBox('FlushEvents', responseBoxHandler);
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
                 flagdata = getappdata(basicfig,'flagdata');
-                if(~isempty(responseBoxHandler))
-                    press = CedrusResponseBox('GetButtons', handle);
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
                     if strcmp(press.buttonID , 'middle')
                          response = 4;
                     end
@@ -103,8 +103,8 @@ global debug
         %wait half of the imaginary window start response
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
-            if(~isempty(responseBoxHandler))
-                press = CedrusResponseBox('GetButtons', handle);
+            press = CedrusResponseBox('GetButtons', responseBoxHandler);
+            if(~isempty(press))
                 if strcmp(press.buttonID , 'middle')
                      checkIfWasResponseWhenNotNeeded = 4;
                 end
@@ -169,8 +169,8 @@ global debug
             %wait fot the start response in the window time.
              if connected && ~debug
                 % byte 2 determines button number, press/release and port
-                if(~isempty(responseBoxHandler))
-                    press = CedrusResponseBox('GetButtons', handle);
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
                     if strcmp(press.buttonID , 'middle')
                          response = 4;
                     end

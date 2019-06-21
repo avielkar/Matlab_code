@@ -55,8 +55,8 @@ if connected && ~debug
     %so wait for a resposne
     if(cldata.resp == 0)
         while(toc <= cldata.respTime)
-            if(~isempty(responseBoxHandler))
-                press = CedrusResponseBox('GetButtons', handle);
+            press = CedrusResponseBox('GetButtons', responseBoxHandler);
+            if(~isempty(press))
                 if strcmp(press.buttonID , 'left') && ~is2Interval
                     response = 1;
                     responseTime = toc(startPressStartTime);
@@ -108,12 +108,8 @@ if connected && ~debug
         if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
             tic
             while(toc <=  cldata.respTime)
-                
-                
-                
-                
-                if(~isempty(responseBoxHandler))
-                    press = CedrusResponseBox('GetButtons', handle);
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
                     if strcmp(press.buttonID , 'top')            
                         confidenceResponse = 3;
                         confidenceResponseTime = toc(startPressStartTime);

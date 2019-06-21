@@ -555,7 +555,7 @@ function StopButton_Callback(hObject, eventdata, handles)
 
 
 global basicfig connected
-global bxbport
+global responseBoxHandler
 
 set(handles.StartButton,'Enable','on');
 set(handles.StopButton,'Enable','off');
@@ -573,7 +573,7 @@ flagdata.isStopButton = 1; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);
 
 try
-    CedrusResponseBox('Close', handle);
+    CedrusResponseBox('Close', responseBoxHandler);
 catch
     display('The response box is already closed.')
 end

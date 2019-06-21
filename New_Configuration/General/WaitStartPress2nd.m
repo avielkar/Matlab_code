@@ -30,15 +30,13 @@ global debug
             response = 0; % No response yet
             CedrusResponseBox('FlushEvents', responseBoxHandler);
             while(response ~= 4)
-                % byte 2 determines button number, press/release and port
-                if(~isempty(responseBoxHandler))
-                    press = CedrusResponseBox('GetButtons', handle);
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
                     if strcmp(press.buttonID , 'middle')
                          response = 4;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
-                % Checks which button was pressed (3-left, 4-center, 5-right) --shir
                 if response == 4  %---Jing for light control 12/03/07---
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
                     startPressStartTime = tic;
@@ -101,8 +99,8 @@ global debug
         %wait half of the imaginary window start response
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
-            if(~isempty(responseBoxHandler))
-                press = CedrusResponseBox('GetButtons', handle);
+            press = CedrusResponseBox('GetButtons', responseBoxHandler);
+            if(~isempty(press))
                 if strcmp(press.buttonID , 'middle')
                      checkIfWasResponseWhenNotNeeded = 4;
                 end
@@ -165,9 +163,8 @@ global debug
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
              if connected && ~debug
-                % byte 2 determines button number, press/release and port
-                if(~isempty(responseBoxHandler))
-                    press = CedrusResponseBox('GetButtons', handle);
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))                    
                     if strcmp(press.buttonID , 'middle')
                          response = 4;
                     end
