@@ -1,7 +1,7 @@
 function Stim0CollectResponse( appHandle )
 
 global connected debug in
-global bxbport
+global responseBoxHandler
 global print_var
 
 % Received legit answer sound
@@ -44,27 +44,22 @@ if connected && ~debug
     %if there was not response in the middle of the movement and it was enabled
     %so wait for a resposne
     if(cldata.resp == 0)
-        while(toc <= cldata.respTime)
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6));
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                    responseBox = bitshift (r(2), -5);    %leftmost 3 bits
-                    if(responseBox == 3) %left buttom
-                        response = 1;
-                        display('Choice = Left');
-                        break;
-                    elseif(responseBox == 5)  %right buttom
-                        response = 2;
-                        display('Choice = Right');
-                        break;
-                    else
-                        response = 0;
-                    end
-                end
+    while(toc <= cldata.respTime)
+        press = CedrusResponseBox('GetButtons', responseBoxHandler);
+        if(~isempty(press))
+            if (strcmp(press.buttonID , 'left') && ~is2Interval)
+                response = 1;
+                responseTime = toc(startPressStartTime);
+                display('Choice = Left');
+                break;
+            elseif (strcmp(press.buttonID , 'right') && ~is2Interval)
+                response = 2;
+                responseTime = toc(startPressStartTime);
+                display('Choice = Right');
+                break;
             end
         end
+    end
 
 %%%%%%%%%%%         avi add that for automatic answer.
 % % % % % % % %         timeToWait  = rand;
@@ -98,23 +93,21 @@ if connected && ~debug
         if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
             tic
             while(toc <=  cldata.respTime)
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                          confidenceResponseBox = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(confidenceResponseBox == 1) %up buttom
-                              confidenceResponse = 3;
-                              display('Confidence choice  =  High');
-                              break;
-                          elseif(confidenceResponseBox == 6)  %down buttom
-                              confidenceResponse = 4;
-                              display('Confidence choice = Low');
-                              break;
-                          else
-                              confidenceResponse = 0; 
-                          end
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
+                    if strcmp(press.buttonID , 'top')            
+                        confidenceResponse = 3;
+                        confidenceResponseTime = toc(startPressStartTime);
+                        display('Confidence choice  =  High');
+                        break;
+                    elseif strcmp(press.buttonID , 'bottom')
+                        confidenceResponse = 4;
+                        display('Confidence choice = Low');
+                        confidenceResponseTime = toc(startPressStartTime);
+                        break;
+                        
                     end
+                    fprintf('byteas available but not a red press!!!!\n')
                 end
             end
             
@@ -174,11 +167,13 @@ end
 %++++++++++++++++++++++++++++++++++
 fprintf('THE RESPONSE IS %d\n' , response);
 
-%activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
-%activeRule = data.activeRule;
-%savedInfo(activeStair,activeRule).Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = response;
-%savedInfo(activeStair,activeRule).Resp(data.repNum).confidence(trial(activeStair,activeRule).cntr) = confidenceResponse;
-
+activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
+activeRule = data.activeRule;
+savedInfo(activeStair,activeRule).Resp(data.repNum).responseTime(trial(activeStair,activeRule).cntr) = responseTime;
+savedInfo(activeStair,activeRule).Resp(data.repNum).confidenceResponseTime(trial(activeStair,activeRule).cntr) = confidenceResponseTime;
+savedInfo(activeStair,activeRule).Resp(data.repNum).response(trial(activeStair,activeRule).cntr) = response;
+savedInfo(activeStair,activeRule).Resp(data.repNum).confidence(trial(activeStair,activeRule).cntr) = confidenceResponse;
+setappdata(appHandle,'SavedInfo',savedInfo);
 setappdata(appHandle,'SavedInfo',savedInfo);
 
 if debug
