@@ -1,7 +1,7 @@
 function priorCollectResp(appHandle)
 
 global connected debug in
-global bxbport
+global responseBoxHandler
 global print_var
 global startPressStartTime
 
@@ -41,23 +41,20 @@ if connected && ~debug
         if(cldata.is_flashing_priors == false)
             %if not a flashing prior type trial.
             while(toc <= cldata.respTime)
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6));
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                          response = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(response == 3) %left buttom
-                              response = 1;
-                              responseTime = toc(startPressStartTime);
-                          elseif(response == 5)  %right buttom
-                              response = 2;
-                              responseTime = toc(startPressStartTime);
-                          else
-                              response = 0; 
-                          end
-                    end
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
+                      response = press.buttonID;
+                      if(strcmp(response , 'left')) %left buttom
+                          response = 1;
+                          responseTime = toc(startPressStartTime);
+                      elseif(strcmp(response , 'right'))  %right buttom
+                          response = 2;
+                          responseTime = toc(startPressStartTime);
+                      else
+                          response = 0; 
+                      end
                 end
+
                 if(response ~= 0)
                     display('YESSSSSSSSSSSSSSSSSSSSS');
                     break;
@@ -69,41 +66,37 @@ if connected && ~debug
             iBUTTON_RESPONSE_OPTION = strmatch('BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
             button_option = data.configinfo(iBUTTON_RESPONSE_OPTION).parameters;
             %default values for buttons press odd and even.
-            even_button = 5;    %right button
-            odd_button = 3;     %left button
+            even_button = 'right';    %right button
+            odd_button ='left';     %left button
             if(button_option == 1)
                 %even - right ,odd - left
-                even_button = 5;    %right button
-                odd_button = 3;     %left button
+                even_button = 'right';    %right button
+                odd_button = 'left';     %left button
             elseif(button_option == 2)
                 %even - left ,odd - right
-                even_button = 3;    %left button
-                odd_button = 5;     %right button
+                even_button = 'left';    %left button
+                odd_button = 'right';     %right button
             elseif(button_option == 3)
                 %even - up ,odd - down
-                even_button = 1;    %up button
-                odd_button = 6;     %down button
+                even_button = 'top';    %up button
+                odd_button = 'bottom';     %down button
             elseif(button_option == 4)
                 %even - down ,odd - up
-                even_button = 6;    %down button
-                odd_button = 1;     %up button
+                even_button = 'bottom';    %down button
+                odd_button = 'top';     %up button
             end
             while(toc <= cldata.respTime)
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6));
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                          response = bitshift (r(2), -5);    %leftmost 3 bits
-                          if(response == even_button) %even button response.
-                              response = 1;     % '1' means odd response.
-                              responseTime = toc(startPressStartTime);
-                          elseif(response == odd_button)  %odd button response.
-                              response = 2;     % '2' means even response.
-                              responseTime = toc(startPressStartTime);
-                          else
-                              response = 0;     % '0' means no response (yet).
-                          end
+                press = CedrusResponseBox('GetButtons', responseBoxHandler); 
+                if(~isempty(press))
+                    response = press.buttonID;
+                    if(strcmp(response , even_button)) %even button response.
+                      response = 1;     % '1' means odd response.
+                      responseTime = toc(startPressStartTime);
+                    elseif(strcmp(response , odd_button))  %odd button response.
+                      response = 2;     % '2' means even response.
+                      responseTime = toc(startPressStartTime);
+                    else
+                      response = 0;     % '0' means no response (yet).
                     end
                 end
                 if(response ~= 0)

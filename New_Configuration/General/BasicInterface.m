@@ -49,6 +49,10 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
+
+%close all cedrus ports.
+CedrusResponseBox('CloseAll');
+
 % End initialization code - DO NOT EDIT
 
 
@@ -495,30 +499,19 @@ function StartButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 format long
-global bxbport
+format long
+global responseBoxHandler
 global basicfig
 
 %disable the button immediately after press.
 set(handles.StartButton,'Enable','off');
 set(handles.StopButton,'Enable','on');
-        
-%check if the variable bxbport is already config to the port or not
-        %because if it does, the serial declare makes it define again and show it
-        %as closed so the status is closed but the port is actually open
-        %and that is error.
-        bxbport_empty = isempty(bxbport);
-        if(bxbport_empty == 1)
-            bxbport = serial('COM9', 'BaudRate', 115200, 'DataBits', 8, ...
-                'StopBits', 1, 'FlowControl', 'none', 'Parity', 'none');
-        end
-        %if the port is closed but defined, so open it.
-        %if(strcmp(bxbport.Status , 'closed') == true)
-        if(strcmp(bxbport.Status,'closed') == 1)
-            fopen(bxbport);
-            fprintf(bxbport,['c10', char(13)]); %XID mode
-        end
-        fprintf(bxbport,['e5',char(13)]);
 
+try
+    responseBoxHandler = CedrusResponseBox('Open', 'COM9');
+catch
+    display('The response box is already opened.')
+end
 
 setappdata(basicfig,'resp_answer',-1);
 clfunc = {@ControlLoop basicfig};
@@ -570,7 +563,7 @@ function StopButton_Callback(hObject, eventdata, handles)
 
 
 global basicfig connected
-global bxbport
+global responseBoxHandler
 
 set(handles.StartButton,'Enable','on');
 set(handles.StopButton,'Enable','off');
@@ -586,7 +579,15 @@ flagdata.isTrialStop = 1;
 flagdata.isTrialStart = 0;
 flagdata.isStopButton = 1; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);
-fclose(bxbport);
+
+%no need to that bcause that would be closed at the end of start button
+%callback.
+% try
+%     CedrusResponseBox('Close', responseBoxHandler);
+% catch
+%     display('The response box is already closed.')
+% end
+
 
 % --- Executes on button press in SaveButton.
 function SaveButton_Callback(hObject, eventdata, handles)

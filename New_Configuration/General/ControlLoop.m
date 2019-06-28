@@ -14,7 +14,7 @@ function InitializationStage(appHandle)
 
 global connected debug PLOTS  %pogen_oddity
 global in   %---Jing added 03/11/08---
-global bxbport
+global responseBoxHandler
 global basicfig
 global startPressStartTime
 
@@ -911,7 +911,11 @@ if ~paused && flagdata.isStopButton == 0
         disp(outString)
         %flush all the input from the board because we dont want a response
         %before the movement starts
-        flushinput(bxbport);
+        
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         
         %the command for the MoogDoots with the current properties for
         %making the movement and after this line the movement starts.
@@ -1030,7 +1034,7 @@ function MainTimerStage(appHandle)
 
 cbwDefs;
 global connected debug %pogen_oddity %----Jing 01/29/07---
-global bxbport
+global responseBoxHandler
 global basicfig
 global print_var
 
@@ -1187,7 +1191,10 @@ if ~paused
                           end
                 end
             else
-                flushinput(bxbport);
+                try
+                    CedrusResponseBox('FlushEvents', responseBoxHandler);
+                catch
+                end
             end
             %if the response can be at the middle of the movement and there
             %was a response
@@ -1371,7 +1378,7 @@ function PostTrialStage(appHandle)
 
 cbwDefs;
 global connected debug
-global bxbport
+global responseBoxHandler
 global print_var
 
 data = getappdata(appHandle, 'protinfo');
@@ -1410,7 +1417,10 @@ if ~paused
         %any response from the middle of the movement. if there was a
         %response in the middle of the movement and that is enabled it was
         %saved already in the MainTimerStage. 
-        flushinput(bxbport);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         
         disp(['Answer Now you have ' num2str(cldata.respTime) ' seconds'])
         %% Collect Response (changed to collect also for priors trials).
@@ -1715,7 +1725,10 @@ if ~paused
         %would not take a start press which presses during the
         %postTrialTime stage. in other words , ignore all the starts presses during the
         %%postTrialStage.
-        flushinput(bxbport);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         
         %% ---Jing for light control 12/03/07---
         if connected && cldata.lightcontrol ~= 0

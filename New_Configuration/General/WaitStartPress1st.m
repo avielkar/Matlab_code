@@ -1,7 +1,7 @@
 function WaitStartPress1st(appHandle , start_mode)
 
 global basicfig
-global bxbport
+global responseBoxHandler
 global startPressStartTime
 global startSoundStartTime
 global connected
@@ -26,17 +26,16 @@ global debug
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
-            flushinput(bxbport);
+            try
+                CedrusResponseBox('FlushEvents', responseBoxHandler);
+            catch
+            end
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
-            %    response = 4;
                 flagdata = getappdata(basicfig,'flagdata');
-                % byte 2 determines button number, press/release and port
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                         response = bitshift (r(2), -5);    %leftmost 3 bits
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
+                    if strcmp(press.buttonID , 'middle')
+                         response = 4;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
@@ -85,9 +84,7 @@ global debug
         end
         %%
     elseif (start_mode == 2)
-        %flush all the input from the board because we dont want to start
-        %before the beep
-        flushinput(bxbport);
+
         checkIfWasResponseWhenNotNeeded = 0;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
@@ -105,14 +102,18 @@ global debug
         end
         
         %wait half of the imaginary window start response
+        %flush all the input from the board because we dont want to start
+        %before the beep
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         startWindowTime = tic;
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
-            if(bxbport.BytesAvailable() >= 6)
-                r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                %uint32(fread(bxbport,6));
-                press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                if press
-                     checkIfWasResponseWhenNotNeeded = bitshift (r(2), -5);    %leftmost 3 bits
+            press = CedrusResponseBox('GetButtons', responseBoxHandler);
+            if(~isempty(press))
+                if strcmp(press.buttonID , 'middle')
+                     checkIfWasResponseWhenNotNeeded = 4;
                 end
                 fprintf('byteas available but not a red press!!!!\n')
             end
@@ -147,15 +148,21 @@ global debug
         window_size = data.configinfo(iWINDOW_SIZE).parameters;              
         %sounds the countdown sounds.
         startSoundStartTime = tic;
-        for i =1:1:count_from+1 %plus 1 because the press should be at the last non sound beep (interval).
+        %reset the timer zero based time
+        try
+            CedrusResponseBox('ResetRTTimer', responseBoxHandler);
+        catch
+        end
+        for i =1:1:count_from %plus 1 because the press should be at the last non sound beep (interval).
             intervalTime = tic;
             %time to wait betweeen count sound.
-            if(i <= count_from)
+            if(i < count_from)
                 %sounds the countdown sound.
                 soundsc(cldata.beginWav3,100000);
                 while(toc(intervalTime) < count_time)
                 end
             else
+                soundsc(cldata.beginWav3,100000);
                 %for begining waiting for a response a window_size/2 before
                 %the time.
                 while(toc(intervalTime) < count_time - window_size/2)
@@ -166,7 +173,10 @@ global debug
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
-        flushinput(bxbport);
+        try
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        catch
+        end
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
@@ -175,17 +185,16 @@ global debug
             %wait fot the start response in the window time.
              if connected && ~debug
                 % byte 2 determines button number, press/release and port
-                if(bxbport.BytesAvailable() >= 6)
-                    r = uint32(fread(bxbport,6)); % reads 6 first bytes
-                    %uint32(fread(bxbport,6));
-                    press = uint32(bitand (r(2), 16) ~= 0);    %binary 10000 bit 4
-                    if press
-                         response = bitshift (r(2), -5);    %leftmost 3 bits
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
+                    if strcmp(press.buttonID , 'middle')
+                         response = 4;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
                 if response == 4  %---Jing for light control 12/03/07---
-                    startPressStartTimeSave = toc(startSoundStartTime);
+                    %startPressStartTimeSave = toc(startSoundStartTime);
+                    startPressStartTimeSave = press.rawtime;
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
                     activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
                     activeRule = data.activeRule;
