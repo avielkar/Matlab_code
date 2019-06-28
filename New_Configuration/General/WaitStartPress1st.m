@@ -48,7 +48,7 @@ global debug
                     if cldata.movdelaycontrol && cldata.startbeep == 0
                         cldata.preTrialTime = GenVariableDelayTime;
                         tic
-                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                        soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
                         cldata.startbeep = 1;
                     end
                     % got response -> go to next stage
@@ -74,7 +74,7 @@ global debug
                     if cldata.movdelaycontrol
                         cldata.preTrialTime = GenVariableDelayTime;
                         tic
-                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                        soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
                     end
                     setappdata(appHandle,'ControlLoopData',cldata);
                     %---End 11/10/08-----
@@ -207,7 +207,7 @@ global debug
                         if cldata.movdelaycontrol && cldata.startbeep == 0
                             cldata.preTrialTime = GenVariableDelayTime;
                             tic
-                            soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                            soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
                             cldata.startbeep = 1;
                         end
                     % got response -> go to next stage
@@ -228,7 +228,7 @@ global debug
                     if cldata.movdelaycontrol
                         cldata.preTrialTime = GenVariableDelayTime;
                         tic
-                        soundsc(cldata.beginWav,200000)     %---Jing 11/12/08-----
+                        soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
                     end
                     setappdata(appHandle,'ControlLoopData',cldata);
                     %---End 11/10/08-----

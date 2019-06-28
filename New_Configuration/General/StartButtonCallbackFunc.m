@@ -172,9 +172,21 @@ else
 end
 %-----end
 
+
 cldata.beginWav = sin(500*2*pi*(0:.00001:.125));
-cldata.beginWav2 = sin(600*2*pi*(0:.00001:.125));
-cldata.beginWav3 = sin(1100*2*pi*(0:.00001:.125));
+i = strmatch('SOUND_FREQ',{char(data.configinfo.name)},'exact');
+if ~isempty(i)
+    freq = data.configinfo(i).parameters(1);
+    cldata.beginWav2 = sin(freq*2*pi*(0:.00001:.125));
+end
+
+i = strmatch('SOUND_FREQ_2I',{char(data.configinfo.name)},'exact');
+if ~isempty(i)
+    freq = data.configinfo(i).parameters(1);
+    cldata.beginWav3 = sin(freq*2*pi*(0:.00001:.125));
+end
+
+
 setappdata(basicfig,'ControlLoopData',cldata);
 
 Resp = [];
