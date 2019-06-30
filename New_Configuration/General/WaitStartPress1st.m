@@ -6,6 +6,7 @@ global startPressStartTime
 global startSoundStartTime
 global connected
 global debug
+global isAutoStart
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
     flagdata = getappdata(basicfig,'flagdata');
@@ -26,6 +27,9 @@ global debug
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
+            if(isAutoStart)
+                response = 4;
+            end
             try
                 CedrusResponseBox('FlushEvents', responseBoxHandler);
             catch
@@ -61,6 +65,9 @@ global debug
 
         elseif (connected && debug) || (~connected && debug)
             response = 0;
+            if(isAutoStart)
+                response = 4;
+            end
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
                 DebugWindow(appHandle);
                 debugResponse = getappdata(appHandle , 'debugResponse');
@@ -143,7 +150,9 @@ global debug
         %%
     elseif(start_mode == 3)
         response = 0; % reset the reponse flag.
-        
+        if(isAutoStart)
+            response = 4;
+        end
         %% self-countdown and user start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
