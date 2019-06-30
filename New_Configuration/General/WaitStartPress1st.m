@@ -108,7 +108,9 @@ global debug
             CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
         end
+        %start the timer for the window.
         startWindowTime = tic;
+        CedrusResponseBox('ResetRTTimer', responseBoxHandler);
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
             if(~isempty(press))
