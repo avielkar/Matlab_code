@@ -948,6 +948,10 @@ if ~paused && flagdata.isStopButton == 0
                 %gots and stopsending the same frame (freeze frame).
                 outString = 'DO_MOVEMENT_FREEZE 3.0';
                 cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                
+                %wait the second hald window if it is passive , to check
+                %there was no stat press , otherwise , after movement
+                %should abort the trial.
             else
                 %send the moogdots that need to go back and stop the
                 %trial from the 2nd interval.
@@ -1364,9 +1368,68 @@ if ~paused
 
     % if the timer is done, go to the next stage.
     if toc >= cldata.mainStageTime+timeOffset %----Jing added time offset 02/06/07---
-        cldata.stage = 'PostTrialStage';
-        cldata.initStage = 1;
-        setappdata(appHandle, 'ControlLoopData', cldata);
+        %check if 2I protocol , and if it does , check no start press at
+        %passive window , if there is a press , abort the trial , and not
+        %save it.
+        abort2ndInterval = false;
+        iMOTION_TYPE = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+        if(data.configinfo(iMOTION_TYPE).parameters ~=3) %not a 2 Interval
+            abort2ndInterval = false;
+        else%a 2 Interval.
+            ord = getappdata(appHandle,'Order');
+            if(ord(2) == 1)
+                start_mode = data.configinfo(iSTART_MODE).parameters;
+            else
+                start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+            end
+            abort2ndInterval = false;
+            %if passive start mode is the 2nd interval.
+            if(start_mode == 2)
+                iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
+                window_size = data.configinfo(iWINDOW_SIZE).parameters;
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                while(~isempty(press))
+                    if strcmp(press.buttonID , 'middle')
+                        %there was a press , and the press was in the
+                        %window time.
+                        if(press.rawtime < window_size)
+                            abort2ndInterval = true;
+                        end
+                    end
+                end
+            else%not a passive for the 2nd interval.
+                abort2ndInterval = false;
+            end
+        end
+        if(~abort2ndInterval)
+            cldata.stage = 'PostTrialStage';
+            cldata.initStage = 1;
+            setappdata(appHandle, 'ControlLoopData', cldata);
+        else
+            a = [ones(10,25); zeros(10,25)];
+            a_timeout = a(:)';
+            soundsc(a_timeout,2000);
+            while(cldata.respTime > toc(responseTime))
+            end
+            %send the moog to go to origin.
+            outString = 'GO_TO_ORIGIN 1';%%%%%%% 
+            disp(outString);
+            if connected
+                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+            end
+            %wait the post trial time (the robot is making it's
+            %movement to origin in this time).
+            postTrialWaitTime = tic;
+            while(cldata.postTrialTime > toc(postTrialWaitTime))
+            end
+            %make the matlab skip all remainig stages and come back
+            %to the init stage.
+            cldata = getappdata(appHandle, 'ControlLoopData');            
+            cldata.go = 0;
+            cldata.stage = 'InitializationStage';
+            cldata.initStage = 1;
+            setappdata(appHandle,'ControlLoopData',cldata);
+        end
     end
 end
 
