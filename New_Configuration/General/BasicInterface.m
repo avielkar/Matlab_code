@@ -28,7 +28,7 @@ global print_var
 
 % Edit the above text to modify the response to help BasicInterface
 
-% Last Modified by GUIDE v2.5 02-Jan-2018 22:04:16
+% Last Modified by GUIDE v2.5 30-Jun-2019 21:13:26
 
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
@@ -1525,3 +1525,14 @@ global basicfig
 
 EyeCalibration;
 set(basicfig,'Visible','off');
+
+
+% --- Executes on button press in checkboxAutoStart.
+function checkboxAutoStart_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxAutoStart (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global isAutoStart
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxAutoStart
+isAutoStart = get(hObject,'Value');
