@@ -29,6 +29,8 @@ global isAutoStart
             response = 0; % No response yet
             if(isAutoStart)
                 response = 4;
+                cldata.go = 1;
+                setappdata(appHandle,'ControlLoopData',cldata);
             end
             try
                 CedrusResponseBox('FlushEvents', responseBoxHandler);
