@@ -875,7 +875,8 @@ if ~paused && flagdata.isStopButton == 0
     end
     
     %decide about the start mode value.
-    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
+    iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+    iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
     if(~isempty(iSTART_MODE))
         ord = getappdata(appHandle,'Order');
         if(ord(1) == 1)
@@ -1376,6 +1377,8 @@ if ~paused
         if(data.configinfo(iMOTION_TYPE).parameters ~=3) %not a 2 Interval
             abort2ndInterval = false;
         else%a 2 Interval.
+            iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+            iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact'); 
             ord = getappdata(appHandle,'Order');
             if(ord(2) == 1)
                 start_mode = data.configinfo(iSTART_MODE).parameters;
