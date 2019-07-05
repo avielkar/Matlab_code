@@ -581,6 +581,7 @@ flagdata.isTrialStop = 1;
 flagdata.isTrialStart = 0;
 flagdata.isStopButton = 1; %Jing 01/05/09---
 setappdata(basicfig,'flagdata',flagdata);
+% CedrusResponseBox('CloseAll');
 
 %no need to that bcause that would be closed at the end of start button
 %callback.

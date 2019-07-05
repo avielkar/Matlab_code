@@ -710,7 +710,7 @@ end
 %check if the port is not opened because it is a second start
 %buttom after the first has benn pushed.
 try
-    CedrusResponseBox('Close', responseBoxHandler);
+    CedrusResponseBox('CloseAll');
 catch
     display('The response box is already closed.')
 end
