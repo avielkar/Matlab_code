@@ -1,4 +1,4 @@
-function WaitStartPress1st(appHandle , start_mode)
+function secondPressInTime = WaitStartPress1st(appHandle , start_mode)
 
 global basicfig
 global responseBoxHandler
@@ -6,7 +6,6 @@ global startPressStartTime
 global startSoundStartTime
 global connected
 global debug
-global isAutoStart
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
     flagdata = getappdata(basicfig,'flagdata');
@@ -17,17 +16,18 @@ global isAutoStart
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
     % Time Out Sound
-    a = [ones(10,25); zeros(10,25)];
+    a = [ones(10,25);zeros(10,25)];
     a_timeout = a(:)';
     
     if(start_mode == 1)
         soundsc(cldata.beginWav,100000);
-        fprintf('sound!!!!!!!!!!!!\n')
+        %press has no time limit.
+        secondPressInTime = 1;
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
             response = 0; % No response yet
-            if(isAutoStart)
+            if(flagdata.isAutoStart)
                 response = 4;
                 cldata.go = 1;
                 setappdata(appHandle,'ControlLoopData',cldata);
@@ -45,7 +45,6 @@ global isAutoStart
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
-                % Checks which button was pressed (3-left, 4-center, 5-right) --shir
                 if response == 4  %---Jing for light control 12/03/07---
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
                     startPressStartTime = tic;
@@ -67,7 +66,7 @@ global isAutoStart
 
         elseif (connected && debug) || (~connected && debug)
             response = 0;
-            if(isAutoStart)
+            if(flagdata.isAutoStart)
                 response = 4;
             end
             while(response ~= 4 && flagdata.isStopButton ~= 1) %Jing 01/05/09---)
@@ -93,7 +92,6 @@ global isAutoStart
         end
         %%
     elseif (start_mode == 2)
-
         checkIfWasResponseWhenNotNeeded = 0;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
@@ -127,7 +125,7 @@ global isAutoStart
                 fprintf('byteas available but not a red press!!!!\n')
             end
         end
-        
+
         %the user press start , altough no need to press , failure
         if(checkIfWasResponseWhenNotNeeded == 4)
             secondPressInTime = 0;
@@ -139,24 +137,27 @@ global isAutoStart
             setappdata(appHandle,'ControlLoopData',cldata);
         else
             %automatic response
-            secondPressInTime = 0;
+            secondPressInTime = 1;
             response = 4;
             startPressStartTime = tic;
             cldata = getappdata(appHandle, 'ControlLoopData');
             cldata.go = 1;
             setappdata(appHandle,'ControlLoopData',cldata);
         end
-        
         %%
     elseif(start_mode == 3)
         response = 0; % reset the reponse flag.
-        if(isAutoStart)
+        if(flagdata.isAutoStart)
             response = 4;
+            cldata = getappdata(appHandle, 'ControlLoopData');
+            % got response -> go to next stage
+            cldata.go = 1;
+            setappdata(appHandle,'ControlLoopData',cldata);
         end
         %% self-countdown and user start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
-        window_size = data.configinfo(iWINDOW_SIZE).parameters;              
+        window_size = data.configinfo(iWINDOW_SIZE).parameters;
         %sounds the countdown sounds.
         startSoundStartTime = tic;
         %reset the timer zero based time
@@ -182,19 +183,20 @@ global isAutoStart
         %flush all the input from the board because we dont want to start
         %before the beep
         try
-            CedrusResponseBox('FlushEvents', responseBoxHandler);
+        CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
         end
         %also for the debug, flush the inputs.
         setappdata(appHandle , 'debugResponse' , 0);
         window_size_timer = tic;
+        fprintf('waiting for red press\n');
         while(response == 0 && flagdata.isStopButton == 0 && toc(window_size_timer) <= window_size)%not /2 for the prior beep response and post response.)
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
              if connected && ~debug
                 % byte 2 determines button number, press/release and port
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                if(~isempty(press))
+                if(~isempty(press))                    
                     if strcmp(press.buttonID , 'middle')
                          response = 4;
                     end
@@ -212,12 +214,6 @@ global isAutoStart
                     startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
                     cldata = getappdata(appHandle, 'ControlLoopData');
-                        if cldata.movdelaycontrol && cldata.startbeep == 0
-                            cldata.preTrialTime = GenVariableDelayTime;
-                            tic
-                            soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
-                            cldata.startbeep = 1;
-                        end
                     % got response -> go to next stage
                     cldata.go = 1;
                     setappdata(appHandle,'ControlLoopData',cldata);
@@ -242,24 +238,25 @@ global isAutoStart
                     %---End 11/10/08-----
                 end
              end
-            pause(0.01);
+            %pause(0.01);
         end
-        %%
-        %%
-        %test line
-% % % % % % % % % % % % %         secondPressInTime = 2 - randi(2) ;
-% % % % % % % % % % % % %         cldata.go = secondPressInTime;
-% % % % % % % % % % % % %         setappdata(appHandle,'ControlLoopData',cldata);
+        if(response == 4)
+            secondPressInTime = 1;
+        else
+            secondPressInTime = 0;
+            % Time Out Sound
+            soundsc(a_timeout,2000);
+        end
         %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
         %randomiza the intOrder and the trajectory again.
-        if(cldata.go == 0)
+        if(secondPressInTime ~= 1)
             %it is only for 2I , in order to offsets between the beeps
             %because immediatley goes to the initial stage.
             % Time Out Sound
-            soundsc(a_timeout,2000);
-            %cldata = getappdata(appHandle,'ControlLoopData');
+            %soundsc(a_timeout,2000);
+            cldata = getappdata(appHandle,'ControlLoopData');
             cldata.stage = 'InitializationStage';
             cldata.initStage = 1;
             setappdata(appHandle, 'ControlLoopData' , cldata);
         end
-    end
+    end    
