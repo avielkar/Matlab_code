@@ -889,7 +889,7 @@ if ~paused && flagdata.isStopButton == 0
     end
     
     %wait for the 1st start mode.
-    WaitStartPress1st(appHandle, start_mode, 1);
+    WaitStartPress(appHandle, start_mode, 1);
     cldata = getappdata(appHandle, 'ControlLoopData');
     
     %% Sending the command to the MoogDots and flushing againg the bxbport for cleaning it and go to the MainTimerStage..
@@ -942,7 +942,7 @@ if ~paused && flagdata.isStopButton == 0
             %wait for the 2nd start press
             fprintf('Waiting for the 2nds start press\n');
 
-            secondPressInTime = WaitStartPress1nd(appHandle , start_mode , 2);
+            secondPressInTime = WaitStartPress(appHandle , start_mode , 2);
 
             if(secondPressInTime)
                 %send the moogdots that need to continue the next frames it

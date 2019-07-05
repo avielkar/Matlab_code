@@ -209,7 +209,7 @@ global debug
                     activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
                     activeRule = data.activeRule;
                     savedInfo = getappdata(appHandle,'SavedInfo');
-                    savedInfo(activeStair,activeRule).Resp(data.repNum).startPressResponseTime(trial(activeStair,activeRule).cntr) = startPressStartTimeSave;
+                    savedInfo(activeStair,activeRule).Resp(data.repNum).startPressTime(trial(activeStair,activeRule).cntr) = startPressStartTimeSave;
                     setappdata(appHandle,'SavedInfo',savedInfo );
                     startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
