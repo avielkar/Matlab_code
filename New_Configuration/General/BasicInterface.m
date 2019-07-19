@@ -1535,6 +1535,7 @@ function CheckboxAutoStart_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+global basicfig
 % Hint: get(hObject,'Value') returns toggle state of CheckboxAutoStart
 is_enabled = get(findobj(basicfig,'Tag','CheckboxAutoStart'),'Value');
 flagdata = getappdata(basicfig,'flagdata');
