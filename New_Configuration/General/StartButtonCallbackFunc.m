@@ -175,15 +175,62 @@ end
 
 cldata.beginWav = sin(500*2*pi*(0:.00001:.125));
 i = strmatch('SOUND_FREQ',{char(data.configinfo.name)},'exact');
+iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
+iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');
+iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
+
 if ~isempty(i)
-    freq = data.configinfo(i).parameters(1);
-    cldata.beginWav2 = sin(freq*2*pi*(0:.00001:.125));
+    freq = data.configinfo(i).parameters(1); 
+    count_from = data.configinfo(iCOUNT_FROM).parameters;
+    count_time = data.configinfo(iCOUNT_TIME).parameters;
+    
+    number_of_samples_per_block_sound = (count_time/5) * 8192;
+    number_of_samples_per_block_silence = (4*count_time/5) * 8192;
+    jumper_sound = 0.125/number_of_samples_per_block_sound;
+    jumper_silence = 0.125/number_of_samples_per_block_silence;
+    
+    for i=1:1:count_from
+        cldata.beginWav2 = sin(freq*2*pi*(0:jumper_sound:.125));
+        cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:jumper_silence:.125))];
+        cldata.beginWav2 =[cldata.beginWav2 sin(freq*2*pi*(0:jumper_sound:.125))];
+        cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:jumper_silence:.125))];
+    end
+    
+% % % %     cldata.beginWav3 = sin(freq*2*pi*(0:0.00006103515:.125));
+% % % %     cldata.beginWav3 = [cldata.beginWav3 sin(0*2*pi*(0:0.00006103515:.125))];
+% % % %     cldata.beginWav3 = [cldata.beginWav3 sin(freq*2*pi*(0:0.00006103515:.125))];
+% % % %     cldata.beginWav3 = [cldata.beginWav3 sin(0*2*pi*(0:0.00006103515:.125))];
 end
 
 i = strmatch('SOUND_FREQ_2I',{char(data.configinfo.name)},'exact');
 if ~isempty(i)
     freq = data.configinfo(i).parameters(1);
-    cldata.beginWav3 = sin(freq*2*pi*(0:.00001:.125));
+    count_from = data.configinfo(iCOUNT_FROM).parameters;
+    count_time = data.configinfo(iCOUNT_TIME).parameters;
+    window_size = data.configinfo(iWINDOW_SIZE).parameters;
+    
+    duration = count_from*count_time;
+    sound_duration = duration - window_size/2;
+    total_number_of_samples = sound_duration*8192;
+        
+    number_of_samples_per_block_sound = (count_time/5) * 8192;
+    number_of_samples_per_block_silence = (4*count_time/5) * 8192;
+    jumper_sound = 0.125/number_of_samples_per_block_sound;
+    jumper_silence = 0.125/number_of_samples_per_block_silence;
+    
+    for i=1:1:count_from
+        cldata.beginWav3 = sin(freq*2*pi*(0:jumper_sound:.125));
+        cldata.beginWav3 =[cldata.beginWav3 sin(0*2*pi*(0:jumper_silence:.125))];
+        cldata.beginWav3 =[cldata.beginWav3 sin(freq*2*pi*(0:jumper_sound:.125))];
+        cldata.beginWav3 =[cldata.beginWav3 sin(0*2*pi*(0:jumper_silence:.125))];
+    end
+    
+    cldata.beginWav3 = cldata.beginWav3(1:1:total_number_of_samples);
+    
+% %     cldata.beginWav2 = sin(freq*2*pi*(0:0.00006975446:.125));
+% %     cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:0.00006975446:.125))];
+% %     cldata.beginWav2 =[cldata.beginWav2 sin(freq*2*pi*(0:0.00006975446:.125))];
+% %     cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:0.00006975446:.125))];    
 end
 
 
