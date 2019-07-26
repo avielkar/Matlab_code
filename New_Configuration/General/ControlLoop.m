@@ -913,10 +913,10 @@ if ~paused && flagdata.isStopButton == 0
         %flush all the input from the board because we dont want a response
         %before the movement starts
         
-        try
-            CedrusResponseBox('FlushEvents', responseBoxHandler);
-        catch
-        end
+        %try
+        %    CedrusResponseBox('FlushEvents', responseBoxHandler);
+        %catch
+        %end
         
         %the command for the MoogDoots with the current properties for
         %making the movement and after this line the movement starts.
@@ -934,26 +934,45 @@ if ~paused && flagdata.isStopButton == 0
             i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
             movement_duration = data.configinfo(i).parameters.moog(1);
             pause(movement_duration);
-            if(ord(2) == 1)
-                start_mode = data.configinfo(iSTART_MODE).parameters;
-            else
-                start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+            
+            %check no start button when the start mode is 2 during the
+            %movement
+            abort2ndInterval = false;
+            iMOTION_TYPE = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+            if(data.configinfo(iMOTION_TYPE).parameters ~=3) %not a 2 Interval
+                abort2ndInterval = false;
+            else%a 2 Interval.
+                iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
+                iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact'); 
+                ord = getappdata(appHandle,'Order');
+                if(ord(1) == 1)
+                    start_mode = data.configinfo(iSTART_MODE).parameters;
+                else
+                    start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+                end
+                abort2ndInterval = false;
+                %if passive start mode is the 2nd interval.
+                if(start_mode == 2)
+                    press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    while(~isempty(press))
+                        if strcmp(press.buttonID , 'middle')
+                            %there was a press , and the press was in the
+                            %window time or movement time.
+                            abort2ndInterval = true;
+                        end
+                        press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    end
+                else%not a passive for the 2nd interval.
+                    abort2ndInterval = false;
+                end
             end
-            %wait for the 2nd start press
-            fprintf('Waiting for the 2nds start press\n');
-
-            secondPressInTime = WaitStartPress(appHandle , start_mode , 2);
-
-            if(secondPressInTime)
-                %send the moogdots that need to continue the next frames it
-                %gots and stopsending the same frame (freeze frame).
-                outString = 'DO_MOVEMENT_FREEZE 3.0';
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-                
-                %wait the second hald window if it is passive , to check
-                %there was no stat press , otherwise , after movement
-                %should abort the trial.
-            else
+            
+            if(abort2ndInterval)
+                secondPressInTime = 0;
+                % Time Out Sound
+                a = [ones(10,25);zeros(10,25)];
+                a_timeout = a(:)';
+                soundsc(a_timeout,2000);
                 %send the moogdots that need to go back and stop the
                 %trial from the 2nd interval.
                 %gots and stopsending the same frame (freeze frame).
@@ -983,7 +1002,59 @@ if ~paused && flagdata.isStopButton == 0
                 cldata.go = 0;
                 cldata.stage = 'InitializationStage';
                 cldata.initStage = 1;
-                setappdata(appHandle,'ControlLoopData',cldata);
+                setappdata(appHandle,'ControlLoopData',cldata); 
+            else
+                if(ord(2) == 1)
+                    start_mode = data.configinfo(iSTART_MODE).parameters;
+                else
+                    start_mode = data.configinfo(iSTART_MODE_2I).parameters;
+                end
+                %wait for the 2nd start press
+                fprintf('Waiting for the 2nds start press\n');
+
+                secondPressInTime = WaitStartPress(appHandle , start_mode , 2);
+
+                if(secondPressInTime)
+                    %send the moogdots that need to continue the next frames it
+                    %gots and stopsending the same frame (freeze frame).
+                    outString = 'DO_MOVEMENT_FREEZE 3.0';
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+
+                    %wait the second hald window if it is passive , to check
+                    %there was no stat press , otherwise , after movement
+                    %should abort the trial.
+                else
+                    %send the moogdots that need to go back and stop the
+                    %trial from the 2nd interval.
+                    %gots and stopsending the same frame (freeze frame).
+                    outString = 'DO_MOVEMENT_FREEZE 4.0';
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                    disp(outString);
+                    %add the response time delay for the moogdots finish
+                    %the processing before updating it's trajectory to
+                    %origin.
+                    responseTime = tic;
+                    while(cldata.respTime > toc(responseTime))
+                    end
+                    %send the moog to go to origin.
+                    outString = 'GO_TO_ORIGIN 1';%%%%%%% 
+                    disp(outString);
+                    if connected
+                        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                    end
+                    %wait the post trial time (the robot is making it's
+                    %movement to origin in this time).
+                    postTrialWaitTime = tic;
+                    while(cldata.postTrialTime > toc(postTrialWaitTime))
+                    end
+                    %make the matlab skip all remainig stages and come back
+                    %to the init stage.
+                    cldata = getappdata(appHandle, 'ControlLoopData');            
+                    cldata.go = 0;
+                    cldata.stage = 'InitializationStage';
+                    cldata.initStage = 1;
+                    setappdata(appHandle,'ControlLoopData',cldata);
+                end 
             end
         end
         
@@ -1196,176 +1267,41 @@ if ~paused
                           end
                 end
             else
-                try
-                    CedrusResponseBox('FlushEvents', responseBoxHandler);
-                catch
-                end
+%                 try
+%                     CedrusResponseBox('FlushEvents', responseBoxHandler);
+%                 catch
+%                 end
             end
             %if the response can be at the middle of the movement and there
             %was a response
             if (response == 1 || response == 2) && (flagdata.canResponseDuringMovement == 1)
                 cldata.resp = response;
                 setappdata(appHandle, 'ControlLoopData', cldata);
+                
+                cldata.responeTime = 0;
+                setappdata(appHandle, 'ControlLoopData', cldata);
+                cldata = getappdata(appHandle, 'ControlLoopData');
+                cldata.responeTime = cldata.responeTime + toc;
+                toc
+                cldata.responeInMiddle = 1;
+                %---Jian for RTT Rot Prot 06/02/2010----
+                if cldata.responeTime-cldata.preTrialTime > cldata.mainStageTime*cldata.resptimepct/100
+                    cldata.responeInMiddle = 2;
+                end
+                %--- End 06/02/2010 ----
+                setappdata(appHandle, 'ControlLoopData', cldata);
 
-                %---Jing for Reaction_time_task Protocol 11/10/08-----
-                %if cldata.movdelaycontrol
-                    cldata.responeTime = 0;
-                    setappdata(appHandle, 'ControlLoopData', cldata);
-                    cldata = getappdata(appHandle, 'ControlLoopData');
-                    cldata.responeTime = cldata.responeTime + toc;
-                    toc
-                    cldata.responeInMiddle = 1;
-                    %---Jian for RTT Rot Prot 06/02/2010----
-                    if cldata.responeTime-cldata.preTrialTime > cldata.mainStageTime*cldata.resptimepct/100
-                        cldata.responeInMiddle = 2;
-                    end
-                    %--- End 06/02/2010 ----
-                    setappdata(appHandle, 'ControlLoopData', cldata);
+                cbDOut(boardNum, portNum, 8); % Send out 5v to stop the moog. Jing01/28/09
 
-                    cbDOut(boardNum, portNum, 8); % Send out 5v to stop the moog. Jing01/28/09
-                    %                     estop_time = [0 0];
-                    %                     estop_time(1) = toc;
-                    %                     for estop_counter = 1:1000
-                    %                         estop_time(2) = toc;
-                    %                         diff_estop_time = estop_time(2) - estop_time(1)
-                    %                         if ( diff_estop_time > 1) % 1 sec
-                    %                             break
-                    %                         end
-                    %                     end
-                    pause(1)
-                    % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-                    outString = 'GO_TO_ORIGIN 1';
-                    if connected
-                        cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-                    end
-                    %
-                    %                     if debug
-                    %                         disp(outString)
-                    %                     end
-                    %commented out temporarily as this produced
-                    %bumps in the middle of the trajectory. Need to
-                    %find a way to fix this..... Tunde -- 01/7/09
-                    % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-                %end
-                %---End 11/10/08-----
+                pause(1)
+                % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+                outString = 'GO_TO_ORIGIN 1';
+                if connected
+                    cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
+                end
             end
         end
     end
-    %----Jing end---------------
-    %%
-
-    %% Jing for StepVelocity Protocol 12/01/09-----
-    if cldata.enableRespBeep && cldata.respBeep && toc > cldata.respBeepTime
-        cldata.respBeep = 0;
-        soundsc(cldata.beginWav,200000);
-        setappdata(appHandle, 'ControlLoopData', cldata);
-    end
-    %% ---End 12/01/09
-
-    %% ---Jing for Monocular Protocol 03/06/09-----
-    if cldata.enablemonocular && toc > cldata.firstIntTime && cldata.monocularflag
-        cldata.monocularflag = 0;
-        setappdata(appHandle, 'ControlLoopData', cldata);
-        COMBOARDNUM = 0;
-        outString = 'STAR_LEYE_COLOR 1 0 0';%%%%%%
-        if connected
-            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        end
-        if debug
-            disp(outString)
-        end
-
-        outString = 'STAR_REYE_COLOR 1 0 0';%%%%%%
-        if connected
-            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        end
-        if debug
-            disp(outString)
-        end
-
-        % Pogen added
-        i = strmatch('WALL_DENSITY2I',{char(data.configinfo.name)},'exact');
-        WallDensity=data.configinfo(i).parameters;
-        i = strmatch('WALL_DIMS2I',{char(data.configinfo.name)},'exact');
-        WallDims=data.configinfo(i).parameters;
-        i = strmatch('WALL_ORIGIN2I',{char(data.configinfo.name)},'exact');
-        WallOrigin=data.configinfo(i).parameters;
-        outString = ['WALL_ORIGIN 0 ',num2str(WallOrigin),' 0'];
-        if connected
-            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        end
-        if debug
-            disp(outString)
-        end
-        outString = ['WALL_DIMS_N_DENSITY ',num2str(WallDims),' ',num2str(WallDensity)];
-        if connected
-            cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        end
-        if debug
-            disp(outString)
-        end
-        %         outString = ['WALL_DENSITY 0.00000001'];
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %         if debug
-        %             disp(outString)
-        %         end
-        %         outString = ['WALL_DIMS ',num2str(WallDims)];
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %         if debug
-        %             disp(outString)
-        %         end
-        %         outString = ['WALL_DENSITY ',num2str(WallDensity)];
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %         if debug
-        %             disp(outString)
-        %         end
-
-    end
-    %% ---End 03/06/09-----
-
-    %% =======Jimmy for Randomizing Cylinders [4/22/08]=====%Jing 12/01/08
-    %     data = getappdata(appHandle,'protinfo');
-    %
-    %     i = strmatch('CYLINDERS_XPOS',{char(data.configinfo.name)},'exact');
-    %     if ~isempty(i)
-    %         tmp = cldata.cylinders_xpos;    % get starting values from cldata.
-    %         tmp = [tmp(1)+(rand*20-10), tmp(2)+(rand*20-10), tmp(3)+(rand*20-10)];
-    %         data.configinfo(i).parameters = tmp;
-    %     end
-    %
-    %     i = strmatch('CYLINDERS_YPOS',{char(data.configinfo.name)},'exact');
-    %     if ~isempty(i)
-    %         tmp = cldata.cylinders_ypos;
-    %         tmp = [tmp(1)+(rand*20-10), tmp(2)+(rand*20-10), tmp(3)+(rand*20-10)];
-    %         data.configinfo(i).parameters = tmp;
-    %     end
-    %
-    %     setappdata(appHandle, 'protinfo', data);
-    %% =======Jimmy End===============%
-
-    %% ==========Jimmy for Randomizing Seed of Noise Param [6/5/08]========%
-    i = strmatch('NOISE_PARAMS',{char(data.configinfo.name)},'exact');
-    if ~isempty(i)
-        tmp = data.configinfo(i).parameters;
-        tmp(7) = floor(rand*2000);
-        data.configinfo(i).parameters = tmp;
-
-        setappdata(appHandle, 'protinfo', data);
-    end
-    %% ===============Jimmy End==========%Jing end 12/01/08
-
-    %% =======Setup eyeTracking. Jing 01/27/09====================
-    flagdata = getappdata(appHandle,'flagdata');
-    if flagdata.isEyeTracking
-        getEyeTrackingData;
-    end
-    %% =======End 01/27/09===========
 
     % if the timer is done, go to the next stage.
     if toc >= cldata.mainStageTime+timeOffset %----Jing added time offset 02/06/07---
@@ -1388,17 +1324,14 @@ if ~paused
             abort2ndInterval = false;
             %if passive start mode is the 2nd interval.
             if(start_mode == 2)
-                iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
-                window_size = data.configinfo(iWINDOW_SIZE).parameters;
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 while(~isempty(press))
                     if strcmp(press.buttonID , 'middle')
                         %there was a press , and the press was in the
-                        %window time.
-                        if(press.rawtime < window_size)
-                            abort2ndInterval = true;
-                        end
+                        %window time or movement time.
+                        abort2ndInterval = true;
                     end
+                    press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 end
             else%not a passive for the 2nd interval.
                 abort2ndInterval = false;
@@ -1409,9 +1342,12 @@ if ~paused
             cldata.initStage = 1;
             setappdata(appHandle, 'ControlLoopData', cldata);
         else
+            outString = 'aborted';%%%%%%% 
+            disp(outString);
             a = [ones(10,25); zeros(10,25)];
             a_timeout = a(:)';
             soundsc(a_timeout,2000);
+            responseTime=tic;
             while(cldata.respTime > toc(responseTime))
             end
             %send the moog to go to origin.

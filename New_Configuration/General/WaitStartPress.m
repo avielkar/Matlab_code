@@ -93,19 +93,14 @@ global debug
         %%
     elseif (start_mode == 2)
         checkIfWasResponseWhenNotNeeded = 0;
-        window_size = data.configinfo(iWINDOW_SIZE).parameters;
-        
-        %% robot-countdown and automatic-start
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
-        %sound the countdown sounds.
-        for i =1:1:count_from
-            %sounds the countdown sound.
-            soundsc(cldata.beginWav2,100000);
-            %time to wait betweeen count sound.
-            pause(count_time);
-        end
+        window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
+        %sound the countdown sounds.
+        soundsc(cldata.beginWav2);
+        %wait the sound to over
+        pause(count_time*count_from - window_size/2);
         %wait half of the imaginary window start response
         %flush all the input from the board because we dont want to start
         %before the beep
@@ -160,30 +155,19 @@ global debug
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         %sounds the countdown sounds.
         startSoundStartTime = tic;
-        %reset the timer zero based time
+        soundsc(cldata.beginWav3);
         try
             CedrusResponseBox('ResetRTTimer', responseBoxHandler);
         catch
         end
-        for i =1:1:count_from %plus 1 because the press should be at the last non sound beep (interval).
-            %time to wait betweeen count sound.
-            if(i < count_from)
-                %sounds the countdown sound.
-                soundsc(cldata.beginWav3,100000);
-                pause(count_time);
-            else
-                soundsc(cldata.beginWav3,100000);
-                %for begining waiting for a response a window_size/2 before
-                %the time.
-                pause(count_time - window_size/2)
-            end
-        end
+        matlab_timer = tic;
+        pause(count_time*count_from - window_size/2);
         %%
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
         try
-        CedrusResponseBox('FlushEvents', responseBoxHandler);
+            CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
         end
         %also for the debug, flush the inputs.
@@ -210,6 +194,7 @@ global debug
                     activeRule = data.activeRule;
                     savedInfo = getappdata(appHandle,'SavedInfo');
                     savedInfo(activeStair,activeRule).Resp(data.repNum).startPressTime(trial(activeStair,activeRule).cntr) = startPressStartTimeSave;
+                    savedInfo(activeStair,activeRule).Resp(data.repNum).matlabStartPressTime(trial(activeStair,activeRule).cntr) = toc(matlab_timer);
                     setappdata(appHandle,'SavedInfo',savedInfo );
                     startPressStartTime = tic;
                     %---Jing for Reaction_time_task Protocol 11/10/08-----
