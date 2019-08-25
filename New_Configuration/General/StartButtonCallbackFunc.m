@@ -11,6 +11,8 @@ data = getappdata(basicfig,'protinfo');
 flagdata = getappdata(basicfig,'flagdata');
 crossvals = getappdata(basicfig,'CrossVals');
 
+SAMPLE_FREQ = 44100;
+
 COMBOARDNUM = 0;
 % ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %% Set Control Loop data, and initialize Variables used in Control Loop
@@ -184,27 +186,18 @@ if ~isempty(i)
     freq = data.configinfo(i).parameters(1); 
     count_from = data.configinfo(iCOUNT_FROM).parameters;
     count_time = data.configinfo(iCOUNT_TIME).parameters;
-    
     sound_time = data.configinfo(iSOUND_TIME).parameters;
-    sound_partition_time = sound_time;
-    silence_partition_time = count_time - sound_partition_time;
-    
-    number_of_samples_per_block_sound = (sound_partition_time) * 8192;
-    number_of_samples_per_block_silence = (silence_partition_time) * 8192;
-    jumper_sound = 0.125/number_of_samples_per_block_sound;
-    jumper_silence = 0.125/number_of_samples_per_block_silence;
-    
+
+    silence_time = count_time - sound_time;
+
+    jumper = 1/SAMPLE_FREQ;
+
+    cldata.beginWav2 = [];
     for i=1:1:count_from
-        cldata.beginWav2 = sin(freq*2*pi*(0:jumper_sound:.125));
-        cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:jumper_silence:.125))];
-        cldata.beginWav2 =[cldata.beginWav2 sin(freq*2*pi*(0:jumper_sound:.125))];
-        cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:jumper_silence:.125))];
+        cldata.beginWav2 = [cldata.beginWav2 sin(freq*2*pi*(0:jumper:sound_time))];
+        cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:jumper:silence_time))];
     end
     
-% % % %     cldata.beginWav3 = sin(freq*2*pi*(0:0.00006103515:.125));
-% % % %     cldata.beginWav3 = [cldata.beginWav3 sin(0*2*pi*(0:0.00006103515:.125))];
-% % % %     cldata.beginWav3 = [cldata.beginWav3 sin(freq*2*pi*(0:0.00006103515:.125))];
-% % % %     cldata.beginWav3 = [cldata.beginWav3 sin(0*2*pi*(0:0.00006103515:.125))];
 end
 
 i = strmatch('SOUND_FREQ_2I',{char(data.configinfo.name)},'exact');
@@ -213,33 +206,23 @@ if ~isempty(i)
     count_from = data.configinfo(iCOUNT_FROM).parameters;
     count_time = data.configinfo(iCOUNT_TIME).parameters;
     window_size = data.configinfo(iWINDOW_SIZE).parameters;
-    
     sound_time = data.configinfo(iSOUND_TIME).parameters;
-    sound_partition_time = sound_time;
-    silence_partition_time = count_time - sound_partition_time;
+        
+    silence_time = count_time - sound_time;    
     
     duration = count_from*count_time;
     sound_duration = duration - window_size/2;
-    total_number_of_samples = sound_duration*8192;
-        
-    number_of_samples_per_block_sound = (sound_partition_time) * 8192;
-    number_of_samples_per_block_silence = (silence_partition_time) * 8192;
-    jumper_sound = 0.125/number_of_samples_per_block_sound;
-    jumper_silence = 0.125/number_of_samples_per_block_silence;
-    
+    total_number_of_samples = sound_duration*SAMPLE_FREQ;
+   
+    jumper = 1/SAMPLE_FREQ;
+
+    cldata.beginWav3 = [];
     for i=1:1:count_from
-        cldata.beginWav3 = sin(freq*2*pi*(0:jumper_sound:.125));
-        cldata.beginWav3 =[cldata.beginWav3 sin(0*2*pi*(0:jumper_silence:.125))];
-        cldata.beginWav3 =[cldata.beginWav3 sin(freq*2*pi*(0:jumper_sound:.125))];
-        cldata.beginWav3 =[cldata.beginWav3 sin(0*2*pi*(0:jumper_silence:.125))];
-    end
+        cldata.beginWav3 = [cldata.beginWav3 sin(freq*2*pi*(0:jumper:sound_time))];
+        cldata.beginWav3 =[cldata.beginWav3 sin(0*2*pi*(0:jumper:silence_time))];
+    end    
     
     cldata.beginWav3 = cldata.beginWav3(1:1:total_number_of_samples);
-    
-% %     cldata.beginWav2 = sin(freq*2*pi*(0:0.00006975446:.125));
-% %     cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:0.00006975446:.125))];
-% %     cldata.beginWav2 =[cldata.beginWav2 sin(freq*2*pi*(0:0.00006975446:.125))];
-% %     cldata.beginWav2 =[cldata.beginWav2 sin(0*2*pi*(0:0.00006975446:.125))];    
 end
 
 

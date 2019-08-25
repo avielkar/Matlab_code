@@ -58,6 +58,8 @@ else     %Else, use control parameter to analyze Resp.
     end
 end
 
+%control name is the one has different range of values.
+%refernce name is the one which is const.
 i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
 is1IControl = 0;
 if data.configinfo(i).parameters == 3   % For two interval
@@ -116,7 +118,22 @@ if data.configinfo(i).parameters == 3   % For two interval
     savedInfo(activeStair,activeRule).Resp(currRep).intOrder(currTrial,:) = intOrder;
 end
 
-savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial) = dir;
+i = strmatch('MOTION_TYPE',{char(data.configinfo.name)},'exact');
+if( data.configinfo(i).parameters == 3)
+    savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial) = dir;
+    savedInfo(activeStair,activeRule).Resp(currRep).distanceDiff(currTrial) = dir;
+    if(is1IControl)
+        savedInfo(activeStair,activeRule).Resp(currRep).refMinusTest(currTrial) = tmpDir(2) - tmpDir(1);
+        savedInfo(activeStair,activeRule).Resp(currRep).refDir(currTrial) = tmpDir(2);
+        savedInfo(activeStair,activeRule).Resp(currRep).testDir(currTrial) = tmpDir(1);
+    else
+        savedInfo(activeStair,activeRule).Resp(currRep).refMinusTest(currTrial) = tmpDir(1) - tmpDir(2);
+        savedInfo(activeStair,activeRule).Resp(currRep).refDir(currTrial) = tmpDir(1);
+        savedInfo(activeStair,activeRule).Resp(currRep).testDir(currTrial) = tmpDir(2);
+    end
+else
+    savedInfo(activeStair,activeRule).Resp(currRep).dir(currTrial) = dir;
+end
 
 if response == 1 % Respond 1 %Left/Down
     if debug

@@ -17,6 +17,7 @@ global in   %---Jing added 03/11/08---
 global responseBoxHandler
 global basicfig
 global startPressStartTime
+global startSoundStartTime
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
@@ -922,6 +923,11 @@ if ~paused && flagdata.isStopButton == 0
         %making the movement and after this line the movement starts.
         if connected
             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+            activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
+            activeRule = data.activeRule;
+            savedInfo = getappdata(appHandle,'SavedInfo');
+            %savedInfo(activeStair,activeRule).Resp(data.repNum).startMovingTime(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
+            setappdata(appHandle,'SavedInfo',savedInfo );
         end
         
         iINT_ORDER_2I = strmatch('INT_ORDER_2I',{char(data.configinfo.name)},'exact');
@@ -934,7 +940,7 @@ if ~paused && flagdata.isStopButton == 0
             i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
             movement_duration = data.configinfo(i).parameters.moog(1);
             pause(movement_duration);
-            
+            xxx=tic;
             %check no start button when the start mode is 2 during the
             %movement
             abort2ndInterval = false;
@@ -1012,6 +1018,9 @@ if ~paused && flagdata.isStopButton == 0
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
 
+                yyy=toc(xxx);
+                disp('time is');
+                disp(yyy);
                 secondPressInTime = WaitStartPress(appHandle , start_mode , 2);
 
                 if(secondPressInTime)
@@ -1019,6 +1028,9 @@ if ~paused && flagdata.isStopButton == 0
                     %gots and stopsending the same frame (freeze frame).
                     outString = 'DO_MOVEMENT_FREEZE 3.0';
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                    savedInfo = getappdata(appHandle,'SavedInfo');
+                    savedInfo(activeStair,activeRule).Resp(data.repNum).secondMovementDuration(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
+                    setappdata(appHandle,'SavedInfo',savedInfo );
 
                     %wait the second hald window if it is passive , to check
                     %there was no stat press , otherwise , after movement

@@ -6,6 +6,7 @@ global startPressStartTime
 global startSoundStartTime
 global connected
 global debug
+global portAudio
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
     flagdata = getappdata(basicfig,'flagdata');
@@ -98,7 +99,9 @@ global debug
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
         %sound the countdown sounds.
-        soundsc(cldata.beginWav2);
+        %soundsc(cldata.beginWav2);
+        PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav2;cldata.beginWav2]);
+        PsychPortAudio('Start', portAudio, 1,0);
         %wait the sound to over
         pause(count_time*count_from - window_size/2);
         %wait half of the imaginary window start response
@@ -153,9 +156,15 @@ global debug
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
+        
+        PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav3;cldata.beginWav3]);
+        
+        
         %sounds the countdown sounds.
         startSoundStartTime = tic;
-        soundsc(cldata.beginWav3);
+        PsychPortAudio('Start', portAudio, 1,0);
+        %soundsc(cldata.beginWav3);
+        sound_command_duration = toc(startSoundStartTime);
         try
             CedrusResponseBox('ResetRTTimer', responseBoxHandler);
         catch
@@ -194,6 +203,8 @@ global debug
                     activeRule = data.activeRule;
                     savedInfo = getappdata(appHandle,'SavedInfo');
                     savedInfo(activeStair,activeRule).Resp(data.repNum).startPressTime(trial(activeStair,activeRule).cntr) = startPressStartTimeSave;
+                    savedInfo(activeStair,activeRule).Resp(data.repNum).startPressTimeOld(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
+                    savedInfo(activeStair,activeRule).Resp(data.repNum).soundCommadDuration(trial(activeStair,activeRule).cntr) = sound_command_duration;
                     savedInfo(activeStair,activeRule).Resp(data.repNum).matlabStartPressTime(trial(activeStair,activeRule).cntr) = toc(matlab_timer);
                     setappdata(appHandle,'SavedInfo',savedInfo );
                     startPressStartTime = tic;

@@ -40,24 +40,27 @@ gui_State = struct('gui_Name',       mfilename, ...
     'gui_OutputFcn',  @BasicInterface_OutputFcn, ...
     'gui_LayoutFcn',  [] , ...
     'gui_Callback',   []);
+
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
 
 if nargout
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
-else
+else 
     gui_mainfcn(gui_State, varargin{:});
 end
 
 %close all cedrus ports.
 CedrusResponseBox('CloseAll');
+InitializePsychSound();
 
 % End initialization code - DO NOT EDIT
 
 
 % --- Executes just before BasicInterface is made visible.
 function BasicInterface_OpeningFcn(hObject, eventdata, handles, varargin)
+global portAudio
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -69,6 +72,13 @@ handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
+
+% Snd('Open');
+% freq=600;
+% testWav = sin(freq*2*pi*(0:.0001:.125));
+% Snd('Play',testWav,8192);
+portAudio = PsychPortAudio('Open' , 9);
+
 
 % UIWAIT makes BasicInterface wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
