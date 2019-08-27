@@ -638,7 +638,7 @@ for i = 1:siz
             else
                 midpt = (high+low)/2;
                 hi = high - midpt;
-                lo = .2; % CHANGE THIS SOMEHOW, HOW CLOSE TO ZERO, LOG SHOULD GET!!
+                lo = .1; % CHANGE THIS SOMEHOW, HOW CLOSE TO ZERO, LOG SHOULD GET!!
                 i1 = 1;
                 tmpvect(i1) = hi; %Jing added on 01/05/09
                 while hi > lo
@@ -651,7 +651,7 @@ for i = 1:siz
 
                 midpt = (highGL+lowGL)/2;
                 hi = highGL - midpt;
-                lo = .2; % CHANGE THIS SOMEHOW, HOW CLOSE TO ZERO, LOG SHOULD GET!!
+                lo = .1; % CHANGE THIS SOMEHOW, HOW CLOSE TO ZERO, LOG SHOULD GET!!
                 i1 = 1;
                 tmpvect(i1) = hi; %Jing added on 01/05/09
                 while hi > lo
