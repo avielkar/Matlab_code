@@ -255,7 +255,12 @@ if iDirVes>0
     %%
     title('Vestibular only');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
+    if(~isempty(i))
+        x = within(i).parameters.moog;
+    else
+        i = strmatch('Heading Direction',{char(varying.name)},'exact');
+        x = varying(i).parameters.moog;
+    end
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
@@ -284,7 +289,13 @@ if iDirVisual>0
     %%
     title('Visual only');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
+    if(~isempty(i))
+        x = within(i).parameters.moog;
+    else
+        i = strmatch('Heading Direction',{char(varying.name)},'exact');
+        x = varying(i).parameters.moog;
+    end
+    
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
@@ -314,7 +325,12 @@ if iDir>0
     %%
     title('Combined');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
+    if(~isempty(i))
+        x = within(i).parameters.moog;
+    else
+        i = strmatch('Heading Direction',{char(varying.name)},'exact');
+        x = varying(i).parameters.moog;
+    end
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
@@ -343,7 +359,13 @@ if iDirLeftDelta>0
     %%
     title('Left Delta');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
+    if(~isempty(i))
+        x = within(i).parameters.moog;
+    else
+        i = strmatch('Heading Direction',{char(varying.name)},'exact');
+        x = varying(i).parameters.moog;
+    end
+    
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
@@ -372,7 +394,13 @@ if iDirRightDelta>0
     %%
     title('Right Delta');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
+    if(~isempty(i))
+        x = within(i).parameters.moog;
+    else
+        i = strmatch('Heading Direction',{char(varying.name)},'exact');
+        x = varying(i).parameters.moog;
+    end
+    
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
@@ -401,7 +429,13 @@ if iDirDuplicated>0
     %%
     title('Duplicated');
     i = strmatch('Heading Direction',{char(within.name)},'exact');
-    x = within(i).parameters.moog;
+    if(~isempty(i))
+        x = within(i).parameters.moog;
+    else
+        i = strmatch('Heading Direction',{char(varying.name)},'exact');
+        x = varying(i).parameters.moog;
+    end
+    
     set(gca, 'XTick', x);
     hold on;
     y1 = 0.5*ones(size(x));
