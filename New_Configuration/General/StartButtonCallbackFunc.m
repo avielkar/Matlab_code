@@ -225,6 +225,22 @@ if ~isempty(i)
     cldata.beginWav3 = cldata.beginWav3(1:1:total_number_of_samples);
 end
 
+if(exist('C:\MatlabConfiguration\1') == 7)
+    cldata.soundsConfiguration.folder1.names = dir('C:\MatlabConfiguration\1');
+    cldata.soundsConfiguration.folder1.sounds = [];
+    for i=3:1:size(cldata.soundsConfiguration.folder1.names , 1)
+        sound = load(['C:\MatlabConfiguration\1\' , cldata.soundsConfiguration.folder1.names(i).name]);
+        cldata.soundsConfiguration.folder1.sounds = [cldata.soundsConfiguration.folder1.sounds ; sound];
+    end
+end
+if(exist('C:\MatlabConfiguration\2') == 7)
+    cldata.soundsConfiguration.folder2.names = dir('C:\MatlabConfiguration\2');
+    cldata.soundsConfiguration.folder2.sounds = [];
+    for i=3:1:size(cldata.soundsConfiguration.folder2.names , 1)
+        sound = load(['C:\MatlabConfiguration\2\' , cldata.soundsConfiguration.folder2.names(i).name]);
+        cldata.soundsConfiguration.folder2.sounds = [cldata.soundsConfiguration.folder2.sounds ; sound];
+    end
+end
 
 setappdata(basicfig,'ControlLoopData',cldata);
 
