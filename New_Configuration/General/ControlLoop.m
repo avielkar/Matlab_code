@@ -18,6 +18,7 @@ global responseBoxHandler
 global basicfig
 global startPressStartTime
 global startSoundStartTime
+global portAudio
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
@@ -911,6 +912,20 @@ if ~paused && flagdata.isStopButton == 0
         COMBOARDNUM = 0;
         outString = 'DO_MOVEMENT 1.0';
         disp(outString)
+        
+        %if need to make sound during movement - do it.
+        iSOUND_DURING_MOVEMENT = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+        if(~isempty(iSOUND_DURING_MOVEMENT))
+            sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
+            %if need to make sound.
+            if(sound_during_movement == 1)
+                soundWav = cldata.soundsConfiguration.folder1.sounds(1).soundWav;
+                PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
+                PsychPortAudio('Start', portAudio, 1,0);
+            end
+        end
+        
+        
         %flush all the input from the board because we dont want a response
         %before the movement starts
         
@@ -1028,6 +1043,19 @@ if ~paused && flagdata.isStopButton == 0
                     %gots and stopsending the same frame (freeze frame).
                     outString = 'DO_MOVEMENT_FREEZE 3.0';
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                    
+                    %if need to make sound during movement - do it.
+                    iSOUND_DURING_MOVEMENT = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+                    if(~isempty(iSOUND_DURING_MOVEMENT))
+                        sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
+                        %if need to make sound.
+                        if(sound_during_movement == 1)
+                            soundWav = cldata.soundsConfiguration.folder1.sounds(1).soundWav;
+                            PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
+                            PsychPortAudio('Start', portAudio, 1,0);
+                        end
+                    end
+                    
                     savedInfo = getappdata(appHandle,'SavedInfo');
                     savedInfo(activeStair,activeRule).Resp(data.repNum).secondMovementDuration(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
                     setappdata(appHandle,'SavedInfo',savedInfo );
