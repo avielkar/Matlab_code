@@ -1059,7 +1059,7 @@ if ~paused && flagdata.isStopButton == 0
                     end
                     
                     savedInfo = getappdata(appHandle,'SavedInfo');
-                    savedInfo(activeStair,activeRule).Resp(data.repNum).secondMovementDuration(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
+                    %savedInfo(activeStair,activeRule).Resp(data.repNum).secondMovementDuration(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
                     setappdata(appHandle,'SavedInfo',savedInfo );
 
                     %wait the second hald window if it is passive , to check
