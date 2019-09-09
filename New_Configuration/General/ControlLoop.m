@@ -919,7 +919,8 @@ if ~paused && flagdata.isStopButton == 0
             sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
             %if need to make sound.
             if(sound_during_movement == 1)
-                soundWav = cldata.soundsConfiguration.folder1.sounds(1).soundWav;
+                index = randi(1 , size(cldata.soundsConfiguration.folder1.sounds , 1));
+                soundWav = cldata.soundsConfiguration.folder1.sounds(index).soundWav;
                 PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
                 PsychPortAudio('Start', portAudio, 1,0);
             end
@@ -1046,11 +1047,12 @@ if ~paused && flagdata.isStopButton == 0
                     
                     %if need to make sound during movement - do it.
                     iSOUND_DURING_MOVEMENT = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
-                    if(~isempty(iSOUND_DURING_MOVEMENT))
+                    if(~isempty(i))
                         sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
                         %if need to make sound.
                         if(sound_during_movement == 1)
-                            soundWav = cldata.soundsConfiguration.folder1.sounds(1).soundWav;
+                            index = randi(1 , size(cldata.soundsConfiguration.folder2.sounds , 1));
+                            soundWav = cldata.soundsConfiguration.folder2.sounds(index).soundWav;
                             PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
                             PsychPortAudio('Start', portAudio, 1,0);
                         end
