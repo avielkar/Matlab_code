@@ -914,7 +914,7 @@ if ~paused && flagdata.isStopButton == 0
         disp(outString)
         
         %if need to make sound during movement - do it.
-        iSOUND_DURING_MOVEMENT = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+        iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
         if(~isempty(iSOUND_DURING_MOVEMENT))
             sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
             %if need to make sound.
@@ -1046,7 +1046,7 @@ if ~paused && flagdata.isStopButton == 0
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
                     
                     %if need to make sound during movement - do it.
-                    iSOUND_DURING_MOVEMENT = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
+                    iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
                     if(~isempty(i))
                         sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
                         %if need to make sound.
