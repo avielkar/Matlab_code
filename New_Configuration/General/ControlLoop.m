@@ -919,8 +919,17 @@ if ~paused && flagdata.isStopButton == 0
             sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
             %if need to make sound.
             if(sound_during_movement == 1)
-                index = randi(1 , size(cldata.soundsConfiguration.folder1.sounds , 1));
-                soundWav = cldata.soundsConfiguration.folder1.sounds(index).soundWav;
+                ord = getappdata(appHandle,'Order');
+                if(ord(1) == 1)
+                    iSOUND_FOLDER = strmatch('SOUND_FOLDER',{char(data.configinfo.name)},'exact');
+                    sound_folder = data.configinfo(iSOUND_FOLDER).parameters;
+                else
+                    iSOUND_FOLDER_2I = strmatch('SOUND_FOLDER_2I',{char(data.configinfo.name)},'exact');
+                    sound_folder = data.configinfo(iSOUND_FOLDER_2I).parameters;
+                end
+                soundWav = [];
+                eval(['index = randi(1 , size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1))']);
+                eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav']);
                 PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
                 PsychPortAudio('Start', portAudio, 1,0);
             end
@@ -1045,17 +1054,21 @@ if ~paused && flagdata.isStopButton == 0
                     outString = 'DO_MOVEMENT_FREEZE 3.0';
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
                     
-                    %if need to make sound during movement - do it.
-                    iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
-                    if(~isempty(iSOUND_DURING_MOVEMENT))
-                        sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
-                        %if need to make sound.
-                        if(sound_during_movement == 1)
-                            index = randi(1 , size(cldata.soundsConfiguration.folder2.sounds , 1));
-                            soundWav = cldata.soundsConfiguration.folder2.sounds(index).soundWav;
-                            PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
-                            PsychPortAudio('Start', portAudio, 1,0);
+                    %if need to make sound.
+                    if(sound_during_movement == 1)
+                        ord = getappdata(appHandle,'Order');
+                        if(ord(2) == 1)
+                            iSOUND_FOLDER = strmatch('SOUND_FOLDER',{char(data.configinfo.name)},'exact');
+                            sound_folder = data.configinfo(iSOUND_FOLDER).parameters;
+                        else
+                            iSOUND_FOLDER_2I = strmatch('SOUND_FOLDER_2I',{char(data.configinfo.name)},'exact');
+                            sound_folder = data.configinfo(iSOUND_FOLDER_2I).parameters;
                         end
+                        soundWav = [];
+                        eval(['index = randi(1 , size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1))']);
+                        eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav']);
+                        PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
+                        PsychPortAudio('Start', portAudio, 1,0);
                     end
                     
                     savedInfo = getappdata(appHandle,'SavedInfo');
