@@ -1047,7 +1047,7 @@ if ~paused && flagdata.isStopButton == 0
                     
                     %if need to make sound during movement - do it.
                     iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
-                    if(~isempty(i))
+                    if(~isempty(iSOUND_DURING_MOVEMENT))
                         sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
                         %if need to make sound.
                         if(sound_during_movement == 1)
