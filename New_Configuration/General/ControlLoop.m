@@ -928,8 +928,13 @@ if ~paused && flagdata.isStopButton == 0
                     sound_folder = data.configinfo(iSOUND_FOLDER_2I).parameters;
                 end
                 soundWav = [];
-                eval(['index = randi(1 , size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1))']);
-                eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav']);
+                eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
+                eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav;']);
+                eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
+                %sound_file_name = [num2str(sound_folder) ','  sound_file_name];
+                savedInfo = getappdata(appHandle,'SavedInfo');
+                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile2(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
+                setappdata(appHandle,'SavedInfo',savedInfo );
                 PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
                 PsychPortAudio('Start', portAudio, 1,0);
             end
@@ -1069,10 +1074,15 @@ if ~paused && flagdata.isStopButton == 0
                                 sound_folder = data.configinfo(iSOUND_FOLDER_2I).parameters;
                             end
                             soundWav = [];
-                            eval(['index = randi(1 , size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1))']);
-                            eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav']);
+                            eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
+                            eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav;']);
+                            eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
+                            %sound_file_name = [num2str(sound_folder) ','  sound_file_name];
                             PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
                             PsychPortAudio('Start', portAudio, 1,0);
+                            savedInfo = getappdata(appHandle,'SavedInfo');
+                            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile1(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
+                            setappdata(appHandle,'SavedInfo',savedInfo );
                         end
                     end
                     
