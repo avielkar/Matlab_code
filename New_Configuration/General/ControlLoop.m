@@ -18,6 +18,7 @@ global responseBoxHandler
 global basicfig
 global startPressStartTime
 global startSoundStartTime
+global portAudio
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
@@ -911,6 +912,35 @@ if ~paused && flagdata.isStopButton == 0
         COMBOARDNUM = 0;
         outString = 'DO_MOVEMENT 1.0';
         disp(outString)
+        
+        %if need to make sound during movement - do it.
+        iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
+        if(~isempty(iSOUND_DURING_MOVEMENT))
+            sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
+            %if need to make sound.
+            if(sound_during_movement == 1)
+                ord = getappdata(appHandle,'Order');
+                if(ord(1) == 1)
+                    iSOUND_FOLDER = strmatch('SOUND_FOLDER',{char(data.configinfo.name)},'exact');
+                    sound_folder = data.configinfo(iSOUND_FOLDER).parameters;
+                else
+                    iSOUND_FOLDER_2I = strmatch('SOUND_FOLDER_2I',{char(data.configinfo.name)},'exact');
+                    sound_folder = data.configinfo(iSOUND_FOLDER_2I).parameters;
+                end
+                soundWav = [];
+                eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
+                eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav;']);
+                eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
+                %sound_file_name = [num2str(sound_folder) ','  sound_file_name];
+                savedInfo = getappdata(appHandle,'SavedInfo');
+                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile2(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
+                setappdata(appHandle,'SavedInfo',savedInfo );
+                PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
+                PsychPortAudio('Start', portAudio, 1,0);
+            end
+        end
+        
+        
         %flush all the input from the board because we dont want a response
         %before the movement starts
         
@@ -1028,8 +1058,36 @@ if ~paused && flagdata.isStopButton == 0
                     %gots and stopsending the same frame (freeze frame).
                     outString = 'DO_MOVEMENT_FREEZE 3.0';
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
+                    
+                    %if need to make sound during movement - do it.
+                    iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
+                    if(~isempty(iSOUND_DURING_MOVEMENT))
+                        sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
+                        %if need to make sound.
+                        if(sound_during_movement == 1)
+                            ord = getappdata(appHandle,'Order');
+                            if(ord(2) == 1)
+                                iSOUND_FOLDER = strmatch('SOUND_FOLDER',{char(data.configinfo.name)},'exact');
+                                sound_folder = data.configinfo(iSOUND_FOLDER).parameters;
+                            else
+                                iSOUND_FOLDER_2I = strmatch('SOUND_FOLDER_2I',{char(data.configinfo.name)},'exact');
+                                sound_folder = data.configinfo(iSOUND_FOLDER_2I).parameters;
+                            end
+                            soundWav = [];
+                            eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
+                            eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav;']);
+                            eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
+                            %sound_file_name = [num2str(sound_folder) ','  sound_file_name];
+                            PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
+                            PsychPortAudio('Start', portAudio, 1,0);
+                            savedInfo = getappdata(appHandle,'SavedInfo');
+                            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile1(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
+                            setappdata(appHandle,'SavedInfo',savedInfo );
+                        end
+                    end
+                    
                     savedInfo = getappdata(appHandle,'SavedInfo');
-                    savedInfo(activeStair,activeRule).Resp(data.repNum).secondMovementDuration(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
+                    %savedInfo(activeStair,activeRule).Resp(data.repNum).secondMovementDuration(trial(activeStair,activeRule).cntr) = toc(startSoundStartTime);
                     setappdata(appHandle,'SavedInfo',savedInfo );
 
                     %wait the second hald window if it is passive , to check

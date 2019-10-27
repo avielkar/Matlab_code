@@ -225,6 +225,30 @@ if ~isempty(i)
     cldata.beginWav3 = cldata.beginWav3(1:1:total_number_of_samples);
 end
 
+if(exist('C:\MatlabConfiguration\1') == 7)
+    cldata.soundsConfiguration.folder1.names = dir('C:\MatlabConfiguration\1');
+    cldata.soundsConfiguration.folder1.sounds = [];
+    cldata.soundsConfiguration.folder1.sound_names = {};
+    for i=3:1:size(cldata.soundsConfiguration.folder1.names , 1)
+        sound = load(['C:\MatlabConfiguration\1\' , cldata.soundsConfiguration.folder1.names(i).name]);
+        %add the sound wave ,and the wave name.
+        cldata.soundsConfiguration.folder1.sounds = [cldata.soundsConfiguration.folder1.sounds ; sound];
+        cldata.soundsConfiguration.folder1.sound_names = ...
+            [cldata.soundsConfiguration.folder1.sound_names cldata.soundsConfiguration.folder1.names(i).name];
+    end
+end
+if(exist('C:\MatlabConfiguration\2') == 7)
+    cldata.soundsConfiguration.folder2.names = dir('C:\MatlabConfiguration\2');
+    cldata.soundsConfiguration.folder2.sounds = [];
+    cldata.soundsConfiguration.folder2.sound_names = {};
+    for i=3:1:size(cldata.soundsConfiguration.folder2.names , 1)
+        sound = load(['C:\MatlabConfiguration\2\' , cldata.soundsConfiguration.folder2.names(i).name]);
+        %add the sound wave ,and the wave name.
+        cldata.soundsConfiguration.folder2.sounds = [cldata.soundsConfiguration.folder2.sounds ; sound];  
+        cldata.soundsConfiguration.folder2.sound_names = ...
+            [cldata.soundsConfiguration.folder2.sound_names cldata.soundsConfiguration.folder2.names(i).name];
+    end
+end
 
 setappdata(basicfig,'ControlLoopData',cldata);
 
