@@ -77,7 +77,7 @@ guidata(hObject, handles);
 % freq=600;
 % testWav = sin(freq*2*pi*(0:.0001:.125));
 % Snd('Play',testWav,8192);
-portAudio = PsychPortAudio('Open' , 9);
+portAudio = PsychPortAudio('Open' , 0);
 
 
 % UIWAIT makes BasicInterface wait for user response (see UIRESUME)
