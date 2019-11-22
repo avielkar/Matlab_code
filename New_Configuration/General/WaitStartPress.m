@@ -37,7 +37,7 @@ global portAudio
                 CedrusResponseBox('FlushEvents', responseBoxHandler);
             catch
             end
-            while(response ~= 4 && (flagdata.isStopButton ~= 1 && press_number == 1)) %Jing 01/05/09---)
+            while(response ~= 4 && (flagdata.isStopButton ~= 1)) %Jing 01/05/09---)
                 flagdata = getappdata(basicfig,'flagdata');
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 if(~isempty(press))
