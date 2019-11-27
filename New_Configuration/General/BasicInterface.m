@@ -77,7 +77,19 @@ guidata(hObject, handles);
 % freq=600;
 % testWav = sin(freq*2*pi*(0:.0001:.125));
 % Snd('Play',testWav,8192);
-portAudio = PsychPortAudio('Open' , 0);
+
+
+str_port_audio = 'Speakers (Sound BlasterX AE-5)';
+devices = PsychPortAudio('GetDevices');
+
+match_index = 0;
+for i=1:1:size(devices,2)
+    if(strcmp(devices(i).DeviceName ,str_port_audio) == 1)
+        match_index = i - 1;
+    end
+end
+
+portAudio = PsychPortAudio('Open' , match_index);
 
 
 % UIWAIT makes BasicInterface wait for user response (see UIRESUME)
