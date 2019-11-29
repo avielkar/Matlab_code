@@ -4,14 +4,14 @@ global connected debug in
 global responseBoxHandler
 global print_var
 global startPressStartTime
+global portAudio
 
 % Received legit answer sound
-a = [ones(1,200); zeros(1,200)];
+a = [ones(22,200);zeros(22,200)];
 a_legit = a(:)';
 % Time Out Sound
-a = [ones(10,25); zeros(10,25)];
+a = [ones(220,25);zeros(220,25)];
 a_timeout = a(:)';
-
 
 responseTime = -1;
 confidenceResponseTime = -1;
@@ -97,10 +97,12 @@ if connected && ~debug
         %%
         if response == 1 || response == 2 || response == 3 || response == 4
             % Received legit answer sound
-            soundsc(a_legit,2000);
+            PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+            PsychPortAudio('Start', portAudio, 1,0);
         else
             % Time Out Sound
-            soundsc(a_timeout,2000);
+             PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+             PsychPortAudio('Start', portAudio, 1,0);
         end
         %%
         
@@ -181,9 +183,11 @@ elseif (connected && debug) || (~connected && debug)
     
     %%
     if response == 1 || response == 2 || response == 3 || response == 4
-        soundsc(a_legit,2000);
+        PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+        PsychPortAudio('Start', portAudio, 1,0);
     else
-        soundsc(a_timeout,2000);
+         PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+         PsychPortAudio('Start', portAudio, 1,0);
     end
     %%
     
@@ -221,10 +225,12 @@ end
 if(flagdata.enableConfidenceChoice)
     if confidenceResponse == 3 || confidenceResponse == 4 
         % Received legit answer sound
-        soundsc(a_legit,2000);
+        PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+        PsychPortAudio('Start', portAudio, 1,0);
     else
         % Time Out Sound
-        soundsc(a_timeout,2000);
+         PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+         PsychPortAudio('Start', portAudio, 1,0);
     end
 end
 %++++++++++++++++++++++++++++++++++

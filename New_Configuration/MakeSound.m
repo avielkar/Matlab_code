@@ -24,7 +24,7 @@ beginWav3 = beginWav3(1:1:total_number_of_samples);
 
 plot(beginWav3);
 
-InitializePsychSound(true);
+InitializePsychSound(1);
 
 str_port_audio = 'Speakers (Sound BlasterX AE-5)';
 devices = PsychPortAudio('GetDevices');
@@ -33,12 +33,49 @@ match_index = 0;
 for i=1:1:size(devices,2)
     if(strcmp(devices(i).DeviceName ,str_port_audio) == 1)
         match_index = i - 1;
+        break;
     end
 end
 
 portAudio = PsychPortAudio('Open' , match_index);
+pause(1);
 
 PsychPortAudio('FillBuffer', portAudio, [beginWav3;beginWav3]);
 
 PsychPortAudio('Start', portAudio, 1,0);
 
+pause(2)
+
+cldata.beginWav = sin(500*2*pi*(0:.00001:.125));
+
+soundsc(cldata.beginWav,100000);
+
+pause(2)
+
+a = [ones(10,25);zeros(10,25)];
+a_timeout = a(:)';
+soundsc(a_timeout,2000);
+
+pause(2)
+
+PsychPortAudio('FillBuffer', portAudio, [beginWav3;beginWav3]);
+
+PsychPortAudio('Start', portAudio, 1,0);
+
+pause(2)
+
+PsychPortAudio('FillBuffer', portAudio, [beginWav3;beginWav3]);
+
+PsychPortAudio('Start', portAudio, 1,0);
+
+pause(2)
+
+PsychPortAudio('FillBuffer', portAudio, [beginWav3;beginWav3]);
+
+PsychPortAudio('Start', portAudio, 1,0);
+
+pause(2)
+
+PsychPortAudio('FillBuffer', portAudio, [beginWav3;beginWav3]);
+
+PsychPortAudio('Start', portAudio, 1,0);

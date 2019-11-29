@@ -53,7 +53,7 @@ end
 
 %close all cedrus ports.
 CedrusResponseBox('CloseAll');
-InitializePsychSound();
+InitializePsychSound(1);
 
 % End initialization code - DO NOT EDIT
 
@@ -86,10 +86,14 @@ match_index = 0;
 for i=1:1:size(devices,2)
     if(strcmp(devices(i).DeviceName ,str_port_audio) == 1)
         match_index = i - 1;
+        break;
     end
 end
 
-portAudio = PsychPortAudio('Open' , match_index);
+
+portAudio = PsychPortAudio('Open' , 3);
+
+disp('Opening PsychPort audio device');
 
 
 % UIWAIT makes BasicInterface wait for user response (see UIRESUME)
