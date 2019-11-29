@@ -4,6 +4,7 @@ global connected debug in
 global responseBoxHandler
 global print_var
 global startPressStartTime
+global portAudio
 
 if debug
     disp('Entering PriorCollectResp')
@@ -190,16 +191,18 @@ elseif (connected && debug) || (~connected && debug)
 end
 % Feedback for 'Received Answer' case ++++++++++
 if response == 1 || response == 2 
-    % Received legit answer sound
-    a = [ones(1,200); zeros(1,200)];
-    a = a(:)';
-    soundsc(a,2000);
+    % Received legit answer sound 
+     a = [ones(22,200);zeros(22,200)];
+     a_legit = a(:)';
+     PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+     PsychPortAudio('Start', portAudio, 1,0);
 elseif response == 4 
 else
     % Time Out Sound
-    a = [ones(10,25); zeros(10,25)];
-    a = a(:)';
-    soundsc(a,2000);
+     a = [ones(220,25);zeros(220,25)];
+     a_timeout = a(:)';
+     PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+     PsychPortAudio('Start', portAudio, 1,0);
 end
 %++++++++++++++++++++++++++++++++++
 fprintf('THE RESPONSE IS %d\n' , response);

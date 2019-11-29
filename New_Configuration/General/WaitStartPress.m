@@ -17,11 +17,12 @@ global portAudio
     iWINDOW_SIZE = strmatch('WINDOW_SIZE' ,{char(data.configinfo.name)},'exact');
     
     % Time Out Sound
-    a = [ones(10,25);zeros(10,25)];
+    a = [ones(220,25);zeros(220,25)];
     a_timeout = a(:)';
     
     if(start_mode == 1)
-        soundsc(cldata.beginWav,100000);
+        PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+        PsychPortAudio('Start', portAudio, 1,0);
         %press has no time limit.
         secondPressInTime = 1;
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
@@ -54,7 +55,8 @@ global portAudio
                     if cldata.movdelaycontrol && cldata.startbeep == 0
                         cldata.preTrialTime = GenVariableDelayTime;
                         tic
-                        soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
+                        PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+                        PsychPortAudio('Start', portAudio, 1,0);
                         cldata.startbeep = 1;
                     end
                     % got response -> go to next stage
@@ -83,7 +85,8 @@ global portAudio
                     if cldata.movdelaycontrol
                         cldata.preTrialTime = GenVariableDelayTime;
                         tic
-                        soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
+                        PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+                        PsychPortAudio('Start', portAudio, 1,0);
                     end
                     setappdata(appHandle,'ControlLoopData',cldata);
                     %---End 11/10/08-----
@@ -93,6 +96,7 @@ global portAudio
         end
         %%
     elseif (start_mode == 2)
+        disp('Entering start mode 2');
         checkIfWasResponseWhenNotNeeded = 0;
         count_from = data.configinfo(iCOUNT_FROM).parameters;
         count_time = data.configinfo(iCOUNT_TIME).parameters;
@@ -100,20 +104,27 @@ global portAudio
         
         %sound the countdown sounds.
         %soundsc(cldata.beginWav2);
+        disp('Filling buffer...');
         PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav2;cldata.beginWav2]);
+        disp('Starting sound...');
         PsychPortAudio('Start', portAudio, 1,0);
         %wait the sound to over
+        disp('Making pause...');
         pause(count_time*count_from - window_size/2);
         %wait half of the imaginary window start response
         %flush all the input from the board because we dont want to start
         %before the beep
+        disp('Flushing events...');
         try
             CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
         end
         %start the timer for the window.
+        disp('Reseting RTT timer');
         startWindowTime = tic;
         CedrusResponseBox('ResetRTTimer', responseBoxHandler);
+        
+        disp('Entering while function.');
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
             if(~isempty(press))
@@ -124,10 +135,14 @@ global portAudio
             end
         end
 
+        disp('Entering final of start mode 2...');
         %the user press start , altough no need to press , failure
         if(checkIfWasResponseWhenNotNeeded == 4)
-            secondPressInTime = 0;
-            soundsc(a_timeout,2000);
+            secondPressInTime = 0;            
+            PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+            PsychPortAudio('Start', portAudio, 1,0);
+            
+            
             cldata.go = 0;
             %cldata = getappdata(appHandle,'ControlLoopData');
             cldata.stage = 'InitializationStage';
@@ -144,7 +159,9 @@ global portAudio
         end
         %%
     elseif(start_mode == 3)
+        disp('Entering start mode 3');
         response = 0; % reset the reponse flag.
+        disp('Cheking auto start');
         if(flagdata.isAutoStart)
             response = 4;
             cldata = getappdata(appHandle, 'ControlLoopData');
@@ -157,11 +174,13 @@ global portAudio
         count_time = data.configinfo(iCOUNT_TIME).parameters;
         window_size = data.configinfo(iWINDOW_SIZE).parameters;
         
+        disp('Fillng buffer...');
         PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav3;cldata.beginWav3]);
         
         
         %sounds the countdown sounds.
         startSoundStartTime = tic;
+        disp('Make sound...');
         PsychPortAudio('Start', portAudio, 1,0);
         %soundsc(cldata.beginWav3);
         sound_command_duration = toc(startSoundStartTime);
@@ -170,11 +189,13 @@ global portAudio
         catch
         end
         matlab_timer = tic;
+        disp('Making pause...');
         pause(count_time*count_from - window_size/2);
         %%
         %%Wait for the start press.
         %flush all the input from the board because we dont want to start
         %before the beep
+        disp('Flusshing events...');
         try
             CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
@@ -228,7 +249,8 @@ global portAudio
                     if cldata.movdelaycontrol
                         cldata.preTrialTime = GenVariableDelayTime;
                         tic
-                        soundsc(cldata.beginWav,100000)     %---Jing 11/12/08-----
+                        PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+                        PsychPortAudio('Start', portAudio, 1,0);
                     end
                     setappdata(appHandle,'ControlLoopData',cldata);
                     %---End 11/10/08-----
@@ -241,7 +263,8 @@ global portAudio
         else
             secondPressInTime = 0;
             % Time Out Sound
-            soundsc(a_timeout,2000);
+             PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+             PsychPortAudio('Start', portAudio, 1,0);
         end
         %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
         %randomiza the intOrder and the trajectory again.

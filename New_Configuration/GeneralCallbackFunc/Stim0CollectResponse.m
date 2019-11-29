@@ -3,12 +3,13 @@ function Stim0CollectResponse( appHandle )
 global connected debug in
 global responseBoxHandler
 global print_var
+global portAudio
 
 % Received legit answer sound
-a = [ones(1,200); zeros(1,200)];
-a_legit = a(:)';
+ a = [ones(22,200);zeros(22,200)];
+ a_legit = a(:)';
 % Time Out Sound
-a = [ones(10,25); zeros(10,25)];
+a = [ones(220,25);zeros(220,25)];
 a_timeout = a(:)';
 
         
@@ -79,13 +80,15 @@ if connected && ~debug
         %         a = [ones(1,200); zeros(1,200)];
         %         a = a(:)';
         %         soundsc(a,2000);
-        soundsc(a_legit,2000);
+        PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+        PsychPortAudio('Start', portAudio, 1,0);
         else
             % Time Out Sound
             %             a = [ones(10,25); zeros(10,25)];
             %             a = a(:)';
             %             soundsc(a,2000);
-            soundsc(a_timeout,2000);
+             PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+             PsychPortAudio('Start', portAudio, 1,0);
         end
         %%
         
@@ -155,13 +158,16 @@ if(flagdata.enableConfidenceChoice)
         %     a = [ones(1,200); zeros(1,200)];
         %     a = a(:)';
         %     soundsc(a,2000);
-        soundsc(a_legit,2000);
+        PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+        PsychPortAudio('Start', portAudio, 1,0);
     else
         % Time Out Sound
         %     a = [ones(10,25); zeros(10,25)];
         %     a = a(:)';
         %     soundsc(a,2000);
-        soundsc(a_timeout,2000);
+         
+        PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+        PsychPortAudio('Start', portAudio, 1,0);
     end
 end
 %++++++++++++++++++++++++++++++++++

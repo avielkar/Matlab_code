@@ -916,6 +916,7 @@ if ~paused && flagdata.isStopButton == 0
         %if need to make sound during movement - do it.
         iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
         if(~isempty(iSOUND_DURING_MOVEMENT))
+            disp('Entering shira 2I sound...')
             sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
             %if need to make sound.
             if(sound_during_movement == 1)
@@ -1006,9 +1007,12 @@ if ~paused && flagdata.isStopButton == 0
             if(abort2ndInterval)
                 secondPressInTime = 0;
                 % Time Out Sound
-                a = [ones(10,25);zeros(10,25)];
+                a = [ones(220,25);zeros(220,25)];
                 a_timeout = a(:)';
-                soundsc(a_timeout,2000);
+                PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+                PsychPortAudio('Start', portAudio, 1,0);
+                
+                
                 %send the moogdots that need to go back and stop the
                 %trial from the 2nd interval.
                 %gots and stopsending the same frame (freeze frame).
@@ -1053,6 +1057,8 @@ if ~paused && flagdata.isStopButton == 0
                 disp(yyy);
                 secondPressInTime = WaitStartPress(appHandle , start_mode , 2);
 
+                disp('after wait press');
+                
                 if(secondPressInTime)
                     %send the moogdots that need to continue the next frames it
                     %gots and stopsending the same frame (freeze frame).
@@ -1062,6 +1068,7 @@ if ~paused && flagdata.isStopButton == 0
                     %if need to make sound during movement - do it.
                     iSOUND_DURING_MOVEMENT = strmatch('SOUND_DURING_MOVEMENT',{char(data.configinfo.name)},'exact');
                     if(~isempty(iSOUND_DURING_MOVEMENT))
+                        disp('Entering shira 2I sound...')
                         sound_during_movement = data.configinfo(iSOUND_DURING_MOVEMENT).parameters;
                         %if need to make sound.
                         if(sound_during_movement == 1)
@@ -1221,7 +1228,9 @@ if ~paused
         tic;
         if isfield(data, 'pogen_oddity') %---Jing for handling para pogen_oddity in data structure protinfo only in pogen's protocol. 03/27/08---
             if (data.pogen_oddity == 1)
-                soundsc(cldata.beginWav,100000) % Sound before first movement
+                % Sound before first movement
+                PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+                PsychPortAudio('Start', portAudio, 1,0);
                 beep_count=1;
                 setappdata(appHandle, 'BeepCount', beep_count);
             end
@@ -1233,13 +1242,17 @@ if ~paused
     if isfield(data, 'pogen_oddity') 
         beep_count = getappdata(appHandle, 'BeepCount');
         if (data.pogen_oddity==1) && (beep_count==1) && (toc >= (cldata.firstIntTime + cldata.delayTime))
-            soundsc(cldata.beginWav,100000) % Sound before second movement
+            % Sound before second movement
+            PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+            PsychPortAudio('Start', portAudio, 1,0);
             beep_count=2;
             setappdata(appHandle, 'BeepCount', beep_count);
         end
 
         if (data.pogen_oddity==1) && (beep_count==2) && ( floor(toc) == floor(2*cldata.firstIntTime + 2*cldata.delayTime))
-            soundsc(cldata.beginWav,100000) % Sound before third movement
+            % Sound before third movement
+            PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
+            PsychPortAudio('Start', portAudio, 1,0);
             beep_count=3;
             setappdata(appHandle, 'BeepCount', beep_count);
         end
@@ -1414,9 +1427,9 @@ if ~paused
         else
             outString = 'aborted';%%%%%%% 
             disp(outString);
-            a = [ones(10,25); zeros(10,25)];
-            a_timeout = a(:)';
-            soundsc(a_timeout,2000);
+            a = [ones(220,25);zeros(220,25)];a_timeout = a(:)';
+            PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+            PsychPortAudio('Start', portAudio, 1,0);
             responseTime=tic;
             while(cldata.respTime > toc(responseTime))
             end

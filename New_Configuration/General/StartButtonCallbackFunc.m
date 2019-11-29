@@ -175,7 +175,11 @@ end
 %-----end
 
 
-cldata.beginWav = sin(500*2*pi*(0:.00001:.125));
+
+SAMPLE_FREQ = 44100;
+jumper = 1/SAMPLE_FREQ;
+
+cldata.beginWav = sin(500*2*pi*(0:jumper:.125));
 i = strmatch('SOUND_FREQ',{char(data.configinfo.name)},'exact');
 iCOUNT_FROM = strmatch('COUNT_FROM' ,{char(data.configinfo.name)},'exact');
 iCOUNT_TIME = strmatch('COUNT_TIME' ,{char(data.configinfo.name)},'exact');

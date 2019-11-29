@@ -151,7 +151,7 @@ cldata.postTrialTime = data.configinfo(i).parameters(1);
 i = strmatch('RAND_METHOD',{char(data.configinfo.name)},'exact');
 randMethod = data.configinfo(i).parameters(1);
 
-cldata.beginWav = sin(500*2*pi*(0:.00001:.125));
+cldata.beginWav = sin(500*2*pi*(0:jumper:.125));
 setappdata(basicfig,'ControlLoopData',cldata);
 
 Resp = [];
