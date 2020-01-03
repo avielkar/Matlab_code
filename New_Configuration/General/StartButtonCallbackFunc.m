@@ -234,9 +234,10 @@ if(exist('C:\MatlabConfiguration\1') == 7)
     cldata.soundsConfiguration.folder1.sounds = [];
     cldata.soundsConfiguration.folder1.sound_names = {};
     for i=3:1:size(cldata.soundsConfiguration.folder1.names , 1)
-        sound = load(['C:\MatlabConfiguration\1\' , cldata.soundsConfiguration.folder1.names(i).name]);
+        %sound = load(['C:\MatlabConfiguration\1\' , cldata.soundsConfiguration.folder1.names(i).name]);
+        [sound,Fs] = audioread(['C:\MatlabConfiguration\1\' , cldata.soundsConfiguration.folder1.names(i).name]);
         %add the sound wave ,and the wave name.
-        cldata.soundsConfiguration.folder1.sounds = [cldata.soundsConfiguration.folder1.sounds ; sound];
+        cldata.soundsConfiguration.folder1.sounds = [cldata.soundsConfiguration.folder1.sounds ; sound(1:1:SAMPLE_FREQ,1)'];
         cldata.soundsConfiguration.folder1.sound_names = ...
             [cldata.soundsConfiguration.folder1.sound_names cldata.soundsConfiguration.folder1.names(i).name];
     end
@@ -246,9 +247,10 @@ if(exist('C:\MatlabConfiguration\2') == 7)
     cldata.soundsConfiguration.folder2.sounds = [];
     cldata.soundsConfiguration.folder2.sound_names = {};
     for i=3:1:size(cldata.soundsConfiguration.folder2.names , 1)
-        sound = load(['C:\MatlabConfiguration\2\' , cldata.soundsConfiguration.folder2.names(i).name]);
+        %sound = load(['C:\MatlabConfiguration\2\' , cldata.soundsConfiguration.folder2.names(i).name]);
+        [sound, Fs] = audioread(['C:\MatlabConfiguration\2\' , cldata.soundsConfiguration.folder2.names(i).name]);
         %add the sound wave ,and the wave name.
-        cldata.soundsConfiguration.folder2.sounds = [cldata.soundsConfiguration.folder2.sounds ; sound];  
+        cldata.soundsConfiguration.folder2.sounds = [cldata.soundsConfiguration.folder2.sounds ; sound(1:1:SAMPLE_FREQ,1)'];  
         cldata.soundsConfiguration.folder2.sound_names = ...
             [cldata.soundsConfiguration.folder2.sound_names cldata.soundsConfiguration.folder2.names(i).name];
     end
