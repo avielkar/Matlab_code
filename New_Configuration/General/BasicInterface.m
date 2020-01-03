@@ -91,7 +91,7 @@ for i=1:1:size(devices,2)
 end
 
 
-portAudio = PsychPortAudio('Open' , 3);
+portAudio = PsychPortAudio('Open' , match_index);
 
 disp('Opening PsychPort audio device');
 

@@ -930,7 +930,7 @@ if ~paused && flagdata.isStopButton == 0
                 end
                 soundWav = [];
                 eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
-                eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav;']);
+                eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index , :);']);
                 eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
                 %sound_file_name = [num2str(sound_folder) ','  sound_file_name];
                 savedInfo = getappdata(appHandle,'SavedInfo');
@@ -1082,7 +1082,7 @@ if ~paused && flagdata.isStopButton == 0
                             end
                             soundWav = [];
                             eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
-                            eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index).soundWav;']);
+                            eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index, :);']);
                             eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
                             %sound_file_name = [num2str(sound_folder) ','  sound_file_name];
                             PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
@@ -1190,6 +1190,7 @@ global connected debug %pogen_oddity %----Jing 01/29/07---
 global responseBoxHandler
 global basicfig
 global print_var
+global portAudio
 
 data = getappdata(appHandle, 'protinfo');%---Jing for handling para pogen_oddity in data structure protinfo. 03/27/08---
 timeOffset=0;%---Jing added for delay time offset 02/06/07---
