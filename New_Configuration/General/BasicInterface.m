@@ -192,6 +192,11 @@ xy.r24 = xy.r23 - row_offset;
 xy.r25 = xy.r24 - row_offset;
 xy.r26 = xy.r25 - row_offset;
 xy.r27 = xy.r26 - row_offset;
+xy.r28 = xy.r27 - row_offset;
+xy.r29 = xy.r28 - row_offset;
+xy.r30 = xy.r29 - row_offset;
+xy.r31 = xy.r30 - row_offset;
+xy.r32 = xy.r31 - row_offset;
 
 xy.texth1 = 20;
 xy.textw1 = 50;
