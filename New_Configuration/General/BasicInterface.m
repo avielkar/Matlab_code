@@ -1,5 +1,6 @@
 function varargout = BasicInterface(varargin)
 global print_var
+global responseCorrectnessFeedback
 % BASICINTERFACE M-file for BasicInterface.fig
 %      BASICINTERFACE, by itself, creates a new BASICINTERFACE or raises
 %      the existing
@@ -33,6 +34,7 @@ global print_var
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
 print_var=0;
+responseCorrectnessFeedback = 0;
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
