@@ -1580,6 +1580,7 @@ setappdata(basicfig,'flagdata',flagdata);
 
 % --- Executes on button press in ChoiceSoundCorrectness.
 function ChoiceSoundCorrectness_Callback(hObject, eventdata, handles)
+global basicfig
 global responseCorrectnessFeedback
 % hObject    handle to ChoiceSoundCorrectness (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
