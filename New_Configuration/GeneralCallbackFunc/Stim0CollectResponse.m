@@ -4,6 +4,7 @@ global connected debug in
 global responseBoxHandler
 global print_var
 global portAudio
+global responseCorrectnessFeedback
 
 % Received legit answer sound
  a = [ones(22,200);zeros(22,200)];
@@ -75,20 +76,16 @@ if connected && ~debug
         end
         
         %%
-        if response == 1 || response == 2 
-        % Received legit answer sound
-        %         a = [ones(1,200); zeros(1,200)];
-        %         a = a(:)';
-        %         soundsc(a,2000);
-        PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
-        PsychPortAudio('Start', portAudio, 1,0);
-        else
-            % Time Out Sound
-            %             a = [ones(10,25); zeros(10,25)];
-            %             a = a(:)';
-            %             soundsc(a,2000);
-             PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
-             PsychPortAudio('Start', portAudio, 1,0);
+        %make the sound of given answr or not, only if not giving feedback
+        %correctness in the analyze stage.
+        if responseCorrectnessFeedback
+            if response == 1 || response == 2 
+                PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+                PsychPortAudio('Start', portAudio, 1,0);
+            else
+                 PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+                 PsychPortAudio('Start', portAudio, 1,0);
+            end
         end
         %%
         
@@ -154,18 +151,9 @@ end
 % Feedback for 'Received Answer' case ++++++++++
 if(flagdata.enableConfidenceChoice)
     if confidenceResponse == 3 || confidenceResponse == 4 
-        % Received legit answer sound
-        %     a = [ones(1,200); zeros(1,200)];
-        %     a = a(:)';
-        %     soundsc(a,2000);
         PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
         PsychPortAudio('Start', portAudio, 1,0);
-    else
-        % Time Out Sound
-        %     a = [ones(10,25); zeros(10,25)];
-        %     a = a(:)';
-        %     soundsc(a,2000);
-         
+    else 
         PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
         PsychPortAudio('Start', portAudio, 1,0);
     end
