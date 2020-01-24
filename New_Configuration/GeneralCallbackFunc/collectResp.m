@@ -98,7 +98,7 @@ if connected && ~debug
         %%
         %make the sound of given answr or not, only if not giving feedback
         %correctness in the analyze stage.
-        if responseCorrectnessFeedback
+        if  responseCorrectnessFeedback == 0
             if response == 1 || response == 2 || response == 3 || response == 4
                 % Received legit answer sound
                 PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
@@ -189,7 +189,7 @@ elseif (connected && debug) || (~connected && debug)
     %%
     %make the sound of given answr or not, only if not giving feedback
     %correctness in the analyze stage.
-    if responseCorrectnessFeedback
+    if  responseCorrectnessFeedback == 0
         if response == 1 || response == 2 || response == 3 || response == 4
             PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
             PsychPortAudio('Start', portAudio, 1,0);
