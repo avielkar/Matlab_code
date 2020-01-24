@@ -5,6 +5,7 @@ global responseBoxHandler
 global print_var
 global startPressStartTime
 global portAudio
+global responseCorrectnessFeedback
 
 if debug
     disp('Entering PriorCollectResp')
@@ -190,58 +191,30 @@ elseif (connected && debug) || (~connected && debug)
         setappdata(appHandle , 'debugResponse' , debugResponse);
 end
 % Feedback for 'Received Answer' case ++++++++++
-if response == 1 || response == 2 
-    % Received legit answer sound 
-     a = [ones(22,200);zeros(22,200)];
-     a_legit = a(:)';
-     PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
-     PsychPortAudio('Start', portAudio, 1,0);
-elseif response == 4 
-else
-    % Time Out Sound
-     a = [ones(220,25);zeros(220,25)];
-     a_timeout = a(:)';
-     PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
-     PsychPortAudio('Start', portAudio, 1,0);
+
+%make the sound of given answr or not, only if not giving feedback
+%correctness in the analyze stage.
+if responseCorrectnessFeedback
+    if response == 1 || response == 2 
+        % Received legit answer sound 
+         a = [ones(22,200);zeros(22,200)];
+         a_legit = a(:)';
+         PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
+         PsychPortAudio('Start', portAudio, 1,0);
+    elseif response == 4 
+    else
+        % Time Out Sound
+         a = [ones(220,25);zeros(220,25)];
+         a_timeout = a(:)';
+         PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+         PsychPortAudio('Start', portAudio, 1,0);
+    end
 end
 %++++++++++++++++++++++++++++++++++
 fprintf('THE RESPONSE IS %d\n' , response);
 
 activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
 activeRule = data.activeRule;
-%activePrior = data.activePrior;
-
-% % % % if( connected && ~debug)
-% % % %     if(response == 1 || response == 2)
-% % % %        if(press ==5)    %right press
-% % % %            response =2;
-% % % %        elseif press == 3    %left press
-% % % %            response = 1;
-% % % %        elseif press == 1 %up press
-% % % %            response = 3;
-% % % %        elseif press == 6    %down press
-% % % %            response = 4;
-% % % %        end
-% % % %     else
-% % % %         response = 0;
-% % % %     end
-% % % % elseif(connected && debug) || (~connected && debug)
-% % % %     if(response == 1 || response == 2)
-% % % %         if(press =='f')    %right press
-% % % %            response =2;
-% % % %        elseif press == 'd'    %left press
-% % % %            response = 1;
-% % % %        elseif press == 'e' %up press
-% % % %            response = 3;
-% % % %        elseif press == 'x'    %down press
-% % % %            response = 4;
-% % % %        end
-% % % %     else
-% % % %         response = 0;
-% % % %     end
-% % % % else
-% % % %     response = 0;
-% % % % end
 
 
 savedInfo(activeStair,activeRule).PriorResp.responseTime(trial(activeStair,activeRule).priorCntr) = responseTime;

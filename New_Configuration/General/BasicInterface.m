@@ -28,7 +28,7 @@ global print_var
 
 % Edit the above text to modify the response to help BasicInterface
 
-% Last Modified by GUIDE v2.5 05-Jul-2019 18:52:57
+% Last Modified by GUIDE v2.5 24-Jan-2020 13:42:16
 
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
@@ -1575,3 +1575,16 @@ is_enabled = get(findobj(basicfig,'Tag','CheckboxAutoStart'),'Value');
 flagdata = getappdata(basicfig,'flagdata');
 flagdata.isAutoStart = is_enabled;
 setappdata(basicfig,'flagdata',flagdata);
+
+
+
+% --- Executes on button press in ChoiceSoundCorrectness.
+function ChoiceSoundCorrectness_Callback(hObject, eventdata, handles)
+global basicfig
+global responseCorrectnessFeedback
+% hObject    handle to ChoiceSoundCorrectness (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+is_enabled = get(findobj(basicfig,'Tag','ChoiceSoundCorrectness'),'Value');
+responseCorrectnessFeedback = is_enabled;
+
