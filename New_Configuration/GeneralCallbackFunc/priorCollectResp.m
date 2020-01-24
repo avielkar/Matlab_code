@@ -194,7 +194,7 @@ end
 
 %make the sound of given answr or not, only if not giving feedback
 %correctness in the analyze stage.
-if responseCorrectnessFeedback
+if  responseCorrectnessFeedback == 0
     if response == 1 || response == 2 
         % Received legit answer sound 
          a = [ones(22,200);zeros(22,200)];
