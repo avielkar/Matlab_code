@@ -103,7 +103,11 @@ if connected && ~debug
         %%
         
         %if a answer was made and the option for confidence answer is on.
-        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)            
+        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)  
+            %add this in order to clean the release event, so the
+            %release would not be choosen as confidence mistakenly.
+            CedrusResponseBox('GetButtons', responseBoxHandler);
+            
             high_confidence_response = 'top'; %default
             low_confidence_response = 'buttom'; %default
             middle_confidence_response = 'empty'; %default
