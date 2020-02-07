@@ -109,7 +109,7 @@ if connected && ~debug
             CedrusResponseBox('GetButtons', responseBoxHandler);
             
             high_confidence_response = 'top'; %default
-            low_confidence_response = 'buttom'; %default
+            low_confidence_response = 'bottom'; %default
             middle_confidence_response = 'empty'; %default
             
             iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
@@ -117,10 +117,10 @@ if connected && ~debug
                 button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
                 if button_option == 1
                     high_confidence_response = 'top';
-                    low_confidence_response = 'buttom';
+                    low_confidence_response = 'bottom';
                     middle_confidence_response = 'empty';
                 elseif button_option == 2
-                    high_confidence_response = 'buttom';
+                    high_confidence_response = 'bottom';
                     low_confidence_response = 'top';
                     middle_confidence_response = 'empty';
                 elseif button_option == 3
@@ -134,10 +134,10 @@ if connected && ~debug
                     
                 elseif button_option == 5
                     high_confidence_response = 'top';
-                    low_confidence_response = 'buttom';
+                    low_confidence_response = 'bottom';
                     middle_confidence_response = 'middle';
                 elseif button_option == 6
-                    high_confidence_response = 'buttom';
+                    high_confidence_response = 'bottom';
                     low_confidence_response = 'top';
                     middle_confidence_response = 'middle';
                 elseif button_option == 6
