@@ -103,15 +103,14 @@ if connected && ~debug
         %%
         
         %if a answer was made and the option for confidence answer is on.
-        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
-            iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
-            button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
-            
+        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)            
             high_confidence_response = 'top'; %default
             low_confidence_response = 'buttom'; %default
             middle_confidence_response = 'empty'; %default
             
+            iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
             if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
+                button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
                 if button_option == 1
                     high_confidence_response = 'top';
                     low_confidence_response = 'buttom';
@@ -238,13 +237,48 @@ elseif (connected && debug) || (~connected && debug)
 
     %if a answer was made and the option for confidence answer is on.
     if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
-        
-        iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
-        button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
-
         high_confidence_response = 'e'; %default
         low_confidence_response = 'x'; %default
         middle_confidence_response = 'empty'; %default
+        
+        iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+        if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
+            button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
+            if button_option == 1
+                high_confidence_response = 'e';
+                low_confidence_response = 'x';
+                middle_confidence_response = 'empty';
+            elseif button_option == 2
+                high_confidence_response = 'x';
+                low_confidence_response = 'e';
+                middle_confidence_response = 'empty';
+            elseif button_option == 3
+                high_confidence_response = 'f';
+                low_confidence_response = 'd';
+                middle_confidence_response = 'empty';
+            elseif button_option == 4
+                high_confidence_response = 'd';
+                low_confidence_response = 'f';
+                middle_confidence_response = 'empty';
+
+            elseif button_option == 5
+                high_confidence_response = 'e';
+                low_confidence_response = 'x';
+                middle_confidence_response = 's';
+            elseif button_option == 6
+                high_confidence_response = 'x';
+                low_confidence_response = 'e';
+                middle_confidence_response = 's';
+            elseif button_option == f
+                high_confidence_response = 'f';
+                low_confidence_response = 'd';
+                middle_confidence_response = 's';
+            elseif button_option == 8
+                high_confidence_response = 'd';
+                low_confidence_response = 'f';
+                middle_confidence_response = 's';
+            end
+        end  
         
         confidenceResponse = 0; 
         tic
@@ -258,6 +292,10 @@ elseif (connected && debug) || (~connected && debug)
           elseif strcmp(debugResponse, low_confidence_response)  %down buttom
               confidenceResponse = 4;
               display('Confidence choice = Low');
+              break;
+          elseif strcmp(debugResponse, middle_confidence_response)  %down buttom
+              confidenceResponse = 5;
+              display('Confidence choice = Center');
               break;
           end
         end
