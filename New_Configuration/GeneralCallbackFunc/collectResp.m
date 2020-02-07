@@ -113,16 +113,32 @@ if connected && ~debug
         
         %if a answer was made and the option for confidence answer is on.
         if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
+            iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+            button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
+            
+            high_confidence_response = 'top'; %default
+            low_confidence_response = 'buttom'; %default
+            
+            if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
+                if button_option == 1
+                   high_confidence_response = 'top';
+                   low_confidence_response = 'buttom'; 
+                elseif button_option == 2
+                    high_confidence_response = 'buttom';
+                   low_confidence_response = 'top'; 
+                end
+            end
+            
             tic
             while(toc <=  cldata.respTime)
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 if(~isempty(press))
-                    if strcmp(press.buttonID , 'top')            
+                    if strcmp(press.buttonID , high_confidence_response)            
                         confidenceResponse = 3;
                         confidenceResponseTime = toc(startPressStartTime);
                         display('Confidence choice  =  High');
                         break;
-                    elseif strcmp(press.buttonID , 'bottom')
+                    elseif strcmp(press.buttonID , low_confidence_response)
                         confidenceResponse = 4;
                         display('Confidence choice = Low');
                         confidenceResponseTime = toc(startPressStartTime);
