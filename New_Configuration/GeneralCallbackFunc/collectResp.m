@@ -191,7 +191,7 @@ elseif (connected && debug) || (~connected && debug)
     in = '';
     disp('Press Left/Right Button in Debug Window for response');
     tic
-    response = 0;
+    response = 0; 
     while  (toc <= cldata.respTime)
         pause(0.1);
         debugResponse = getappdata(appHandle , 'debugResponse');
@@ -238,16 +238,24 @@ elseif (connected && debug) || (~connected && debug)
 
     %if a answer was made and the option for confidence answer is on.
     if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
+        
+        iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+        button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
+
+        high_confidence_response = 'e'; %default
+        low_confidence_response = 'x'; %default
+        middle_confidence_response = 'empty'; %default
+        
         confidenceResponse = 0; 
         tic
         while(toc <= cldata.respTime)
           pause(0.1);
           debugResponse = getappdata(appHandle , 'debugResponse');
-          if strcmp(debugResponse,'e') %up buttom
+          if strcmp(debugResponse, high_confidence_response) %up buttom
               confidenceResponse = 3;
               display('Confidence choice  =  High');
               break;
-          elseif strcmp(debugResponse,'x')  %down buttom
+          elseif strcmp(debugResponse, low_confidence_response)  %down buttom
               confidenceResponse = 4;
               display('Confidence choice = Low');
               break;
