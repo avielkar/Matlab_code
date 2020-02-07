@@ -126,6 +126,12 @@ if connected && ~debug
                 elseif button_option == 2
                     high_confidence_response = 'buttom';
                    low_confidence_response = 'top'; 
+                elseif button_option == 3
+                    high_confidence_response = 'right';
+                   low_confidence_response = 'left'; 
+                elseif button_option == 4
+                    high_confidence_response = 'left';
+                   low_confidence_response = 'right'; 
                 end
             end
             
