@@ -118,20 +118,42 @@ if connected && ~debug
             
             high_confidence_response = 'top'; %default
             low_confidence_response = 'buttom'; %default
+            middle_confidence_response = 'empty' %default
             
             if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
                 if button_option == 1
-                   high_confidence_response = 'top';
-                   low_confidence_response = 'buttom'; 
+                    high_confidence_response = 'top';
+                    low_confidence_response = 'buttom';
+                    middle_confidence_response = 'empty';
                 elseif button_option == 2
                     high_confidence_response = 'buttom';
-                   low_confidence_response = 'top'; 
+                    low_confidence_response = 'top';
+                    middle_confidence_response = 'empty';
                 elseif button_option == 3
                     high_confidence_response = 'right';
-                   low_confidence_response = 'left'; 
+                    low_confidence_response = 'left';
+                    middle_confidence_response = 'empty';
                 elseif button_option == 4
                     high_confidence_response = 'left';
-                   low_confidence_response = 'right'; 
+                    low_confidence_response = 'right';
+                    middle_confidence_response = 'empty';
+                    
+                elseif button_option == 5
+                    high_confidence_response = 'top';
+                    low_confidence_response = 'buttom';
+                    middle_confidence_response = 'middle';
+                elseif button_option == 6
+                    high_confidence_response = 'buttom';
+                    low_confidence_response = 'top';
+                    middle_confidence_response = 'middle';
+                elseif button_option == 6
+                    high_confidence_response = 'right';
+                    low_confidence_response = 'left';
+                    middle_confidence_response = 'middle';
+                elseif button_option == 8
+                    high_confidence_response = 'left';
+                    low_confidence_response = 'right';
+                    middle_confidence_response = 'middle';
                 end
             end
             
@@ -149,7 +171,11 @@ if connected && ~debug
                         display('Confidence choice = Low');
                         confidenceResponseTime = toc(startPressStartTime);
                         break;
-                        
+                    elseif strcmp(press.buttonID , middle_confidence_response)
+                        confidenceResponse = 5;
+                        display('Confidence choice = Center');
+                        confidenceResponseTime = toc(startPressStartTime);
+                        break;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
