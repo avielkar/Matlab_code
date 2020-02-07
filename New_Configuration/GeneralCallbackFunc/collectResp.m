@@ -118,7 +118,7 @@ if connected && ~debug
             
             high_confidence_response = 'top'; %default
             low_confidence_response = 'buttom'; %default
-            middle_confidence_response = 'empty' %default
+            middle_confidence_response = 'empty'; %default
             
             if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
                 if button_option == 1
