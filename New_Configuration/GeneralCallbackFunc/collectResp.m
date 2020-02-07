@@ -44,7 +44,6 @@ if connected && ~debug
     errorCode = cbDConfigPort(boardNum, portNum, direction);
     if errorCode ~= 0
         str = cbGetErrMsg(errorCode);
-%         disp(['WRONG cbDConfigPort ' str])
     end
     
     tic
@@ -82,14 +81,6 @@ if connected && ~debug
                 fprintf('byteas available but not a red press!!!!\n')
             end
         end
-
-%%%%%%%%%%%         avi add that for automatic answer.
-%         timeToWait  = rand;
-%         elapsedTime = tic;
-%         while(toc(elapsedTime) < timeToWait)
-%         end
-%         
-%         response = randi(2);
         
         if(response == 0)   %no choice or pressed an illegal button
             display('R/L Choice timeout');
@@ -192,10 +183,6 @@ if connected && ~debug
         cldata.in_the_middle_response = 0;
         setappdata(appHandle,'ControlLoopData',cldata);
     end
-    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%new changes%%%%%%%%%%%%%%%%
-    %s = CBWDReadString(0 ,2 , 500);
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%end of changes%%%%%%%%%%%%%
     
     if(print_var)
         fprintf('The result at the end is hell of is %d \n',response);
