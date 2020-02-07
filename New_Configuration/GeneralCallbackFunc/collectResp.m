@@ -44,7 +44,6 @@ if connected && ~debug
     errorCode = cbDConfigPort(boardNum, portNum, direction);
     if errorCode ~= 0
         str = cbGetErrMsg(errorCode);
-%         disp(['WRONG cbDConfigPort ' str])
     end
     
     tic
@@ -82,14 +81,6 @@ if connected && ~debug
                 fprintf('byteas available but not a red press!!!!\n')
             end
         end
-
-%%%%%%%%%%%         avi add that for automatic answer.
-%         timeToWait  = rand;
-%         elapsedTime = tic;
-%         while(toc(elapsedTime) < timeToWait)
-%         end
-%         
-%         response = randi(2);
         
         if(response == 0)   %no choice or pressed an illegal button
             display('R/L Choice timeout');
@@ -112,22 +103,69 @@ if connected && ~debug
         %%
         
         %if a answer was made and the option for confidence answer is on.
-        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
+        if(response ~= 0 && flagdata.enableConfidenceChoice == 1)            
+            high_confidence_response = 'top'; %default
+            low_confidence_response = 'buttom'; %default
+            middle_confidence_response = 'empty'; %default
+            
+            iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+            if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
+                button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
+                if button_option == 1
+                    high_confidence_response = 'top';
+                    low_confidence_response = 'buttom';
+                    middle_confidence_response = 'empty';
+                elseif button_option == 2
+                    high_confidence_response = 'buttom';
+                    low_confidence_response = 'top';
+                    middle_confidence_response = 'empty';
+                elseif button_option == 3
+                    high_confidence_response = 'right';
+                    low_confidence_response = 'left';
+                    middle_confidence_response = 'empty';
+                elseif button_option == 4
+                    high_confidence_response = 'left';
+                    low_confidence_response = 'right';
+                    middle_confidence_response = 'empty';
+                    
+                elseif button_option == 5
+                    high_confidence_response = 'top';
+                    low_confidence_response = 'buttom';
+                    middle_confidence_response = 'middle';
+                elseif button_option == 6
+                    high_confidence_response = 'buttom';
+                    low_confidence_response = 'top';
+                    middle_confidence_response = 'middle';
+                elseif button_option == 6
+                    high_confidence_response = 'right';
+                    low_confidence_response = 'left';
+                    middle_confidence_response = 'middle';
+                elseif button_option == 8
+                    high_confidence_response = 'left';
+                    low_confidence_response = 'right';
+                    middle_confidence_response = 'middle';
+                end
+            end
+            
             tic
             while(toc <=  cldata.respTime)
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 if(~isempty(press))
-                    if strcmp(press.buttonID , 'top')            
+                    if strcmp(press.buttonID , high_confidence_response)            
                         confidenceResponse = 3;
                         confidenceResponseTime = toc(startPressStartTime);
                         display('Confidence choice  =  High');
                         break;
-                    elseif strcmp(press.buttonID , 'bottom')
+                    elseif strcmp(press.buttonID , low_confidence_response)
                         confidenceResponse = 4;
                         display('Confidence choice = Low');
                         confidenceResponseTime = toc(startPressStartTime);
                         break;
-                        
+                    elseif strcmp(press.buttonID , middle_confidence_response)
+                        confidenceResponse = 5;
+                        display('Confidence choice = Center');
+                        confidenceResponseTime = toc(startPressStartTime);
+                        break;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
                 end
@@ -145,10 +183,6 @@ if connected && ~debug
         setappdata(appHandle,'ControlLoopData',cldata);
     end
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%new changes%%%%%%%%%%%%%%%%
-    %s = CBWDReadString(0 ,2 , 500);
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%end of changes%%%%%%%%%%%%%
-    
     if(print_var)
         fprintf('The result at the end is hell of is %d \n',response);
     end
@@ -156,7 +190,7 @@ elseif (connected && debug) || (~connected && debug)
     in = '';
     disp('Press Left/Right Button in Debug Window for response');
     tic
-    response = 0;
+    response = 0; 
     while  (toc <= cldata.respTime)
         pause(0.1);
         debugResponse = getappdata(appHandle , 'debugResponse');
@@ -203,18 +237,65 @@ elseif (connected && debug) || (~connected && debug)
 
     %if a answer was made and the option for confidence answer is on.
     if(response ~= 0 && flagdata.enableConfidenceChoice == 1)
+        high_confidence_response = 'e'; %default
+        low_confidence_response = 'x'; %default
+        middle_confidence_response = 'empty'; %default
+        
+        iCONFIDENCE_BUTTON_RESPONSE_OPTION = strmatch('CONFIDENCE_BUTTON_RESPONSE_OPTION',{char(data.configinfo.name)},'exact');
+        if ~isempty(iCONFIDENCE_BUTTON_RESPONSE_OPTION)
+            button_option = data.configinfo(iCONFIDENCE_BUTTON_RESPONSE_OPTION).parameters;
+            if button_option == 1
+                high_confidence_response = 'e';
+                low_confidence_response = 'x';
+                middle_confidence_response = 'empty';
+            elseif button_option == 2
+                high_confidence_response = 'x';
+                low_confidence_response = 'e';
+                middle_confidence_response = 'empty';
+            elseif button_option == 3
+                high_confidence_response = 'f';
+                low_confidence_response = 'd';
+                middle_confidence_response = 'empty';
+            elseif button_option == 4
+                high_confidence_response = 'd';
+                low_confidence_response = 'f';
+                middle_confidence_response = 'empty';
+
+            elseif button_option == 5
+                high_confidence_response = 'e';
+                low_confidence_response = 'x';
+                middle_confidence_response = 's';
+            elseif button_option == 6
+                high_confidence_response = 'x';
+                low_confidence_response = 'e';
+                middle_confidence_response = 's';
+            elseif button_option == f
+                high_confidence_response = 'f';
+                low_confidence_response = 'd';
+                middle_confidence_response = 's';
+            elseif button_option == 8
+                high_confidence_response = 'd';
+                low_confidence_response = 'f';
+                middle_confidence_response = 's';
+            end
+        end  
+        
         confidenceResponse = 0; 
         tic
         while(toc <= cldata.respTime)
           pause(0.1);
           debugResponse = getappdata(appHandle , 'debugResponse');
-          if strcmp(debugResponse,'e') %up buttom
+          if strcmp(debugResponse, high_confidence_response) %up buttom
               confidenceResponse = 3;
               display('Confidence choice  =  High');
               break;
-          elseif strcmp(debugResponse,'x')  %down buttom
+          elseif strcmp(debugResponse, low_confidence_response)  %down buttom
               confidenceResponse = 4;
               display('Confidence choice = Low');
+              break;
+          elseif strcmp(debugResponse, middle_confidence_response)  %down buttom
+              confidenceResponse = 5;
+              display('Confidence choice = Center');
               break;
           end
         end
