@@ -278,4 +278,9 @@ global portAudio
             cldata.initStage = 1;
             setappdata(appHandle, 'ControlLoopData' , cldata);
         end
+    elseif(start_mode == 4)
+        disp('Entering start mode 3');
+        window_size_timer = tic;
+        while(toc(window_size_timer) <= 0.5)
+        end
     end    
