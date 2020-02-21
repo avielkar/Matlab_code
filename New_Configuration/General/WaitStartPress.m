@@ -283,4 +283,5 @@ global portAudio
         window_size_timer = tic;
         while(toc(window_size_timer) <= 0.5)
         end
+        pressInTime = 1;
     end    

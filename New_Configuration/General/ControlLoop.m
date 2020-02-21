@@ -1052,8 +1052,8 @@ if ~paused && flagdata.isStopButton == 0
                     start_mode = data.configinfo(iSTART_MODE_2I).parameters;
                 end
                 
-                iAUTOMOTIC_SECOND_RESPONSE = strmatch('AUTOMOTIC_SECOND_RESPONSE',{char(data.configinfo.name)},'exact');
-                if((~isempty(iAUTOMOTIC_SECOND_RESPONSE)) && data.configinfo(iAUTOMOTIC_SECOND_RESPONSE).parameters == 1) %automatic second response
+                iAUTOMOTED_SECOND_PRESS = strmatch('AUTOMOTED_SECOND_PRESS',{char(data.configinfo.name)},'exact');
+                if((~isempty(iAUTOMOTED_SECOND_PRESS)) && data.configinfo(iAUTOMOTED_SECOND_PRESS).parameters == 1) %automatic second response
                     %make that start mode to be passive
                     start_mode = 4;
                 end
