@@ -878,7 +878,7 @@ if ~paused && flagdata.isStopButton == 0
     
     %decide about the start mode value.
     iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
-    iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');    
+    iSTART_MODE_2I = strmatch('START_MODE_2I',{char(data.configinfo.name)},'exact');
     if(~isempty(iSTART_MODE))
         ord = getappdata(appHandle,'Order');
         if(ord(1) == 1)
@@ -1051,6 +1051,13 @@ if ~paused && flagdata.isStopButton == 0
                 else
                     start_mode = data.configinfo(iSTART_MODE_2I).parameters;
                 end
+                
+                iAUTOMOTIC_SECOND_RESPONSE = strmatch('AUTOMOTIC_SECOND_RESPONSE',{char(data.configinfo.name)},'exact');
+                if((~isempty(iAUTOMOTIC_SECOND_RESPONSE)) && data.configinfo(iAUTOMOTIC_SECOND_RESPONSE).parameters == 1) %automatic second response
+                    %make that start mode to be passive
+                    start_mode = 4;
+                end
+                
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
 
