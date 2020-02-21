@@ -1,4 +1,4 @@
-function secondPressInTime = WaitStartPress(appHandle , start_mode , press_number)
+function secondPressInTime = WaitStartPress(appHandle , start_mode)
 
 global basicfig
 global responseBoxHandler
