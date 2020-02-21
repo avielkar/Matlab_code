@@ -1,4 +1,4 @@
-function secondPressInTime = WaitStartPress(appHandle , start_mode)
+function pressInTime = WaitStartPress(appHandle , start_mode)
 
 global basicfig
 global responseBoxHandler
@@ -24,7 +24,7 @@ global portAudio
         PsychPortAudio('FillBuffer', portAudio, [cldata.beginWav;cldata.beginWav]);
         PsychPortAudio('Start', portAudio, 1,0);
         %press has no time limit.
-        secondPressInTime = 1;
+        pressInTime = 1;
         %% Wait for red button to be pressed to start movement for sending the command to MoogDots(int the next section) to make it's commands(visual and vistibula options).
         % Wait for red button to be pressed to start movement
         if connected && ~debug
@@ -138,7 +138,7 @@ global portAudio
         disp('Entering final of start mode 2...');
         %the user press start , altough no need to press , failure
         if(checkIfWasResponseWhenNotNeeded == 4)
-            secondPressInTime = 0;            
+            pressInTime = 0;            
             PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
             PsychPortAudio('Start', portAudio, 1,0);
             
@@ -150,7 +150,7 @@ global portAudio
             setappdata(appHandle,'ControlLoopData',cldata);
         else
             %automatic response
-            secondPressInTime = 1;
+            pressInTime = 1;
             response = 4;
             startPressStartTime = tic;
             cldata = getappdata(appHandle, 'ControlLoopData');
@@ -259,16 +259,16 @@ global portAudio
             %pause(0.01);
         end
         if(response == 4)
-            secondPressInTime = 1;
+            pressInTime = 1;
         else
-            secondPressInTime = 0;
+            pressInTime = 0;
             % Time Out Sound
              PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
              PsychPortAudio('Start', portAudio, 1,0);
         end
         %if eh cldata.go = 0 (means timeout for the press), make the cldata.initStage True, in order to
         %randomiza the intOrder and the trajectory again.
-        if(secondPressInTime ~= 1)
+        if(pressInTime ~= 1)
             %it is only for 2I , in order to offsets between the beeps
             %because immediatley goes to the initial stage.
             % Time Out Sound
