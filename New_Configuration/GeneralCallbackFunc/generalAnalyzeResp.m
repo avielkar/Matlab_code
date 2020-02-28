@@ -2,6 +2,9 @@ function generalAnalyzeResp(appHandle)
 global  debug
 global portAudio
 global responseCorrectnessFeedback
+global basicfig
+
+feedbackString = 'null response'
 
 % Received legit answer sound
  a = [ones(22,200);zeros(22,200)];
@@ -152,6 +155,7 @@ if response == 1 % Respond 1 %Left/Down
         if debug
             disp('correct')
         end
+        feedbackString = 'Correct';
         savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 1;
         savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).null(currTrial) = 0;
@@ -160,6 +164,7 @@ if response == 1 % Respond 1 %Left/Down
         if debug
             disp('Not correct')
         end
+        feedbackString = 'Not correct';
         savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 1;
         savedInfo(activeStair,activeRule).Resp(currRep).null(currTrial) = 0;
@@ -168,6 +173,7 @@ if response == 1 % Respond 1 %Left/Down
         if debug
             disp('No Answer')
         end
+        feedbackString = 'No Answer';
         savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).null(currTrial) = 1;
@@ -181,6 +187,7 @@ elseif response == 2 % Respond 2 Right/Up
         if debug
             disp('correct')
         end
+        feedbackString = 'Correct';
         savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 1;
         savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).null(currTrial) = 0;
@@ -189,6 +196,7 @@ elseif response == 2 % Respond 2 Right/Up
         if debug
             disp('Not correct')
         end
+        feedbackString = 'Not correct';
         savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 1;
         savedInfo(activeStair,activeRule).Resp(currRep).null(currTrial) = 0;
@@ -197,6 +205,7 @@ elseif response == 2 % Respond 2 Right/Up
         if debug
             disp('No Answer')
         end
+        feedbackString = 'No Answer';
         savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).incorr(currTrial) = 0;
         savedInfo(activeStair,activeRule).Resp(currRep).null(currTrial) = 1;
@@ -229,6 +238,10 @@ else
 end
 
 setappdata(appHandle,'SavedInfo',savedInfo);
+
+trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
+trialfeedbackInfo = [trialfeedbackInfo feedbackString];
+set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedback);
 
 %giving feedback sound correctness in the analyze stage.
 if responseCorrectnessFeedback

@@ -29,7 +29,7 @@ global responseCorrectnessFeedback
 
 % Edit the above text to modify the response to help BasicInterface
 
-% Last Modified by GUIDE v2.5 24-Jan-2020 13:42:16
+% Last Modified by GUIDE v2.5 28-Feb-2020 14:52:08
 
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
@@ -1590,3 +1590,26 @@ global responseCorrectnessFeedback
 is_enabled = get(findobj(basicfig,'Tag','ChoiceSoundCorrectness'),'Value');
 responseCorrectnessFeedback = is_enabled;
 
+
+
+% --- Executes on selection change in listBoxFeedbackTrial.
+function listBoxFeedbackTrial_Callback(hObject, eventdata, handles)
+% hObject    handle to listBoxFeedbackTrial (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns listBoxFeedbackTrial contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listBoxFeedbackTrial
+
+
+% --- Executes during object creation, after setting all properties.
+function listBoxFeedbackTrial_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listBoxFeedbackTrial (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
