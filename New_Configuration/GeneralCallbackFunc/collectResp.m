@@ -6,6 +6,7 @@ global print_var
 global startPressStartTime
 global portAudio
 global responseCorrectnessFeedback
+global basicfig
 
 % Received legit answer sound
 a = [ones(22,200);zeros(22,200)];
@@ -16,6 +17,9 @@ a_timeout = a(:)';
 
 responseTime = -1;
 confidenceResponseTime = -1;
+
+feedback1String = 'null feedback 1'
+feedback2String = 'null feedback 2'
 
 if debug
     disp('Entering collectResp')
@@ -61,21 +65,25 @@ if connected && ~debug
                     response = 1;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Left');
+                    feedback1String = 'Choice = Left';
                     break;
                 elseif (strcmp(press.buttonID , 'right') && ~is2Interval)
                     response = 2;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Right');
+                    feedback1String = 'Choice = Right';
                     break;
                 elseif (strcmp(press.buttonID , 'top') && is2Interval)
                     response = 3;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Up');
+                    feedback1String = 'Choice = Up';
                     break;
                 elseif (strcmp(press.buttonID , 'bottom') && is2Interval)
                     response = 4;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Down');
+                    feedback1String = 'Choice = Down';
                     break;
                 end
                 fprintf('byteas available but not a red press!!!!\n')
@@ -84,6 +92,7 @@ if connected && ~debug
         
         if(response == 0)   %no choice or pressed an illegal button
             display('R/L Choice timeout');
+            feedback1String = 'R/L Choice timeout';
         end
         
         %%
@@ -159,16 +168,19 @@ if connected && ~debug
                         confidenceResponse = 3;
                         confidenceResponseTime = toc(startPressStartTime);
                         display('Confidence choice  =  High');
+                        feedback2String = 'Confidence choice  =  High';
                         break;
                     elseif strcmp(press.buttonID , low_confidence_response)
                         confidenceResponse = 4;
                         display('Confidence choice = Low');
                         confidenceResponseTime = toc(startPressStartTime);
+                        feedback2String = 'Confidence choice = Low';
                         break;
                     elseif strcmp(press.buttonID , middle_confidence_response)
                         confidenceResponse = 5;
                         display('Confidence choice = Center');
                         confidenceResponseTime = toc(startPressStartTime);
+                        feedback2String = 'Confidence choice = Center';
                         break;
                     end
                     fprintf('byteas available but not a red press!!!!\n')
@@ -177,6 +189,7 @@ if connected && ~debug
             
             if(confidenceResponse == 0) %no choice or pressed an illegal button
                 display('Confidence Choice Timeout');
+                feedback2String = 'Confidence Choice Timeout';
             end
         end
         
@@ -200,18 +213,22 @@ elseif (connected && debug) || (~connected && debug)
         debugResponse = getappdata(appHandle , 'debugResponse');
         if (strcmp(debugResponse,'f') && ~is2Interval) %right
             display('Choice = Right' );
+            feedback1String = 'Choice = Right';
             response = 2;
             break;
         elseif (strcmp(debugResponse,'d') && ~is2Interval) %left
             display('Choice = Left');
+            feedback1String = 'Choice = Left';
             response = 1;
             break;
         elseif (strcmp(debugResponse,'e') && is2Interval) %up
             display('Choice = Up');
+            feedback1String = 'Choice = Up';
             response = 3;
             break;
         elseif (strcmp(debugResponse,'x') && is2Interval) %down
             display('Choice = Down');
+            feedback1String = 'Choice = Down';
             response = 4;
             break;
         elseif strcmp(debugResponse,'i')
@@ -292,14 +309,17 @@ elseif (connected && debug) || (~connected && debug)
           if strcmp(debugResponse, high_confidence_response) %up buttom
               confidenceResponse = 3;
               display('Confidence choice  =  High');
+              feedback2String = 'Confidence choice  =  High';
               break;
           elseif strcmp(debugResponse, low_confidence_response)  %down buttom
               confidenceResponse = 4;
               display('Confidence choice = Low');
+              feedback2String = 'Confidence choice = Low';
               break;
           elseif strcmp(debugResponse, middle_confidence_response)  %down buttom
               confidenceResponse = 5;
               display('Confidence choice = Center');
+              feedback2String = 'Confidence choice = Center';
               break;
           end
         end
@@ -311,6 +331,7 @@ elseif (connected && debug) || (~connected && debug)
 
     if(confidenceResponse == 0) %no choice or pressed an illegal button
         display('Confidence Choice Timeout');
+        feedback2String = 'Confidence Choice Timeout';
     end
 end
 
@@ -329,6 +350,12 @@ if(flagdata.enableConfidenceChoice)
 end
 %++++++++++++++++++++++++++++++++++
 fprintf('THE RESPONSE IS %d\n' , response);
+
+%update feedback window
+
+trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
+trialfeedbackInfo = [trialfeedbackInfo feedback1String feedback2String];
+set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 
 activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
 activeRule = data.activeRule;
