@@ -353,7 +353,8 @@ fprintf('THE RESPONSE IS %d\n' , response);
 
 %update feedback window
 
-trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
+%trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
+trialfeedbackInfo = {};
 trialfeedbackInfo = [trialfeedbackInfo feedback1String feedback2String];
 set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 
