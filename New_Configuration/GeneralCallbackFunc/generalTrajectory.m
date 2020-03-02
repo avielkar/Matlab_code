@@ -232,23 +232,7 @@ if motiontype == 3 % 2I vars required as well
         sig(1,2) = data.configinfo(i).parameters.moog;
         sig(2,2) = data.configinfo(i).parameters.openGL;
     end
-    
-    i = strmatch('DELAY_2I',{char(data.configinfo.name)},'exact');
-    if data.configinfo(i).status == 2
-        i1 = strmatch('Delay 2nd Int',{char(varying.name)},'exact');
-        delay(1) = crossvals(cntrVarying,i1);
-        delay(2) = crossvalsGL(cntrVarying,i1);
-    elseif data.configinfo(i).status == 3
-        delay(1) = across.parameters.moog(activeStair);
-        delay(2) = across.parameters.openGL(activeStair);
-    elseif data.configinfo(i).status == 4
-        delay(1) = within.parameters.moog(cntr);
-        delay(2) = within.parameters.openGL(cntr);
-    else
-        delay(1) = data.configinfo(i).parameters.moog;
-        delay(2) = data.configinfo(i).parameters.openGL;
-    end
-    
+
     i = strmatch('DURATION_2I',{char(data.configinfo.name)},'exact');
     if data.configinfo(i).status == 2
         i1 = strmatch('Duration 2nd Int',{char(varying.name)},'exact');
@@ -350,36 +334,27 @@ else
           (sin(az(2))*cos(el(2))-cos(az(2))*sin(tilt(2))*sin(el(2)));   
     zGL2 = -sin(amp(2,ord(2)))*sin(tilt(2)) - cos(amp(2,ord(2)))*sin(el(2))*cos(tilt(2)); 
     
-    restM = ones(1,f*delay(1));
-    restGL = ones(1,f*delay(2));
-    
     lateralM1 = dM1*yM1;
-    lateralRestM = restM*lateralM1(end);
     lateralM2 = dM2*yM2 + lateralM1(end);
-    lateralM = [lateralM1 lateralRestM lateralM2];
+    lateralM = [lateralM1 lateralM2];
     lateralGL1 = dGL1*yGL1;
-    lateralRestGL = restGL*lateralGL1(end);
     lateralGL2 = dGL2*yGL2 + lateralGL1(end);
-    lateralGL = [lateralGL1 lateralRestGL lateralGL2];
+    lateralGL = [lateralGL1 lateralGL2];
     
     surgeM1 = dM1*xM1;
-    surgeRestM = restM*surgeM1(end);
     surgeM2 = dM2*xM2 + surgeM1(end);
-    surgeM = [surgeM1 surgeRestM surgeM2];
+    surgeM = [surgeM1 surgeM2];
     surgeGL1 = dGL1*xGL1;
-    surgeRestGL = restGL*surgeGL1(end);
     surgeGL2 = dGL2*xGL2 + surgeGL1(end);
-    surgeGL = [surgeGL1 surgeRestGL surgeGL2];
+    surgeGL = [surgeGL1 surgeGL2];
     %-----End 03/16/07---------   
     
     heaveM1 = dM1*zM1;
-    heaveRestM = restM*heaveM1(end);
     heaveM2 = dM2*zM2 + heaveM1(end);
-    heaveM = [heaveM1 heaveRestM heaveM2];
+    heaveM = [heaveM1 heaveM2];
     heaveGL1 = dGL1*zGL1;
-    heaveRestGL = restGL*heaveGL1(end);
     heaveGL2 = dGL2*zGL2 + heaveGL1(end);
-    heaveGL = [heaveGL1 heaveRestGL heaveGL2];
+    heaveGL = [heaveGL1 heaveGL2];
         
 end 
    
@@ -423,11 +398,11 @@ else
     M(3).name = 'HEAVE_DATA';
     M(3).data = heaveM + ori(1,3); %%this has to be done b/c origin is in cm but moogdots needs it in meters -- Tunde
     M(4).name = 'YAW_DATA';
-    M(4).data = 90*zeros(1,(dur(1,1)+delay(1)+dur(1,2))*f);
+    M(4).data = 90*zeros(1,(dur(1,1)+dur(1,2))*f);
     M(5).name = 'PITCH_DATA';
-    M(5).data = zeros(1,(dur(1,1)+delay(1)+dur(1,2))*f);
+    M(5).data = zeros(1,(dur(1,1)+dur(1,2))*f);
     M(6).name = 'ROLL_DATA';
-    M(6).data = zeros(1,(dur(1,1)+delay(1)+dur(1,2))*f);
+    M(6).data = zeros(1,(dur(1,1)+dur(1,2))*f);
     M(7).name = 'GL_LATERAL_DATA';
     M(7).data = lateralGL + ori(2,1);
     M(8).name = 'GL_SURGE_DATA';
@@ -435,11 +410,11 @@ else
     M(9).name = 'GL_HEAVE_DATA';
     M(9).data = heaveGL + ori(2,3);
     M(10).name = 'GL_ROT_ELE';
-    M(10).data = 90*ones((dur(2,1)+delay(1)+dur(2,2))*f,1);
+    M(10).data = 90*ones((dur(2,1)+dur(2,2))*f,1);
     M(11).name = 'GL_ROT_AZ';
-    M(11).data = zeros((dur(2,1)+delay(1)+dur(2,2))*f,1);
+    M(11).data = zeros((dur(2,1)+dur(2,2))*f,1);
     M(12).name = 'GL_ROT_DATA';
-    M(12).data = zeros((dur(2,1)+delay(1)+dur(2,2))*f,1);
+    M(12).data = zeros((dur(2,1)+dur(2,2))*f,1);
 end
 
 %if it is 2 interval and the second interval is start mode 3.
