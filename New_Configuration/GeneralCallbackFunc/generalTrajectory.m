@@ -465,12 +465,22 @@ setappdata(appHandle, 'protinfo', data)
 
 if motiontype == 1
     sprintf('amp=%f', amps(1,1))
+    
+    trialfeedbackInfo = {};
+    trialfeedbackInfo(end+1) = sprintf('amp=%f',amps(1,1));
+    set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 else
     if HR
         sprintf('amp1=%f  amp2=%f  ord=%d %d  dir1=%f  dir2=%f', amps(1,1), amps(1,2)-amps(1,1), ord, amps(1,ord(1)), amps(1,ord(2)))
     else
         sprintf('amp1=%f  amp2=%f  ord=%d %d  dir1=%f  dir2=%f', amps(1,1), amps(1,2), ord, amps(1,ord(1)), amps(1,ord(2)))
     end
+    
+    trialfeedbackInfo = {};
+    trialfeedbackInfo(end+1) = sprintf('dist1=%f  dist2=%f',amps(1,1), amps(1,2));
+    trialfeedbackInfo(end+1) = sprintf('dir1=%f  dir2=%f',amps(1,ord(1)), amps(1,ord(2)));
+    trialfeedbackInfo(end+1) = sprintf('ord=%d %d',ord);
+    set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 end
 if debug
     disp('Exiting general Trajectory');

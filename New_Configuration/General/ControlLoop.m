@@ -932,14 +932,19 @@ if ~paused && flagdata.isStopButton == 0
                 eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
                 eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index , :);']);
                 eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
+                
                 iSOUND_DURING_MOVEMENT_AMPLITUDE = strmatch('SOUND_DURING_MOVEMENT_AMPLITUDE',{char(data.configinfo.name)},'exact');
                 amplitude = data.configinfo(iSOUND_DURING_MOVEMENT_AMPLITUDE).parameters;
                 PsychPortAudio('FillBuffer', portAudio, [soundWav*amplitude;soundWav*amplitude]);
-                savedInfo = getappdata(appHandle,'SavedInfo');
-                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile2(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
-                setappdata(appHandle,'SavedInfo',savedInfo );
-                PsychPortAudio('FillBuffer', portAudio, [soundWav;soundWav]);
                 PsychPortAudio('Start', portAudio, 1,0);
+                
+                savedInfo = getappdata(appHandle,'SavedInfo');
+                savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile1(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
+                setappdata(appHandle,'SavedInfo',savedInfo );
+
+                trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
+                trialfeedbackInfo = [trialfeedbackInfo ['sound folder' sound_folder] ];
+                set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
             end
         end
         
@@ -1093,13 +1098,19 @@ if ~paused && flagdata.isStopButton == 0
                             eval(['index = randi(size(cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds , 1));']);
                             eval(['soundWav = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sounds(index, :);']);
                             eval(['sound_file_name = cldata.soundsConfiguration.folder' num2str(sound_folder) '.sound_names(index);']);
+                            
                             iSOUND_DURING_MOVEMENT_AMPLITUDE = strmatch('SOUND_DURING_MOVEMENT_AMPLITUDE',{char(data.configinfo.name)},'exact');
                             amplitude = data.configinfo(iSOUND_DURING_MOVEMENT_AMPLITUDE).parameters;
                             PsychPortAudio('FillBuffer', portAudio, [soundWav*amplitude;soundWav*amplitude]);
                             PsychPortAudio('Start', portAudio, 1,0);
+                            
                             savedInfo = getappdata(appHandle,'SavedInfo');
-                            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile1(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
+                            savedInfo(data.activeStair, data.activeRule).Resp(data.repNum).soundFile2(trial(data.activeStair, data.activeRule).cntr) = sound_file_name;
                             setappdata(appHandle,'SavedInfo',savedInfo );
+                            
+                            trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
+                            trialfeedbackInfo{end+1}= ['sound folder' sound_folder];
+                            set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
                         end
                     end
                     
