@@ -468,7 +468,8 @@ if motiontype == 1
     sprintf('amp=%f', amps(1,1))
     
     trialfeedbackInfo = [];
-    trialfeedbackInfo{end+1} = sprintf('amp=%f',amps(1,1));
+    trialfeedbackInfo{end+1} = sprintf('Distance=%f',dist(1,1));
+    trialfeedbackInfo{end+1} = sprintf('Heading Direction=%f',amps(1,1));
     set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 else
     if HR
@@ -477,10 +478,14 @@ else
         sprintf('amp1=%f  amp2=%f  ord=%d %d  dir1=%f  dir2=%f', amps(1,1), amps(1,2), ord, amps(1,ord(1)), amps(1,ord(2)))
     end
     
-    trialfeedbackInfo = {};
-    trialfeedbackInfo{end+1} = sprintf('dist1=%f  dist2=%f',dist(1,ord(1)), dist(1,ord(2)));
-    trialfeedbackInfo{end+1} = sprintf('dir1=%f  dir2=%f',amps(1,ord(1)), amps(1,ord(2)));
-    trialfeedbackInfo{end+1} = sprintf('ord=%d %d',ord);
+    trialfeedbackInfo = {};trialfeedbackInfo{end+1} = sprintf('ord=%d %d',ord);
+    if(ord(1) == 1)
+        trialfeedbackInfo{end+1} = sprintf('Distance=%f  Distance 2nd Int=%f',dist(1,ord(1)), dist(1,ord(2)));
+        trialfeedbackInfo{end+1} = sprintf('Heading Direction=%f  Heading Direction 2nd int=%f',amps(1,ord(1)), amps(1,ord(2)));
+    else
+        trialfeedbackInfo{end+1} = sprintf('Distance 2nd Int=%f  Distance=%f',dist(1,ord(1)), dist(1,ord(2)));
+        trialfeedbackInfo{end+1} = sprintf('Heading Direction 2nd Int=%f  Heading Direction=%f',amps(1,ord(1)), amps(1,ord(2)));
+    end
     set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 end
 if debug

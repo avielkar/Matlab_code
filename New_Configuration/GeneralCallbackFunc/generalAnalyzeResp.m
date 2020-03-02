@@ -240,7 +240,7 @@ end
 setappdata(appHandle,'SavedInfo',savedInfo);
 
 trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
-trialfeedbackInfo{end+1}= feedbackString;
+trialfeedbackInfo{end+1}= ['Discrimination correctness :' feedbackString];
 set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 
 %giving feedback sound correctness in the analyze stage.
