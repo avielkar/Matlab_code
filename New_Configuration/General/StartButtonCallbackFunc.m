@@ -141,7 +141,7 @@ if data.configinfo(i).parameters == 3
     %%%%%mainTimerStage wait all this time and it should be only the rime
     %%%%%of the delay and the dur2 : see :if toc >=
     %%%%%cldata.mainStageTime+timeOffset  in control loop.
-    cldata.mainStageTime = dur1 + del;
+    cldata.mainStageTime = dur1;
     %---Jing added for collect response while movement. 01/30/07---
     cldata.firstIntTime = dur1;
     cldata.delayTime = del;
