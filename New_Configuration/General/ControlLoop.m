@@ -943,7 +943,7 @@ if ~paused && flagdata.isStopButton == 0
                 setappdata(appHandle,'SavedInfo',savedInfo );
 
                 trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
-                trialfeedbackInfo = [trialfeedbackInfo ['sound folder' sound_folder] ];
+                trialfeedbackInfo{end+1} = ['sound folder' num2str(sound_folder)];
                 set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
             end
         end
@@ -1109,7 +1109,7 @@ if ~paused && flagdata.isStopButton == 0
                             setappdata(appHandle,'SavedInfo',savedInfo );
                             
                             trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
-                            trialfeedbackInfo{end+1}= ['sound folder' sound_folder];
+                            trialfeedbackInfo{end+1}= ['sound folder' num2str(sound_folder)];
                             set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
                         end
                     end
