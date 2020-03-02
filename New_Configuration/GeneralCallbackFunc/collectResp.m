@@ -354,7 +354,8 @@ fprintf('THE RESPONSE IS %d\n' , response);
 %update feedback window
 
 trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
-trialfeedbackInfo = [trialfeedbackInfo feedback1String feedback2String];
+trialfeedbackInfo{end+1} = feedback1String;
+trialfeedbackInfo{end+1} = feedback2String;
 set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 
 activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
