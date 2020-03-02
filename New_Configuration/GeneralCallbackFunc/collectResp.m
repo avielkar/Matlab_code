@@ -61,25 +61,25 @@ if connected && ~debug
         while(toc <= cldata.respTime)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
             if(~isempty(press))
-                if (strcmp(press.buttonID , 'left') && ~is2Interval)
+                if (strcmp(press.buttonID , 'left') && press.action == 1 && ~is2Interval)
                     response = 1;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Left');
                     feedback1String = 'Choice = Left';
                     break;
-                elseif (strcmp(press.buttonID , 'right') && ~is2Interval)
+                elseif (strcmp(press.buttonID , 'right') && press.action == 1 && ~is2Interval)
                     response = 2;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Right');
                     feedback1String = 'Choice = Right';
                     break;
-                elseif (strcmp(press.buttonID , 'top') && is2Interval)
+                elseif (strcmp(press.buttonID , 'top') && press.action == 1 && is2Interval)
                     response = 3;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Up');
                     feedback1String = 'Choice = Up';
                     break;
-                elseif (strcmp(press.buttonID , 'bottom') && is2Interval)
+                elseif (strcmp(press.buttonID , 'bottom') && press.action == 1 && is2Interval)
                     response = 4;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Down');
@@ -164,19 +164,19 @@ if connected && ~debug
             while(toc <=  cldata.respTime)
                 press = CedrusResponseBox('GetButtons', responseBoxHandler);
                 if(~isempty(press))
-                    if strcmp(press.buttonID , high_confidence_response)            
+                    if strcmp(press.buttonID , high_confidence_response) && press.action == 1            
                         confidenceResponse = 3;
                         confidenceResponseTime = toc(startPressStartTime);
                         display('Confidence choice  =  High');
                         feedback2String = 'Confidence choice  =  High';
                         break;
-                    elseif strcmp(press.buttonID , low_confidence_response)
+                    elseif strcmp(press.buttonID , low_confidence_response) && press.action == 1
                         confidenceResponse = 4;
                         display('Confidence choice = Low');
                         confidenceResponseTime = toc(startPressStartTime);
                         feedback2String = 'Confidence choice = Low';
                         break;
-                    elseif strcmp(press.buttonID , middle_confidence_response)
+                    elseif strcmp(press.buttonID , middle_confidence_response) && press.action == 1
                         confidenceResponse = 5;
                         display('Confidence choice = Center');
                         confidenceResponseTime = toc(startPressStartTime);
