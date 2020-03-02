@@ -4,7 +4,7 @@ global portAudio
 global responseCorrectnessFeedback
 global basicfig
 
-feedbackString = 'null response'
+feedbackString = 'nullresponse';
 
 % Received legit answer sound
  a = [ones(22,200);zeros(22,200)];
@@ -240,8 +240,8 @@ end
 setappdata(appHandle,'SavedInfo',savedInfo);
 
 trialfeedbackInfo = get(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String');
-trialfeedbackInfo = [trialfeedbackInfo feedbackString];
-set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedback);
+trialfeedbackInfo{end+1}= feedbackString;
+set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 
 %giving feedback sound correctness in the analyze stage.
 if responseCorrectnessFeedback
