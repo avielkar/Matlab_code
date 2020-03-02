@@ -1059,12 +1059,24 @@ if ~paused && flagdata.isStopButton == 0
                     start_mode = 4;
                 end
                 
+                %wait the delay time before the second interval option.
+                i = strmatch('DELAY_2I',{char(data.configinfo.name)},'exact');
+                if data.configinfo(i).status == 2
+                    i1 = strmatch('Delay 2nd Int',{char(varying.name)},'exact');
+                    delay = crossvals(cntrVarying,i1);
+                elseif data.configinfo(i).status == 3
+                    delay = across.parameters.moog(activeStair);
+                elseif data.configinfo(i).status == 4
+                    delay = within.parameters.moog(cntr);
+                else
+                    delay = data.configinfo(i).parameters.moog;
+                end
+                pause(delay);
                 %wait for the 2nd start press
                 fprintf('Waiting for the 2nds start press\n');
-
                 yyy=toc(xxx);
                 disp('time is');
-                disp(yyy);
+                disp(yyy);                
                 secondPressInTime = WaitStartPress(appHandle , start_mode , 2);
 
                 disp('after wait press');
