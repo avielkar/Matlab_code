@@ -1,6 +1,7 @@
 function [M] = generalTrajectory(appHandle)
 
 global debug
+global basicfig
 
 COMBOARDNUM = 0;
 
@@ -466,8 +467,8 @@ setappdata(appHandle, 'protinfo', data)
 if motiontype == 1
     sprintf('amp=%f', amps(1,1))
     
-    trialfeedbackInfo = {};
-    trialfeedbackInfo(end+1) = sprintf('amp=%f',amps(1,1));
+    trialfeedbackInfo = [];
+    trialfeedbackInfo{end+1} = sprintf('amp=%f',amps(1,1));
     set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 else
     if HR
@@ -477,9 +478,9 @@ else
     end
     
     trialfeedbackInfo = {};
-    trialfeedbackInfo(end+1) = sprintf('dist1=%f  dist2=%f',amps(1,1), amps(1,2));
-    trialfeedbackInfo(end+1) = sprintf('dir1=%f  dir2=%f',amps(1,ord(1)), amps(1,ord(2)));
-    trialfeedbackInfo(end+1) = sprintf('ord=%d %d',ord);
+    trialfeedbackInfo{end+1} = sprintf('dist1=%f  dist2=%f',dist(1,ord(1)), dist(1,ord(2)));
+    trialfeedbackInfo{end+1} = sprintf('dir1=%f  dir2=%f',amps(1,ord(1)), amps(1,ord(2)));
+    trialfeedbackInfo{end+1} = sprintf('ord=%d %d',ord);
     set(findobj(basicfig,'Tag','listBoxFeedbackTrial') , 'String' , trialfeedbackInfo);
 end
 if debug
