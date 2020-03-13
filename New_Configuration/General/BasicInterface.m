@@ -2,6 +2,7 @@ function varargout = BasicInterface(varargin)
 global print_var
 global responseCorrectnessFeedback
 global UseThrustmasterJoystick
+global pedalThresholdPressValue
 % BASICINTERFACE M-file for BasicInterface.fig
 %      BASICINTERFACE, by itself, creates a new BASICINTERFACE or raises
 %      the existing
@@ -30,13 +31,14 @@ global UseThrustmasterJoystick
 
 % Edit the above text to modify the response to help BasicInterface
 
-% Last Modified by GUIDE v2.5 13-Mar-2020 15:04:09
+% Last Modified by GUIDE v2.5 13-Mar-2020 15:12:42
 
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
 print_var=0;
 responseCorrectnessFeedback = 0;
 UseThrustmasterJoystick = 0;
+
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
@@ -545,6 +547,7 @@ global UseThrustmasterJoystick
 global responseBoxHandler
 global thrustmasterJoystick
 global basicfig
+global pedalThresholdPressValue
 
 %disable the button immediately after press.
 set(handles.StartButton,'Enable','off');
@@ -559,6 +562,7 @@ end
 try
     if UseThrustmasterJoystick
         thrustmasterJoystick = vrjoystick(1);
+        pedalThresholdPressValue = str2double(get(findobj(basicfig,'Tag','PedalThreshold'),'Value'));
     end
 catch
     display('The Thrustmaster is not plugged in or alredy opened.')
@@ -1636,5 +1640,32 @@ function radiobuttonUseThrustmasterJoystick_Callback(hObject, eventdata, handles
 % Hint: get(hObject,'Value') returns toggle state of radiobuttonUseThrustmasterJoystick
 global basicfig
 global UseThrustmasterJoystick
+global pedalThresholdPressValue
 is_enabled = get(findobj(basicfig,'Tag','UseThrustmasterJoystick'),'Value');
 responseCorrectnessFeedback = is_enabled;
+pedalThresholdPressValue = str2double(get(findobj(basicfig,'Tag','PedalThreshold'),'String'));
+
+
+
+function PedalThreshold_Callback(hObject, eventdata, handles)
+% hObject    handle to PedalThreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of PedalThreshold as text
+%        str2double(get(hObject,'String')) returns contents of PedalThreshold as a double
+global pedalThresholdPressValue
+global basicfig
+pedalThresholdPressValue = str2double(get(findobj(basicfig,'Tag','PedalThreshold'),'String'));
+
+% --- Executes during object creation, after setting all properties.
+function PedalThreshold_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to PedalThreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
