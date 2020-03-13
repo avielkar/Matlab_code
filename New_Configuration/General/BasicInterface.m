@@ -36,8 +36,6 @@ global pedalThresholdPressValue
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
 print_var=0;
-responseCorrectnessFeedback = 0;
-UseThrustmasterJoystick = 0;
 
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -67,6 +65,10 @@ InitializePsychSound(1);
 % --- Executes just before BasicInterface is made visible.
 function BasicInterface_OpeningFcn(hObject, eventdata, handles, varargin)
 global portAudio
+global responseCorrectnessFeedback
+global UseThrustmasterJoystick
+responseCorrectnessFeedback = 0;
+UseThrustmasterJoystick = 0;
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -95,7 +97,6 @@ for i=1:1:size(devices,2)
         break;
     end
 end
-
 
 portAudio = PsychPortAudio('Open' , match_index);
 
@@ -562,7 +563,7 @@ end
 try
     if UseThrustmasterJoystick
         thrustmasterJoystick = vrjoystick(1);
-        pedalThresholdPressValue = str2double(get(findobj(basicfig,'Tag','PedalThreshold'),'Value'));
+        pedalThresholdPressValue = str2double(get(findobj(basicfig,'Tag','PedalThreshold'),'String'));
     end
 catch
     display('The Thrustmaster is not plugged in or alredy opened.')
@@ -1641,8 +1642,7 @@ function radiobuttonUseThrustmasterJoystick_Callback(hObject, eventdata, handles
 global basicfig
 global UseThrustmasterJoystick
 global pedalThresholdPressValue
-is_enabled = get(findobj(basicfig,'Tag','UseThrustmasterJoystick'),'Value');
-responseCorrectnessFeedback = is_enabled;
+UseThrustmasterJoystick  = get(findobj(basicfig,'Tag','radiobuttonUseThrustmasterJoystick'),'Value');
 pedalThresholdPressValue = str2double(get(findobj(basicfig,'Tag','PedalThreshold'),'String'));
 
 
