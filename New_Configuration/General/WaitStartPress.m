@@ -317,4 +317,15 @@ global pedalThresholdPressValue
         while(toc(window_size_timer) <= 0.5)
         end
         pressInTime = 1;
+       
+        
+    savedInfo = getappdata(appHandle,'SavedInfo');
+    if UseThrustmasterJoystick
+        savedInfo(activeStair,activeRule).Resp(data.repNum).startPressType = 'ThrustMasterJoystick';
+    else
+        savedInfo(activeStair,activeRule).Resp(data.repNum).startPressType = 'CedrusBox';
+    end
+    setappdata(appHandle,'SavedInfo',savedInfo );
+        
+        
     end    
