@@ -1,6 +1,7 @@
 function varargout = BasicInterface(varargin)
 global print_var
 global responseCorrectnessFeedback
+global UseThrustmasterJoystick
 % BASICINTERFACE M-file for BasicInterface.fig
 %      BASICINTERFACE, by itself, creates a new BASICINTERFACE or raises
 %      the existing
@@ -29,12 +30,13 @@ global responseCorrectnessFeedback
 
 % Edit the above text to modify the response to help BasicInterface
 
-% Last Modified by GUIDE v2.5 28-Feb-2020 14:52:08
+% Last Modified by GUIDE v2.5 13-Mar-2020 15:04:09
 
 % Begin initialization code - DO NOT EDIT
 % print_var is used for printing in debug mode.
 print_var=0;
 responseCorrectnessFeedback = 0;
+UseThrustmasterJoystick = 0;
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
@@ -539,6 +541,7 @@ function StartButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 format long
 format long
+global UseThrustmasterJoystick
 global responseBoxHandler
 global thrustmasterJoystick
 global basicfig
@@ -1622,3 +1625,16 @@ function listBoxFeedbackTrial_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in radiobuttonUseThrustmasterJoystick.
+function radiobuttonUseThrustmasterJoystick_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobuttonUseThrustmasterJoystick (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobuttonUseThrustmasterJoystick
+global basicfig
+global UseThrustmasterJoystick
+is_enabled = get(findobj(basicfig,'Tag','UseThrustmasterJoystick'),'Value');
+responseCorrectnessFeedback = is_enabled;
