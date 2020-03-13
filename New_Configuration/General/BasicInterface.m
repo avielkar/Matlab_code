@@ -540,6 +540,7 @@ function StartButton_Callback(hObject, eventdata, handles)
 format long
 format long
 global responseBoxHandler
+global thrustmasterJoystick
 global basicfig
 
 %disable the button immediately after press.
@@ -550,6 +551,14 @@ try
     responseBoxHandler = CedrusResponseBox('Open', 'COM9');
 catch
     display('The response box is already opened.')
+end
+
+try
+    if UseThrustmasterJoystick
+        thrustmasterJoystick = vrjoystick(1);
+    end
+catch
+    display('The Thrustmaster is not plugged in o alredy opened.')
 end
 
 setappdata(basicfig,'resp_answer',-1);
