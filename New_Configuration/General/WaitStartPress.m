@@ -8,6 +8,7 @@ global startSoundStartTime
 global connected
 global debug
 global portAudio
+global UseThrustmasterJoystick
 
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
