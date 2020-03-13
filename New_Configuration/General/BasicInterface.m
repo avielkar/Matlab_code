@@ -558,7 +558,7 @@ try
         thrustmasterJoystick = vrjoystick(1);
     end
 catch
-    display('The Thrustmaster is not plugged in o alredy opened.')
+    display('The Thrustmaster is not plugged in or alredy opened.')
 end
 
 setappdata(basicfig,'resp_answer',-1);
