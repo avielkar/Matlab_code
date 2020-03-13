@@ -2,11 +2,15 @@ function pressInTime = WaitStartPress(appHandle , start_mode , round_number)
 
 global basicfig
 global responseBoxHandler
+global thrustmasterJoystick
 global startPressStartTime
 global startSoundStartTime
 global connected
 global debug
 global portAudio
+global UseThrustmasterJoystick
+global pedalThresholdPressValue
+
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
     flagdata = getappdata(basicfig,'flagdata');
@@ -40,12 +44,20 @@ global portAudio
             end
             while(response ~= 4 && (flagdata.isStopButton ~= 1)) %Jing 01/05/09---)
                 flagdata = getappdata(basicfig,'flagdata');
-                press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                if(~isempty(press))
-                    if strcmp(press.buttonID , 'middle')
-                         response = 4;
+                if ~UseThrustmasterJoystick
+                    press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    if(~isempty(press))
+                        if strcmp(press.buttonID , 'middle')
+                             response = 4;
+                        end
+                        fprintf('byteas available but not a red press!!!!\n')
                     end
-                    fprintf('byteas available but not a red press!!!!\n')
+                else
+                    axis_values = read(thrustmasterJoystick);
+                    pedal_values = axis_values(3);
+                    if(pedal_values ~=0 && pedal_values > pedalThresholdPressValue)
+                        response = 4;
+                    end
                 end
                 if response == 4  %---Jing for light control 12/03/07---
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
@@ -126,12 +138,20 @@ global portAudio
         
         disp('Entering while function.');
         while(checkIfWasResponseWhenNotNeeded ~=4 && toc(startWindowTime) < window_size / 2)
-            press = CedrusResponseBox('GetButtons', responseBoxHandler);
-            if(~isempty(press))
-                if strcmp(press.buttonID , 'middle')
-                     checkIfWasResponseWhenNotNeeded = 4;
+            if ~UseThrustmasterJoystick
+                press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                if(~isempty(press))
+                    if strcmp(press.buttonID , 'middle')
+                         checkIfWasResponseWhenNotNeeded = 4;
+                    end
+                    fprintf('byteas available but not a red press!!!!\n')
                 end
-                fprintf('byteas available but not a red press!!!!\n')
+            else
+                axis_values = read(thrustmasterJoystick);
+                pedal_values = axis_values(3);
+                if(pedal_values ~=0 && pedal_values > 0.3)
+                    checkIfWasResponseWhenNotNeeded = 4;
+                end  
             end
         end
 
@@ -208,17 +228,30 @@ global portAudio
             flagdata = getappdata(basicfig,'flagdata');
             %wait fot the start response in the window time.
              if connected && ~debug
-                % byte 2 determines button number, press/release and port
-                press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                if(~isempty(press))                    
-                    if strcmp(press.buttonID , 'middle')
-                         response = 4;
+                if ~UseThrustmasterJoystick
+                    % byte 2 determines button number, press/release and port
+                    press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    if(~isempty(press))                    
+                        if strcmp(press.buttonID , 'middle')
+                             response = 4;
+                        end
+                        fprintf('byteas available but not a red press!!!!\n')
                     end
-                    fprintf('byteas available but not a red press!!!!\n')
+                else
+                  axis_values = read(thrustmasterJoystick);
+                    pedal_values = axis_values(3);
+                    if(pedal_values ~=0 && pedal_values > 0.3)
+                        response = 4;
+                    end  
                 end
                 if response == 4  %---Jing for light control 12/03/07---
                     %startPressStartTimeSave = toc(startSoundStartTime);
-                    startPressStartTimeSave = press.rawtime;
+                    if ~UseThrustmasterJoystick
+                        startPressStartTimeSave = press.rawtime;
+                    else
+                        startPressStartTimeSave = toc(window_size_timer);
+                    end
+                    
                     fprintf('YESSSSSSSSSSSSS RED BUTTON\n')
                     activeStair = data.activeStair;   %---Jing for combine multi-staircase 12/01/08
                     activeRule = data.activeRule;
