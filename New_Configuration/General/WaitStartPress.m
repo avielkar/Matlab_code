@@ -9,6 +9,7 @@ global connected
 global debug
 global portAudio
 global UseThrustmasterJoystick
+global pedalThresholdPressValue
 
     data = getappdata(appHandle, 'protinfo');
     cldata = getappdata(appHandle, 'ControlLoopData');
@@ -54,7 +55,7 @@ global UseThrustmasterJoystick
                 else
                     axis_values = read(thrustmasterJoystick);
                     pedal_values = axis_values(3);
-                    if(pedal_values ~=0 && pedal_values > 0.3)
+                    if(pedal_values ~=0 && pedal_values > pedalThresholdPressValue)
                         response = 4;
                     end
                 end
