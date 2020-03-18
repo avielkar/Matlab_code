@@ -149,7 +149,7 @@ global pedalThresholdPressValue
             else
                 axis_values = read(thrustmasterJoystick);
                 pedal_value = axis_values(3);
-                if(pedal_value ~=0 && pedal_value ~=1 && pedal_value > 0.3)
+                if(pedal_value ~=0 && pedal_value ~=1 && pedal_value > pedalThresholdPressValue)
                     checkIfWasResponseWhenNotNeeded = 4;
                 end  
             end
@@ -240,7 +240,7 @@ global pedalThresholdPressValue
                 else
                   axis_values = read(thrustmasterJoystick);
                     pedal_value = axis_values(3);
-                    if(pedal_value ~=0 && pedal_value ~=1 && pedal_value > 0.3)
+                    if(pedal_value ~=0 && pedal_value ~=1 && pedal_value > pedalThresholdPressValue)
                         response = 4;
                     end  
                 end
