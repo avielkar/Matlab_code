@@ -55,8 +55,6 @@ global pedalThresholdPressValue
                 else
                     axis_values = read(thrustmasterJoystick);
                     pedal_value = axis_values(3);
-                    fprintf(num2str(pedal_value));
-                    fprintf(' ');
                     if(pedal_value ~=0 && pedal_value ~=1 && pedal_value < pedalThresholdPressValue)
                         response = 4;
                     end
