@@ -43,6 +43,14 @@ else
     is2Interval = false;
 end
 
+i_RESPONSE_BUTTON_MAPPINGS = strmatch('RESPONSE_BUTTON_MAPPINGS',{char(data.configinfo.name)},'exact');
+if ~isempty(i_RESPONSE_BUTTON_MAPPINGS)
+    responseButtonOption = data.configinfo(i).parameters;    
+else
+    responseButtonOption = 1;
+end    
+[enable_right, enable_left , enable_up ,enable_down] = GetResponseOptionalButtons(responseButtonOption , is2Interval);
+
 if connected && ~debug
     % Configure Port
     errorCode = cbDConfigPort(boardNum, portNum, direction);
@@ -57,29 +65,30 @@ if connected && ~debug
     response = 0;
     %if there was not response in the middle of the movement and it was enabled
     %so wait for a resposne
+    
     if(cldata.resp == 0)
         while(toc <= cldata.respTime)
             press = CedrusResponseBox('GetButtons', responseBoxHandler);
             if(~isempty(press))
-                if (strcmp(press.buttonID , 'left') && press.action == 1 && ~is2Interval)
+                if (strcmp(press.buttonID , 'left') && press.action == 1 && enable_right)
                     response = 1;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Left');
                     feedback1String = 'Choice = Left';
                     break;
-                elseif (strcmp(press.buttonID , 'right') && press.action == 1 && ~is2Interval)
+                elseif (strcmp(press.buttonID , 'right') && press.action == 1 && enable_left)
                     response = 2;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Right');
                     feedback1String = 'Choice = Right';
                     break;
-                elseif (strcmp(press.buttonID , 'top') && press.action == 1 && is2Interval)
+                elseif (strcmp(press.buttonID , 'top') && press.action == 1 && enable_up)
                     response = 3;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Up');
                     feedback1String = 'Choice = Up';
                     break;
-                elseif (strcmp(press.buttonID , 'bottom') && press.action == 1 && is2Interval)
+                elseif (strcmp(press.buttonID , 'bottom') && press.action == 1 && enable_down)
                     response = 4;
                     responseTime = toc(startPressStartTime);
                     display('Choice = Down');
@@ -89,6 +98,8 @@ if connected && ~debug
                 fprintf('byteas available but not a red press!!!!\n')
             end
         end
+        
+        response = MapResponeButtonOption(response,responseButtonOption);
         
         if(response == 0)   %no choice or pressed an illegal button
             display('R/L Choice timeout');
@@ -211,33 +222,35 @@ elseif (connected && debug) || (~connected && debug)
     while  (toc <= cldata.respTime)
         pause(0.1);
         debugResponse = getappdata(appHandle , 'debugResponse');
-        if (strcmp(debugResponse,'f') && ~is2Interval) %right
+        if (strcmp(debugResponse,'f') && enable_right) %right
             display('Choice = Right' );
             feedback1String = 'Choice = Right';
             response = 2;
             break;
-        elseif (strcmp(debugResponse,'d') && ~is2Interval) %left
+        elseif (strcmp(debugResponse,'d') && enable_left) %left
             display('Choice = Left');
             feedback1String = 'Choice = Left';
             response = 1;
             break;
-        elseif (strcmp(debugResponse,'e') && is2Interval) %up
+        elseif (strcmp(debugResponse,'e') && enable_up) %up
             display('Choice = Up');
             feedback1String = 'Choice = Up';
             response = 3;
             break;
-        elseif (strcmp(debugResponse,'x') && is2Interval) %down
+        elseif (strcmp(debugResponse,'x') && enable_down) %down
             display('Choice = Down');
             feedback1String = 'Choice = Down';
             response = 4;
             break;
         elseif strcmp(debugResponse,'i')
-            response = 5;
+            response = 0;
             break;
         end
         %pause(cldata.respTime);
     end
     
+    response = MapResponseButtonOption(response, responseButtonOption);
+    %reset the debug response
     debugResponse = ''; 
     setappdata(appHandle , 'debugResponse' , debugResponse);
     
