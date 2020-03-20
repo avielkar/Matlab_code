@@ -1,4 +1,4 @@
-function mapped_response = MapResponseButtonOption(response, responseButtonOption)
+function mapped_response = MapResponseButtonOption(response, responseButtonOption , is2Interval)
 
 if response == 0
     mapped_response = 0;
@@ -13,15 +13,15 @@ else
                 mapped_response = 3;
             end
         elseif responseButtonOption == 3 %regular responses ('right' is up , and 'left' is down)
-            if response == 1
+            if response == 2
                 mapped_response = 3;
-            elseif response == 2
+            elseif response == 1
                 mapped_response = 4;
             end
-        else                            %regular responses ('left' is up , and 'right' is down)
-            if response == 2
+        else                            %inversed regular responses ('left' is up , and 'right' is down)
+            if response == 1
                 mapped_response =3;
-            elseif response == 1
+            elseif response == 2
                 mapped_response = 4;
             end
         end
