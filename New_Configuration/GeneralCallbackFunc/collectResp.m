@@ -45,7 +45,7 @@ end
 
 i_RESPONSE_BUTTON_MAPPINGS = strmatch('RESPONSE_BUTTON_MAPPINGS',{char(data.configinfo.name)},'exact');
 if ~isempty(i_RESPONSE_BUTTON_MAPPINGS)
-    responseButtonOption = data.configinfo(i).parameters;    
+    responseButtonOption = data.configinfo(i_RESPONSE_BUTTON_MAPPINGS).parameters;    
 else
     responseButtonOption = 1;
 end    
@@ -99,7 +99,7 @@ if connected && ~debug
             end
         end
         
-        response = MapResponeButtonOption(response,responseButtonOption);
+        response = MapResponseButtonOption(response,responseButtonOption ,is2Interval);
         
         if(response == 0)   %no choice or pressed an illegal button
             display('R/L Choice timeout');
@@ -249,7 +249,7 @@ elseif (connected && debug) || (~connected && debug)
         %pause(cldata.respTime);
     end
     
-    response = MapResponseButtonOption(response, responseButtonOption);
+    response = MapResponseButtonOption(response, responseButtonOption , is2Interval);
     %reset the debug response
     debugResponse = ''; 
     setappdata(appHandle , 'debugResponse' , debugResponse);
