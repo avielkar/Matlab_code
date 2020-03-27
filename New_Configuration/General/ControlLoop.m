@@ -19,6 +19,8 @@ global basicfig
 global startPressStartTime
 global startSoundStartTime
 global portAudio
+global UseThrustmasterJoystick
+global pedalThresholdPressValue
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
@@ -813,19 +815,6 @@ if ~paused && flagdata.isStopButton == 0
         end
         %%
         
-        %% Something not available???
-        if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat') && trial.cntr == 1
-            COMBOARDNUM = 0;
-            outString = 'GO_TO_ZERO 1.0';
-            disp(outString)
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-            
-            pause(2);
-        end
-        %%
-        
         %decide about the start mode value.
         iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
         iSTART_MODE_2I = strmatch('START_MODE_2I' ,{char(data.configinfo.name)},'exact');
@@ -857,22 +846,6 @@ if ~paused && flagdata.isStopButton == 0
         end
         %-----Jing end-------
 
-        %---- for adira using tomomoogdots  09/05/2012--------
-        if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')
-            outString = 'DO_MOVEMENT -1.0';
-            disp(outString)
-   
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-            
-            outString = 'FP_ON 1.0';
-            disp(outString)
-   
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-        end
         %%  
     end
     
@@ -973,7 +946,28 @@ if ~paused && flagdata.isStopButton == 0
             %wait for the movement duration.
             i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
             movement_duration = data.configinfo(i).parameters.moog(1);
-            pause(movement_duration);
+            
+            
+            if UseThrustmasterJoystick
+                movement_duration_timer = tic;
+                joystic_start_press_during_first_movement = false;
+                %sample the joystic responses during the movement
+                while toc(movement_duration_timer) < movement_duration
+                    axis_values = read(thrustmasterJoystick);
+                    pedal_value = axis_values(3);
+                    
+                    if(pedal_value ~=0 && pedal_value ~=1 && pedal_value < pedalThresholdPressValue)
+                        joystic_start_press_during_first_movement = true;
+                    end
+                    
+                    pause(0.01);
+                end
+            else
+                pause(movement_duration);
+            end
+            
+            
+            
             xxx=tic;
             %check no start button when the start mode is 2 during the
             %movement
@@ -993,14 +987,18 @@ if ~paused && flagdata.isStopButton == 0
                 abort2ndInterval = false;
                 %if passive start mode is the 2nd interval.
                 if(start_mode == 2)
-                    press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                    while(~isempty(press))
-                        if strcmp(press.buttonID , 'middle')
-                            %there was a press , and the press was in the
-                            %window time or movement time.
-                            abort2ndInterval = true;
-                        end
+                    if ~UseThrustmasterJoystick
                         press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                        while(~isempty(press))
+                            if strcmp(press.buttonID , 'middle')
+                                %there was a press , and the press was in the
+                                %window time or movement time.
+                                abort2ndInterval = true;
+                            end
+                            press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                        end
+                    else
+                        abort2ndInterval = joystic_start_press_during_first_movement;
                     end
                 else%not a passive for the 2nd interval.
                     abort2ndInterval = false;
@@ -1161,27 +1159,6 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         cldata = getappdata(appHandle, 'ControlLoopData');
-        %---Jing for light control. Turn off the light any way when trial starts. 12/03/07---
-        if connected
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum, 0);
-            cldata.lightflag = 0;
-
-            %Jing 02/09/10 for mandy  %Jian modified 08/10/12 for Ardom
-            if cldata.fpcontrol ~= 0
-                COMBOARDNUM = 0;
-                outString = 'FP_ON 0.0';
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-        end
-        %----Jing end 12/03/07---
 
         if(secondPressInTime == 1)
             % Increment the stage.
@@ -1216,12 +1193,11 @@ global responseBoxHandler
 global basicfig
 global print_var
 global portAudio
+global UseThrustmasterJoystick
+global pedalThresholdPressValue
 
 data = getappdata(appHandle, 'protinfo');%---Jing for handling para pogen_oddity in data structure protinfo. 03/27/08---
 timeOffset=0;%---Jing added for delay time offset 02/06/07---
-% if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')  %----Jian 09/20/2012
-%      timeOffset=1;
-% end
 %paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
 paused = false;
 if ~paused
@@ -1261,6 +1237,8 @@ if ~paused
                 setappdata(appHandle, 'BeepCount', beep_count);
             end
         end
+        
+        joystick_start_press_during_2nd_movement = false;
     end
     %%
     
@@ -1284,38 +1262,6 @@ if ~paused
         end
     end
     %% ---End for handling para pogen_oddity in data structure protinfo
-
-    %% ----Jing for light control between 1I and 2I or 2I and 3I movement  12/03/07----
-    if cldata.lightcontrol == 2 && connected
-        if toc >= cldata.firstIntTime+timeOffset && cldata.lightflag == 0 %---1I end---
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum, 8);  %---Turn on the light ---
-            cldata.lightflag = 1;
-            setappdata(appHandle, 'ControlLoopData', cldata);
-        end
-
-        if toc >= cldata.firstIntTime+cldata.delayTime+timeOffset && cldata.lightflag == 1 %---2I start---
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum, 0);  %---Turn off the light---
-            cldata.lightflag = 2;
-            setappdata(appHandle, 'ControlLoopData', cldata);
-        end
-    end
-    %% ----Jing end 12/03/07-----
 
     %% Collecting response during the movement(if enabled) or wait to the PostTrialStage as parameter flagdata.canResponseDuringMovement.
     %----Jing added here for collect response during movement. 01/29/07. Change a little on 02/06/07---
@@ -1402,7 +1348,9 @@ if ~paused
 
                 cbDOut(boardNum, portNum, 8); % Send out 5v to stop the moog. Jing01/28/09
 
-                pause(1)
+                i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
+                movement_duration = data.configinfo(i).parameters.moog(1);
+                pause(movement_duration)
                 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
                 outString = 'GO_TO_ORIGIN 1';
                 if connected
@@ -1433,14 +1381,18 @@ if ~paused
             abort2ndInterval = false;
             %if passive start mode is the 2nd interval.
             if(start_mode == 2)
-                press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                while(~isempty(press))
-                    if strcmp(press.buttonID , 'middle')
-                        %there was a press , and the press was in the
-                        %window time or movement time.
-                        abort2ndInterval = true;
-                    end
+                if ~UseThrustmasterJoystick
                     press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    while(~isempty(press))
+                        if strcmp(press.buttonID , 'middle')
+                            %there was a press , and the press was in the
+                            %window time or movement time.
+                            abort2ndInterval = true;
+                        end
+                        press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    end
+                else
+                    abort2ndInterval = joystick_start_press_during_2nd_movement;
                 end
             else%not a passive for the 2nd interval.
                 abort2ndInterval = false;
@@ -1477,6 +1429,15 @@ if ~paused
             cldata.stage = 'InitializationStage';
             cldata.initStage = 1;
             setappdata(appHandle,'ControlLoopData',cldata);
+        end
+    else %during 2nd interval the movement if the joystic is on, check no samples during movement
+        if UseThrustmasterJoystick
+            axis_values = read(thrustmasterJoystick);
+            pedal_value = axis_values(3);
+            
+            if(pedal_value ~=0 && pedal_value ~=1 && pedal_value < pedalThresholdPressValue)
+                joystick_start_press_during_2nd_movement = true;
+            end
         end
     end
 end
@@ -1572,36 +1533,6 @@ if ~paused
 
         COMBOARDNUM = 0;
 
-        %% ----Tunde added on 02/05/07-----------------------------
-        % % %         outString = 'BACKGROUND_ON 0';%%%%%%
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %         outString = 'SPHERE_FIELD_PARAMS 0 5 1 1 0.05';
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %
-        % % %         outString = 'ENABLE_FLOOR 0';
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %         outString = 'ENABLE_CYLINDERS 0';
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %
-        % % %         outString = 'ENABLE_TUNNEL 0';  %----Jing for Tunnel prot------
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %
-        %         outString = 'FP_ON 0';  %----Jing for Tunnel prot------
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %% -----Tunde end----------------------
-
         %% this section is needed for the reaction time task
         if exist('cldata.responeInMiddle')
             if cldata.responeInMiddle == 0
@@ -1609,22 +1540,7 @@ if ~paused
                 if connected
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                 end
-            end
-        elseif strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')   %Jian 09/20/2012
-            eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
-            a = sprintf('%2.3f ',trajinfo(size(trajinfo,2)).data);
-            outString = ['M_ORIGIN' ' ' a sprintf('\n')];
-            disp(outString)
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-            end
-            
-            outString = 'GO_TO_ZERO 1.0';
-            disp(outString)
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-            
+            end            
         else %i.e. not reaction time task
             outString = 'GO_TO_ORIGIN 1';%%%%%%% 
             disp(outString)
@@ -1633,20 +1549,6 @@ if ~paused
             end
         end
         %%
-
-        %% deleted lines
-        %     if cldata.responeInMiddle == 0
-        %         outString = 'GO_TO_ORIGIN 1';%%%%%%%
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %     end
-
-
-
-        %         if debug
-        %             disp(outString)
-        %% end
 
         tic % start timer for posttrial time
 
@@ -1840,20 +1742,6 @@ if ~paused
             CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
         end
-        
-        %% ---Jing for light control 12/03/07---
-        if connected && cldata.lightcontrol ~= 0
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum,8);
-        end
-        %% ---end 12/03/07---
 
         %% Analyze Response to determine next trial (Staircase)
         activeStair = data.activeStair; %---Jing for combine multi-staircase 12/01/08----
