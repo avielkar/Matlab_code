@@ -813,19 +813,6 @@ if ~paused && flagdata.isStopButton == 0
         end
         %%
         
-        %% Something not available???
-        if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat') && trial.cntr == 1
-            COMBOARDNUM = 0;
-            outString = 'GO_TO_ZERO 1.0';
-            disp(outString)
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-            
-            pause(2);
-        end
-        %%
-        
         %decide about the start mode value.
         iSTART_MODE = strmatch('START_MODE' ,{char(data.configinfo.name)},'exact');
         iSTART_MODE_2I = strmatch('START_MODE_2I' ,{char(data.configinfo.name)},'exact');
@@ -857,22 +844,6 @@ if ~paused && flagdata.isStopButton == 0
         end
         %-----Jing end-------
 
-        %---- for adira using tomomoogdots  09/05/2012--------
-        if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')
-            outString = 'DO_MOVEMENT -1.0';
-            disp(outString)
-   
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-            
-            outString = 'FP_ON 1.0';
-            disp(outString)
-   
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-        end
         %%  
     end
     
@@ -1198,9 +1169,6 @@ global portAudio
 
 data = getappdata(appHandle, 'protinfo');%---Jing for handling para pogen_oddity in data structure protinfo. 03/27/08---
 timeOffset=0;%---Jing added for delay time offset 02/06/07---
-% if strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')  %----Jian 09/20/2012
-%      timeOffset=1;
-% end
 %paused = get(findobj(appHandle,'Tag','PauseButton'),'Value');
 paused = false;
 if ~paused
@@ -1519,36 +1487,6 @@ if ~paused
 
         COMBOARDNUM = 0;
 
-        %% ----Tunde added on 02/05/07-----------------------------
-        % % %         outString = 'BACKGROUND_ON 0';%%%%%%
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %         outString = 'SPHERE_FIELD_PARAMS 0 5 1 1 0.05';
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %
-        % % %         outString = 'ENABLE_FLOOR 0';
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %         outString = 'ENABLE_CYLINDERS 0';
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %
-        % % %         outString = 'ENABLE_TUNNEL 0';  %----Jing for Tunnel prot------
-        % % %         if connected
-        % % %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        % % %         end
-        % % %
-        %         outString = 'FP_ON 0';  %----Jing for Tunnel prot------
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %% -----Tunde end----------------------
-
         %% this section is needed for the reaction time task
         if exist('cldata.responeInMiddle')
             if cldata.responeInMiddle == 0
@@ -1556,22 +1494,7 @@ if ~paused
                 if connected
                     cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
                 end
-            end
-        elseif strcmp(data.configfile,'rEyePursuitWithAZTuning.mat')   %Jian 09/20/2012
-            eval(['trajinfo = ' data.functions.TrajectoryCreation '(appHandle);']);
-            a = sprintf('%2.3f ',trajinfo(size(trajinfo,2)).data);
-            outString = ['M_ORIGIN' ' ' a sprintf('\n')];
-            disp(outString)
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-            end
-            
-            outString = 'GO_TO_ZERO 1.0';
-            disp(outString)
-            if connected
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-            
+            end            
         else %i.e. not reaction time task
             outString = 'GO_TO_ORIGIN 1';%%%%%%% 
             disp(outString)
@@ -1580,20 +1503,6 @@ if ~paused
             end
         end
         %%
-
-        %% deleted lines
-        %     if cldata.responeInMiddle == 0
-        %         outString = 'GO_TO_ORIGIN 1';%%%%%%%
-        %         if connected
-        %             cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString), 5);
-        %         end
-        %     end
-
-
-
-        %         if debug
-        %             disp(outString)
-        %% end
 
         tic % start timer for posttrial time
 
