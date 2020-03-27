@@ -1317,7 +1317,9 @@ if ~paused
 
                 cbDOut(boardNum, portNum, 8); % Send out 5v to stop the moog. Jing01/28/09
 
-                pause(1)
+                i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
+                movement_duration = data.configinfo(i).parameters.moog(1);
+                pause(movement_duration)
                 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
                 outString = 'GO_TO_ORIGIN 1';
                 if connected
