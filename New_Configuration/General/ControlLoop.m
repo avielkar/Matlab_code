@@ -21,6 +21,7 @@ global startSoundStartTime
 global portAudio
 global UseThrustmasterJoystick
 global pedalThresholdPressValue
+global thrustmasterJoystick
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
@@ -1195,6 +1196,8 @@ global print_var
 global portAudio
 global UseThrustmasterJoystick
 global pedalThresholdPressValue
+global thrustmasterJoystick
+global joystick_start_press_during_2nd_movement
 
 data = getappdata(appHandle, 'protinfo');%---Jing for handling para pogen_oddity in data structure protinfo. 03/27/08---
 timeOffset=0;%---Jing added for delay time offset 02/06/07---

@@ -2,12 +2,12 @@ function pressInTime = WaitStartPress(appHandle , start_mode , round_number)
 
 global basicfig
 global responseBoxHandler
-global thrustmasterJoystick
 global startPressStartTime
 global startSoundStartTime
 global connected
 global debug
 global portAudio
+global thrustmasterJoystick
 global UseThrustmasterJoystick
 global pedalThresholdPressValue
 
