@@ -1193,6 +1193,8 @@ global responseBoxHandler
 global basicfig
 global print_var
 global portAudio
+global UseThrustmasterJoystick
+global pedalThresholdPressValue
 
 data = getappdata(appHandle, 'protinfo');%---Jing for handling para pogen_oddity in data structure protinfo. 03/27/08---
 timeOffset=0;%---Jing added for delay time offset 02/06/07---
@@ -1235,6 +1237,8 @@ if ~paused
                 setappdata(appHandle, 'BeepCount', beep_count);
             end
         end
+        
+        joystick_start_press_during_2nd_movement = false;
     end
     %%
     
@@ -1377,14 +1381,18 @@ if ~paused
             abort2ndInterval = false;
             %if passive start mode is the 2nd interval.
             if(start_mode == 2)
-                press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                while(~isempty(press))
-                    if strcmp(press.buttonID , 'middle')
-                        %there was a press , and the press was in the
-                        %window time or movement time.
-                        abort2ndInterval = true;
-                    end
+                if ~UseThrustmasterJoystick
                     press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    while(~isempty(press))
+                        if strcmp(press.buttonID , 'middle')
+                            %there was a press , and the press was in the
+                            %window time or movement time.
+                            abort2ndInterval = true;
+                        end
+                        press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                    end
+                else
+                    abort2ndInterval = joystick_start_press_during_2nd_movement;
                 end
             else%not a passive for the 2nd interval.
                 abort2ndInterval = false;
@@ -1421,6 +1429,15 @@ if ~paused
             cldata.stage = 'InitializationStage';
             cldata.initStage = 1;
             setappdata(appHandle,'ControlLoopData',cldata);
+        end
+    else %during 2nd interval the movement if the joystic is on, check no samples during movement
+        if UseThrustmasterJoystick
+            axis_values = read(thrustmasterJoystick);
+            pedal_value = axis_values(3);
+            
+            if(pedal_value ~=0 && pedal_value ~=1 && pedal_value < pedalThresholdPressValue)
+                joystick_start_press_during_2nd_movement = true;
+            end
         end
     end
 end
