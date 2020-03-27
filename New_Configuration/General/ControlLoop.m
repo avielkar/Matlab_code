@@ -1161,27 +1161,6 @@ if ~paused && flagdata.isStopButton == 0
         end
         
         cldata = getappdata(appHandle, 'ControlLoopData');
-        %---Jing for light control. Turn off the light any way when trial starts. 12/03/07---
-        if connected
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum, 0);
-            cldata.lightflag = 0;
-
-            %Jing 02/09/10 for mandy  %Jian modified 08/10/12 for Ardom
-            if cldata.fpcontrol ~= 0
-                COMBOARDNUM = 0;
-                outString = 'FP_ON 0.0';
-                cbDWriteString(COMBOARDNUM, sprintf('%s\n', outString),5);
-            end
-        end
-        %----Jing end 12/03/07---
 
         if(secondPressInTime == 1)
             % Increment the stage.
@@ -1284,38 +1263,6 @@ if ~paused
         end
     end
     %% ---End for handling para pogen_oddity in data structure protinfo
-
-    %% ----Jing for light control between 1I and 2I or 2I and 3I movement  12/03/07----
-    if cldata.lightcontrol == 2 && connected
-        if toc >= cldata.firstIntTime+timeOffset && cldata.lightflag == 0 %---1I end---
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum, 8);  %---Turn on the light ---
-            cldata.lightflag = 1;
-            setappdata(appHandle, 'ControlLoopData', cldata);
-        end
-
-        if toc >= cldata.firstIntTime+cldata.delayTime+timeOffset && cldata.lightflag == 1 %---2I start---
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum, 0);  %---Turn off the light---
-            cldata.lightflag = 2;
-            setappdata(appHandle, 'ControlLoopData', cldata);
-        end
-    end
-    %% ----Jing end 12/03/07-----
 
     %% Collecting response during the movement(if enabled) or wait to the PostTrialStage as parameter flagdata.canResponseDuringMovement.
     %----Jing added here for collect response during movement. 01/29/07. Change a little on 02/06/07---
@@ -1840,20 +1787,6 @@ if ~paused
             CedrusResponseBox('FlushEvents', responseBoxHandler);
         catch
         end
-        
-        %% ---Jing for light control 12/03/07---
-        if connected && cldata.lightcontrol ~= 0
-            boardNum = 1;
-            portNum = 1;
-            direction = 1;
-            errorCode = cbDConfigPort(boardNum, portNum, direction);
-            if errorCode ~= 0
-                str = cbGetErrMsg(errorCode);
-%                 disp(['WRONG cbDConfigPort ' str])
-            end
-            cbDOut(boardNum, portNum,8);
-        end
-        %% ---end 12/03/07---
 
         %% Analyze Response to determine next trial (Staircase)
         activeStair = data.activeStair; %---Jing for combine multi-staircase 12/01/08----
