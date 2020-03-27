@@ -19,6 +19,8 @@ global basicfig
 global startPressStartTime
 global startSoundStartTime
 global portAudio
+global UseThrustmasterJoystick
+global pedalThresholdPressValue
 
 cbwDefs;
 f = 60; % This is frequency / update rate (Hz)
@@ -944,7 +946,28 @@ if ~paused && flagdata.isStopButton == 0
             %wait for the movement duration.
             i = strmatch('DURATION',{char(data.configinfo.name)},'exact');
             movement_duration = data.configinfo(i).parameters.moog(1);
-            pause(movement_duration);
+            
+            
+            if UseThrustmasterJoystick
+                movement_duration_timer = tic;
+                joystic_start_press_during_first_movement = false;
+                %sample the joystic responses during the movement
+                while toc(movement_duration_timer) < movement_duration
+                    axis_values = read(thrustmasterJoystick);
+                    pedal_value = axis_values(3);
+                    
+                    if(pedal_value ~=0 && pedal_value ~=1 && pedal_value < pedalThresholdPressValue)
+                        joystic_start_press_during_first_movement = true;
+                    end
+                    
+                    pause(0.01);
+                end
+            else
+                pause(movement_duration);
+            end
+            
+            
+            
             xxx=tic;
             %check no start button when the start mode is 2 during the
             %movement
@@ -964,14 +987,18 @@ if ~paused && flagdata.isStopButton == 0
                 abort2ndInterval = false;
                 %if passive start mode is the 2nd interval.
                 if(start_mode == 2)
-                    press = CedrusResponseBox('GetButtons', responseBoxHandler);
-                    while(~isempty(press))
-                        if strcmp(press.buttonID , 'middle')
-                            %there was a press , and the press was in the
-                            %window time or movement time.
-                            abort2ndInterval = true;
-                        end
+                    if ~UseThrustmasterJoystick
                         press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                        while(~isempty(press))
+                            if strcmp(press.buttonID , 'middle')
+                                %there was a press , and the press was in the
+                                %window time or movement time.
+                                abort2ndInterval = true;
+                            end
+                            press = CedrusResponseBox('GetButtons', responseBoxHandler);
+                        end
+                    else
+                        abort2ndInterval = joystic_start_press_during_first_movement;
                     end
                 else%not a passive for the 2nd interval.
                     abort2ndInterval = false;
