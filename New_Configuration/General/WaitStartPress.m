@@ -323,7 +323,7 @@ global pedalThresholdPressValue
     activeStair = data.activeStair;
     activeRule = data.activeRule;
     if UseThrustmasterJoystick
-        savedInfo(activeStair,activeRule).Resp(data.repNum).startPressType = 'ThrustMasterJoystick';
+        savedInfo(activeStair,activeRule).Resp(data.repNum).startPressType = 'Pedal';
     else
         savedInfo(activeStair,activeRule).Resp(data.repNum).startPressType = 'CedrusBox';
     end
