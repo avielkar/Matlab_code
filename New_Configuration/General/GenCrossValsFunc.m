@@ -638,7 +638,12 @@ for i = 1:siz
             else
                 midpt = (high+low)/2;
                 hi = high - midpt;
-                lo = .1; % CHANGE THIS SOMEHOW, HOW CLOSE TO ZERO, LOG SHOULD GET!!
+                iSTAIR_CASE_LIMIT = strmatch('STAIR_CASE_LIMIT' ,{char(data.configinfo.name)},'exact')
+                if ~isempty(iSTAIR_CASE_LIMIT)
+                    lo = data.configinfo(iSTAIR_CASE_LIMIT).parameters;
+                else
+                    lo = .1; % CHANGE THIS SOMEHOW, HOW CLOSE TO ZERO, LOG SHOULD GET!!
+                end
                 i1 = 1;
                 tmpvect(i1) = hi; %Jing added on 01/05/09
                 while hi > lo
