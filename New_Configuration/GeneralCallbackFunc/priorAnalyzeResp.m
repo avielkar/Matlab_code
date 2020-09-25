@@ -112,23 +112,29 @@ else
     %analyze.
     button_option = priors.currentPrior.ButtonOption;
     num_of_flashes = cldata.num_of_flashes;
-   if(button_option == 1)
-        %even - right ,odd - left
-        even_button = 2;    %right button
-        odd_button = 1;     %left button
-    elseif(button_option == 2)
-        %even - left ,odd - right
-        even_button = 1;    %left button
-        odd_button = 2;     %right button
-    elseif(button_option == 3)
-        %even - up ,odd - down
-        even_button = 3;    %up button
-        odd_button = 4;     %down button
-    elseif(button_option == 4)
-        %even - down ,odd - up
-        even_button = 4;    %down button
-        odd_button = 3;     %up button
-   end
+    
+    %for analyzing in priors we dont need the response option, but only the
+    %response, because 1 always says was valid response and means "ODD" and
+    %2 always says was a valid response and means "EVEN".
+%    if(button_option == 1)
+%         %even - right ,odd - left
+%         even_button = 2;    %right button
+%         odd_button = 1;     %left button
+%     elseif(button_option == 2)
+%         %even - left ,odd - right
+%         even_button = 1;    %left button
+%         odd_button = 2;     %right button
+%     elseif(button_option == 3)
+%         %even - up ,odd - down
+%         even_button = 3;    %up button
+%         odd_button = 4;     %down button
+%     elseif(button_option == 4)
+%         %even - down ,odd - up
+%         even_button = 4;    %down button
+%         odd_button = 3;     %up button
+%    end
+    odd_button = 1;
+    even_button = 2;
     if response == odd_button % Respond was odd number of flashes.
         if debug
             disp('You answered Left/Down')
