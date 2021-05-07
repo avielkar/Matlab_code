@@ -12,6 +12,9 @@ feedbackString = 'nullresponse';
 % Time Out Sound
 a = [ones(220,25);zeros(220,25)];
 a_timeout = a(:)';
+% received non legit answer sound
+a = [ones(110,50);zeros(110,50)];
+a_non_legit = a(:)';
 
 if debug
     disp('Entering general analyzeResp')
@@ -248,8 +251,11 @@ if responseCorrectnessFeedback
     if savedInfo(activeStair,activeRule).Resp(currRep).corr(currTrial) == 1
         PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
         PsychPortAudio('Start', portAudio, 1,0);
-    else 
+    elseif response == 0
         PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+        PsychPortAudio('Start', portAudio, 1,0);
+    else 
+        PsychPortAudio('FillBuffer', portAudio, [a_non_legit;a_non_legit]);
         PsychPortAudio('Start', portAudio, 1,0);
     end 
 end

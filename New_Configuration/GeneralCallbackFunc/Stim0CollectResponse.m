@@ -12,6 +12,9 @@ global responseCorrectnessFeedback
 % Time Out Sound
 a = [ones(220,25);zeros(220,25)];
 a_timeout = a(:)';
+% received non legit answer sound
+a = [ones(110,50);zeros(110,50)];
+a_non_legit = a(:)';
 
         
 
@@ -82,8 +85,11 @@ if connected && ~debug
             if response == 1 || response == 2 
                 PsychPortAudio('FillBuffer', portAudio, [a_legit;a_legit]);
                 PsychPortAudio('Start', portAudio, 1,0);
-            else
-                 PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+            elseif response == 0
+                PsychPortAudio('FillBuffer', portAudio, [a_timeout;a_timeout]);
+                PsychPortAudio('Start', portAudio, 1,0);
+            else 
+                 PsychPortAudio('FillBuffer', portAudio, [a_non_legit;a_non_legit]);
                  PsychPortAudio('Start', portAudio, 1,0);
             end
         end
